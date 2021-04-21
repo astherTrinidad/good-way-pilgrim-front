@@ -6,7 +6,7 @@ import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import concha from '../../../assets/images/ic_concha.png';
 
 export const Nav = styled.nav`
-  background: ${colors.secondary};
+  background: ${colors.turquoise};
   height: 80px;
   display: flex;
   justify-content: center;
@@ -74,7 +74,7 @@ export const NavMenu = styled.ul`
       click ? 0 : '-100%'}; //haga click, si hace clic es true -> muestro menú
     opacity: 1;
     transition: all 0.5s ease;
-    background: ${colors.primary};
+    background: ${colors.mustard};
   }
 `;
 
@@ -83,7 +83,7 @@ export const NavItem = styled.li`
   border-bottom: 2px solid transparent;
 
   &:hover {
-    border-bottom: 3px solid ${colors.primary};
+    border-bottom: 3px solid ${colors.mustard};
   }
 
   @media screen and (max-width: 960px) {
@@ -109,7 +109,7 @@ export const NavLinks = styled(Link)`
     width: 100%;
     display: table;
     height: max-content;
-    font-size: 1.5em;
+    font-size: 1em;
 
     &:hover {
       background-color: ${colors.white};
@@ -171,4 +171,26 @@ export const ConchaIcon = styled.div`
       position: absolute;
     }
   }
+`;
+
+export const NavItemBtn = styled.li`
+  @media screen and (max-width: 960px) {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    height: 120px;
+  }
+`;
+
+export const NavBtnLink = styled(Link)`
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  text-decoration: none;
+  padding: 8px 16px;
+  height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
 `;

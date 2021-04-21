@@ -1,12 +1,11 @@
-import styled from 'styled-components'
-import colors from '../../../assets/colors'
-
+import styled from 'styled-components';
+import colors from '../../../assets/colors';
 
 const NavUnlisted = styled.ul`
-align-items: center;
-display: flex;
-justify-content:center;
-text-shadow: 2px 2px 3px black;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-shadow: 2px 2px 3px black;
 
   a {
     text-decoration: none;
@@ -23,8 +22,8 @@ text-shadow: 2px 2px 3px black;
 
   .current {
     li {
-      border-bottom: 3px solid ${colors.primary};
+      border-bottom: 3px solid ${colors.mustard};
     }
   }
-`
-export default NavUnlisted
+`;
+export default NavUnlisted;

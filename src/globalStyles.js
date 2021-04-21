@@ -1,4 +1,5 @@
-import styled,  { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components';
+import colors from './assets/colors';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -11,17 +12,43 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export const Container = styled.div`
-   z-index: 1;
+  z-index: 1;
   width: 100%;
   max-width: 1300px;
   margin-right: auto;
   margin-left: auto;
-  padding-right: 50px;
-  padding-left: 50px;
+
   @media screen and (max-width: 991px) {
     padding-right: 30px;
     padding-left: 30px;
   }
 `;
 
-export default GlobalStyle
+export const Button = styled.button`
+  color: ${colors.white};
+  border-radius: 4px;
+  background: ${({ primary }) => (primary ? '#00B7B5' : '#ffc200')};
+  white-space: nowrap;
+  padding: ${({ big }) => (big ? '12px 64px' : '10px 20px')};
+  font-size: ${({ fontBig }) => (fontBig ? '20px' : '16px')};
+  outline: none;
+  border: 1px solid ${colors.white};
+  cursor: pointer;
+
+  &:hover {
+    transition: all 0.3s ease-out;
+    background: ${colors.white};
+    background: ${({ primary }) => (primary ? '#ffc200' : '#00B7B5')};
+  }
+
+  @media screen and (max-width: 960px) {
+    width: 100%;
+    background: ${({ primary }) => (primary ? '#ffc200' : '#00B7B5')};
+
+    &:hover {
+      background: ${({ primary }) => (primary ? '#00B7B5' : '#ffc200')};
+    }
+  }
+`;
+
+export default GlobalStyle;
