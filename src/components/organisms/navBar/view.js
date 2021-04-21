@@ -46,16 +46,16 @@ const Navbar = () => {
           </MobileIcon>
           <NavMenu onClick={handleClick} click={click}>
             <NavItem>
-              <NavLinks to="/perfil">Mi perfil</NavLinks>
+              <NavLinks to="/showProfile">Mi perfil</NavLinks>
             </NavItem>
             <NavItem>
               <SubNavItem>
-                <NavLinks to="/editarPerfil">Editar perfil</NavLinks>
+                <NavLinks to="/editProfile">Editar perfil</NavLinks>
               </SubNavItem>
             </NavItem>
             <NavItem>
               <SubNavItem>
-                <NavLinks to="/buscarPerfil">Buscar perfil</NavLinks>
+                <NavLinks to="/showUsers">Buscar usuarios</NavLinks>
               </SubNavItem>
             </NavItem>
             <ConchaIcon />
