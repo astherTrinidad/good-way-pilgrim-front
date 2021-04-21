@@ -1,11 +1,17 @@
 import React from 'react';
-import ComponentStyled from './styled'
+import GlobalStyle from '../../../globalStyles'
+import { BrowserRouter as Router, Redirect, Switch, Route } from 'react-router-dom'
+import { Navbar } from '../../organisms'
 
 const Dashboard = () => {
     return(
-        <ComponentStyled>
-        <h2>Perfil Usuario</h2>
-        </ComponentStyled>
+        <Router>
+            <GlobalStyle />
+            <Navbar/>
+            <Switch>
+
+            </Switch>
+        </Router>
     )
 }
 export default Dashboard
