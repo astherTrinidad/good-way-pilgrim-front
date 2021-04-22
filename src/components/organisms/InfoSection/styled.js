@@ -1,9 +1,11 @@
 import styled from 'styled-components';
+import colors from '../../../assets/colors';
 
 export const InfoSec = styled.div`
-  color: #fff;
-  padding: 160px 0;
-  background: ${({ lightBg }) => (lightBg ? '#fff' : '#101522')};
+  color: ${colors.darkGrey};
+  padding: 50px 0;
+  background: ${({ lightBg }) => (lightBg ? '#fff' : '#ffc200')};
+  justify-content: center;
 `;
 
 export const InfoRow = styled.div`
@@ -19,8 +21,9 @@ export const InfoColumn = styled.div`
   padding-right: 15px;
   padding-left: 15px;
   flex: 1;
-  max-width: 50%;
+  max-width: 100%;
   flex-basis: 50%;
+
   @media screen and (max-width: 768px) {
     max-width: 100%;
     flex-basis: 100%;
@@ -30,50 +33,77 @@ export const InfoColumn = styled.div`
 `;
 
 export const TextWrapper = styled.div`
-  max-width: 540px;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
   padding-top: 0;
   padding-bottom: 60px;
+  text-align: center;
   @media screen and (max-width: 768px) {
     padding-bottom: 65px;
   }
 `;
 
-export const ImgWrapper = styled.div`
-  max-width: 555px;
-  display: flex;
-  justify-content: ${({ start }) => (start ? 'flex-start' : 'flex-end')};
-`;
+// export const ImgWrapper = styled.div`
+//   max-width: 555px;
+//   display: flex;
+//   justify-content: ${({ start }) => (start ? 'flex-start' : 'flex-end')};
+// `;
 
-export const TopLine = styled.div`
-  color: ${({ lightTopLine }) => (lightTopLine ? '#a9b3c1' : '#4B59F7')};
-  font-size: 18px;
-  line-height: 16px;
-  font-weight: 700;
-  letter-spacing: 1.4px;
-  margin-bottom: 16px;
-`;
+// export const TopLine = styled.div`
+//   color: ${({ lightTopLine }) => (lightTopLine ? '#505050' : '#00B7B5')};
+//   font-size: 1.5em;
+//   line-height: 16px;
+//   font-weight: 700;
+//   letter-spacing: 1.4px;
+//   margin-bottom: 16px;
+//   text-align: left;
+// `;
 
-export const Img = styled.img`
-  padding-right: 0;
-  border: 0;
-  max-width: 100%;
-  vertical-align: middle;
-  display: inline-block;
-  max-height: 500px;
-`;
+// export const Img = styled.img`
+//   padding-right: 0;
+//   border: 0;
+//   max-width: 100%;
+//   vertical-align: middle;
+//   display: inline-block;
+//   max-height: 500px;
+//   background-color: pink;
+// `;
 
 export const Heading = styled.h1`
-  margin-bottom: 24px;
-  font-size: 48px;
-  line-height: 1.1;
-  font-weight: 600;
-  color: ${({ lightText }) => (lightText ? '#f7f8fa' : '#1c2237')};
+  font-family: 'Roboto', sans-serif;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 3.5em;
+  line-height: 1.5;
+  max-width: 72%;
+  color: ${({ lightText }) => (lightText ? '#545454' : '#1c2237')};
+  text-align: center;
+
+  @media screen and (max-width: 960px) {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    font-size: 1.75em;
+  }
 `;
 
 export const Subtitle = styled.p`
-  max-width: 440px;
-  margin-bottom: 35px;
-  font-size: 18px;
-  line-height: 24px;
-  color: ${({ lightTextDesc }) => (lightTextDesc ? '#a9b3c1' : '#1c2237')};
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  width: 100%;
+  font-size: 1.75em;
+  line-height: 1.5;
+  letter-spacing: 0.075em;
+  color: ${({ lightTextDesc }) => (lightTextDesc ? '#545454' : '#1c2237')};
+
+  @media screen and (max-width: 960px) {
+    display: none;
+  }
 `;
