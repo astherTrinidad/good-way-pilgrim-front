@@ -9,7 +9,6 @@ import { validateEmail, validatePassword } from '../../../utils';
 import useToken from '../../system/useToken';
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
-import 'react-toastify/dist/ReactToastify.css';
 
 async function loginUser(credentials) {
   return fetch('http://localhost:8000/pub/login', {
@@ -86,8 +85,9 @@ export default function Login() {
       try {
         setIsfetching(true);
         const token = await loginUser(data);
+        localStorage.setItem('email', data.email); //manera desglosada
         setToken(token);
-        toast.success('Bienvenido/a!!!');
+        toast.success('¡Bienvenido/a!');
         history.replace('/showProfile');
       } catch (e) {
         setIsfetching(false);
@@ -106,6 +106,7 @@ export default function Login() {
       <FormHeader logo={gwpLogo} title="" info="" />
       <form onSubmit={handleSubmit}>
         <List />
+        <p>{localStorage.getItem('name')}</p>
         <TextInput
           placeholder="Email"
           name="email"

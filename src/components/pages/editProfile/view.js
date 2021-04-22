@@ -1,8 +1,8 @@
 import React from 'react';
 import GlobalStyle from '../../../globalStyles';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Navbar, Footer, InfoSectionOneColumn } from '../../organisms';
-import { userProfile } from './Data';
+import { Navbar, Footer, InfoSectionTwoColumn } from '../../organisms';
+import { editUserProfile } from './Data';
 import {
   Header,
   PhotoProfile,
@@ -11,7 +11,7 @@ import {
   ContainerName,
 } from './styled';
 
-const ShowProfile = () => {
+const EditProfile = () => {
   return (
     <Router>
       <GlobalStyle />
@@ -22,9 +22,9 @@ const ShowProfile = () => {
         <NameProfile>Nombre</NameProfile>
         <SurnameProfile>Apellidos</SurnameProfile>
       </ContainerName>
-      <InfoSectionOneColumn {...userProfile} />
+      <InfoSectionTwoColumn {...editUserProfile} />
       <Footer />
     </Router>
   );
 };
-export default ShowProfile;
+export default EditProfile;

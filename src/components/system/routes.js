@@ -10,6 +10,7 @@ import {
 import Login from '../pages/login/index';
 import Register from '../pages/register/index';
 import ShowProfile from '../pages/showProfile/index';
+import EditProfile from '../pages/editProfile/index';
 import FrequentQuestion from '../pages/frequentQuestion/index';
 import PrivacyConsumers from '../pages/privacyConsumers/index';
 
@@ -40,6 +41,9 @@ function Routes() {
           </Route>
           <PrivateRoute path="/showProfile">
             <ShowProfile />
+          </PrivateRoute>
+          <PrivateRoute path="/editProfile">
+            <EditProfile />
           </PrivateRoute>
           <PrivateRoute path="/frequent-question">
             <FrequentQuestion />

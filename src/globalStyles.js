@@ -44,10 +44,10 @@ export const Button = styled.button`
 
   @media screen and (max-width: 960px) {
     width: 100%;
-    background: ${({ primary }) => (primary ? '#ffc200' : '#00B7B5')};
+    background: ${({ primary }) => (primary ? '#00B7B5' : '#ffc200')};
 
     &:hover {
-      background: ${({ primary }) => (primary ? '#00B7B5' : '#ffc200')};
+      background: ${({ primary }) => (primary ? '#ffc200' : '#00B7B5')};
     }
   }
 `;

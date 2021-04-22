@@ -1,15 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Container, Button } from '../../../globalStyles';
-import {
-  InfoSec,
-  InfoColumn,
-  TextWrapper,
-  TopLine,
-  Heading,
-  Subtitle,
-} from './styled';
+import { InfoSec, InfoColumn, TextWrapper, Heading, Subtitle } from './styled';
 
-function InfoSection({
+function InfoSectionOneColumn({
   primary,
   lightBg,
   lightText,
@@ -39,4 +32,4 @@ function InfoSection({
   );
 }
 
-export default InfoSection;
+export default InfoSectionOneColumn;

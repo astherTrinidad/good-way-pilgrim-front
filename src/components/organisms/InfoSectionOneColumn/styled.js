@@ -6,6 +6,10 @@ export const InfoSec = styled.div`
   padding: 50px 0;
   background: ${({ lightBg }) => (lightBg ? '#fff' : '#ffc200')};
   justify-content: center;
+
+  @media screen and (max-width: 960px) {
+    padding: 0;
+  }
 `;
 
 export const InfoRow = styled.div`
@@ -29,6 +33,7 @@ export const InfoColumn = styled.div`
     flex-basis: 100%;
     display: flex;
     justify-content: center;
+    margin-bottom: 0;
   }
 `;
 
@@ -86,7 +91,8 @@ export const Heading = styled.h1`
   @media screen and (max-width: 960px) {
     margin-top: 1rem;
     margin-bottom: 2rem;
-    font-size: 1.75em;
+    font-size: 2em;
+    max-width: 87%;
   }
 `;
 
