@@ -88,7 +88,7 @@ export default function Login() {
         const token = await loginUser(data);
         setToken(token);
         toast.success('Bienvenido/a!!!');
-        history.replace('/dashboard');
+        history.replace('/showProfile');
       } catch (e) {
         setIsfetching(false);
         toast.error('Usuario y/o contraseña incorrectos');

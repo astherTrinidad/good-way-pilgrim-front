@@ -7,7 +7,7 @@ import concha from '../../../assets/images/ic_concha.png';
 
 export const Nav = styled.nav`
   background: ${colors.turquoise};
-  height: 80px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,6 +15,11 @@ export const Nav = styled.nav`
   position: sticky;
   top: 0;
   z-index: 999;
+  opacity: 0.9;
+
+  @media screen and (max-width: 960px) {
+    opacity: 1;
+  }
 `;
 
 export const NavbarContainer = styled(Container)`
@@ -28,7 +33,7 @@ export const NavLogo = styled(Link)`
   background-image: url(${gwpLogo});
   background-size: contain;
   background-repeat: no-repeat;
-  height: 50px;
+  height: 40px;
   width: 110px;
   justify-self: flex-start;
   cursor: pointer;
@@ -36,6 +41,7 @@ export const NavLogo = styled(Link)`
   display: flex;
   align-items: center;
   position: relative;
+  top: 5px;
 
   @media screen and (max-width: 960px) {
     top: 0;
@@ -69,7 +75,7 @@ export const NavMenu = styled.ul`
     width: 100%;
     height: 90vh;
     position: absolute;
-    top: 80px;
+    top: 60px;
     left: ${({ click }) =>
       click ? 0 : '-100%'}; //haga click, si hace clic es true -> muestro menú
     opacity: 1;

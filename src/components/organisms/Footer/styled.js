@@ -39,8 +39,8 @@ export const FooterLink = styled(Link)`
   padding: 1rem 0.5rem;
 
   &:hover {
-    color: #0467fb;
-    transition: 0.3s ease-out;
+    margin-top: -2rem;
+    border-bottom: 3px solid ${colors.mustard};
   }
 `;
 
@@ -95,4 +95,7 @@ export const SocialIcons = styled.div`
 export const SocialIconLink = styled.a`
   color: ${colors.darkGrey};
   font-size: 30px;
+  &:hover {
+    color: ${colors.mustard};
+  }
 `;
