@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { Button } from '../../../globalStyles';
-import ShowProfile from '../../pages/showProfile/index';
 import {
   Nav,
   NavbarContainer,
@@ -47,7 +46,7 @@ const Navbar = () => {
           </MobileIcon>
           <NavMenu onClick={handleClick} click={click}>
             <NavItem>
-              <NavLinks to="/showProfile">Mi perfil</NavLinks>
+              <NavLinks to="/meProfile">Mi perfil</NavLinks>
             </NavItem>
             <NavItem>
               <SubNavItem>

@@ -10,6 +10,7 @@ import {
 import Login from '../pages/login/index';
 import Register from '../pages/register/index';
 import ShowProfile from '../pages/showProfile/index';
+import MeProfile from '../pages/meProfile/index';
 import EditProfile from '../pages/editProfile/index';
 import FrequentQuestion from '../pages/frequentQuestion/index';
 import PrivacyConsumers from '../pages/privacyConsumers/index';
@@ -39,6 +40,9 @@ function Routes() {
           <Route path="/register">
             <Register />
           </Route>
+          <PrivateRoute path="/meProfile">
+            <MeProfile />
+          </PrivateRoute>
           <PrivateRoute path="/showProfile">
             <ShowProfile />
           </PrivateRoute>

@@ -12,7 +12,6 @@ export const Header = styled.div`
   justify-content: center;
   margin-top: -120px;
 
-
   @media screen and (max-width:960px){
     background: url(${bgHeaderShowProfileMobile});
   background-repeat: no-repeat;
@@ -20,7 +19,6 @@ export const Header = styled.div`
   background-position-y:60px;
   height: 300px;
   }
-
 `;
 
 export const PhotoProfile = styled.div`

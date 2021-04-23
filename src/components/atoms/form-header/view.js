@@ -4,7 +4,7 @@ import Styles from './styled'
 
 const FormHeader = ({ logo, title, info }) => (
   <Styles>
-    <img className='logo' src={logo} alt='React' />
+    <img className='logo' src={logo} alt='Logo G' />
     {/* <h1>{title}</h1>
     <h2>{info}</h2> */}
   </Styles>

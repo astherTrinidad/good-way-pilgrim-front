@@ -9,6 +9,7 @@ import { validateEmail, validatePassword } from '../../../utils';
 import useToken from '../../system/useToken';
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
+import 'react-toastify/dist/ReactToastify.css';
 
 async function loginUser(credentials) {
   return fetch('http://localhost:8000/pub/login', {
@@ -81,14 +82,15 @@ export default function Login() {
     e.preventDefault();
     const invalidForm = some(errors, error => !isEmpty(error));
     if (!invalidForm) {
-      console.log({ data });
+      console.log(data);
       try {
         setIsfetching(true);
-        const token = await loginUser(data);
-        localStorage.setItem('email', data.email); //manera desglosada
-        setToken(token);
-        toast.success('¡Bienvenido/a!');
-        history.replace('/showProfile');
+        const response = await loginUser(data);
+        localStorage.setItem('name', data.name); 
+        
+        setToken(response);
+        toast.success('Bienvenido/a!!!');
+        history.replace('/meProfile');
       } catch (e) {
         setIsfetching(false);
         toast.error('Usuario y/o contraseña incorrectos');

@@ -1,48 +1,15 @@
-import { Link } from 'react-router-dom';
 import foto from '../../../assets/images/gota-show-profile.png';
-import { Container, Button } from '../../../globalStyles';
-import {
-  InfoSec,
-  InfoRow,
-  InfoColumn,
-  TextWrapper,
-  TopLine,
-  Heading,
-  Subtitle,
-  ImgWrapper,
-  Img,
-} from './styled';
+import { Container } from '../../../globalStyles';
+import { InfoSec, InfoColumn, TextWrapper,TopLine,ImgWrapper,Img} from './styled';
 
-function InfoSectionTwoColumn({
-  primary,
-  lightBg,
-  topLine,
-  lightTopLine,
-  lightText,
-  lightTextDesc,
-  headline,
-  description,
-  buttonLabel,
-  img,
-  alt,
-  imgStart,
-  start,
-}) {
+function InfoSectionTwoColumn({ lightBg, topLine,lightTopLine,alt,start}) {
   return (
     <>
       <InfoSec lightBg={lightBg}>
         <Container>
-          <InfoRow imgStart={imgStart}>
             <InfoColumn>
               <TextWrapper>
                 <TopLine lightTopLine={lightTopLine}>{topLine}</TopLine>
-                <Heading lightText={lightText}>{headline}</Heading>
-                <Subtitle lightTextDesc={lightTextDesc}>{description}</Subtitle>
-                <Link to="/sign-up">
-                  <Button big fontBig primary={primary}>
-                    {buttonLabel}
-                  </Button>
-                </Link>
               </TextWrapper>
             </InfoColumn>
             <InfoColumn>
@@ -50,7 +17,6 @@ function InfoSectionTwoColumn({
                 <Img src={foto} alt={alt} />
               </ImgWrapper>
             </InfoColumn>
-          </InfoRow>
         </Container>
       </InfoSec>
     </>

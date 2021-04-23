@@ -11,7 +11,7 @@ import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
 
 async function loginUser(credentials) {
-  return fetch('http://localhost:8080/login', {
+  return fetch('http://localhost:8000/pub/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -21,28 +21,28 @@ async function loginUser(credentials) {
 }
 
 const Register = () => {
-  const { setToken } = useToken();
+  //  const { setToken } = useToken();
   const history = useHistory();
 
   const [data, setData] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
+    surname: '',
     email: '',
     password: '',
     passwordConfirm: '',
   });
 
   const [touched, setTouched] = useState({
-    firstName: false,
-    lastName: false,
+    name: false,
+    surname: false,
     email: false,
     password: false,
     passwordConfirm: false,
   });
 
   const [errors, setErrors] = useState({
-    firstName: '',
-    lastName: '',
+    name: '',
+    surname: '',
     email: '',
     password: '',
     passwordConfirm: '',
@@ -52,23 +52,24 @@ const Register = () => {
 
   const validate = useCallback(() => {
     const newErrors = {
-      firstName: '',
-      lastName: '',
+      name: '',
+      surname: '',
       email: '',
       password: '',
       passwordConfirm: '',
     };
 
-    if (!data.firstName) newErrors.firstName = 'Campo obligatorio';
+    if (!data.name) newErrors.name = 'Campo obligatorio';
 
-    if (!data.lastName) newErrors.lastName = 'Campo obligatorio';
+    if (!data.surname) newErrors.surname = 'Campo obligatorio';
 
     if (!data.email) newErrors.email = 'Campo obligatorio';
     else if (!validateEmail(data.email)) newErrors.email = 'Email inválido';
 
     if (!data.password) newErrors.password = 'Campo obligatorio';
     else if (!validatePassword(data.password))
-      newErrors.password = 'Contraseña debe tener mínimo 8 caracteres';
+      newErrors.password =
+        'Debe contener 8 caracteres, minúsuculas y mayúsculas';
 
     if (!data.passwordConfirm) newErrors.passwordConfirm = 'Campo obligatorio';
     else if (data.password !== data.passwordConfirm)
@@ -99,23 +100,22 @@ const Register = () => {
     e.preventDefault();
     const invalidForm = some(errors, error => !isEmpty(error));
     if (!invalidForm) {
-      console.log({ data });
+      console.log(data);
       try {
         setIsfetching(true);
-        const token = await loginUser({
-          data,
-        });
-        setToken(token);
-        toast.success('Gracias por registrarte!!!');
-        history.replace('/showProfile');
+        const respuesta = await loginUser(data); //data: @ y pass
+        localStorage.setItem('token', respuesta); //manera desglosada
+        //setToken(respuesta);
+        toast.success('¡Bienvenido/a!');
+        history.replace('/login');
       } catch (e) {
         setIsfetching(false);
-        toast.error('Ha ocurrido un error');
+        toast.error('Error de servidor. Inténtelo más tarde');
       }
     } else {
       setTouched({
-        firstName: true,
-        lastName: true,
+        name: true,
+        surname: true,
         email: true,
         password: true,
         passwordConfirm: true,
@@ -128,23 +128,24 @@ const Register = () => {
       <FormHeader logo={gwpLogo} title="" info="" />
       <form onSubmit={handleSubmit}>
         <List />
+        <p>{localStorage.getItem('id')}</p>
         <TextInput
           placeholder="Nombre"
-          name="firstName"
+          name="name"
           type="text"
-          value={data.firstName}
-          touched={touched.firstName}
-          error={errors.firstName}
+          value={data.name}
+          touched={touched.name}
+          error={errors.name}
           onChange={handleChange}
           onBlur={handleBlur}
         />
         <TextInput
           placeholder="Apellidos"
-          name="lastName"
+          name="surname"
           type="text"
-          value={data.lastName}
-          touched={touched.lastName}
-          error={errors.lastName}
+          value={data.surname}
+          touched={touched.surname}
+          error={errors.surname}
           onChange={handleChange}
           onBlur={handleBlur}
         />

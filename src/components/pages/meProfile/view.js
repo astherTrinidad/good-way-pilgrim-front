@@ -1,7 +1,7 @@
 import React from 'react';
 import GlobalStyle from '../../../globalStyles';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Navbar, Footer, InfoSectionOneColumnNoBtn } from '../../organisms';
+import { Navbar, Footer, InfoSectionOneColumn } from '../../organisms';
 import { userProfile } from './Data';
 import {
   Header,
@@ -12,7 +12,7 @@ import {
 } from './styled';
 
 async function getAPIProfile(id) {
-  return fetch('http://localhost:8000/pri/me/showProfile?id=5', {
+  return fetch('http://localhost:8000/pri/me/meProfile?id=5', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -21,7 +21,7 @@ async function getAPIProfile(id) {
   }).then(data => data.json());
 }
 
-const ShowProfile = () => {
+const MeProfile = () => {
   
   console.log('Llamando...') 
   const respuesta = getAPIProfile(localStorage.getItem('id'));
@@ -36,10 +36,10 @@ const ShowProfile = () => {
         <NameProfile>{localStorage.getItem('name')}</NameProfile>
         <SurnameProfile>Apellidos</SurnameProfile>
       </ContainerName>
-      {/* <InfoSectionOneColumnNoBtn {...userProfile} /> */}
+      <InfoSectionOneColumn {...userProfile} />
       <Footer />
     </Router>
   );
 };
 
-export default ShowProfile;
+export default MeProfile;
