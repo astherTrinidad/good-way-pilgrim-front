@@ -86,7 +86,8 @@ export default function Login() {
       try {
         setIsfetching(true);
         const response = await loginUser(data);
-        localStorage.setItem('name', data.name); 
+        console.log('***'+response.token)
+        localStorage.setItem('token', response.token); 
         
         setToken(response);
         toast.success('Bienvenido/a!!!');
@@ -108,7 +109,6 @@ export default function Login() {
       <FormHeader logo={gwpLogo} title="" info="" />
       <form onSubmit={handleSubmit}>
         <List />
-        <p>{localStorage.getItem('name')}</p>
         <TextInput
           placeholder="Email"
           name="email"
