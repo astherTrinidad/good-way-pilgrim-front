@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import GlobalStyle from '../../../globalStyles';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Navbar, Footer, InfoSectionOneColumn } from '../../organisms';
 import { userProfile } from './Data';
 import {
@@ -12,7 +13,7 @@ import {
 } from './styled';
 
 async function getAPIProfile(id) {
-  return fetch('http://localhost:8000/pri/me/meProfile?id=5', {
+  return fetch(`http://localhost:8000/pri/me/showProfile?id=${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -21,11 +22,27 @@ async function getAPIProfile(id) {
   }).then(data => data.json());
 }
 
+
 const MeProfile = () => {
-  
-  console.log('Llamando...') 
-  const respuesta = getAPIProfile(localStorage.getItem('id'));
-  console.log(respuesta)
+  const queryParam = new URLSearchParams(useLocation().search);
+  const [userData, setUserData] = useState({})
+  const [isFetchingUser, setIsFetchingUser] = useState(false)
+
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        setIsFetchingUser(true)
+        const response = await getAPIProfile(queryParam.get("id"));
+        setUserData(response)
+      } catch {
+        toast.error('Error')
+      } finally {
+        setIsFetchingUser(false)
+      }
+    }
+    fetchProfile()
+  }, [])
+
   return (
     <Router>
       <GlobalStyle />
@@ -33,8 +50,8 @@ const MeProfile = () => {
       <Header />
       <PhotoProfile />
       <ContainerName>
-        <NameProfile>{localStorage.getItem('name')}</NameProfile>
-        <SurnameProfile>Apellidos</SurnameProfile>
+        <NameProfile>{userData?.name}</NameProfile>
+        <SurnameProfile>{userData?.surname}</SurnameProfile>
       </ContainerName>
       <InfoSectionOneColumn {...userProfile} />
       <Footer />
