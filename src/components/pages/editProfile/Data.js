@@ -1,0 +1,15 @@
+export const editUserProfile = {
+  primary: true,
+  lightBg: true,
+  lightTopLine: false,
+  lightText: false,
+  lightTextDesc: false,
+  topLine: 'Edita Perfil',
+  headline:'',
+  description:"",
+  buttonLabel: false,
+  imgStart: 'start',
+  img: require('../../../assets/images/gota-show-profile.png'),
+  alt: 'Hikking',
+  start: 'true',
+};

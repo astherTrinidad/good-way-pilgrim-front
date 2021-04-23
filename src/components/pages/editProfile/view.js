@@ -3,12 +3,14 @@ import isEmpty from 'lodash/isEmpty';
 import some from 'lodash/some';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
-
-import { TextInput, Button, FormHeader, List } from '../../atoms/';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { TextInput} from '../../atoms/';
 import { validateEmail, validatePassword } from '../../../utils';
-import useToken from '../../system/useToken';
-import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
-import Styles from './styled';
+import {PhotoProfile, ContainerName, NameProfile, SurnameProfile, FormEdit, ButtonDelete, ButtonSave} from './styled';
+
+import GlobalStyle from '../../../globalStyles';
+import { Navbar, Footer, InfoSectionTwoColumn } from '../../organisms';
+import { editUserProfile } from './Data';
 
 async function loginUser(credentials) {
   return fetch('http://localhost:8000/pub/register', {
@@ -20,7 +22,7 @@ async function loginUser(credentials) {
   }).then(data => data.json());
 }
 
-const Register = () => {
+const EditProfile = () => {
   //  const { setToken } = useToken();
   const history = useHistory();
 
@@ -28,6 +30,7 @@ const Register = () => {
     name: '',
     surname: '',
     email: '',
+    currentPassword: '',
     password: '',
     passwordConfirm: '',
   });
@@ -36,6 +39,7 @@ const Register = () => {
     name: false,
     surname: false,
     email: false,
+    currentPassword: false,
     password: false,
     passwordConfirm: false,
   });
@@ -44,6 +48,7 @@ const Register = () => {
     name: '',
     surname: '',
     email: '',
+    currentPassword: '',
     password: '',
     passwordConfirm: '',
   });
@@ -55,6 +60,7 @@ const Register = () => {
       name: '',
       surname: '',
       email: '',
+      currentPassword: '',
       password: '',
       passwordConfirm: '',
     };
@@ -117,6 +123,7 @@ const Register = () => {
         name: true,
         surname: true,
         email: true,
+        currentPassword: true,
         password: true,
         passwordConfirm: true,
       });
@@ -124,11 +131,15 @@ const Register = () => {
   };
 
   return (
-    <Styles>
-      <FormHeader logo={gwpLogo} title="" info="" />
+    <Router>
+    <GlobalStyle />
+      <Navbar />
+      <PhotoProfile />
+      <ContainerName>
+        <NameProfile>{localStorage.getItem('name')}</NameProfile>
+        <SurnameProfile>Apellidos</SurnameProfile>
+          <FormEdit>
       <form onSubmit={handleSubmit}>
-        <List />
-        <p>{localStorage.getItem('id')}</p>
         <TextInput
           placeholder="Nombre"
           name="name"
@@ -159,14 +170,25 @@ const Register = () => {
           error={errors.email}
           onChange={handleChange}
           onBlur={handleBlur}
+          disabled={true}
+        />
+          <TextInput
+          placeholder="Contraseña actual"
+          name="currentPassword"
+          type="password"
+          value={data.currentPassword}
+          touched={touched.currentPassword}
+          error={errors.currentPassword}
+          onChange={handleChange}
+          onBlur={handleBlur}
         />
         <TextInput
-          placeholder="Contraseña"
-          name="password"
+          placeholder="Nueva Contraseña"
+          name="nuevaPassword"
           type="password"
-          value={data.password}
-          touched={touched.password}
-          error={errors.password}
+          value={data.nuevaPassword}
+          touched={touched.nuevaPassword}
+          error={errors.nuevaPassword}
           onChange={handleChange}
           onBlur={handleBlur}
         />
@@ -180,10 +202,15 @@ const Register = () => {
           onChange={handleChange}
           onBlur={handleBlur}
         />
-        <Button label="Enviar" type="submit" isFetching={isFetching} />
+        <ButtonDelete label="Eliminar cuenta" name="Eliminar cuenta" id="delete" type="submit" isFetching={isFetching}>ELiminar Cuenta</ButtonDelete>
+        <ButtonSave label="Enviar" id="sends" type="submit" isFetching={isFetching}>Guardar</ButtonSave>
       </form>
-    </Styles>
+      </FormEdit>
+      </ContainerName>
+      <InfoSectionTwoColumn {...editUserProfile} />
+      <Footer/>
+      </Router>
   );
 };
 
-export default Register;
+export default EditProfile;

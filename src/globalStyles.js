@@ -7,7 +7,8 @@ const GlobalStyle = createGlobalStyle`
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Poppins', sans-serif;
+
  } 
 `;
 
@@ -43,10 +44,10 @@ export const Button = styled.button`
 
   @media screen and (max-width: 960px) {
     width: 100%;
-    background: ${({ primary }) => (primary ? '#ffc200' : '#00B7B5')};
+    background: ${({ primary }) => (primary ? '#00B7B5' : '#ffc200')};
 
     &:hover {
-      background: ${({ primary }) => (primary ? '#00B7B5' : '#ffc200')};
+      background: ${({ primary }) => (primary ? '#ffc200' : '#00B7B5')};
     }
   }
 `;

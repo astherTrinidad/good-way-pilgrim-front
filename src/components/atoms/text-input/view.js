@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Input, Label, ErrorContainer, Container } from './styled'
 
-
-
 const TextInput = ({
   placeholder,
   placeholderColor,
@@ -33,6 +31,7 @@ const TextInput = ({
   type,
   label,
   touched,
+  disabled,
 }) => (
   <Container margin={margin} width={width} respWidth={respWidth} position={position} bottom={bottom} left={left}>
     <Label background={background} borderRadius={borderRadius} topIcon={topIcon} rightIcon={rightIcon}>
@@ -55,6 +54,7 @@ const TextInput = ({
         shadow={shadow}
         type={type}
         touched={touched}
+        disabled={disabled}
       />
       <Icon className='icon-input' />
     </Label>
@@ -91,6 +91,8 @@ TextInput.propTypes = {
   type: PropTypes.string,
   label: PropTypes.string,
   touched: PropTypes.bool,
+  disabled:PropTypes.bool,
+
 }
 
 TextInput.defaultProps = {
@@ -122,6 +124,7 @@ TextInput.defaultProps = {
   type: '',
   label: '',
   touched: false,
+  disabled: false,
 }
 
 export default TextInput

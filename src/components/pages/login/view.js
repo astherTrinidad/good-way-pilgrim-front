@@ -82,13 +82,15 @@ export default function Login() {
     e.preventDefault();
     const invalidForm = some(errors, error => !isEmpty(error));
     if (!invalidForm) {
-      console.log({ data });
+      console.log(data);
       try {
         setIsfetching(true);
-        const token = await loginUser(data);
-        setToken(token);
+        const response = await loginUser(data);
+        localStorage.setItem('name', data.name); 
+        
+        setToken(response);
         toast.success('Bienvenido/a!!!');
-        history.replace('/showProfile');
+        history.replace('/meProfile');
       } catch (e) {
         setIsfetching(false);
         toast.error('Usuario y/o contraseña incorrectos');
@@ -106,6 +108,7 @@ export default function Login() {
       <FormHeader logo={gwpLogo} title="" info="" />
       <form onSubmit={handleSubmit}>
         <List />
+        <p>{localStorage.getItem('name')}</p>
         <TextInput
           placeholder="Email"
           name="email"
