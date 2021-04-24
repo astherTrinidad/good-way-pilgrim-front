@@ -18,6 +18,8 @@ export const Nav = styled.nav`
   opacity: 0.9;
 
   @media screen and (max-width: 960px) {
+    opacity: 1;
+
   }
 `;
 
