@@ -73,14 +73,17 @@ export default function Login() {
       console.log(data);
       try {
         setIsfetching(true);
-        const response = await apiLoginUser(data);
-        console.log('***' + response.token);
-        sessionStorage.setItem('token', response.token);
-        toast.success('¡Bienvenido/a!');
-        history.replace('/meProfile');
+        var datos = await apiLoginUser(data);
+        datos = JSON.parse(datos)
+        if (datos.message == "success") {
+          sessionStorage.setItem('token', datos.token)
+          toast.success("¡Bienvenido/a!")
+          history.replace('../meProfile');
+        }
+
       } catch (e) {
+        toast.error("Error del servidor. Inténtelo más tarde")
         setIsfetching(false);
-        toast.error('Usuario y/o contraseña incorrectos');
       }
     } else {
       setTouched({
@@ -122,11 +125,19 @@ export default function Login() {
 }
 
 async function apiLoginUser(credentials) {
-  return fetch(`${url.base}${url.login}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  }).then(data => data.json());
-}
+    let response = await fetch(`${url.base}${url.login}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    })
+  
+    if (response.status == 401) {
+      toast.error("Usuario o contraseña incorrectos")
+    }
+    let content = await response.text();
+  
+    return content;
+  }
+

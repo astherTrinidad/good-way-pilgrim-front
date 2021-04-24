@@ -2,7 +2,7 @@
   base: process.env.REACT_APP_BASE_URL,
   meProfile: '/pri/showProfile',
   meEditProfile: '/pri/editProfile',
-  userProfile: '/pri/showProfile',
+  userProfile: '/pri/showOtherProfile',
   register: '/pub/register',
   login: '/pub/login'
 };

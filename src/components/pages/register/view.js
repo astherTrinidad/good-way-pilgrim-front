@@ -88,12 +88,15 @@ export default function Register() {
     e.preventDefault();
     const invalidForm = some(errors, error => !isEmpty(error));
     if (!invalidForm) {
-      console.log(data);
       try {
         setIsfetching(true);
-        const respuesta = await apiRegister(data); //data: @ y pass
-        toast.success('¡Usuario Registrado. Introduce tus datos, por favor!');
-        history.replace('/login');
+        var datos = await apiRegister(data);
+        datos = JSON.parse(datos)
+        if (datos.message == undefined) {
+          toast.success('¡Bienvenido/a! Introduce tus datos para entrar')
+          sessionStorage.setItemlogin('user', datos)
+          history.replace('/');
+        }
       } catch (e) {
         setIsfetching(false);
         toast.error('Error de servidor. Inténtelo más tarde');
@@ -172,11 +175,22 @@ export default function Register() {
 }
 
 async function apiRegister(dataUser) {
-  return fetch(`${url.base}${url.register}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(dataUser),
-  }).then(data => data.json());
-}
+    let response = await fetch(`${url.base}${url.register}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataUser),
+    })
+  
+    if (!response.ok) {
+      if (response.status == 401) {
+        toast.error("Contraseña no válida")
+      }
+      if (response.status == 422) {
+        toast.error("La cuenta ya existe. Por favor haz login")
+      }
+    }
+    let content = await response.text();
+    return content;
+  }
