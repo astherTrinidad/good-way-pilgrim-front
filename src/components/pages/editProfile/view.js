@@ -103,7 +103,7 @@ export default function EditProfile() {
             />
             <TextInput
               placeholder="Contraseña actual"
-              name="currentPassword"
+              name="oldPassword"
               type="password"
               //value={data.currentPassword}
               // touched={touched.currentPassword}
@@ -113,7 +113,7 @@ export default function EditProfile() {
             />
             <TextInput
               placeholder="Nueva Contraseña"
-              name="nuevaPassword"
+              name="newPassword"
               type="password"
               //value={data.nuevaPassword}
               // touched={touched.nuevaPassword}
