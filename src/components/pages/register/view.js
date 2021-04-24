@@ -3,45 +3,13 @@ import isEmpty from 'lodash/isEmpty';
 import some from 'lodash/some';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
-
 import { TextInput, Button, FormHeader, List } from '../../atoms/';
 import { validateEmail, validatePassword } from '../../../utils';
-import useToken from '../../system/useToken';
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
+import url from '../../../config/url';
 
-/*async function registerUser(credentials) {
-  return fetch('http://localhost:8000/pub/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  }).then(data => data.json());
-}*/
-async function registerUser(credentials) {
-  let response = await fetch('http://localhost:8000/pub/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  })
-
-  if (!response.ok) {
-    if (response.status == 401) {
-      toast.error("Contraseña no válida")
-    }
-    if (response.status == 422) {
-      toast.error("La cuenta ya existe. Por favor haz login")
-    }
-  }
-  let content = await response.text();
-  return content;
-}
-
-const Register = () => {
-  //  const { setToken } = useToken();
+export default function Register() {
   const history = useHistory();
 
   const [data, setData] = useState({
@@ -122,12 +90,12 @@ const Register = () => {
     if (!invalidForm) {
       try {
         setIsfetching(true);
-        var datos = await registerUser(data);
+        var datos = await apiRegister(data);
         datos = JSON.parse(datos)
         if (datos.message == undefined) {
           toast.success('¡Bienvenido/a! Introduce tus datos para entrar')
-          sessionStorage.setItem('user', datos)
-          history.replace('/login');
+          sessionStorage.setItemlogin('user', datos)
+          history.replace('/');
         }
       } catch (e) {
         setIsfetching(false);
@@ -149,7 +117,6 @@ const Register = () => {
       <FormHeader logo={gwpLogo} title="" info="" />
       <form onSubmit={handleSubmit}>
         <List />
-        <p>{localStorage.getItem('id')}</p>
         <TextInput
           placeholder="Nombre"
           name="name"
@@ -205,6 +172,25 @@ const Register = () => {
       </form>
     </Styles>
   );
-};
+}
 
-export default Register;
+async function apiRegister(dataUser) {
+    let response = await fetch(`${url.base}${url.register}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataUser),
+    })
+  
+    if (!response.ok) {
+      if (response.status == 401) {
+        toast.error("Contraseña no válida")
+      }
+      if (response.status == 422) {
+        toast.error("La cuenta ya existe. Por favor haz login")
+      }
+    }
+    let content = await response.text();
+    return content;
+  }
