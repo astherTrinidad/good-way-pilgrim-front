@@ -3,26 +3,14 @@ import isEmpty from 'lodash/isEmpty'; //lodash->ayuda a trabajar con arrays.comp
 import some from 'lodash/some'; //verificamos los elementos de un array
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
-
 import { TextInput, Button, FormHeader, List } from '../../atoms/';
 import { validateEmail, validatePassword } from '../../../utils';
-import useToken from '../../system/useToken';
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
 import 'react-toastify/dist/ReactToastify.css';
-
-async function loginUser(credentials) {
-  return fetch('http://localhost:8000/pub/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  }).then(data => data.json());
-}
+import url from '../../../config/url';
 
 export default function Login() {
-  const { setToken } = useToken();
   const history = useHistory();
 
   const [data, setData] = useState({
@@ -85,12 +73,10 @@ export default function Login() {
       console.log(data);
       try {
         setIsfetching(true);
-        const response = await loginUser(data);
-        console.log('***'+response.token)
-        localStorage.setItem('token', response.token); 
-        
-        setToken(response);
-        toast.success('Bienvenido/a!!!');
+        const response = await apiLoginUser(data);
+        console.log('***' + response.token);
+        sessionStorage.setItem('token', response.token);
+        toast.success('¡Bienvenido/a!');
         history.replace('/meProfile');
       } catch (e) {
         setIsfetching(false);
@@ -116,7 +102,7 @@ export default function Login() {
           value={data.email}
           touched={touched.email}
           error={errors.email}
-          onChange={handleChange} //{e => setUserName(e.target.value)}
+          onChange={handleChange}
           onBlur={handleBlur}
         />
         <TextInput
@@ -126,11 +112,21 @@ export default function Login() {
           value={data.password}
           touched={touched.password}
           error={errors.password}
-          onChange={handleChange} //{e => setPassword(e.target.value)}//
+          onChange={handleChange}
           onBlur={handleBlur}
         />
         <Button label="Enviar" type="submit" isFetching={isFetching} />
       </form>
     </Styles>
   );
+}
+
+async function apiLoginUser(credentials) {
+  return fetch(`${url.base}${url.login}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(credentials),
+  }).then(data => data.json());
 }

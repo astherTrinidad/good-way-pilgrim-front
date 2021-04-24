@@ -34,12 +34,12 @@ function Routes() {
           {/* <Route path="/public">
                         <PublicPage />
                     </Route> */}
-          <Route path="/login">
+          <PublicRoute path="/login">
             <Login />
-          </Route>
-          <Route path="/register">
+          </PublicRoute>
+          <PublicRoute path="/register">
             <Register />
-          </Route>
+          </PublicRoute>
           <PrivateRoute path="/meProfile">
             <MeProfile />
           </PrivateRoute>
@@ -75,6 +75,29 @@ const PrivateRoute = ({ children, ...rest }) => {
           <Redirect
             to={{
               pathname: '/login',
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+};
+
+const PublicRoute = ({ children, ...rest }) => {
+  //Establecemos valores de retorno para token y setToken
+  const { token } = useToken();
+
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        !token ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/showProfile',
               state: { from: location },
             }}
           />
