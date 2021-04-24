@@ -22,6 +22,13 @@ const Navbar = () => {
   const [button, setButton] = useState(true);
 
   const handleClick = () => setClick(!click);
+
+  const closeSession = async e => {
+     e.preventDefault();
+    sessionStorage.removeItem('token');
+    window.location.reload();
+  }
+  
   const showButton = () => {
     if (window.innerWidth <= 960) {
       setButton(false);
@@ -40,7 +47,7 @@ const Navbar = () => {
     <IconContext.Provider value={{ color: '#ffff' }}>
       <Nav>
         <NavbarContainer>
-          <NavLogo to="/" />
+          <NavLogo to="/editProfile" />
           <MobileIcon onClick={handleClick}>
             {click ? <FaTimes /> : <FaBars />}
           </MobileIcon>
@@ -72,12 +79,12 @@ const Navbar = () => {
             </NavItem>
             <NavItemBtn>
               {button ? (
-                <NavBtnLink to="/login">
-                  <Button primary>Cerrar sesión</Button>
+                <NavBtnLink >
+                  <Button onClick={closeSession} primary>Cerrar sesión</Button>
                 </NavBtnLink>
               ) : (
-                <NavBtnLink to="/login">
-                  <Button fontBig primary>
+                <NavBtnLink >
+                  <Button onClick={closeSession} fontBig primary>
                     Cerrar sesión
                   </Button>
                 </NavBtnLink>

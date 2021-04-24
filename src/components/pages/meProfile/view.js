@@ -4,7 +4,7 @@ import { BrowserRouter as Router, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Navbar, Footer, InfoSectionOneColumn } from '../../organisms';
 import { userProfile } from './Data';
-import  url from '../../../config/url' 
+import url from '../../../config/url';
 import {
   Header,
   PhotoProfile,
@@ -13,36 +13,25 @@ import {
   ContainerName,
 } from './styled';
 
-async function getAPIProfile() {
-  return fetch( url.base + url.meProfile , {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-    }, 
-  }).then(data => data.json());
-}
-
-
-const MeProfile = () => {
+export default function MeProfile() {
   const queryParam = new URLSearchParams(useLocation().search);
-  const [userData, setUserData] = useState({})
-  const [isFetchingUser, setIsFetchingUser] = useState(false)
+  const [userData, setUserData] = useState({});
+  const [isFetchingUser, setIsFetchingUser] = useState(false);
 
   useEffect(() => {
     async function fetchProfile() {
       try {
-        setIsFetchingUser(true)
-        const response = await getAPIProfile(queryParam.get("id"));
-        setUserData(response)
+        setIsFetchingUser(true);
+        const response = await apiMeProfile(queryParam.get('id'));
+        setUserData(response);
       } catch {
-        toast.error('Error')
+        toast.error('Error');
       } finally {
-        setIsFetchingUser(false)
+        setIsFetchingUser(false);
       }
     }
-    fetchProfile()
-  }, [])
+    fetchProfile();
+  }, []);
 
   return (
     <Router>
@@ -58,6 +47,14 @@ const MeProfile = () => {
       <Footer />
     </Router>
   );
-};
+}
 
-export default MeProfile;
+async function apiMeProfile() {
+  return fetch(`${url.base}${url.meProfile}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    },
+  }).then(data => data.json());
+}

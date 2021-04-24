@@ -3,26 +3,13 @@ import isEmpty from 'lodash/isEmpty';
 import some from 'lodash/some';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
-
 import { TextInput, Button, FormHeader, List } from '../../atoms/';
 import { validateEmail, validatePassword } from '../../../utils';
-import useToken from '../../system/useToken';
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
-import  url from '../../../config/url' 
+import url from '../../../config/url';
 
-async function loginUser(credentials) {
-  return fetch( `${url.base}${url.register}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  }).then(data => data.json());
-}
-
-const Register = () => {
-  //  const { setToken } = useToken();
+export default function Register() {
   const history = useHistory();
 
   const [data, setData] = useState({
@@ -104,9 +91,7 @@ const Register = () => {
       console.log(data);
       try {
         setIsfetching(true);
-        const respuesta = await loginUser(data); //data: @ y pass
-        localStorage.setItem('token', respuesta); //manera desglosada
-        //setToken(respuesta);
+        const respuesta = await apiRegister(data); //data: @ y pass
         toast.success('¡Usuario Registrado. Introduce tus datos, por favor!');
         history.replace('/login');
       } catch (e) {
@@ -129,7 +114,6 @@ const Register = () => {
       <FormHeader logo={gwpLogo} title="" info="" />
       <form onSubmit={handleSubmit}>
         <List />
-        <p>{localStorage.getItem('id')}</p>
         <TextInput
           placeholder="Nombre"
           name="name"
@@ -185,6 +169,14 @@ const Register = () => {
       </form>
     </Styles>
   );
-};
+}
 
-export default Register;
+async function apiRegister(dataUser) {
+  return fetch(`${url.base}${url.register}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(dataUser),
+  }).then(data => data.json());
+}

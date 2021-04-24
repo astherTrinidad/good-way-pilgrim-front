@@ -3,13 +3,12 @@ import isEmpty from 'lodash/isEmpty'; //lodash->ayuda a trabajar con arrays.comp
 import some from 'lodash/some'; //verificamos los elementos de un array
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
-
 import { TextInput, Button, FormHeader, List } from '../../atoms/';
 import { validateEmail, validatePassword } from '../../../utils';
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
 import 'react-toastify/dist/ReactToastify.css';
-import  url from '../../../config/url' 
+import url from '../../../config/url';
 
 export default function Login() {
   const history = useHistory();
@@ -75,9 +74,8 @@ export default function Login() {
       try {
         setIsfetching(true);
         const response = await apiLoginUser(data);
-        console.log('***'+response.token)
-        sessionStorage.setItem('token', response.token); 
-        
+        console.log('***' + response.token);
+        sessionStorage.setItem('token', response.token);
         toast.success('¡Bienvenido/a!');
         history.replace('/meProfile');
       } catch (e) {
@@ -104,7 +102,7 @@ export default function Login() {
           value={data.email}
           touched={touched.email}
           error={errors.email}
-          onChange={handleChange} 
+          onChange={handleChange}
           onBlur={handleBlur}
         />
         <TextInput
@@ -124,7 +122,6 @@ export default function Login() {
 }
 
 async function apiLoginUser(credentials) {
-
   return fetch(`${url.base}${url.login}`, {
     method: 'POST',
     headers: {
