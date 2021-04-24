@@ -12,17 +12,7 @@ import {
   ContainerName,
 } from './styled';
 
-async function getAPIProfile(id) {
-  return fetch( `${url.base}${url.userProfile}?id=5`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-    }, 
-  }).then(data => data.json());
-}
-
-const ShowProfile = () => {
+export default function ShowProfile() {
   
   console.log('Llamando...') 
   const respuesta = getAPIProfile(localStorage.getItem('id'));
@@ -43,4 +33,12 @@ const ShowProfile = () => {
   );
 };
 
-export default ShowProfile;
+async function getAPIProfile(id) {
+  return fetch( `${url.base}${url.userProfile}?id=5`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    }, 
+  }).then(data => data.json());
+}
