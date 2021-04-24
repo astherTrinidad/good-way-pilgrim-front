@@ -11,10 +11,11 @@ import {PhotoProfile, ContainerName, NameProfile, SurnameProfile, FormEdit, Butt
 import GlobalStyle from '../../../globalStyles';
 import { Navbar, Footer, InfoSectionTwoColumn } from '../../organisms';
 import { editUserProfile } from './Data';
+import  url from '../../../config/url' 
 
-async function loginUser(credentials) {
-  return fetch('http://localhost:8000/pub/register', {
-    method: 'POST',
+async function apiEditProfile(credentials) {
+  return fetch(`${url.base}${url.EditProfile}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
@@ -109,7 +110,7 @@ const EditProfile = () => {
       console.log(data);
       try {
         setIsfetching(true);
-        const respuesta = await loginUser(data); //data: @ y pass
+        const respuesta = await apiEditProfile(data); //data: @ y pass
         localStorage.setItem('token', respuesta); //manera desglosada
         //setToken(respuesta);
         toast.success('¡Bienvenido/a!');

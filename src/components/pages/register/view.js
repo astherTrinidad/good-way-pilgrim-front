@@ -9,9 +9,10 @@ import { validateEmail, validatePassword } from '../../../utils';
 import useToken from '../../system/useToken';
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
+import  url from '../../../config/url' 
 
 async function loginUser(credentials) {
-  return fetch('http://localhost:8000/pub/register', {
+  return fetch( `${url.base}${url.register}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -106,7 +107,7 @@ const Register = () => {
         const respuesta = await loginUser(data); //data: @ y pass
         localStorage.setItem('token', respuesta); //manera desglosada
         //setToken(respuesta);
-        toast.success('¡Bienvenido/a!');
+        toast.success('¡Usuario Registrado. Introduce tus datos, por favor!');
         history.replace('/login');
       } catch (e) {
         setIsfetching(false);
