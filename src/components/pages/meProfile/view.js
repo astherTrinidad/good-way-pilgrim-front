@@ -12,8 +12,8 @@ import {
   ContainerName,
 } from './styled';
 
-async function getAPIProfile(id) {
-  return fetch(`http://localhost:8000/pri/me/showProfile?id=${id}`, {
+async function getAPIProfile() {
+  return fetch(`http://localhost:8000/pri/showProfileResume`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -32,10 +32,10 @@ const MeProfile = () => {
     async function fetchProfile() {
       try {
         setIsFetchingUser(true)
-        const response = await getAPIProfile(queryParam.get("id"));
+        const response = await getAPIProfile();
         setUserData(response)
       } catch {
-        toast.error('Error')
+        toast.error('Error del servidor')
       } finally {
         setIsFetchingUser(false)
       }
@@ -43,6 +43,7 @@ const MeProfile = () => {
     fetchProfile()
   }, [])
 
+ 
   return (
     <Router>
       <GlobalStyle />
@@ -50,13 +51,13 @@ const MeProfile = () => {
       <Header />
       <PhotoProfile />
       <ContainerName>
-        <NameProfile>{userData?.name}</NameProfile>
-        <SurnameProfile>{userData?.surname}</SurnameProfile>
+        <NameProfile>{userData?.name}</NameProfile>          
       </ContainerName>
       <InfoSectionOneColumn {...userProfile} />
       <Footer />
     </Router>
   );
-};
+ }
+  
 
 export default MeProfile;

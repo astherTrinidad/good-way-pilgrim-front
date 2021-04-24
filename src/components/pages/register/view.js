@@ -10,7 +10,7 @@ import useToken from '../../system/useToken';
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
 
-async function loginUser(credentials) {
+/*async function registerUser(credentials) {
   return fetch('http://localhost:8000/pub/register', {
     method: 'POST',
     headers: {
@@ -18,6 +18,26 @@ async function loginUser(credentials) {
     },
     body: JSON.stringify(credentials),
   }).then(data => data.json());
+}*/
+async function registerUser(credentials) {
+  let response = await fetch('http://localhost:8000/pub/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(credentials),
+  })
+
+  if (!response.ok) {
+    if (response.status == 401) {
+      toast.error("Contraseña no válida")
+    }
+    if (response.status == 422) {
+      toast.error("La cuenta ya existe. Por favor haz login")
+    }
+  }
+  let content = await response.text();
+  return content;
 }
 
 const Register = () => {
@@ -69,11 +89,11 @@ const Register = () => {
     if (!data.password) newErrors.password = 'Campo obligatorio';
     else if (!validatePassword(data.password))
       newErrors.password =
-        'Debe contener 8 caracteres, minúsuculas y mayúsculas';
+        'Mínimo 8 caracteres, minúsuculas y mayúsculas';
 
     if (!data.passwordConfirm) newErrors.passwordConfirm = 'Campo obligatorio';
     else if (data.password !== data.passwordConfirm)
-      newErrors.passwordConfirm = 'Contraseña no coincide';
+      newErrors.passwordConfirm = 'La contraseña no coincide';
 
     setErrors(newErrors);
   }, [data]);
@@ -100,14 +120,15 @@ const Register = () => {
     e.preventDefault();
     const invalidForm = some(errors, error => !isEmpty(error));
     if (!invalidForm) {
-      console.log(data);
       try {
         setIsfetching(true);
-        const respuesta = await loginUser(data); //data: @ y pass
-        localStorage.setItem('token', respuesta); //manera desglosada
-        //setToken(respuesta);
-        toast.success('¡Bienvenido/a!');
-        history.replace('/login');
+        var datos = await registerUser(data);
+        datos = JSON.parse(datos)
+        if (datos.message == undefined) {
+          toast.success('¡Bienvenido/a! Introduce tus datos para entrar')
+          sessionStorage.setItem('user', datos)
+          history.replace('/login');
+        }
       } catch (e) {
         setIsfetching(false);
         toast.error('Error de servidor. Inténtelo más tarde');

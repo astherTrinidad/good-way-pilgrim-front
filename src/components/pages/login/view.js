@@ -11,15 +11,32 @@ import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
 import 'react-toastify/dist/ReactToastify.css';
 
-async function loginUser(credentials) {
+/*async function loginUser(credentials) {
   return fetch('http://localhost:8000/pub/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(credentials),
-  }).then(data => data.json());
+  })
+}*/
+async function loginUser(credentials) {
+  let response = await fetch('http://localhost:8000/pub/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(credentials),
+  })
+
+  if (response.status == 401) {
+    toast.error("Usuario o contraseña incorrectos")
+  }
+  let content = await response.text();
+
+  return content;
 }
+
 
 export default function Login() {
   const { setToken } = useToken();
@@ -78,23 +95,23 @@ export default function Login() {
   /**
    * Creamos un controlador de envío de formulario que llamará a loginUser con user y pass
    */
+
   const handleSubmit = async e => {
     e.preventDefault();
     const invalidForm = some(errors, error => !isEmpty(error));
     if (!invalidForm) {
-      console.log(data);
       try {
         setIsfetching(true);
-        const response = await loginUser(data);
-        console.log('***'+response.token)
-        localStorage.setItem('token', response.token); 
-        
-        setToken(response);
-        toast.success('Bienvenido/a!!!');
-        history.replace('/meProfile');
+        var datos = await loginUser(data);
+        datos = JSON.parse(datos)
+        if (datos.message == "success") {
+          sessionStorage.setItem('token', datos.token)
+          history.replace('../meProfile');
+        }
+
       } catch (e) {
+        toast.error("Error del servidor. Inténtelo más tarde")
         setIsfetching(false);
-        toast.error('Usuario y/o contraseña incorrectos');
       }
     } else {
       setTouched({
