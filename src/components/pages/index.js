@@ -2,7 +2,7 @@ import Login from './login';
 import Register from './register';
 import MeProfile from './meProfile';
 import ShowProfile from './showProfile';
-import EditProfile from './editProfile';
+import MeEditProfile from './meEditProfile';
 import FrequentQuestion from './frequentQuestion';
 import PrivacyConsumers from './privacyConsumers';
 
@@ -11,7 +11,7 @@ export {
   Register,
   MeProfile,
   ShowProfile,
-  EditProfile,
+  MeEditProfile,
   FrequentQuestion,
   PrivacyConsumers,
 };
