@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import GlobalStyle from '../../../globalStyles';
-import { BrowserRouter as Router, useLocation } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  useLocation,
+  useHistory,
+} from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Navbar, Footer, InfoSectionOneColumn } from '../../organisms';
 import { userProfile } from './Data';
@@ -14,7 +18,8 @@ import {
 } from './styled';
 
 export default function MeProfile() {
-  const queryParam = new URLSearchParams(useLocation().search);
+  const history = useHistory();
+  // const queryParam = new URLSearchParams(useLocation().search);
   const [userData, setUserData] = useState({});
   const [isFetchingUser, setIsFetchingUser] = useState(false);
 
@@ -22,10 +27,20 @@ export default function MeProfile() {
     async function fetchProfile() {
       try {
         setIsFetchingUser(true);
-        const response = await apiMeProfile(queryParam.get('id'));
-        setUserData(response);
+        var datos = await apiMeProfile();
+        if (datos.message == undefined) {
+          setUserData(datos);
+        }
+        if (datos.message == 'Expired token') {
+          toast.info(
+            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+          );
+          history.replace('../login');
+        }
       } catch {
-        toast.error('Error');
+        toast.error(
+          'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+        );
       } finally {
         setIsFetchingUser(false);
       }
@@ -54,7 +69,7 @@ async function apiMeProfile() {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
   }).then(data => data.json());
 }

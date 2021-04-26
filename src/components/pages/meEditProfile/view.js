@@ -62,21 +62,18 @@ export default function MeEditProfile() {
 
     if (!userData.surname) newErrors.surname = 'Campo obligatorio';
 
-    if (!userData.newPassword) newErrors.newPassword = 'Campo obligatorio';
-    else if (!validatePassword(userData.newPassword))
-      newErrors.password = 'Mínimo 8 caracteres, minúsuculas y mayúsculas';
+    if (!validatePassword(userData.newPassword))
+      newErrors.newPassword = 'Mínimo 8 caracteres, minúsculas y mayúsculas';
 
-    if (!userData.passwordConfirm)
-      newErrors.passwordConfirm = 'Campo obligatorio';
-    else if (userData.newPassword !== userData.passwordConfirm)
+    if (userData.newPassword !== userData.passwordConfirm)
       newErrors.passwordConfirm = 'La contraseña no coincide';
 
     setErrors(newErrors);
   }, [userData]);
 
-  // useEffect(() => {
-  //   validate();
-  // }, [userData, validate]);
+  useEffect(() => {
+    validate();
+  }, [userData, validate]);
 
   useEffect(() => {
     async function fetchProfile() {
@@ -114,25 +111,28 @@ export default function MeEditProfile() {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    try {
-      setIsFetchingUser(true);
-      var respuesta = await apiEditProfile(userData);
-      if (respuesta.message == undefined) {
-        toast.success('¡Datos actualizados!');
-      } else {
-        if (respuesta.message == 'Expired token') {
-          toast.info(
-            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
-          );
-          history.replace('../login');
+    const invalidForm = some(errors, error => !isEmpty(error));
+    if (!invalidForm) {
+      try {
+        setIsFetchingUser(true);
+        var respuesta = await apiEditProfile(userData);
+        if (respuesta.message == undefined) {
+          toast.success('¡Datos actualizados!');
+        } else {
+          if (respuesta.message == 'Expired token') {
+            toast.info(
+              'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+            );
+            history.replace('../login');
+          }
+          if (respuesta.message == 'Password is wrong') {
+            toast.error('Contraseña incorrecta');
+          }
         }
-        if (respuesta.message == 'Password is wrong') {
-          toast.error('Contraseña incorrecta');
-        }
+      } catch (e) {
+        setIsFetchingUser(false);
+        toast.error('Error del servidor. Por favor, inténtelo de nuevo');
       }
-    } catch (e) {
-      setIsFetchingUser(false);
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
 
@@ -152,6 +152,7 @@ export default function MeEditProfile() {
       toast.error('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
+
   return (
     <Router>
       <GlobalStyle />
@@ -253,6 +254,7 @@ export default function MeEditProfile() {
                       id="delete"
                       type="button"
                       onClick={deleteUser}
+                      isFetchingUser={setIsFetchingUser}
                     >
                       Eliminar Cuenta
                     </ButtonDelete>
@@ -261,6 +263,7 @@ export default function MeEditProfile() {
                       id="update"
                       type="submit"
                       onSubmit={handleSubmit}
+                      isFetchingUser={setIsFetchingUser}
                     >
                       Guardar
                     </ButtonSave>
