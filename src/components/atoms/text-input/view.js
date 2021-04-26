@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Input, Label, ErrorContainer, Container } from './styled'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Input, Label, ErrorContainer, Container } from './styled';
 
 const TextInput = ({
   placeholder,
@@ -33,8 +33,20 @@ const TextInput = ({
   touched,
   disabled,
 }) => (
-  <Container margin={margin} width={width} respWidth={respWidth} position={position} bottom={bottom} left={left}>
-    <Label background={background} borderRadius={borderRadius} topIcon={topIcon} rightIcon={rightIcon}>
+  <Container
+    margin={margin}
+    width={width}
+    respWidth={respWidth}
+    position={position}
+    bottom={bottom}
+    left={left}
+  >
+    <Label
+      background={background}
+      borderRadius={borderRadius}
+      topIcon={topIcon}
+      rightIcon={rightIcon}
+    >
       {label && <p>{label}:</p>}
       <Input
         onKeyDown={onKeyDown}
@@ -56,11 +68,11 @@ const TextInput = ({
         touched={touched}
         disabled={disabled}
       />
-      <Icon className='icon-input' />
+      <Icon className="icon-input" />
     </Label>
     {error && touched && <ErrorContainer>{error}</ErrorContainer>}
   </Container>
-)
+);
 
 TextInput.propTypes = {
   placeholder: PropTypes.string,
@@ -91,9 +103,8 @@ TextInput.propTypes = {
   type: PropTypes.string,
   label: PropTypes.string,
   touched: PropTypes.bool,
-  disabled:PropTypes.bool,
-
-}
+  disabled: PropTypes.bool,
+};
 
 TextInput.defaultProps = {
   placeholder: '',
@@ -125,6 +136,6 @@ TextInput.defaultProps = {
   label: '',
   touched: false,
   disabled: false,
-}
+};
 
-export default TextInput
+export default TextInput;

@@ -2,6 +2,54 @@ import styled from 'styled-components';
 import colors from '../../../assets/colors';
 import profilePhoto from '../../../assets/images/photo-profile-generic.png';
 
+export const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 3rem auto;
+  width: 80%;
+  height: max-content;
+`;
+export const Section = styled.h1`
+  font-size: 1.5em;
+  margin-bottom: 2rem;
+`;
+/* COLUMN LEFT */
+
+export const ColumnImg = styled.div`
+  width: 50%;
+
+  @media screen and (max-width: 960px) {
+    display: none;
+  }
+`;
+
+export const Img = styled.img`
+  width: 80%;
+  height: auto;
+`;
+/* FINISH COLUMN LEFT */
+
+/* COLUMN RIGHT */
+
+export const ColumnText = styled.div`
+  width: 50%;
+  height: max-content;
+
+  @media screen and (max-width: 960px) {
+    width: 100%;
+    margin-top: 3rem;
+  }
+`;
+
 export const PhotoProfile = styled.div`
   height: 150px;
   width: 150px;
@@ -9,15 +57,10 @@ export const PhotoProfile = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  margin-top: 3rem;
-  margin-right:24%;
+  margin-top: -2.5rem;
+  margin-right: auto;
   margin-left: auto;
   border-radius: 50%;
-
-  @media screen and (max-width:960px){
-    display: block;
-    margin-right:auto;
-  }
 `;
 
 export const ContainerName = styled.div`
@@ -25,8 +68,7 @@ export const ContainerName = styled.div`
   height: max-content;
   display: flex;
   flex-direction: row;
-  margin-left: auto;
-  margin-right:20%;
+  margin: 0 auto;
 `;
 
 export const NameProfile = styled.p`
@@ -45,36 +87,11 @@ export const SurnameProfile = styled.p`
   padding: 1.5rem 0.5rem;
 `;
 
-export const Styles = styled.div`  
-align-items: center;
-display: flex;
-flex-direction: column;
-height: 100vh;
-justify-content: center;
-padding: 60px 0;
-
-    form {
-        max-width: 300px;
-        margin: 20px;
-        text-align: center;
-        width: 100%;
-    }
-`
-
 export const FormEdit = styled.div`
-position: absolute;
-  width: 450px;
-  height: 100vh;
-  margin-top:5rem;
-  margin-left:-7rem;
-    opacity: 1;
-
-@media screen and (max-width: 960px) {
+  margin: 0 auto;
   display: block;
-  width: 65%;
-  margin-left: 0;
-}
-`
+  width: 100%;
+`;
 
 export const ButtonSave = styled.button`
   background-color: ${colors.turquoise};
@@ -88,7 +105,7 @@ export const ButtonSave = styled.button`
   margin-right: 1rem;
   padding: 1rem 4rem;
   transition: all 0.3s ease-out;
-  margin-right:3.25rem;
+  margin-right: 3.25rem;
 
   &:hover {
     background: ${colors.mustard};
@@ -97,14 +114,12 @@ export const ButtonSave = styled.button`
     box-shadow: inset 0px 11px 8px -10px ${colors.black};
   }
 
-  @media screen and (max-width:960px) {
-    display:block;
+  @media screen and (max-width: 960px) {
+    display: block;
     margin-left: auto;
-  margin-right: auto;
+    margin-right: auto;
   }
-
-`
-
+`;
 
 export const ButtonDelete = styled.button`
   background-color: ${colors.red};
@@ -119,16 +134,16 @@ export const ButtonDelete = styled.button`
   padding: 1rem 1.5rem;
   transition: all 0.3s ease-out;
 
-
   &:hover {
     background: ${colors.turquoise};
     color: ${colors.white};
     cursor: pointer;
     box-shadow: inset 0px 11px 8px -10px ${colors.black};
   }
-  @media screen and (max-width:960px) {
-    display:block;
+  @media screen and (max-width: 960px) {
+    display: block;
     margin-left: auto;
-  margin-right: auto;
+    margin-right: auto;
   }
-`
+`;
+/* FINISH COLUMN RIGHT */

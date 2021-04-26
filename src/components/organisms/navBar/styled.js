@@ -201,3 +201,24 @@ export const NavBtnLink = styled(Link)`
   border: none;
   outline: none;
 `;
+
+export const DropdownPerfil = styled.div`
+  position: absolute;
+  background-color: ${colors.mustard};
+  height: max-content;
+  width:max;
+  top: 60px;
+  text-align: left;
+  padding: 1rem;
+
+  @media screen and (max-width: 960px) {
+    display: none;
+  }
+`
+
+export const DropdownNavLinks = styled.div`
+  color: ${colors.white};
+  font-size: 20px;
+  line-height:2;
+
+`
