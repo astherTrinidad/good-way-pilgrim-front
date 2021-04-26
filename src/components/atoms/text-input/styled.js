@@ -1,9 +1,12 @@
-import styled from 'styled-components'
-import colors from '../../../assets/colors'
+import styled from 'styled-components';
+import colors from '../../../assets/colors';
 
 export const Input = styled.input`
   background: ${colors.white};
-  border: ${props => (props.error && props.touched ? `2px solid ${colors.red}` : `2px solid ${colors.lightGrey}`)};
+  border: ${props =>
+    props.error && props.touched
+      ? `2px solid ${colors.red}`
+      : `2px solid ${colors.lightGrey}`};
   border-radius: ${props => props.borderRadius};
   border-top: ${props => props.borderTop};
   font-size: 16px;
@@ -12,7 +15,7 @@ export const Input = styled.input`
   height: ${props => props.height};
   line-height: 10px;
   margin-top: 4px;
-  opacity:0.6;
+  opacity: 0.6;
   padding: ${props => props.padding};
   transition: all 0.4s;
   width: 100%;
@@ -20,16 +23,19 @@ export const Input = styled.input`
   :focus {
     border: 1px solid ${colors.white};
     box-shadow: ${props =>
-      props.shadow ? props.shadow : '0px 2px 2px rgba(0, 0, 0, 0.48), 0px 0px 2px rgba(0, 0, 0, 0.12)'};
-      opacity:1;
-    }
+      props.shadow
+        ? props.shadow
+        : '0px 2px 2px rgba(0, 0, 0, 0.48), 0px 0px 2px rgba(0, 0, 0, 0.12)'};
+    opacity: 1;
+  }
 
   &::placeholder {
     color: ${props => props.placeholderColor};
   }
-`
+`;
 
 export const Label = styled.label`
+  color: ${colors.mediumGrey};
   border-radius: ${props => props.borderRadius};
   position: relative;
   width: 100%;
@@ -48,52 +54,32 @@ export const Label = styled.label`
     font-size: 16px;
     text-align: left;
   }
-`
+`;
 
 export const Container = styled.div`
   bottom: ${props => props.bottom};
   left: ${props => props.left};
-  margin: ${props => (props.margin ? props.margin : '20px 0')};
+  margin: ${props => (props.margin ? props.margin : '20px 10px')};
   position: ${props => props.position};
   position: relative;
   width: ${props => props.width};
   @media (max-width: 1280px) {
     width: ${props => props.respWidth};
   }
-`
+`;
 
 export const ErrorContainer = styled.div`
+  font-weight: normal;
+  color: ${colors.white};
+  font-size: 11px;
+  text-align: right;
+  padding: 5px 5px 0;
+`;
+
+export const ErrorContainerEditProfile = styled.div`
+  font-weight: normal;
   color: ${colors.red};
   font-size: 11px;
-  text-align:right;
+  text-align: right;
   padding: 5px 5px 0;
-`
-
-export const InputEditProfile = styled.input`
-display: flex;
-  background: ${colors.white};
-  border: ${props => (props.error && props.touched ? `2px solid ${colors.red}` : `2px solid ${colors.lightGrey}`)};
-  border-radius: ${props => props.borderRadius};
-  border-top: ${props => props.borderTop};
-  font-size: 16px;
-  font-style: normal;
-  font-weight: normal;
-  height: ${props => props.height};
-  line-height: 10px;
-  margin-top: 4px;
-  opacity:0.6;
-  padding: ${props => props.padding};
-  transition: all 0.4s;
-  width: 50%;
-
-  :focus {
-    border: 1px solid ${colors.white};
-    box-shadow: ${props =>
-      props.shadow ? props.shadow : '0px 2px 2px rgba(0, 0, 0, 0.24), 0px 0px 2px rgba(0, 0, 0, 0.12)'};
-      opacity:1;
-    }
-
-  &::placeholder {
-    color: ${props => props.placeholderColor};
-  }
-`
+`;

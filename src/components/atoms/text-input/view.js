@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, Label, ErrorContainer, Container } from './styled';
+import {
+  Input,
+  Label,
+  ErrorContainer,
+  Container,
+  ErrorContainerEditProfile,
+} from './styled';
 
 const TextInput = ({
   placeholder,
@@ -42,6 +48,7 @@ const TextInput = ({
     left={left}
   >
     <Label
+      htmlFor={label}
       background={background}
       borderRadius={borderRadius}
       topIcon={topIcon}
@@ -70,7 +77,9 @@ const TextInput = ({
       />
       <Icon className="icon-input" />
     </Label>
-    {error && touched && <ErrorContainer>{error}</ErrorContainer>}
+    {error && touched && (
+      <ErrorContainerEditProfile>{error}</ErrorContainerEditProfile>
+    )}
   </Container>
 );
 
