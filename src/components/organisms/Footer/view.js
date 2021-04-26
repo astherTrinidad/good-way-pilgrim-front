@@ -14,12 +14,20 @@ import {
 function Footer() {
   return (
     <FooterContainer>
-      <LogoIcon to="/" />
+      <LogoIcon to="/meProfile" />
       <SocialIcons>
-        <SocialIconLink href="/" target="_blank" aria-label="Instagram">
+        <SocialIconLink
+          href="https://www.instagram.com/goodwaypilgrim/"
+          target="_blank"
+          aria-label="Instagram"
+        >
           <FaInstagram />
         </SocialIconLink>
-        <SocialIconLink href="/" target="_blank" aria-label="Twitter">
+        <SocialIconLink
+          href="https://twitter.com/way_pilgrim"
+          target="_blank"
+          aria-label="Twitter"
+        >
           <FaTwitter />
         </SocialIconLink>
       </SocialIcons>

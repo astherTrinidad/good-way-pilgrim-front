@@ -26,6 +26,7 @@ export const Container = styled.div`
 export const Section = styled.h1`
   font-size: 1.5em;
   margin-bottom: 2rem;
+  color: ${colors.darkGrey};
 `;
 /* COLUMN LEFT */
 
