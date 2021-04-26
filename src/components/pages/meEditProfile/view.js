@@ -6,6 +6,7 @@ import { BrowserRouter as Router, useHistory } from 'react-router-dom';
 import { TextInputEditForm } from '../../atoms';
 import { Navbar, Footer } from '../../organisms';
 import { validatePassword } from '../../../utils';
+import appRoutes from '../../../config/appRoutes';
 
 import GlobalStyle from '../../../globalStyles';
 import dropMeEditProfile from '../../../assets/images/gota-show-profile.png';
@@ -123,7 +124,7 @@ export default function MeEditProfile() {
             toast.info(
               'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
             );
-            history.replace('../login');
+            history.replace(appRoutes.login);
           }
           if (respuesta.message == 'Password is wrong') {
             toast.error('Contraseña incorrecta');
@@ -145,7 +146,7 @@ export default function MeEditProfile() {
       var respuesta = await apiDeleteProfile();
       toast.success('¡Esperamos volver a verte pronto peregrino!');
       sessionStorage.removeItem('token');
-      history.replace('./login');
+      history.replace(appRoutes.login);
     } catch (e) {
       console.log('en catch');
       setIsFetchingUser(false);

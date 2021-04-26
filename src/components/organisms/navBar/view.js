@@ -14,9 +14,8 @@ import {
   ConchaIcon,
   NavItemBtn,
   NavBtnLink,
-  DropdownPerfil,
-  DropdownNavLinks,
 } from './styled';
+import appRoutes from '../../../config/appRoutes';
 
 const Navbar = () => {
   //Hook: valor inicial, función que actualizará el valor = inicializamos estado
@@ -26,11 +25,11 @@ const Navbar = () => {
   const handleClick = () => setClick(!click);
 
   const closeSession = async e => {
-     e.preventDefault();
+    e.preventDefault();
     sessionStorage.removeItem('token');
     window.location.reload();
-  }
-  
+  };
+
   const showButton = () => {
     if (window.innerWidth <= 960) {
       setButton(false);
@@ -49,22 +48,22 @@ const Navbar = () => {
     <IconContext.Provider value={{ color: '#ffff' }}>
       <Nav>
         <NavbarContainer>
-          <NavLogo to="/meProfile" />
+          <NavLogo to={appRoutes.meProfile} />
           <MobileIcon onClick={handleClick}>
             {click ? <FaTimes /> : <FaBars />}
           </MobileIcon>
           <NavMenu onClick={handleClick} click={click}>
             <NavItem>
-              <NavLinks to="/meProfile">Mi perfil</NavLinks>
+              <NavLinks to={appRoutes.meProfile}>Mi perfil</NavLinks>
             </NavItem>
             <NavItem>
               <SubNavItem>
-                <NavLinks to="/meEditProfile">Editar perfil</NavLinks>
+                <NavLinks to={appRoutes.meEditProfile}>Editar perfil</NavLinks>
               </SubNavItem>
             </NavItem>
             <NavItem>
               <SubNavItem>
-                <NavLinks to="/showUsers">Buscar usuarios</NavLinks>
+                <NavLinks to={appRoutes.userProfile}>Buscar usuarios</NavLinks>
               </SubNavItem>
             </NavItem>
             <ConchaIcon />
@@ -81,11 +80,13 @@ const Navbar = () => {
             </NavItem>
             <NavItemBtn>
               {button ? (
-                <NavBtnLink  to="/login">
-                  <Button onClick={closeSession} primary>Cerrar sesión</Button>
+                <NavBtnLink to={appRoutes.login}>
+                  <Button onClick={closeSession} primary>
+                    Cerrar sesión
+                  </Button>
                 </NavBtnLink>
               ) : (
-                <NavBtnLink  to="/login">
+                <NavBtnLink to={appRoutes.login}>
                   <Button onClick={closeSession} fontBig primary>
                     Cerrar sesión
                   </Button>

@@ -10,11 +10,12 @@ import {
   SocialIcons,
   SocialIconLink,
 } from './styled';
+import appRoutes from '../../../config/appRoutes';
 
 function Footer() {
   return (
     <FooterContainer>
-      <LogoIcon to="/meProfile" />
+      <LogoIcon to={appRoutes.meProfile} />
       <SocialIcons>
         <SocialIconLink
           href="https://www.instagram.com/goodwaypilgrim/"

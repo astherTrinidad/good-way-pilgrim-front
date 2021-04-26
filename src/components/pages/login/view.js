@@ -9,6 +9,7 @@ import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
 import 'react-toastify/dist/ReactToastify.css';
 import url from '../../../config/url';
+import appRoutes from '../../../config/appRoutes';
 
 export default function Login() {
   const history = useHistory();
@@ -41,7 +42,7 @@ export default function Login() {
 
     if (!data.password) newErrors.password = 'Campo obligatorio';
     else if (!validatePassword(data.password))
-      newErrors.password = 'Contraseña incorrecta';
+      newErrors.password = 'Mínimo 8 caracteres, minúsuculas y mayúsculas';
 
     setErrors(newErrors);
   }, [data]);
@@ -75,7 +76,7 @@ export default function Login() {
         if (datos.message == 'success') {
           sessionStorage.setItem('token', datos.token);
           toast.success('¡Bienvenido/a!');
-          history.replace('../meProfile');
+          history.replace(appRoutes.meProfile);
         }
         setIsfetching(false);
       } catch (e) {

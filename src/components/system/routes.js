@@ -6,10 +6,10 @@ import {
   Route,
 } from 'react-router-dom';
 
-//import routes from '../../config/routes'
+import appRoutes from '../../config/appRoutes';
 import Login from '../pages/login/index';
 import Register from '../pages/register/index';
-import ShowProfile from '../pages/showProfile/index';
+import UserProfile from '../pages/userProfile/index';
 import MeProfile from '../pages/meProfile/index';
 import MeEditProfile from '../pages/meEditProfile/index';
 import FrequentQuestion from '../pages/frequentQuestion/index';
@@ -17,39 +17,30 @@ import PrivacyConsumers from '../pages/privacyConsumers/index';
 
 import useToken from './useToken';
 
-/**
- * Dentro de setToken, guardamos el userToken como argumento para almacenarlo en la sesión
- * 'token'-> clave /cadena->2º argumento
- * convertimos userToken de un objeto a un objeto JSON
- */
-//  function setToken(userToken) {
-//     sessionStorage.setItem('token', JSON.stringify(userToken));
-// }
-
 function Routes() {
   return (
     <div>
       <Router>
         <Switch>
-          <PublicRoute path="/login">
+          <PublicRoute path={appRoutes.login}>
             <Login />
           </PublicRoute>
-          <PublicRoute path="/register">
+          <PublicRoute path={appRoutes.register}>
             <Register />
           </PublicRoute>
-          <PrivateRoute path="/meProfile">
+          <PrivateRoute path={appRoutes.meProfile}>
             <MeProfile />
           </PrivateRoute>
-          <PrivateRoute path="/meEditProfile">
+          <PrivateRoute path={appRoutes.meEditProfile}>
             <MeEditProfile />
           </PrivateRoute>
-          <PrivateRoute path="/showProfile">
-            <ShowProfile />
+          <PrivateRoute path={appRoutes.userProfile}>
+            <UserProfile />
           </PrivateRoute>
-          <PrivateRoute path="/frequent-question">
+          <PrivateRoute path={appRoutes.frequentQuestion}>
             <FrequentQuestion />
           </PrivateRoute>
-          <PrivateRoute path="/privacy-consumers">
+          <PrivateRoute path={appRoutes.privacyConsumers}>
             <PrivacyConsumers />
           </PrivateRoute>
         </Switch>
@@ -71,7 +62,7 @@ const PrivateRoute = ({ children, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: appRoutes.login,
               state: { from: location },
             }}
           />
@@ -82,9 +73,7 @@ const PrivateRoute = ({ children, ...rest }) => {
 };
 
 const PublicRoute = ({ children, ...rest }) => {
-  //Establecemos valores de retorno para token y setToken
   const { token } = useToken();
-
   return (
     <Route
       {...rest}
@@ -94,7 +83,7 @@ const PublicRoute = ({ children, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: '/showProfile',
+              pathname: appRoutes.meProfile,
               state: { from: location },
             }}
           />

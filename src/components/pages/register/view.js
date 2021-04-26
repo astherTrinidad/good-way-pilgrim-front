@@ -8,6 +8,7 @@ import { validateEmail, validatePassword } from '../../../utils';
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
 import url from '../../../config/url';
+import appRoutes from '../../../config/appRoutes';
 
 export default function Register() {
   const history = useHistory();
@@ -93,7 +94,7 @@ export default function Register() {
         datos = JSON.parse(datos);
         if (datos.message == undefined) {
           toast.success('¡Bienvenido/a! Introduce tus datos para entrar');
-          history.replace('/login');
+          history.replace(appRoutes.login);
         }
       } catch (e) {
         setIsfetching(false);

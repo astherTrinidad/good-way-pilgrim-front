@@ -81,7 +81,7 @@ export const NameProfile = styled.p`
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
   font-size: 1.5rem;
-  color: ${colors.mediumGrey};
+  color: ${colors.darkGrey};
   padding-top: 1em;
 `;
 
@@ -89,7 +89,7 @@ export const SurnameProfile = styled.p`
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
   font-size: 1.5rem;
-  color: ${colors.mediumGrey};
+  color: ${colors.darkGrey};
   padding: 1.5rem 0.5rem;
 `;
 

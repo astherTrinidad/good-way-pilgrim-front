@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GlobalStyle from '../../../globalStyles';
+import appRoutes from '../../../config/appRoutes';
 import {
   BrowserRouter as Router,
   useLocation,
@@ -35,7 +36,7 @@ export default function MeProfile() {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );
-          history.replace('../login');
+          history.replace(appRoutes.login);
         }
       } catch {
         toast.error(

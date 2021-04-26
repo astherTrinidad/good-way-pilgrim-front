@@ -2,8 +2,8 @@ import React from 'react';
 import GlobalStyle from '../../../globalStyles';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Navbar, Footer, InfoSectionOneColumnNoBtn } from '../../organisms';
-import { userProfile } from './Data';
-import  url from '../../../config/url' 
+import { userDataProfile } from './Data';
+import url from '../../../config/url';
 import {
   Header,
   PhotoProfile,
@@ -12,11 +12,10 @@ import {
   ContainerName,
 } from './styled';
 
-export default function ShowProfile() {
-  
-  console.log('Llamando...') 
+export default function UserProfile() {
+  console.log('Llamando...');
   const respuesta = getAPIProfile(localStorage.getItem('id'));
-  console.log(respuesta)
+  console.log(respuesta);
   return (
     <Router>
       <GlobalStyle />
@@ -31,14 +30,14 @@ export default function ShowProfile() {
       <Footer />
     </Router>
   );
-};
+}
 
 async function getAPIProfile(id) {
-  return fetch( `${url.base}${url.userProfile}?id=5`, {
+  return fetch(`${url.base}${url.userProfile}?id=5`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-    }, 
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
   }).then(data => data.json());
 }
