@@ -22,9 +22,7 @@
     * Para encadenar el token con la aplicación usamos ?. ya que si nunca ha accedido aparecerá como "undefined"
     */
    const getToken = () => {
-     const tokenString = sessionStorage.getItem('token');
-     const userToken = JSON.parse(tokenString);
-     return userToken?.token;
+     return sessionStorage.getItem('token');
    };
  
    /**
@@ -42,7 +40,7 @@
    const saveToken = userToken => {
     console.log('****Save token*** ',userToken)
 
-     sessionStorage.setItem('token', JSON.stringify(userToken));
+     sessionStorage.setItem('token', userToken.token);
      setToken(userToken.token);
    };
    /**

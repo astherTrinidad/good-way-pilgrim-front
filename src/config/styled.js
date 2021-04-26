@@ -1,11 +1,11 @@
 /* eslint-disable max-len */
 
-import { createGlobalStyle } from 'styled-components'
-import colors from '../assets/colors'
+import { createGlobalStyle } from 'styled-components';
+import colors from '../assets/colors';
 
 export const GlobalStyle = createGlobalStyle`
   body {
-    background-color: rgba(244, 245, 247, 1);
+    background-color: ${colors.white};
     padding:0;
     margin:0;
     font-family: 'Poppins', sans-serif;
@@ -23,8 +23,8 @@ input,label,select,button,textarea{margin:0;border:0;padding:0;display:inline-bl
     -webkit-appearance: none;
     margin: 0;
   }
-`
+`;
 
 export const theme = {
   colors,
-}
+};

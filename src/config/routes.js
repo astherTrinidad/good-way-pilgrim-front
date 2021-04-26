@@ -1,7 +1,8 @@
 const routes = {
-    login: '/login',
-    register: '/register',
-    dashboard: '/dashboard',
-}
+  login: '/login',
+  register: '/register',
+  showProfile: '/showProfile/index',
+  meEditProfile: '/meEditProfile/index',
+};
 
-export default routes
+export default routes;

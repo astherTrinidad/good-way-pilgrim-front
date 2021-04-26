@@ -1,12 +1,11 @@
-import styled from 'styled-components'
-import colors from '../../../assets/colors'
+import styled from 'styled-components';
+import colors from '../../../assets/colors';
 
 export const Container = styled.button`
   align-items: center;
-  background-color: ${colors.primary};
+  background-color: ${colors.mustard};
   border-radius: 8px;
-  box-shadow: 
-  0px 0px 5px 0px ${colors.black}; 
+  box-shadow: 0px 0px 5px 0px ${colors.black};
   color: ${colors.white};
   font-style: normal;
   font-weight: 500;
@@ -19,15 +18,14 @@ export const Container = styled.button`
   padding: 15px 20px;
 
   &:hover {
-    background: ${colors.secondary};
+    background: ${colors.turquoise};
     color: ${colors.white};
     cursor: pointer;
-    box-shadow: 
-    inset 0px 11px 8px -10px ${colors.black};
-    }
+    box-shadow: inset 0px 11px 8px -10px ${colors.black};
+  }
 
   .MuiCircularProgress-root {
     color: ${colors.white};
     margin-left: 10px;
   }
-`
+`;
