@@ -12,12 +12,12 @@ export const Header = styled.div`
   justify-content: center;
   margin-top: -120px;
 
-  @media screen and (max-width:960px){
+  @media screen and (max-width: 960px) {
     background: url(${bgHeaderShowProfileMobile});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position-y:60px;
-  height: 300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 60px;
+    height: 300px;
   }
 `;
 
@@ -47,7 +47,7 @@ export const NameProfile = styled.p`
   font-weight: bold;
   font-size: 1.5rem;
   color: ${colors.darkGrey};
-  padding: 1.5rem 0.5rem;
+  padding: 1.5rem 0rem 0 0.5rem;
 `;
 
 export const SurnameProfile = styled.p`

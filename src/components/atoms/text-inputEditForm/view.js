@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, Label, ErrorContainer, Container } from './styled';
+import { Input, Label, Container, ErrorContainerEditProfile } from './styled';
 
-const TextInput = ({
+const TextInputEditForm = ({
   placeholder,
   placeholderColor,
   topIcon,
@@ -71,11 +71,13 @@ const TextInput = ({
       />
       <Icon className="icon-input" />
     </Label>
-    {error && touched && <ErrorContainer>{error}</ErrorContainer>}
+    {error && touched && (
+      <ErrorContainerEditProfile>{error}</ErrorContainerEditProfile>
+    )}
   </Container>
 );
 
-TextInput.propTypes = {
+TextInputEditForm.propTypes = {
   placeholder: PropTypes.string,
   placeholderColor: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -107,7 +109,7 @@ TextInput.propTypes = {
   disabled: PropTypes.bool,
 };
 
-TextInput.defaultProps = {
+TextInputEditForm.defaultProps = {
   placeholder: '',
   placeholderColor: '',
   value: undefined,
@@ -139,4 +141,4 @@ TextInput.defaultProps = {
   disabled: false,
 };
 
-export default TextInput;
+export default TextInputEditForm;

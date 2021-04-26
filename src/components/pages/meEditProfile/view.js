@@ -3,9 +3,9 @@ import isEmpty from 'lodash/isEmpty';
 import some from 'lodash/some';
 import { toast } from 'react-toastify';
 import { BrowserRouter as Router, useHistory } from 'react-router-dom';
-import { TextInput } from '../../atoms';
+import { TextInputEditForm } from '../../atoms';
 import { Navbar, Footer } from '../../organisms';
-import { validateEmail, validatePassword } from '../../../utils';
+import { validatePassword } from '../../../utils';
 
 import GlobalStyle from '../../../globalStyles';
 import dropMeEditProfile from '../../../assets/images/gota-show-profile.png';
@@ -32,6 +32,52 @@ export default function MeEditProfile() {
   const [userData, setUserData] = useState({});
   const [isFetchingUser, setIsFetchingUser] = useState(false);
 
+  const [touched, setTouched] = useState({
+    name: false,
+    surname: false,
+    email: false,
+    password: false,
+    passwordConfirm: false,
+  });
+
+  const [errors, setErrors] = useState({
+    name: '',
+    surname: '',
+    email: '',
+    oldPassword: '',
+    newPassword: '',
+    passwordConfirm: '',
+  });
+
+  const validate = useCallback(() => {
+    console.log('en validate');
+    const newErrors = {
+      name: '',
+      surname: '',
+      newPassword: '',
+      passwordConfirm: '',
+    };
+
+    if (!userData.name) newErrors.name = 'Campo obligatorio';
+
+    if (!userData.surname) newErrors.surname = 'Campo obligatorio';
+
+    if (!userData.newPassword) newErrors.newPassword = 'Campo obligatorio';
+    else if (!validatePassword(userData.newPassword))
+      newErrors.password = 'Mínimo 8 caracteres, minúsuculas y mayúsculas';
+
+    if (!userData.passwordConfirm)
+      newErrors.passwordConfirm = 'Campo obligatorio';
+    else if (userData.newPassword !== userData.passwordConfirm)
+      newErrors.passwordConfirm = 'La contraseña no coincide';
+
+    setErrors(newErrors);
+  }, [userData]);
+
+  // useEffect(() => {
+  //   validate();
+  // }, [userData, validate]);
+
   useEffect(() => {
     async function fetchProfile() {
       try {
@@ -56,6 +102,13 @@ export default function MeEditProfile() {
     setUserData({
       ...userData,
       [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleBlur = event => {
+    setTouched({
+      ...touched,
+      [event.target.name]: true,
     });
   };
 
@@ -123,78 +176,74 @@ export default function MeEditProfile() {
               <FormEdit>
                 <form onSubmit={handleSubmit}>
                   <Row>
-                    <TextInput
+                    <TextInputEditForm
                       label="Nombre"
                       name="name"
                       placeholder="Nombre"
                       type="text"
                       value={userData?.name}
-                      // touched={touched.name}
-                      //error={errors.name}
+                      touched={touched.name}
+                      error={errors.name}
                       onChange={handleChange}
-                      // onBlur={handleBlur}
+                      onBlur={handleBlur}
                     />
-                    <TextInput
+                    <TextInputEditForm
                       label="Apellidos"
                       placeholder="Apellidos"
                       name="surname"
                       type="text"
                       value={userData?.surname}
-                      // touched={touched.surname}
-                      //error={errors.surname}
+                      touched={touched.surname}
+                      error={errors.surname}
                       onChange={handleChange}
-                      // onBlur={handleBlur}
+                      onBlur={handleBlur}
                     />
                   </Row>
                   <Row>
-                    <TextInput
+                    <TextInputEditForm
                       label="Email"
                       placeholder="Email"
                       name="email"
                       type="email"
                       value={userData?.email}
-                      // touched={touched.email}
-                      // error={errors.email}
-                      // onChange={handleChange}
-                      // onBlur={handleBlur}
                       disabled={true}
                     />
                   </Row>
                   <Row>
-                    <TextInput
+                    <TextInputEditForm
                       label="Contraseña actual"
                       placeholder=""
                       name="oldPassword"
                       type="password"
                       value={userData?.oldPassword}
-                      // touched={touched.currentPassword}
-                      // error={errors.currentPassword}
+                      touched={touched.oldPassword}
+                      error={errors.oldPassword}
                       onChange={handleChange}
-                      // onBlur={handleBlur}
+                      onBlur={handleBlur}
                     />
                   </Row>
                   <Row>
-                    <TextInput
+                    <TextInputEditForm
                       label="Nueva contraseña"
                       placeholder=""
                       name="newPassword"
                       type="password"
                       value={userData?.newPassword}
-                      // touched={touched.nuevaPassword}
-                      // error={errors.nuevaPassword}
+                      touched={touched.newPassword}
+                      error={errors.newPassword}
                       onChange={handleChange}
-                      // onBlur={handleBlur}
+                      onBlur={handleBlur}
                     />
-                    <TextInput
+                    <TextInputEditForm
                       label="Confirme contraseña"
                       placeholder=""
                       name="passwordConfirm"
                       type="password"
                       value={userData?.passwordConfirm}
-                      // touched={touched.passwordConfirm}
-                      // error={errors.passwordConfirm}
+                      touched={touched.passwordConfirm}
+                      error={errors.passwordConfirm}
                       onChange={handleChange}
-                      // onBlur={handleBlur}
+                      onBlur={handleBlur}
                     />
                   </Row>
                   <RowButton>
@@ -205,7 +254,7 @@ export default function MeEditProfile() {
                       type="button"
                       onClick={deleteUser}
                     >
-                      ELiminar Cuenta
+                      Eliminar Cuenta
                     </ButtonDelete>
                     <ButtonSave
                       label="Enviar"

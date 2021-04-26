@@ -56,12 +56,11 @@ export default function Register() {
 
     if (!data.password) newErrors.password = 'Campo obligatorio';
     else if (!validatePassword(data.password))
-      newErrors.password =
-        'Debe contener 8 caracteres, minúsuculas y mayúsculas';
+      newErrors.password = 'Mínimo 8 caracteres, minúsuculas y mayúsculas';
 
     if (!data.passwordConfirm) newErrors.passwordConfirm = 'Campo obligatorio';
     else if (data.password !== data.passwordConfirm)
-      newErrors.passwordConfirm = 'Contraseña no coincide';
+      newErrors.passwordConfirm = 'La contraseña no coincide';
 
     setErrors(newErrors);
   }, [data]);
@@ -91,11 +90,10 @@ export default function Register() {
       try {
         setIsfetching(true);
         var datos = await apiRegister(data);
-        datos = JSON.parse(datos)
+        datos = JSON.parse(datos);
         if (datos.message == undefined) {
-          toast.success('¡Bienvenido/a! Introduce tus datos para entrar')
-          sessionStorage.setItemlogin('user', datos)
-          history.replace('/');
+          toast.success('¡Bienvenido/a! Introduce tus datos para entrar');
+          history.replace('/login');
         }
       } catch (e) {
         setIsfetching(false);
@@ -175,22 +173,21 @@ export default function Register() {
 }
 
 async function apiRegister(dataUser) {
-    let response = await fetch(`${url.base}${url.register}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataUser),
-    })
-  
-    if (!response.ok) {
-      if (response.status == 401) {
-        toast.error("Contraseña no válida")
-      }
-      if (response.status == 422) {
-        toast.error("La cuenta ya existe. Por favor haz login")
-      }
+  let response = await fetch(`${url.base}${url.register}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(dataUser),
+  });
+  if (!response.ok) {
+    if (response.status == 401) {
+      toast.error('Contraseña no válida');
     }
-    let content = await response.text();
-    return content;
+    if (response.status == 422) {
+      toast.error('La cuenta ya existe. Por favor haz login');
+    }
   }
+  let content = await response.text();
+  return content;
+}
