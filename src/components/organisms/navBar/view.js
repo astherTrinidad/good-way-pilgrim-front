@@ -14,6 +14,8 @@ import {
   ConchaIcon,
   NavItemBtn,
   NavBtnLink,
+  DropdownPerfil,
+  DropdownNavLinks,
 } from './styled';
 
 const Navbar = () => {
@@ -47,7 +49,7 @@ const Navbar = () => {
     <IconContext.Provider value={{ color: '#ffff' }}>
       <Nav>
         <NavbarContainer>
-          <NavLogo to="/editProfile" />
+          <NavLogo to="/meProfile" />
           <MobileIcon onClick={handleClick}>
             {click ? <FaTimes /> : <FaBars />}
           </MobileIcon>
@@ -57,7 +59,7 @@ const Navbar = () => {
             </NavItem>
             <NavItem>
               <SubNavItem>
-                <NavLinks to="/editProfile">Editar perfil</NavLinks>
+                <NavLinks to="/meEditProfile">Editar perfil</NavLinks>
               </SubNavItem>
             </NavItem>
             <NavItem>
@@ -79,11 +81,11 @@ const Navbar = () => {
             </NavItem>
             <NavItemBtn>
               {button ? (
-                <NavBtnLink >
+                <NavBtnLink  to="/login">
                   <Button onClick={closeSession} primary>Cerrar sesión</Button>
                 </NavBtnLink>
               ) : (
-                <NavBtnLink >
+                <NavBtnLink  to="/login">
                   <Button onClick={closeSession} fontBig primary>
                     Cerrar sesión
                   </Button>
