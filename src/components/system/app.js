@@ -12,7 +12,7 @@ import Routes from './routes';
 const App = () => (
   <>
     <ToastContainer
-      autoClose={3000}
+      autoClose={5000}
       hideProgressBar={false}
       bodyClassName="grow-font-size"
       draggable

@@ -1,7 +1,8 @@
  const url = {
-  base: process.env.REACT_APP_BASE_URL,
+  base: 'http://localhost:8000',
   meProfile: '/pri/showProfile',
   meEditProfile: '/pri/editProfile',
+  meDeleteProfile: '/pri/deleteProfile',
   userProfile: '/pri/showOtherProfile',
   register: '/pub/register',
   login: '/pub/login'

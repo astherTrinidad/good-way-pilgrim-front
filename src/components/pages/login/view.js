@@ -8,36 +8,7 @@ import { validateEmail, validatePassword } from '../../../utils';
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
 import 'react-toastify/dist/ReactToastify.css';
-<<<<<<< HEAD
-
-/*async function loginUser(credentials) {
-  return fetch('http://localhost:8000/pub/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  })
-}*/
-async function loginUser(credentials) {
-  let response = await fetch('http://localhost:8000/pub/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(credentials),
-  })
-
-  if (response.status == 401) {
-    toast.error("Usuario o contraseña incorrectos")
-  }
-  let content = await response.text();
-
-  return content;
-}
-=======
 import url from '../../../config/url';
->>>>>>> b779843188aaa8ad3aeb09746e036f88d8b40a31
 
 
 export default function Login() {
@@ -103,20 +74,14 @@ export default function Login() {
     if (!invalidForm) {
       try {
         setIsfetching(true);
-<<<<<<< HEAD
-        var datos = await loginUser(data);
-        datos = JSON.parse(datos)
-        if (datos.message == "success") {
-          sessionStorage.setItem('token', datos.token)
-=======
         var datos = await apiLoginUser(data);
         datos = JSON.parse(datos)
         if (datos.message == "success") {
           sessionStorage.setItem('token', datos.token)
           toast.success("¡Bienvenido/a!")
->>>>>>> b779843188aaa8ad3aeb09746e036f88d8b40a31
           history.replace('../meProfile');
         }
+        
 
       } catch (e) {
         toast.error("Error del servidor. Inténtelo más tarde")

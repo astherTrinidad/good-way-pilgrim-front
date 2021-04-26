@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import some from 'lodash/some';
 import { toast } from 'react-toastify';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, useHistory } from 'react-router-dom'; 
 import { TextInput } from '../../atoms/';
 import { validateEmail, validatePassword } from '../../../utils';
 import {
@@ -20,6 +20,7 @@ import { editUserProfile } from './Data';
 import url from '../../../config/url';
 
 export default function EditProfile() {
+  const history = useHistory();
   const [userData, setUserData] = useState({});
   const [isFetchingUser, setIsFetchingUser] = useState(false);
 
@@ -33,7 +34,7 @@ export default function EditProfile() {
         delete response.picture
         setUserData(response);
       } catch {
-        toast.error('Error');
+        toast.error('Error del servidor. Por favor, cierra sesión y vuelve a entrar');
       } finally {
         setIsFetchingUser(false);
       }
@@ -47,18 +48,28 @@ export default function EditProfile() {
       [event.target.name]: event.target.value,
     });
   };
-  
+
   const handleSubmit = async event => {
     event.preventDefault();
-      try {
-        setIsFetchingUser(true);
-        const respuesta = await apiEditProfile(userData);
-        toast.success('¡Datos actualizados');
-      } catch (e) {
-        setIsFetchingUser(false);
-        toast.error('Error. Inténtelo de nuevo');
+    try {
+      setIsFetchingUser(true);
+      var respuesta = await apiEditProfile(userData);
+      if (respuesta.message == undefined) {
+        toast.success('¡Datos actualizados!');
+      } else {
+        if (respuesta.message == "Expired token") {
+          toast.info('Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos')
+          history.replace('../login')
+        }
+        if (respuesta.message == "Password is wrong") {
+          toast.error('Contraseña incorrecta')
+        }
       }
+    } catch (e) {
+      setIsFetchingUser(false);
+      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
     }
+  }
 
   return (
     <Router>
@@ -77,17 +88,17 @@ export default function EditProfile() {
               // touched={touched.name}
               // error={errors.name}
               onChange={handleChange}
-              // onBlur={handleBlur}
+            // onBlur={handleBlur}
             />
             <TextInput
               placeholder="Apellidos"
               name="surname"
               type="text"
               value={userData?.surname}
-              // touched={touched.surname}
-              // error={errors.surname}
-              // onChange={handleChange}
-              // onBlur={handleBlur}
+            // touched={touched.surname}
+            // error={errors.surname}
+            // onChange={handleChange}
+            // onBlur={handleBlur}
             />
 
             <TextInput
@@ -105,38 +116,38 @@ export default function EditProfile() {
               placeholder="Contraseña actual"
               name="oldPassword"
               type="password"
-              //value={data.currentPassword}
+              value={userData?.oldPassword}
               // touched={touched.currentPassword}
               // error={errors.currentPassword}
-              // onChange={handleChange}
-              // onBlur={handleBlur}
+              onChange={handleChange}
+            // onBlur={handleBlur}
             />
             <TextInput
               placeholder="Nueva Contraseña"
               name="newPassword"
               type="password"
-              //value={data.nuevaPassword}
+              value={userData?.newPassword}
               // touched={touched.nuevaPassword}
               // error={errors.nuevaPassword}
-              // onChange={handleChange}
-              // onBlur={handleBlur}
+              onChange={handleChange}
+            // onBlur={handleBlur}
             />
             <TextInput
               placeholder="Confirme su contraseña"
               name="passwordConfirm"
               type="password"
-              //value={data.passwordConfirm}
+              value={userData?.passwordConfirm}
               // touched={touched.passwordConfirm}
               // error={errors.passwordConfirm}
-              // onChange={handleChange}
-              // onBlur={handleBlur}
+              onChange={handleChange}
+            // onBlur={handleBlur}
             />
             <ButtonDelete
               label="Eliminar cuenta"
               name="Eliminar cuenta"
               id="delete"
-              type="submit"
-              //isFetching={isFetching}
+              type="button"
+            //isFetching={isFetching}
             >
               ELiminar Cuenta
             </ButtonDelete>
@@ -144,7 +155,7 @@ export default function EditProfile() {
               label="Enviar"
               id="update"
               type="submit"
-              //isFetching={isFetching}
+            //isFetching={isFetching}
             >
               Guardar
             </ButtonSave>
@@ -166,9 +177,7 @@ async function apiMeProfile() {
     },
   }).then(data => data.json());
 }
-
 async function apiEditProfile(dataUser) {
-  console.log("put dataUser ", dataUser)
   return fetch(`${url.base}${url.meEditProfile}`, {
     method: 'PUT',
     headers: {
@@ -178,3 +187,23 @@ async function apiEditProfile(dataUser) {
     body: JSON.stringify(dataUser),
   }).then(data => data.json());
 }
+async function apiDeleteProfile() {
+  return fetch(`${url.base}${url.meDeleteProfile}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    }
+  }).then(data => data.json());
+}
+/*
+try {
+      setIsFetchingUser(true);
+      var respuesta = await apiDeleteProfile();
+        toast.success('¡Esperamos volver a verte pronto peregrino!');
+        sessionStorage.removeItem('token');
+        history.replace(../login)
+    } catch (e) {
+      setIsFetchingUser(false);
+      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+    }*/
