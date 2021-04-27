@@ -10,12 +10,6 @@ export const Row = styled.div`
     flex-direction: column;
   }
 `;
-
-export const RowButton = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,16 +26,43 @@ export const Section = styled.h1`
 
 export const ColumnImg = styled.div`
   width: 50%;
-
+  display: flex;
+  flex-direction: column;
   @media screen and (max-width: 960px) {
-    display: none;
+    width: 100%;
   }
+`;
+
+export const RowLogros = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 4rem;
 `;
 
 export const Img = styled.img`
   width: 80%;
   height: auto;
 `;
+
+export const Text = styled.p`
+  font-weight: 300;
+  color: ${colors.darkGrey};
+  line-height: 2;
+
+  &:first-of-type,
+  &:last-of-type {
+    margin-top: 2rem;
+  }
+`;
+
+export const Logro = styled.div`
+  height: 100px;
+  width: 100px;
+  background-color: ${colors.lightGrey};
+  border-radius: 50%;
+  margin: 0.5rem;
+`;
+
 /* FINISH COLUMN LEFT */
 
 /* COLUMN RIGHT */
@@ -67,6 +88,10 @@ export const PhotoProfile = styled.div`
   margin-right: auto;
   margin-left: auto;
   border-radius: 50%;
+
+  @media screen and (max-width: 960px) {
+    margin-top: 0;
+  }
 `;
 
 export const ContainerName = styled.div`
@@ -93,12 +118,6 @@ export const SurnameProfile = styled.p`
   padding: 1.5rem 0.5rem;
 `;
 
-export const FormEdit = styled.div`
-  margin: 0 auto;
-  display: block;
-  width: 100%;
-`;
-
 export const RowName = styled.div`
   display: flex;
   flex-direction: row;
@@ -107,62 +126,3 @@ export const RowName = styled.div`
     flex-direction: column;
   }
 `;
-export const ButtonSave = styled.button`
-  background-color: ${colors.turquoise};
-  border-radius: 8px;
-  color: ${colors.white};
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1rem;
-  justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  padding: 1rem 1.5rem;
-  transition: all 0.3s ease-out;
-  margin: 0 1rem;
-
-  width: 50%;
-
-  &:hover {
-    background: ${colors.turquoiseDark};
-    color: ${colors.white};
-    cursor: pointer;
-    box-shadow: inset 0px 11px 8px -10px ${colors.black};
-  }
-
-  @media screen and (max-width: 960px) {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin: 1rem;
-  }
-`;
-
-export const ButtonDelete = styled.button`
-  width: 50%;
-  border-radius: 8px;
-
-  background-color: ${colors.red};
-  color: ${colors.white};
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1rem;
-  justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  margin: 0 1rem;
-  padding: 1rem 1.5rem;
-  transition: all 0.3s ease-out;
-
-  &:hover {
-    background: ${colors.redDark};
-    color: ${colors.white};
-    cursor: pointer;
-    box-shadow: inset 0px 11px 8px -10px ${colors.black};
-  }
-  @media screen and (max-width: 960px) {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin: 1rem;
-  }
-`;
-/* FINISH COLUMN RIGHT */

@@ -10,23 +10,34 @@ import {
   SocialIcons,
   SocialIconLink,
 } from './styled';
+import appRoutes from '../../../config/appRoutes';
 
 function Footer() {
   return (
     <FooterContainer>
-      <LogoIcon to="/" />
+      <LogoIcon to={appRoutes.meProfile} />
       <SocialIcons>
-        <SocialIconLink href="/" target="_blank" aria-label="Instagram">
+        <SocialIconLink
+          href="https://www.instagram.com/goodwaypilgrim/"
+          target="_blank"
+          aria-label="Instagram"
+        >
           <FaInstagram />
         </SocialIconLink>
-        <SocialIconLink href="/" target="_blank" aria-label="Twitter">
+        <SocialIconLink
+          href="https://twitter.com/way_pilgrim"
+          target="_blank"
+          aria-label="Twitter"
+        >
           <FaTwitter />
         </SocialIconLink>
       </SocialIcons>
       <FooterText>
         <FooterLinks>
-          <FooterLink to="/frequent-question">Preguntas Frecuentes</FooterLink>
-          <FooterLink to="/privacy-consumers">
+          <FooterLink to={appRoutes.frequentQuestion}>
+            Preguntas Frecuentes
+          </FooterLink>
+          <FooterLink to={appRoutes.privacyConsumers}>
             Política de Privacidad
           </FooterLink>
         </FooterLinks>

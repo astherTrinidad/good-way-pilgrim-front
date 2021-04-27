@@ -1,4 +1,4 @@
-export const userProfile = {
+export const userDataProfile = {
   primary: true,
   lightBg: true,
   lightTopLine: true,
@@ -6,8 +6,7 @@ export const userProfile = {
   lightTextDesc: true,
   topLine: 'Perfil Usuario',
   headline: '',
-  description:
-    '',
+  description: '',
   buttonLabel: '',
   alt: '',
 };

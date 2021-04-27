@@ -9,6 +9,7 @@ import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
 import 'react-toastify/dist/ReactToastify.css';
 import url from '../../../config/url';
+import appRoutes from '../../../config/appRoutes';
 
 export default function Login() {
   const history = useHistory();
@@ -40,7 +41,8 @@ export default function Login() {
     else if (!validateEmail(data.email)) newErrors.email = 'Email inválido';
 
     if (!data.password) newErrors.password = 'Campo obligatorio';
-    //else if (!validatePassword(data.password)) newErrors.password = 'Contraseña debe tener mínimo 8 caracteres'
+    else if (!validatePassword(data.password))
+      newErrors.password = 'Mínimo 8 caracteres, minúsuculas y mayúsculas';
 
     setErrors(newErrors);
   }, [data]);
@@ -63,26 +65,22 @@ export default function Login() {
     });
   };
 
-  /**
-   * Creamos un controlador de envío de formulario que llamará a loginUser con user y pass
-   */
   const handleSubmit = async e => {
     e.preventDefault();
     const invalidForm = some(errors, error => !isEmpty(error));
     if (!invalidForm) {
-      console.log(data);
       try {
         setIsfetching(true);
         var datos = await apiLoginUser(data);
-        datos = JSON.parse(datos)
-        if (datos.message == "success") {
-          sessionStorage.setItem('token', datos.token)
-          toast.success("¡Bienvenido/a!")
-          history.replace('../meProfile');
+        datos = JSON.parse(datos);
+        if (datos.message === 'success') {
+          sessionStorage.setItem('token', datos.token);
+          toast.success('¡Bienvenido/a!');
+          history.replace(appRoutes.meProfile);
         }
-
+        setIsfetching(false);
       } catch (e) {
-        toast.error("Error del servidor. Inténtelo más tarde")
+        toast.error('Error del servidor. Inténtelo más tarde');
         setIsfetching(false);
       }
     } else {
@@ -125,19 +123,18 @@ export default function Login() {
 }
 
 async function apiLoginUser(credentials) {
-    let response = await fetch(`${url.base}${url.login}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(credentials),
-    })
-  
-    if (response.status == 401) {
-      toast.error("Usuario o contraseña incorrectos")
-    }
-    let content = await response.text();
-  
-    return content;
-  }
+  let response = await fetch(`${url.base}${url.login}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(credentials),
+  });
 
+  if (response.status === 401) {
+    toast.error('Usuario o contraseña incorrectos');
+  }
+  let content = await response.text();
+
+  return content;
+}
