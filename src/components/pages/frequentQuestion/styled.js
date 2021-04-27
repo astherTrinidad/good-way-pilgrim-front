@@ -56,7 +56,6 @@ export const Answer = styled.p`
   font-weight: 300;
   font-size: 1.25em;
   margin-bottom: 2rem;
-  padding-left: 2rem;
   line-height: 1.5;
 
   @media screen and (max-width: 960px) {

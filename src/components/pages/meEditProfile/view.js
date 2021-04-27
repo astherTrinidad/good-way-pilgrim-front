@@ -261,7 +261,7 @@ export default function MeEditProfile() {
                       onClick={deleteUser}
                       isFetchingUser={setIsFetchingUser}
                     >
-                      Eliminar Cuenta
+                      Eliminar cuenta
                     </ButtonDelete>
                     <ButtonSave
                       label="Enviar"

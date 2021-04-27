@@ -63,7 +63,7 @@ const Navbar = () => {
             </NavItem>
             <NavItem>
               <SubNavItem>
-                <NavLinks to={appRoutes.userProfile}>Buscar usuarios</NavLinks>
+                <NavLinks to={appRoutes.userProfile}>Buscar peregrino</NavLinks>
               </SubNavItem>
             </NavItem>
             <ConchaIcon />
