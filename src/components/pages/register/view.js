@@ -8,6 +8,7 @@ import { validateEmail, validatePassword } from '../../../utils';
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
 import url from '../../../config/url';
+import appRoutes from '../../../config/appRoutes';
 
 export default function Register() {
   const history = useHistory();
@@ -56,12 +57,11 @@ export default function Register() {
 
     if (!data.password) newErrors.password = 'Campo obligatorio';
     else if (!validatePassword(data.password))
-      newErrors.password =
-        'Debe contener 8 caracteres, minúsuculas y mayúsculas';
+      newErrors.password = 'Mínimo 8 caracteres, minúsuculas y mayúsculas';
 
     if (!data.passwordConfirm) newErrors.passwordConfirm = 'Campo obligatorio';
     else if (data.password !== data.passwordConfirm)
-      newErrors.passwordConfirm = 'Contraseña no coincide';
+      newErrors.passwordConfirm = 'La contraseña no coincide';
 
     setErrors(newErrors);
   }, [data]);
@@ -91,12 +91,13 @@ export default function Register() {
       try {
         setIsfetching(true);
         var datos = await apiRegister(data);
-        datos = JSON.parse(datos)
-        if (datos.message == undefined) {
-          toast.success('¡Bienvenido/a! Introduce tus datos para entrar')
-          sessionStorage.setItemlogin('user', datos)
-          history.replace('/');
+        datos = JSON.parse(datos);
+        if (datos.message === undefined) {
+          toast.success('¡Bienvenido/a! Introduce tus datos para entrar');
+          history.replace(appRoutes.login);
         }
+        setIsfetching(false);
+        history.replace(appRoutes.login);
       } catch (e) {
         setIsfetching(false);
         toast.error('Error de servidor. Inténtelo más tarde');
@@ -175,22 +176,21 @@ export default function Register() {
 }
 
 async function apiRegister(dataUser) {
-    let response = await fetch(`${url.base}${url.register}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(dataUser),
-    })
-  
-    if (!response.ok) {
-      if (response.status == 401) {
-        toast.error("Contraseña no válida")
-      }
-      if (response.status == 422) {
-        toast.error("La cuenta ya existe. Por favor haz login")
-      }
+  let response = await fetch(`${url.base}${url.register}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(dataUser),
+  });
+  if (!response.ok) {
+    if (response.status === 401) {
+      toast.error('Contraseña no válida');
     }
-    let content = await response.text();
-    return content;
+    if (response.status === 422) {
+      toast.error('La cuenta ya existe. Por favor haz login');
+    }
   }
+  let content = await response.text();
+  return content;
+}

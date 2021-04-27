@@ -68,9 +68,9 @@ export const Container = styled.div`
   }
 `;
 
-export const ErrorContainer = styled.div`
+export const ErrorContainerEditProfile = styled.div`
   font-weight: normal;
-  color: ${colors.white};
+  color: ${colors.red};
   font-size: 11px;
   text-align: right;
   padding: 5px 5px 0;

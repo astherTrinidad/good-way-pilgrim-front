@@ -1,16 +1,15 @@
-import React from 'react';
-import { TextField, Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import { Navbar, Footer } from '../../organisms/';
-import Grid from '@material-ui/core/Grid';
-
+import React, { useState, useEffect, useCallback } from 'react';
+import isEmpty from 'lodash/isEmpty';
+import some from 'lodash/some';
+import { toast } from 'react-toastify';
+import { BrowserRouter as Router, useHistory } from 'react-router-dom';
+import { TextInputEditForm } from '../../atoms';
+import { Navbar, Footer } from '../../organisms';
+import { validatePassword } from '../../../utils';
+import appRoutes from '../../../config/appRoutes';
+import GlobalStyle from '../../../globalStyles';
+import dropMeEditProfile from '../../../assets/images/gota-show-profile.png';
+import url from '../../../config/url';
 import {
   Container,
   ColumnImg,
@@ -25,58 +24,142 @@ import {
   FormEdit,
   ButtonDelete,
   ButtonSave,
+  RowButton,
 } from './styled';
-import { TextInput } from '../../atoms';
-import GlobalStyle from '../../../globalStyles';
-import dropMeEditProfile from '../../../assets/images/gota-show-profile.png';
-import { pink } from '@material-ui/core/colors';
-//{userData?.surname}
-//{userData?.newPassword}
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    fontSize: '1em',
-  },
-  form: {
-    marginTop: theme.spacing(3),
-  },
-  typography: {
-    fontFamily: 'Poppins',
-    fontSize: '1em',
-  },
-  outlinedInput: {
-    fontSize: '1em',
-    color: '#545454',
-  },
-  textField: {
-    width: '100',
-    color: '#545454',
-  },
-}));
+export default function MeEditProfile() {
+  const history = useHistory();
+  const [userData, setUserData] = useState({});
+  const [isFetchingUser, setIsFetchingUser] = useState(false);
 
-const MeEditProfile = () => {
-  const classes = useStyles();
-  const [values, setValues] = React.useState({
-    password: '',
-    showPassword: false,
+  const [touched, setTouched] = useState({
+    name: false,
+    surname: false,
+    email: false,
+    password: false,
+    passwordConfirm: false,
   });
 
-  const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
+  const [errors, setErrors] = useState({
+    name: '',
+    surname: '',
+    email: '',
+    oldPassword: '',
+    newPassword: '',
+    passwordConfirm: '',
+  });
+
+  const validate = useCallback(() => {
+    console.log('en validate');
+    const newErrors = {
+      name: '',
+      surname: '',
+      oldPassword: '',
+      newPassword: '',
+      passwordConfirm: '',
+    };
+
+    if (!userData.name) newErrors.name = 'Campo obligatorio';
+
+    if (!userData.surname) newErrors.surname = 'Campo obligatorio';
+
+    if (userData.oldPassword && !userData.newPassword)
+      newErrors.oldPassword =
+        'Introduce una nueva contraseña en el siguiente campo';
+
+    if (!validatePassword(userData.newPassword))
+      newErrors.newPassword = 'Mínimo 8 caracteres, minúsculas y mayúsculas';
+
+    if (userData.newPassword !== userData.passwordConfirm)
+      newErrors.passwordConfirm = 'La contraseña no coincide';
+
+    setErrors(newErrors);
+  }, [userData]);
+
+  useEffect(() => {
+    validate();
+  }, [userData, validate]);
+
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        setIsFetchingUser(true);
+        const response = await apiMeProfile();
+        response.oldPassword = '';
+        response.newPassword = '';
+        delete response.picture;
+        setUserData(response);
+      } catch {
+        toast.error(
+          'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+        );
+      } finally {
+        setIsFetchingUser(false);
+      }
+    }
+    fetchProfile();
+  }, []);
+
+  const handleChange = event => {
+    setUserData({
+      ...userData,
+      [event.target.name]: event.target.value,
+    });
   };
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+  const handleBlur = event => {
+    setTouched({
+      ...touched,
+      [event.target.name]: true,
+    });
   };
 
-  const handleMouseDownPassword = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
+    const invalidForm = some(errors, error => !isEmpty(error));
+    if (!invalidForm) {
+      try {
+        setIsFetchingUser(true);
+        var respuesta = await apiEditProfile(userData);
+        if (respuesta.message === undefined) {
+          toast.success('¡Datos actualizados!');
+        } else {
+          if (respuesta.message === 'Expired token') {
+            toast.info(
+              'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+            );
+            history.replace(appRoutes.login);
+          }
+          if (respuesta.message === 'Password is wrong') {
+            toast.error('Contraseña incorrecta');
+          }
+        }
+      } catch (e) {
+        setIsFetchingUser(false);
+        toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+      }
+    }
+  };
+
+  const deleteUser = async event => {
+    console.log('en delete');
+    event.preventDefault();
+    try {
+      console.log('en try');
+      setIsFetchingUser(true);
+      var respuesta = await apiDeleteProfile();
+      toast.success('¡Esperamos volver a verte pronto peregrino!');
+      sessionStorage.removeItem('token');
+      history.replace(appRoutes.login);
+    } catch (e) {
+      console.log('en catch');
+      setIsFetchingUser(false);
+      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+    }
   };
 
   return (
-    <div>
+    <Router>
       <GlobalStyle />
       <Navbar />
       <Container>
@@ -92,161 +175,140 @@ const MeEditProfile = () => {
               <PhotoProfile />
             </Row>
             <ContainerName>
-              <NameProfile>Nombre</NameProfile>
-              <SurnameProfile>Apellidos</SurnameProfile>
+              <NameProfile>{userData?.name}</NameProfile>
+              <SurnameProfile>{userData?.surname}</SurnameProfile>
             </ContainerName>
             <Row>
               <FormEdit>
-                <Grid>
-                  <Box m={2}>
-                    <TextField
-                      fullWidth
-                      color="primary"
-                      id="name"
+                <form onSubmit={handleSubmit}>
+                  <Row>
+                    <TextInputEditForm
                       label="Nombre"
-                      defaultValue="Nombre" //{userData?.name}
+                      name="name"
+                      placeholder="Nombre"
                       type="text"
-                      variant="outlined"
-                      aria-label="Nombre"
-                      aria-required="true"
-                      autoFocus
-                      // touched={touched.name}
-                      // error={errors.name}
-                      //onChange={handleChange}
-                      // onBlur={handleBlur}
+                      value={userData?.name}
+                      touched={touched.name}
+                      error={errors.name}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                     />
-                  </Box>
-                  <Box m={2}>
-                    <TextField
-                      placeholder="Apellidos"
-                      id="surname"
+                    <TextInputEditForm
                       label="Apellidos"
-                      defaultValue="Apellidos" //{userData?.surname}
+                      placeholder="Apellidos"
+                      name="surname"
                       type="text"
-                      variant="outlined"
-                      fullWidth
-                      // touched={touched.name}
-                      // error={errors.name}
-                      //onChange={handleChange}
-                      // onBlur={handleBlur}
+                      value={userData?.surname}
+                      touched={touched.surname}
+                      error={errors.surname}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                     />
-                  </Box>
-                </Grid>
-
-                <Box m={2}>
-                  <TextField
-                    placeholder="Email"
-                    id="email"
-                    label="Email"
-                    defaultValue="email" //{userData?.email}
-                    type="email"
-                    variant="outlined"
-                    // touched={touched.name}
-                    // error={errors.name}
-                    //onChange={handleChange}
-                    // onBlur={handleBlur}
-                    fullWidth
-                    disabled
-                  />
-                </Box>
-
-                <Box m={2}>
-                  <TextField
-                    id="oldPassword"
-                    placeholder="Contraseña actual"
-                    name="oldPassword"
-                    type="password"
-                    variant="outlined"
-                    label="Contraseña actual"
-                    defaultValue="" //{userData?.email}
-                    //value={userData?.oldPassword}
-                    // touched={touched.currentPassword}
-                    // error={errors.currentPassword}
-                    //onChange={handleChange}
-                    // onBlur={handleBlur}
-                    fullWidth
-                  />
-                </Box>
-                <FormControl variant="outlined">
-                  <InputLabel htmlFor="newPassword">
-                    Nueva contraseña
-                  </InputLabel>
-                  <Box>
-                    <OutlinedInput
-                      id="newPassword"
-                      type={values.showPassword ? 'text' : 'password'}
-                      value={values.newPassword}
-                      onChange={handleChange('password')}
-                      className={classes.outlinedInput}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                            edge="end"
-                          >
-                            {values.showPassword ? (
-                              <Visibility />
-                            ) : (
-                              <VisibilityOff />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                      labelWidth={140}
-                      fullWidth
+                  </Row>
+                  <Row>
+                    <TextInputEditForm
+                      label="Email"
+                      placeholder="Email"
+                      name="email"
+                      type="email"
+                      value={userData?.email}
+                      disabled={true}
                     />
-                  </Box>
-                </FormControl>
-
-                {/* <TextInput
-                  placeholder="Nueva Contraseña"
-                  name="newPassword"
-                  type="password"
-                  //value=
-                  // touched={touched.nuevaPassword}
-                  // error={errors.nuevaPassword}
-                  //onChange={handleChange}
-                  // onBlur={handleBlur}
-                /> */}
-                <TextInput
-                  placeholder="Confirme su contraseña"
-                  name="passwordConfirm"
-                  type="password"
-                  //value={data.passwordConfirm}
-                  // touched={touched.passwordConfirm}
-                  // error={errors.passwordConfirm}
-                  //onChange={handleChange}
-                  // onBlur={handleBlur}
-                />
-                <Row>
-                  <ButtonDelete
-                    label="Eliminar cuenta"
-                    name="Eliminar cuenta"
-                    id="delete"
-                    type="submit"
-                    //isFetching={isFetching}
-                  >
-                    ELiminar Cuenta
-                  </ButtonDelete>
-                  <ButtonSave
-                    label="Enviar"
-                    id="update"
-                    type="submit"
-                    //isFetching={isFetching}
-                  >
-                    Guardar
-                  </ButtonSave>
-                </Row>
+                  </Row>
+                  <Row>
+                    <TextInputEditForm
+                      label="Contraseña actual"
+                      placeholder=""
+                      name="oldPassword"
+                      type="password"
+                      value={userData?.oldPassword}
+                      touched={touched.oldPassword}
+                      error={errors.oldPassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </Row>
+                  <Row>
+                    <TextInputEditForm
+                      label="Nueva contraseña"
+                      placeholder=""
+                      name="newPassword"
+                      type="password"
+                      value={userData?.newPassword}
+                      touched={touched.newPassword}
+                      error={errors.newPassword}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    <TextInputEditForm
+                      label="Confirme contraseña"
+                      placeholder=""
+                      name="passwordConfirm"
+                      type="password"
+                      value={userData?.passwordConfirm}
+                      touched={touched.passwordConfirm}
+                      error={errors.passwordConfirm}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </Row>
+                  <RowButton>
+                    <ButtonDelete
+                      label="Eliminar cuenta"
+                      name="Eliminar cuenta"
+                      id="delete"
+                      type="button"
+                      onClick={deleteUser}
+                      isFetchingUser={setIsFetchingUser}
+                    >
+                      Eliminar cuenta
+                    </ButtonDelete>
+                    <ButtonSave
+                      label="Enviar"
+                      id="update"
+                      type="submit"
+                      onSubmit={handleSubmit}
+                      isFetchingUser={setIsFetchingUser}
+                    >
+                      Guardar
+                    </ButtonSave>
+                  </RowButton>
+                </form>
               </FormEdit>
             </Row>
           </ColumnText>
         </Row>
       </Container>
       <Footer />
-    </div>
+    </Router>
   );
-};
+}
 
-export default MeEditProfile;
+async function apiMeProfile() {
+  return fetch(`${url.base}${url.meProfile}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+  }).then(data => data.json());
+}
+async function apiEditProfile(dataUser) {
+  return fetch(`${url.base}${url.meEditProfile}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: JSON.stringify(dataUser),
+  }).then(data => data.json());
+}
+async function apiDeleteProfile() {
+  return fetch(`${url.base}${url.meDeleteProfile}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+  }).then(data => data.json());
+}
