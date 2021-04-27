@@ -55,7 +55,7 @@ export const Text = styled.p`
   }
 `;
 
-export const Logro = styled.div`
+export const Logro = styled.img`
   height: 100px;
   width: 100px;
   background-color: ${colors.lightGrey};
