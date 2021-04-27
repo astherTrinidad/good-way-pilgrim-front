@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GlobalStyle from '../../../globalStyles';
 import appRoutes from '../../../config/appRoutes';
-import {
-  BrowserRouter as Router,
-  useLocation,
-  useHistory,
-} from 'react-router-dom';
+import { BrowserRouter as Router, useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Navbar, Footer, InfoSectionOneColumn } from '../../organisms';
 import { userProfile } from './Data';
@@ -29,10 +25,10 @@ export default function MeProfile() {
       try {
         setIsFetchingUser(true);
         var datos = await apiMeProfile();
-        if (datos.message == undefined) {
+        if (datos.message === undefined) {
           setUserData(datos);
         }
-        if (datos.message == 'Expired token') {
+        if (datos.message === 'Expired token') {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );

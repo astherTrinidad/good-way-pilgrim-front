@@ -2,7 +2,6 @@ import React from 'react';
 import GlobalStyle from '../../../globalStyles';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Navbar, Footer, InfoSectionOneColumnNoBtn } from '../../organisms';
-import { userDataProfile } from './Data';
 import url from '../../../config/url';
 import {
   Header,
@@ -23,17 +22,17 @@ export default function UserProfile() {
       <Header />
       <PhotoProfile />
       <ContainerName>
-        <NameProfile>{localStorage.getItem('name')}</NameProfile>
+        <NameProfile>Nombre</NameProfile> {/* {localStorage.getItem('name')} */}
         <SurnameProfile>Apellidos</SurnameProfile>
       </ContainerName>
-      {/* <InfoSectionOneColumnNoBtn {...userProfile} /> */}
+
       <Footer />
     </Router>
   );
 }
 
 async function getAPIProfile(id) {
-  return fetch(`${url.base}${url.userProfile}?id=5`, {
+  return fetch(`${url.base}${url.userProfile}?id=${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

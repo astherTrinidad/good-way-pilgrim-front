@@ -16,7 +16,7 @@ export const Nav = styled.nav`
   top: 0;
   z-index: 999;
   opacity: 0.9;
-  box-shadow: 2px 2px 4px 1px ${colors.mediumGrey};
+  /* box-shadow: 2px 2px 4px 1px ${colors.darkGrey}; */
 
   @media screen and (max-width: 960px) {
     opacity: 1;

@@ -73,7 +73,7 @@ export default function Login() {
         setIsfetching(true);
         var datos = await apiLoginUser(data);
         datos = JSON.parse(datos);
-        if (datos.message == 'success') {
+        if (datos.message === 'success') {
           sessionStorage.setItem('token', datos.token);
           toast.success('¡Bienvenido/a!');
           history.replace(appRoutes.meProfile);
@@ -131,7 +131,7 @@ async function apiLoginUser(credentials) {
     body: JSON.stringify(credentials),
   });
 
-  if (response.status == 401) {
+  if (response.status === 401) {
     toast.error('Usuario o contraseña incorrectos');
   }
   let content = await response.text();

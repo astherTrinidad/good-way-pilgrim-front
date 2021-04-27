@@ -34,8 +34,10 @@ function Footer() {
       </SocialIcons>
       <FooterText>
         <FooterLinks>
-          <FooterLink to="/frequent-question">Preguntas Frecuentes</FooterLink>
-          <FooterLink to="/privacy-consumers">
+          <FooterLink to={appRoutes.frequentQuestion}>
+            Preguntas Frecuentes
+          </FooterLink>
+          <FooterLink to={appRoutes.privacyConsumers}>
             Política de Privacidad
           </FooterLink>
         </FooterLinks>

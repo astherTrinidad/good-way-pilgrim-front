@@ -7,7 +7,6 @@ import { TextInputEditForm } from '../../atoms';
 import { Navbar, Footer } from '../../organisms';
 import { validatePassword } from '../../../utils';
 import appRoutes from '../../../config/appRoutes';
-
 import GlobalStyle from '../../../globalStyles';
 import dropMeEditProfile from '../../../assets/images/gota-show-profile.png';
 import url from '../../../config/url';
@@ -55,6 +54,7 @@ export default function MeEditProfile() {
     const newErrors = {
       name: '',
       surname: '',
+      oldPassword: '',
       newPassword: '',
       passwordConfirm: '',
     };
@@ -62,6 +62,10 @@ export default function MeEditProfile() {
     if (!userData.name) newErrors.name = 'Campo obligatorio';
 
     if (!userData.surname) newErrors.surname = 'Campo obligatorio';
+
+    if (userData.oldPassword && !userData.newPassword)
+      newErrors.oldPassword =
+        'Introduce una nueva contraseña en el siguiente campo';
 
     if (!validatePassword(userData.newPassword))
       newErrors.newPassword = 'Mínimo 8 caracteres, minúsculas y mayúsculas';
@@ -117,16 +121,16 @@ export default function MeEditProfile() {
       try {
         setIsFetchingUser(true);
         var respuesta = await apiEditProfile(userData);
-        if (respuesta.message == undefined) {
+        if (respuesta.message === undefined) {
           toast.success('¡Datos actualizados!');
         } else {
-          if (respuesta.message == 'Expired token') {
+          if (respuesta.message === 'Expired token') {
             toast.info(
               'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
             );
             history.replace(appRoutes.login);
           }
-          if (respuesta.message == 'Password is wrong') {
+          if (respuesta.message === 'Password is wrong') {
             toast.error('Contraseña incorrecta');
           }
         }

@@ -1,26 +1,24 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
-import bgHeaderShowProfile from '../../../assets/images/bg-header-show-profile-min.jpg';
+import bgheaderUsersProfile from '../../../assets/images/bg-header-user-perfil.jpg';
 import bgHeaderShowProfileMobile from '../../../assets/images/bgHeaderShowProfileMobile-min.jpg';
 import profilePhoto from '../../../assets/images/photo-profile-generic.png';
 
 export const Header = styled.div`
-  background: url(${bgHeaderShowProfile});
+  background: url(${bgheaderUsersProfile});
   background-repeat: no-repeat;
   background-size: cover;
-  height: 300px;
+  height: 500px;
   justify-content: center;
   margin-top: -120px;
 
-
-  @media screen and (max-width:960px){
+  @media screen and (max-width: 960px) {
     background: url(${bgHeaderShowProfileMobile});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position-y:60px;
-  height: 300px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-y: 60px;
+    height: 300px;
   }
-
 `;
 
 export const PhotoProfile = styled.div`

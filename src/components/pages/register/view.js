@@ -92,10 +92,12 @@ export default function Register() {
         setIsfetching(true);
         var datos = await apiRegister(data);
         datos = JSON.parse(datos);
-        if (datos.message == undefined) {
+        if (datos.message === undefined) {
           toast.success('¡Bienvenido/a! Introduce tus datos para entrar');
           history.replace(appRoutes.login);
         }
+        setIsfetching(false);
+        history.replace(appRoutes.login);
       } catch (e) {
         setIsfetching(false);
         toast.error('Error de servidor. Inténtelo más tarde');
@@ -182,10 +184,10 @@ async function apiRegister(dataUser) {
     body: JSON.stringify(dataUser),
   });
   if (!response.ok) {
-    if (response.status == 401) {
+    if (response.status === 401) {
       toast.error('Contraseña no válida');
     }
-    if (response.status == 422) {
+    if (response.status === 422) {
       toast.error('La cuenta ya existe. Por favor haz login');
     }
   }
