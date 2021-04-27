@@ -63,9 +63,8 @@ export default function MeEditProfile() {
 
     if (!userData.surname) newErrors.surname = 'Campo obligatorio';
 
-    if (userData.oldPassword && !userData.newPassword)
-      newErrors.oldPassword =
-        'Introduce una nueva contraseña en el siguiente campo';
+    if (!userData.oldPassword && userData.newPassword)
+      newErrors.oldPassword = 'Introduce tu contraseña actual';
 
     if (!validatePassword(userData.newPassword))
       newErrors.newPassword = 'Mínimo 8 caracteres, minúsculas y mayúsculas';
