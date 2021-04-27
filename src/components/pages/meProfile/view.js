@@ -54,6 +54,7 @@ return (
     <PhotoProfile />
     <ContainerName>
       <NameProfile>{userData?.name}</NameProfile>
+      <SurnameProfile>{userData?.surname}</SurnameProfile>   
     </ContainerName>
     <InfoSectionOneColumn {...userProfile} />
     <Footer />
