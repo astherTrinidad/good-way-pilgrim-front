@@ -16,10 +16,10 @@ export const Nav = styled.nav`
   top: 0;
   z-index: 999;
   opacity: 0.9;
+  /* box-shadow: 2px 2px 4px 1px ${colors.darkGrey}; */
 
   @media screen and (max-width: 960px) {
     opacity: 1;
-
   }
 `;
 
@@ -206,7 +206,7 @@ export const DropdownPerfil = styled.div`
   position: absolute;
   background-color: ${colors.mustard};
   height: max-content;
-  width:max;
+  width: max;
   top: 60px;
   text-align: left;
   padding: 1rem;
@@ -214,11 +214,10 @@ export const DropdownPerfil = styled.div`
   @media screen and (max-width: 960px) {
     display: none;
   }
-`
+`;
 
 export const DropdownNavLinks = styled.div`
   color: ${colors.white};
   font-size: 20px;
-  line-height:2;
-
-`
+  line-height: 2;
+`;
