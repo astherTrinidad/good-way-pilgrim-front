@@ -11,11 +11,6 @@ export const Row = styled.div`
   }
 `;
 
-export const RowButton = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -63,7 +58,7 @@ export const PhotoProfile = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  margin-top: -2.5rem;
+  margin-top: -3.5rem;
   margin-right: auto;
   margin-left: auto;
   border-radius: 50%;
@@ -107,6 +102,12 @@ export const RowName = styled.div`
     flex-direction: column;
   }
 `;
+
+export const RowButton = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 export const ButtonSave = styled.button`
   background-color: ${colors.turquoise};
   border-radius: 8px;
@@ -118,7 +119,7 @@ export const ButtonSave = styled.button`
   font-family: 'Poppins', sans-serif;
   padding: 1rem 1.5rem;
   transition: all 0.3s ease-out;
-  margin: 0 1rem;
+  margin: 1rem;
 
   width: 50%;
 
@@ -148,7 +149,7 @@ export const ButtonDelete = styled.button`
   font-size: 1rem;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-  margin: 0 1rem;
+  margin: 1rem;
   padding: 1rem 1.5rem;
   transition: all 0.3s ease-out;
 

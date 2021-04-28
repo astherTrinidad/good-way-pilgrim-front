@@ -31,6 +31,7 @@ export const Input = styled.input`
 
   &::placeholder {
     color: ${props => props.placeholderColor};
+    font-size: 0.75em;
   }
 `;
 
@@ -59,7 +60,7 @@ export const Label = styled.label`
 export const Container = styled.div`
   bottom: ${props => props.bottom};
   left: ${props => props.left};
-  margin: ${props => (props.margin ? props.margin : '20px 10px')};
+  margin: ${props => (props.margin ? props.margin : '10px 10px')};
   position: ${props => props.position};
   position: relative;
   width: ${props => props.width};
