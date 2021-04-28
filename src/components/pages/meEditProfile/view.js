@@ -31,14 +31,6 @@ export default function MeEditProfile() {
   const history = useHistory();
   const [userData, setUserData] = useState({});
 
-  const [touched, setTouched] = useState({
-    name: false,
-    surname: false,
-    email: false,
-    password: false,
-    passwordConfirm: false,
-  });
-
   const [errors, setErrors] = useState({
     name: '',
     surname: '',
@@ -58,7 +50,7 @@ export default function MeEditProfile() {
       passwordConfirm: '',
     };
 
-    if (!userData.oldPassword && userData.newPassword)
+    if (!userData.oldPassword)
       newErrors.oldPassword = 'Introduce tu contraseña actual';
     if (userData.newPassword && !validatePassword(userData.newPassword))
       newErrors.newPassword = 'Mínimo 8 caracteres, minúsculas y mayúsculas';
@@ -68,8 +60,6 @@ export default function MeEditProfile() {
     )
       newErrors.passwordConfirm = 'La contraseña no coincide';
     if (userData.passwordConfirm && !userData.newPassword)
-      newErrors.newPassword = 'Introduce tu nueva contraseña';
-    if (userData.oldPassword && !userData.newPassword && !userData.newPassword)
       newErrors.newPassword = 'Introduce tu nueva contraseña';
 
     setErrors(newErrors);
@@ -103,15 +93,9 @@ export default function MeEditProfile() {
     });
   };
 
-  const handleBlur = event => {
-    setTouched({
-      ...touched,
-      [event.target.name]: true,
-    });
-  };
-
   const handleSubmit = async event => {
     event.preventDefault();
+
     const invalidForm = some(errors, error => !isEmpty(error));
     if (!invalidForm) {
       try {
@@ -132,6 +116,8 @@ export default function MeEditProfile() {
       } catch (e) {
         toast.error('Error del servidor. Por favor, inténtelo de nuevo');
       }
+    } else {
+      toast.warn('Por favor, rellena todos los datos necesarios');
     }
   };
 
@@ -178,10 +164,9 @@ export default function MeEditProfile() {
                       placeholder="Nombre"
                       type="text"
                       value={userData?.name}
-                      touched={touched.name}
                       error={errors.name}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={validate}
                     />
                     <TextInputEditForm
                       label="Apellidos"
@@ -189,10 +174,9 @@ export default function MeEditProfile() {
                       name="surname"
                       type="text"
                       value={userData?.surname}
-                      touched={touched.surname}
                       error={errors.surname}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={validate}
                     />
                   </Row>
                   <Row>
@@ -212,10 +196,9 @@ export default function MeEditProfile() {
                       name="newPassword"
                       type="password"
                       value={userData?.newPassword}
-                      touched={touched.newPassword}
                       error={errors.newPassword}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={validate}
                     />
                     <TextInputEditForm
                       label="Confirme contraseña"
@@ -223,23 +206,21 @@ export default function MeEditProfile() {
                       name="passwordConfirm"
                       type="password"
                       value={userData?.passwordConfirm}
-                      touched={touched.passwordConfirm}
                       error={errors.passwordConfirm}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={validate}
                     />
                   </Row>
                   <Row>
                     <TextInputEditForm
-                      label="Contraseña actual"
+                      label="Contraseña actual*"
                       placeholder="Min. 8 caracteres, minúsculas y mayúsculas"
                       name="oldPassword"
                       type="password"
                       value={userData?.oldPassword}
-                      touched={touched.oldPassword}
                       error={errors.oldPassword}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={validate}
                     />
                   </Row>
                   <RowButton>

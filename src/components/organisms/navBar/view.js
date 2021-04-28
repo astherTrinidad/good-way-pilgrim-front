@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import appRoutes from '../../../config/appRoutes';
 import { FaTimes, FaRegUserCircle } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
@@ -21,6 +21,8 @@ import {
 } from './styled';
 
 const Navbar = () => {
+  const history = useHistory();
+
   //Hook: valor inicial, función que actualizará el valor = inicializamos estado
   const [click, setClick] = useState(true);
 
@@ -29,7 +31,7 @@ const Navbar = () => {
   const closeSession = async e => {
     e.preventDefault();
     sessionStorage.removeItem('token');
-    window.location.reload();
+    history.replace(appRoutes.login);
   };
 
   return (
@@ -39,11 +41,10 @@ const Navbar = () => {
           <NavLogo to={appRoutes.meProfile} />
           <NavMenuUser onClick={handleClick} click={click}>
             <NavItem>
-              <NavLinksMenu to={appRoutes.meProfile}>Mi perfil</NavLinksMenu>
               <NavLinksMenu to={appRoutes.meEditProfile}>
                 Editar perfil
               </NavLinksMenu>
-              <NavLinksMenu to={appRoutes.userProfile}>
+              <NavLinksMenu to={appRoutes.searchProfile}>
                 Buscar peregrino
               </NavLinksMenu>
               <NavBtnLink to={appRoutes.login}>
@@ -60,7 +61,7 @@ const Navbar = () => {
               <NavLinksMenu to={appRoutes.meEditProfile}>
                 Editar perfil
               </NavLinksMenu>
-              <NavLinksMenu to={appRoutes.userProfile}>
+              <NavLinksMenu to={appRoutes.searchProfile}>
                 Buscar peregrino
               </NavLinksMenu>
               <ConchaIcon />
@@ -76,9 +77,9 @@ const Navbar = () => {
           </NavMenuUserResponsive>
           <NavMenu>
             <NavLinks to={appRoutes.meProfile}>Perfil</NavLinks>
-            <NavLinks to={appRoutes.meEditProfile}>Caminos</NavLinks>
-            <NavLinks to={appRoutes.userProfile}>Mochila</NavLinks>
-            <NavLinks to={appRoutes.searchProfile}>Logros</NavLinks>
+            <NavLinks to={appRoutes.caminos}>Caminos</NavLinks>
+            <NavLinks to={appRoutes.mochila}>Mochila</NavLinks>
+            <NavLinks to={appRoutes.logros}>Logros</NavLinks>
           </NavMenu>
           <MobileIcon>
             <IconUser onClick={handleClick}>
