@@ -3,13 +3,15 @@ import isEmpty from 'lodash/isEmpty';
 import some from 'lodash/some';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
+import Dialog from '@material-ui/core/Dialog';
+import Slide from '@material-ui/core/Slide';
+import appRoutes from '../../../config/appRoutes';
+import url from '../../../config/url';
+import { validatePassword } from '../../../utils';
+import GlobalStyle from '../../../globalStyles';
 import { TextInputEditForm } from '../../atoms';
 import { Navbar, Footer } from '../../organisms';
-import { validatePassword } from '../../../utils';
-import appRoutes from '../../../config/appRoutes';
-import GlobalStyle from '../../../globalStyles';
 import dropMeEditProfile from '../../../assets/images/gota-show-profile.png';
-import url from '../../../config/url';
 import {
   Container,
   ColumnImg,
@@ -26,7 +28,10 @@ import {
   ButtonSave,
   RowButton,
 } from './styled';
-
+import DeleteAccountModal from '../../modals/deleteAccount';
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 export default function MeEditProfile() {
   const history = useHistory();
   const [userData, setUserData] = useState({});
@@ -120,19 +125,17 @@ export default function MeEditProfile() {
       toast.warn('Por favor, rellena todos los datos necesarios');
     }
   };
+  /* modal */
+  const [open, setOpen] = React.useState(false);
 
-  const deleteUser = async event => {
-    console.log('en delete');
-    event.preventDefault();
-    try {
-      var respuesta = await apiDeleteProfile();
-      toast.success('¡Esperamos volver a verte pronto peregrino!');
-      sessionStorage.removeItem('token');
-      history.replace(appRoutes.login);
-    } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
-    }
+  const handleClickOpen = () => {
+    setOpen(true);
   };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  /* final modal */
 
   return (
     <>
@@ -144,7 +147,10 @@ export default function MeEditProfile() {
         </Row>
         <Row>
           <ColumnImg>
-            <Img src={dropMeEditProfile} alt="Texto" />
+            <Img
+              src={dropMeEditProfile}
+              alt="Peregrino andando sobre un sendero en la montaña"
+            />
           </ColumnImg>
           <ColumnText>
             <Row>
@@ -229,10 +235,21 @@ export default function MeEditProfile() {
                       name="Eliminar cuenta"
                       id="delete"
                       type="button"
-                      onClick={deleteUser}
+                      onClick={handleClickOpen}
                     >
                       Eliminar cuenta
                     </ButtonDelete>
+
+                    <Dialog
+                      open={open}
+                      TransitionComponent={Transition}
+                      keepMounted
+                      onClick={handleClose}
+                      aria-labelledby="No abandones al peregrino que llevas dentro"
+                      aria-describedby="Modal de confirmación cancelación de la cuenta"
+                    >
+                      <DeleteAccountModal />
+                    </Dialog>
                     <ButtonSave
                       label="Enviar"
                       id="update"
@@ -270,14 +287,5 @@ async function apiEditProfile(dataUser) {
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
     body: JSON.stringify(dataUser),
-  }).then(data => data.json());
-}
-async function apiDeleteProfile() {
-  return fetch(`${url.base}${url.meDeleteProfile}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-    },
   }).then(data => data.json());
 }

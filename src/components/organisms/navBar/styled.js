@@ -103,6 +103,7 @@ export const IconUser = styled.div`
 `;
 
 export const NavMenuUser = styled.ul`
+  display: ${({ click }) => (click ? 'none' : 'flex')};
   list-style: none;
   flex-direction: column;
   width: max-content;
@@ -111,9 +112,8 @@ export const NavMenuUser = styled.ul`
   top: 60px;
   padding: 1.25rem 0;
   right: ${({ click }) =>
-    click ? '-100%' : 0}; //haga click, si hace clic es true -> muestro menú
+    click ? '0%' : 0}; //haga click, si hace clic es true -> muestro menú
   opacity: 1;
-  transition: all 0.5s ease;
   justify-content: center;
   background: ${colors.mustard};
   @media screen and (max-width: 960px) {
@@ -159,6 +159,7 @@ export const NavMenuUserResponsive = styled.ul`
   position: absolute;
   top: 60px;
   padding: 1.25rem 0;
+  /* display: ${({ click }) => (click ? 'none' : 'flex')}; */
   right: ${({ click }) =>
     click ? '-100%' : 0}; //haga click, si hace clic es true -> muestro menú
   opacity: 1;
