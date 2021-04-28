@@ -4,6 +4,7 @@ const routes = {
   meProfile: '/perfil',
   meEditProfile: '/editar-perfil',
   userProfile: '/usuarios/perfil',
+  searchProfile: '/usuarios/buscar',
   frequentQuestion: '/preguntas-frecuentes',
   privacyConsumers: '/politicas-de-privacidad',
 };

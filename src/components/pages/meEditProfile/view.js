@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import some from 'lodash/some';
 import { toast } from 'react-toastify';
-import { BrowserRouter as Router, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { TextInputEditForm } from '../../atoms';
 import { Navbar, Footer } from '../../organisms';
 import { validatePassword } from '../../../utils';
@@ -30,7 +30,6 @@ import {
 export default function MeEditProfile() {
   const history = useHistory();
   const [userData, setUserData] = useState({});
-  const [isFetchingUser, setIsFetchingUser] = useState(false);
 
   const [touched, setTouched] = useState({
     name: false,
@@ -59,18 +58,19 @@ export default function MeEditProfile() {
       passwordConfirm: '',
     };
 
-    if (!userData.name) newErrors.name = 'Campo obligatorio';
-
-    if (!userData.surname) newErrors.surname = 'Campo obligatorio';
-
     if (!userData.oldPassword && userData.newPassword)
       newErrors.oldPassword = 'Introduce tu contraseña actual';
-
-    if (!validatePassword(userData.newPassword))
+    if (userData.newPassword && !validatePassword(userData.newPassword))
       newErrors.newPassword = 'Mínimo 8 caracteres, minúsculas y mayúsculas';
-
-    if (userData.newPassword !== userData.passwordConfirm)
+    if (
+      userData.newPassword &&
+      userData.newPassword !== userData.passwordConfirm
+    )
       newErrors.passwordConfirm = 'La contraseña no coincide';
+    if (userData.passwordConfirm && !userData.newPassword)
+      newErrors.newPassword = 'Introduce tu nueva contraseña';
+    if (userData.oldPassword && !userData.newPassword && !userData.newPassword)
+      newErrors.newPassword = 'Introduce tu nueva contraseña';
 
     setErrors(newErrors);
   }, [userData]);
@@ -82,7 +82,6 @@ export default function MeEditProfile() {
   useEffect(() => {
     async function fetchProfile() {
       try {
-        setIsFetchingUser(true);
         const response = await apiMeProfile();
         response.oldPassword = '';
         response.newPassword = '';
@@ -92,8 +91,6 @@ export default function MeEditProfile() {
         toast.error(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
         );
-      } finally {
-        setIsFetchingUser(false);
       }
     }
     fetchProfile();
@@ -118,7 +115,6 @@ export default function MeEditProfile() {
     const invalidForm = some(errors, error => !isEmpty(error));
     if (!invalidForm) {
       try {
-        setIsFetchingUser(true);
         var respuesta = await apiEditProfile(userData);
         if (respuesta.message === undefined) {
           toast.success('¡Datos actualizados!');
@@ -134,7 +130,6 @@ export default function MeEditProfile() {
           }
         }
       } catch (e) {
-        setIsFetchingUser(false);
         toast.error('Error del servidor. Por favor, inténtelo de nuevo');
       }
     }
@@ -144,21 +139,17 @@ export default function MeEditProfile() {
     console.log('en delete');
     event.preventDefault();
     try {
-      console.log('en try');
-      setIsFetchingUser(true);
       var respuesta = await apiDeleteProfile();
       toast.success('¡Esperamos volver a verte pronto peregrino!');
       sessionStorage.removeItem('token');
       history.replace(appRoutes.login);
     } catch (e) {
-      console.log('en catch');
-      setIsFetchingUser(false);
       toast.error('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
 
   return (
-    <Router>
+    <>
       <GlobalStyle />
       <Navbar />
       <Container>
@@ -216,21 +207,8 @@ export default function MeEditProfile() {
                   </Row>
                   <Row>
                     <TextInputEditForm
-                      label="Contraseña actual"
-                      placeholder=""
-                      name="oldPassword"
-                      type="password"
-                      value={userData?.oldPassword}
-                      touched={touched.oldPassword}
-                      error={errors.oldPassword}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                  </Row>
-                  <Row>
-                    <TextInputEditForm
                       label="Nueva contraseña"
-                      placeholder=""
+                      placeholder="Min. 8 caracteres, minúsculas y mayúsculas"
                       name="newPassword"
                       type="password"
                       value={userData?.newPassword}
@@ -241,12 +219,25 @@ export default function MeEditProfile() {
                     />
                     <TextInputEditForm
                       label="Confirme contraseña"
-                      placeholder=""
+                      placeholder="Min. 8 caracteres, minúsculas y mayúsculas"
                       name="passwordConfirm"
                       type="password"
                       value={userData?.passwordConfirm}
                       touched={touched.passwordConfirm}
                       error={errors.passwordConfirm}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                  </Row>
+                  <Row>
+                    <TextInputEditForm
+                      label="Contraseña actual"
+                      placeholder="Min. 8 caracteres, minúsculas y mayúsculas"
+                      name="oldPassword"
+                      type="password"
+                      value={userData?.oldPassword}
+                      touched={touched.oldPassword}
+                      error={errors.oldPassword}
                       onChange={handleChange}
                       onBlur={handleBlur}
                     />
@@ -258,7 +249,6 @@ export default function MeEditProfile() {
                       id="delete"
                       type="button"
                       onClick={deleteUser}
-                      isFetchingUser={setIsFetchingUser}
                     >
                       Eliminar cuenta
                     </ButtonDelete>
@@ -267,7 +257,6 @@ export default function MeEditProfile() {
                       id="update"
                       type="submit"
                       onSubmit={handleSubmit}
-                      isFetchingUser={setIsFetchingUser}
                     >
                       Guardar
                     </ButtonSave>
@@ -279,7 +268,7 @@ export default function MeEditProfile() {
         </Row>
       </Container>
       <Footer />
-    </Router>
+    </>
   );
 }
 

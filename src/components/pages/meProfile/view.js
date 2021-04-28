@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GlobalStyle from '../../../globalStyles';
 import appRoutes from '../../../config/appRoutes';
-import { BrowserRouter as Router, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Navbar, Footer, InfoSectionOneColumn } from '../../organisms';
 import { userProfile } from './Data';
@@ -29,6 +29,8 @@ export default function MeProfile() {
           setUserData(datos);
         }
         if (datos.message === 'Expired token') {
+          history.replace(appRoutes.login);
+
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );
@@ -45,6 +47,7 @@ export default function MeProfile() {
     fetchProfile();
   }, []);
 
+<<<<<<< HEAD
 
 return (
   <Router>
@@ -60,6 +63,23 @@ return (
     <Footer />
   </Router>
 );
+=======
+  return (
+    <>
+      <GlobalStyle />
+      <Navbar />
+      <Header />
+      <PhotoProfile />
+      <ContainerName>
+        <NameProfile>{userData?.name}</NameProfile>
+        <SurnameProfile>{userData?.surname}</SurnameProfile>
+      </ContainerName>
+      <InfoSectionOneColumn {...userProfile} />
+      <Footer />
+    </>
+  );
+}
+>>>>>>> d4636b792871dc24f8972e101ee1f7a9ef998e49
 
 async function apiMeProfile() {
   return fetch(`${url.base}${url.meProfile}`, {
