@@ -42,15 +42,35 @@ export const NavLogo = styled(Link)`
   display: flex;
   align-items: center;
   position: relative;
-  top: 5px;
 
   @media screen and (max-width: 960px) {
     top: 0;
   }
 `;
 
+export const NavItem = styled.li`
+  border-bottom: 3px solid transparent;
+  justify-content: center;
+
+  &:hover {
+    border-bottom: 3px solid ${colors.mustard};
+  }
+
+  @media screen and (max-width: 960px) {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      border: none;
+    }
+  }
+`;
+
+/** Dropdown menu desktop */
+
 export const MobileIcon = styled.div`
-  display: none;
+  display: block;
 
   @media screen and (max-width: 960px) {
     display: block;
@@ -63,86 +83,92 @@ export const MobileIcon = styled.div`
   }
 `;
 
-export const NavMenu = styled.ul`
+export const IconUser = styled.div`
   display: flex;
-  align-items: center;
+  position: absolute;
+  top: -5px;
+  right: 0;
+  transform: translate(-100%, 60%);
+  font-size: 2rem;
+  cursor: pointer;
+
+  .FaTimes {
+    background-color: ${colors.mustard};
+    margin-top: -22px;
+    margin-right: -23px;
+    width: 63px;
+    height: 63px;
+    padding: 1rem;
+  }
+`;
+
+export const NavMenuUser = styled.ul`
   list-style: none;
-  text-align: center;
-
-  @media screen and (max-width: 960px) {
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 90vh;
-    position: absolute;
-    top: 60px;
-    left: ${({ click }) =>
-      click ? 0 : '-100%'}; //haga click, si hace clic es true -> muestro menú
-    opacity: 1;
-    transition: all 0.5s ease;
-    background: ${colors.mustard};
-  }
-`;
-
-export const NavItem = styled.li`
+  flex-direction: column;
+  width: max-content;
   height: max-content;
-  border-bottom: 2px solid transparent;
-
-  &:hover {
-    border-bottom: 3px solid ${colors.mustard};
-  }
-
+  position: absolute;
+  top: 60px;
+  padding: 1.25rem 0;
+  right: ${({ click }) =>
+    click ? '-100%' : 0}; //haga click, si hace clic es true -> muestro menú
+  opacity: 1;
+  transition: all 0.5s ease;
+  justify-content: center;
+  background: ${colors.mustard};
   @media screen and (max-width: 960px) {
-    width: 100%;
-
-    &:hover {
-      border: none;
-    }
+    display: none;
   }
 `;
-export const NavLinks = styled(Link)`
+
+export const NavLinksMenu = styled(Link)`
   color: ${colors.white};
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0.5rem 2rem;
+  padding: 1rem 3rem;
   height: 100%;
+  width: 100%;
+  justify-content: center;
+
+  &:hover {
+    background-color: ${colors.white};
+    color: ${colors.darkGrey};
+    transition: all 0.3s ease;
+    font-weight: 700;
+  }
 
   @media screen and (max-width: 960px) {
-    text-align: center;
-    padding: 1rem 0 1rem 0;
     margin-bottom: 1rem;
     width: 100%;
-    display: table;
+    display: flex;
     height: max-content;
     font-size: 1em;
-
-    &:hover {
-      background-color: ${colors.white};
-      color: ${colors.darkGrey};
-      transition: all 0.3s ease;
-      font-weight: 700;
-    }
   }
 `;
 
-export const SubNavItem = styled(Link)`
-  display: none;
+/** End Dropdown menu desktop */
 
-  @media screen and (max-width: 960px) {
-    display: block;
-    text-align: center;
-    width: 100%;
-
-    &:hover {
-      background-color: ${colors.white};
-      color: ${colors.darkGrey};
-      transition: all 0.3s ease;
-    }
+/** Dropdown menu mobile */
+export const NavMenuUserResponsive = styled.ul`
+  align-items: center;
+  list-style: none;
+  flex-direction: column;
+  width: 100%;
+  height: max-content;
+  position: absolute;
+  top: 60px;
+  padding: 1.25rem 0;
+  right: ${({ click }) =>
+    click ? '-100%' : 0}; //haga click, si hace clic es true -> muestro menú
+  opacity: 1;
+  transition: all 0.5s ease;
+  justify-content: center;
+  background: ${colors.mustard};
+  @media screen and (min-width: 960px) {
+    display: none;
   }
 `;
-
 export const ConchaIcon = styled.div`
   display: none;
 
@@ -155,6 +181,8 @@ export const ConchaIcon = styled.div`
     width: 40px;
     margin-top: 0.5rem;
     margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
 
     &::before {
       content: '';
@@ -179,45 +207,61 @@ export const ConchaIcon = styled.div`
     }
   }
 `;
+/** End Dropdown menu mobile */
 
-export const NavItemBtn = styled.li`
+/** menu nav */
+
+export const NavMenu = styled.ul`
+  display: flex;
+  align-items: center;
+  list-style: none;
+
   @media screen and (max-width: 960px) {
+    justify-content: center;
     display: flex;
-    justify-content: end;
-    align-items: center;
+    flex-direction: column;
     width: 100%;
-    height: 120px;
+    height: 90vh;
+    position: absolute;
+    top: 60px;
+    left: ${({ click }) =>
+      click ? 0 : '-100%'}; //haga click, si hace clic es true -> muestro menú
+    opacity: 1;
+    transition: all 0.5s ease;
+    background: ${colors.mustard};
   }
 `;
 
-export const NavBtnLink = styled(Link)`
+export const NavLinks = styled(Link)`
+  color: ${colors.white};
   display: flex;
-  justify-self: center;
   align-items: center;
   text-decoration: none;
-  padding: 8px 16px;
-  height: 100%;
-  width: 100%;
-  border: none;
-  outline: none;
-`;
+  padding: 0.5rem 2.5rem;
 
-export const DropdownPerfil = styled.div`
-  position: absolute;
-  background-color: ${colors.mustard};
-  height: max-content;
-  width: max;
-  top: 60px;
-  text-align: left;
-  padding: 1rem;
+  &:hover {
+    font-weight: 700;
+    border-bottom: 3px solid ${colors.mustard};
+  }
 
   @media screen and (max-width: 960px) {
-    display: none;
+    text-align: center;
+    padding: 1rem 0 1rem 0;
+    margin-bottom: 1rem;
+    width: 100%;
+    display: table;
+    height: max-content;
+    font-size: 1em;
   }
 `;
 
-export const DropdownNavLinks = styled.div`
-  color: ${colors.white};
-  font-size: 20px;
-  line-height: 2;
+/** End menu nav */
+
+export const NavBtnLink = styled(Link)`
+  padding: 1rem 3rem;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

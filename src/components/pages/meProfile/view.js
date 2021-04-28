@@ -29,6 +29,8 @@ export default function MeProfile() {
           setUserData(datos);
         }
         if (datos.message === 'Expired token') {
+          history.replace(appRoutes.login);
+
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );

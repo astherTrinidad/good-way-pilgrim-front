@@ -44,10 +44,12 @@ const FrequentQuestion = () => {
         <Answer>
           Lo primero que necesitas es crear tu cuenta personal que pondrá a tu
           disposición un área de usuario donde podrás gestionar tus caminos,
-          logros y mochilas. Tengo una sugerencia o un comentario sobre
-          GoodWayPilgrim.
+          logros y mochilas.
         </Answer>
-        <Question>¿Dónde puedo ir?</Question>
+        <Question>
+          Tengo una sugerencia o un comentario sobre GoodWayPilgrim.¿Dónde puedo
+          ir?
+        </Question>
         <Answer>
           Busca al final de nuestra página principal la sección de datos de
           contacto y no dudes en escribirnos para cualquier duda, problema o
@@ -82,7 +84,7 @@ const FrequentQuestion = () => {
         </Question>
         <Answer>
           Sí, tu cuenta no está vinculada a ningún dispositivo concreto. La
-          abras donde la abras podrás ver tu información y hacer cambios{' '}
+          abras donde la abras podrás ver tu información y hacer cambios.
         </Answer>
         <Question>¿Qué hacéis con mis datos?</Question>
         <Answer>
