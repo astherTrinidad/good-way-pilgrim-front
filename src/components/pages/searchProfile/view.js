@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { BrowserRouter as Router, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle, { Button } from '../../../globalStyles';
@@ -79,7 +79,7 @@ export default function SearchProfile() {
   };
 
   return (
-    <Router>
+    <>
       <GlobalStyle />
       <Navbar />
       <Container>
@@ -113,7 +113,7 @@ export default function SearchProfile() {
         </Row>
       </Container>
       <Footer />
-    </Router>
+    </>
   );
 }
 

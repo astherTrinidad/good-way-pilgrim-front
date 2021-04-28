@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { BrowserRouter as Router, useHistory } from 'react-router-dom';
 import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
@@ -43,7 +42,7 @@ export default function UserProfile() {
   }, []);
 
   return (
-    <Router>
+    <>
       <GlobalStyle />
       <Navbar />
       <Container>
@@ -77,7 +76,7 @@ export default function UserProfile() {
         </Row>
       </Container>
       <Footer />
-    </Router>
+    </>
   );
 }
 

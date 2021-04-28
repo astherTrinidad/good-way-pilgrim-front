@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GlobalStyle from '../../../globalStyles';
 import appRoutes from '../../../config/appRoutes';
-import { BrowserRouter as Router, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Navbar, Footer, InfoSectionOneColumn } from '../../organisms';
 import { userProfile } from './Data';
@@ -48,7 +48,7 @@ export default function MeProfile() {
   }, []);
 
   return (
-    <Router>
+    <>
       <GlobalStyle />
       <Navbar />
       <Header />
@@ -59,7 +59,7 @@ export default function MeProfile() {
       </ContainerName>
       <InfoSectionOneColumn {...userProfile} />
       <Footer />
-    </Router>
+    </>
   );
 }
 

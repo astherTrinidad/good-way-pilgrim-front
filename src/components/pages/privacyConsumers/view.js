@@ -13,7 +13,7 @@ import {
   SubTitle2,
 } from './styled';
 
-const PrivacyConsumers = () => {
+export default function PrivacyConsumers() {
   return (
     <div>
       <GlobalStyle />
@@ -137,6 +137,4 @@ const PrivacyConsumers = () => {
       <Footer />
     </div>
   );
-};
-
-export default PrivacyConsumers;
+}

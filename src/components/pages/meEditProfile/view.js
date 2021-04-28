@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import some from 'lodash/some';
 import { toast } from 'react-toastify';
-import { BrowserRouter as Router, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { TextInputEditForm } from '../../atoms';
 import { Navbar, Footer } from '../../organisms';
 import { validatePassword } from '../../../utils';
@@ -149,7 +149,7 @@ export default function MeEditProfile() {
   };
 
   return (
-    <Router>
+    <>
       <GlobalStyle />
       <Navbar />
       <Container>
@@ -268,7 +268,7 @@ export default function MeEditProfile() {
         </Row>
       </Container>
       <Footer />
-    </Router>
+    </>
   );
 }
 
