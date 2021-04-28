@@ -1,7 +1,6 @@
 import React from 'react';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
@@ -36,9 +35,7 @@ const DeleteAccountModal = () => {
         {'¡No abandones al peregrino que llevas dentro!'}
       </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-slide-description">
-          <Illustration src={modalIllustration} alt="Ilustración montaña" />
-        </DialogContentText>
+        <Illustration src={modalIllustration} alt="Ilustración montaña" />
       </DialogContent>
       <DialogActions>
         <ButtonDelete onClick={deleteUser}>¡Me voy!</ButtonDelete>
