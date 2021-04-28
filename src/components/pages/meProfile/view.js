@@ -47,23 +47,6 @@ export default function MeProfile() {
     fetchProfile();
   }, []);
 
-<<<<<<< HEAD
-
-return (
-  <Router>
-    <GlobalStyle />
-    <Navbar />
-    <Header />
-    <PhotoProfile />
-    <ContainerName>
-      <NameProfile>{userData?.name}</NameProfile>
-      <SurnameProfile>{userData?.surname}</SurnameProfile>   
-    </ContainerName>
-    <InfoSectionOneColumn {...userProfile} />
-    <Footer />
-  </Router>
-);
-=======
   return (
     <>
       <GlobalStyle />
@@ -79,7 +62,6 @@ return (
     </>
   );
 }
->>>>>>> d4636b792871dc24f8972e101ee1f7a9ef998e49
 
 async function apiMeProfile() {
   return fetch(`${url.base}${url.meProfile}`, {
