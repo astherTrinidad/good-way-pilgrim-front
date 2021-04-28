@@ -71,7 +71,7 @@ const TextInputEditForm = ({
       />
       <Icon className="icon-input" />
     </Label>
-    {error && touched && (
+    {error && onBlur && (
       <ErrorContainerEditProfile>{error}</ErrorContainerEditProfile>
     )}
   </Container>

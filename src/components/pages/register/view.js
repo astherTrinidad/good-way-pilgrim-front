@@ -150,7 +150,7 @@ export default function Register() {
           onBlur={handleBlur}
         />
         <TextInput
-          placeholder="Contraseña (Min. 8 caracteres, minúsculas y mayúsculas)"
+          placeholder="Contraseña (Min. 8 caracteres, minús y mayús)"
           name="password"
           type="password"
           value={data.password}
