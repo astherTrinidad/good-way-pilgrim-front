@@ -22,30 +22,34 @@ function Routes() {
   return (
     <Router>
       <Switch>
-        <PublicRoute path={appRoutes.login}>
-          <Login />
-        </PublicRoute>
-        <PublicRoute path={appRoutes.register}>
-          <Register />
-        </PublicRoute>
-        <PrivateRoute path={appRoutes.meProfile}>
-          <MeProfile />
-        </PrivateRoute>
-        <PrivateRoute path={appRoutes.meEditProfile}>
-          <MeEditProfile />
-        </PrivateRoute>
-        <PrivateRoute path={appRoutes.userProfile}>
-          <UserProfile />
-        </PrivateRoute>
-        <PrivateRoute path={appRoutes.searchProfile}>
-          <SearchProfile />
-        </PrivateRoute>
-        <PrivateRoute path={appRoutes.frequentQuestion}>
-          <FrequentQuestion />
-        </PrivateRoute>
-        <PrivateRoute path={appRoutes.privacyConsumers}>
-          <PrivacyConsumers />
-        </PrivateRoute>
+        <PublicRoute path={appRoutes.login} component={Login} exact />
+        <PublicRoute path={appRoutes.register} component={Register} exact />
+        <PrivateRoute path={appRoutes.meProfile} component={MeProfile} exact />
+        <PrivateRoute
+          path={appRoutes.meEditProfile}
+          component={MeEditProfile}
+          exact
+        />
+        <PrivateRoute
+          path={appRoutes.userProfile}
+          component={UserProfile}
+          exact
+        />
+        <PrivateRoute
+          path={appRoutes.searchProfile}
+          component={SearchProfile}
+          exact
+        />
+        <PrivateRoute
+          path={appRoutes.frequentQuestion}
+          component={FrequentQuestion}
+          exact
+        />
+        <PrivateRoute
+          path={appRoutes.privacyConsumers}
+          component={PrivacyConsumers}
+          exact
+        />
       </Switch>
     </Router>
   );

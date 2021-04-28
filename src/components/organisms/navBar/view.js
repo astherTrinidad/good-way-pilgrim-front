@@ -22,7 +22,7 @@ import {
 
 const Navbar = () => {
   //Hook: valor inicial, función que actualizará el valor = inicializamos estado
-  const [click, setClick] = useState(false);
+  const [click, setClick] = useState(true);
 
   const handleClick = () => setClick(!click);
 

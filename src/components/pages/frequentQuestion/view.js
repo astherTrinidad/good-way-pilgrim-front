@@ -10,9 +10,9 @@ import {
   SubTitle,
 } from './styled';
 
-const FrequentQuestion = () => {
+export default function FrequentQuestion() {
   return (
-    <div>
+    <>
       <GlobalStyle />
       <Navbar />
       <Container>
@@ -94,8 +94,6 @@ const FrequentQuestion = () => {
       </Container>
 
       <Footer />
-    </div>
+    </>
   );
-};
-
-export default FrequentQuestion;
+}
