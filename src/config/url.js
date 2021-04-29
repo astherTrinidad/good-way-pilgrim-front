@@ -3,7 +3,7 @@ const url = {
   meProfile: '/pri/showProfile',
   meEditProfile: '/pri/editProfile',
   userProfile: '/pri/showOtherProfile',
-  searchProfile: '/',
+  searchProfile: '/pri/showUsers',
   meDeleteProfile: '/pri/deleteProfile',
   register: '/pub/register',
   login: '/pub/login',
