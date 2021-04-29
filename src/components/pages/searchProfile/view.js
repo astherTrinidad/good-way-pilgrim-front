@@ -19,19 +19,18 @@ import {
 
 export default function SearchProfile() {
   const history = useHistory();
-
   const [userData, setUserData] = useState({});
   const [isFetchingUsers, setIsFetchingUsers] = useState(false);
-  const respuesta = apiShowUsers(localStorage.getItem('id'));
+  const respuesta = apiSearchUsers(localStorage.getItem('id'));
+
   const [touched, setTouched] = useState({
     name: false,
-    surname: false,
   });
 
   useEffect(() => {
     async function fetchProfile() {
       try {
-        const response = await apiShowUsers();
+        const response = await apiSearchUsers();
         delete response.picture;
         setUserData(response);
       } catch {
@@ -59,21 +58,22 @@ export default function SearchProfile() {
     e.preventDefault();
     try {
       setIsFetchingUsers(true);
-      var respuesta = await apiShowUsers();
-      if (respuesta.message == 'Expired token') {
+      var respuesta = await apiSearchUsers(userData);
+      if (respuesta.message === 'Expired token') {
         toast.info(
           'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
         );
-        history.replace('../login');
-      } else if (respuesta.message == 'no results found') {
+        history.replace(appRoutes.login);
+      } else if (respuesta.message === 'no results found') {
         //Maquetar como consideres adecuado
         toast.info('No se han encontrado usuarios');
       } else {
+        setUserData(respuesta);
         //Guardar el array de usuarios en la variable que quieras dentro de sesión y mostrarlos
         sessionStorage.setItem('matchUsers', respuesta);
       }
     } catch (e) {
-      setIsFetchingUsers(false);
+      // setIsFetchingUsers(false);
       toast.error('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
@@ -88,11 +88,11 @@ export default function SearchProfile() {
         </Row>
         <Row>
           <ColumnText>
-            <label htmlFor="nameSurname"></label>
+            <label htmlFor="name"></label>
             <SearchInput
               label="Nombre"
               name="name"
-              placeholder="Nombre y Apellidos"
+              placeholder="Buscar por nombre"
               type="text"
               value={userData?.name}
               touched={touched.name}
@@ -100,12 +100,13 @@ export default function SearchProfile() {
               onBlur={handleBlur}
             />
             <Button
+              name="Buscar"
+              type="submit"
               onSubmit={handleSubmit}
-              setIsFetchingUsers={isFetchingUsers}
+              // setIsFetchingUsers={isFetchingUsers}
             >
               Buscar Peregrino
             </Button>
-            {/* onSubmit={handleSubmit} */}
           </ColumnText>
           <ColumnImg>
             <Img src={dropMeUserProfile} alt="Texto" />
@@ -118,8 +119,8 @@ export default function SearchProfile() {
 }
 
 // /*Llamada y control de errores del EP que devuelve los usuarios cuyo nombre se asemeje a la cadena introducida en el buscador*/
-async function apiShowUsers(cadenaBusqueda) {
-  return fetch(`http://localhost:8000/pri/showUsers?string=${cadenaBusqueda}`, {
+async function apiSearchUsers(cadenaBusqueda) {
+  return fetch(`${url.base}${url.searchProfile}?string=${cadenaBusqueda}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
