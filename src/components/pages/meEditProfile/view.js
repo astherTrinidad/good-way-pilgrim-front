@@ -58,7 +58,7 @@ export default function MeEditProfile() {
       passwordConfirm: '',
     };
 
-    if (!userData.oldPassword && userData.newPassword)
+    if (!userData.oldPassword)
       newErrors.oldPassword = 'Introduce tu contraseña actual';
     if (userData.newPassword && !validatePassword(userData.newPassword))
       newErrors.newPassword = 'Mínimo 8 caracteres, minúsculas y mayúsculas';
@@ -68,8 +68,6 @@ export default function MeEditProfile() {
     )
       newErrors.passwordConfirm = 'La contraseña no coincide';
     if (userData.passwordConfirm && !userData.newPassword)
-      newErrors.newPassword = 'Introduce tu nueva contraseña';
-    if (userData.oldPassword && !userData.newPassword && !userData.newPassword)
       newErrors.newPassword = 'Introduce tu nueva contraseña';
 
     setErrors(newErrors);
@@ -132,6 +130,8 @@ export default function MeEditProfile() {
       } catch (e) {
         toast.error('Error del servidor. Por favor, inténtelo de nuevo');
       }
+    }else{
+      toast.warn('Por favor, rellena todos los datos necesarios');
     }
   };
 
