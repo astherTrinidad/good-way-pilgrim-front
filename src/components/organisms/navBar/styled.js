@@ -103,7 +103,6 @@ export const IconUser = styled.div`
 `;
 
 export const NavMenuUser = styled.ul`
-  /* display: ${({ click }) => (click ? 'none' : 'flex')}; */
   list-style: none;
   flex-direction: column;
   width: max-content;
@@ -111,11 +110,15 @@ export const NavMenuUser = styled.ul`
   position: absolute;
   top: 60px;
   padding: 1.25rem 0;
-  right: ${({ click }) =>
+  transition: all 0.5s ease;
+  right: 0;
+
+  top: ${({ click }) =>
     click ? 0 : '100%'}; //haga click, si hace clic es true -> muestro menú
-  opacity: 1;
+  opacity: ${({ click }) => (click ? '0' : 1)};
   justify-content: center;
   background: ${colors.mustard};
+  transition: all 0.5s ease;
   @media screen and (max-width: 960px) {
     display: none;
   }
