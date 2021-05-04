@@ -12,7 +12,9 @@ import {
   NameProfile,
   SurnameProfile,
   ContainerName,
+  ContainerPhoto,
 } from './styled';
+import profilePhoto from '../../../assets/images/photo-profile-generic.png';
 
 export default function MeProfile() {
   const history = useHistory();
@@ -52,12 +54,14 @@ export default function MeProfile() {
       <GlobalStyle />
       <Navbar />
       <Header />
-      <PhotoProfile />
-      <ContainerName>
+      <ContainerPhoto>
+        <PhotoProfile src={profilePhoto} aria-label="foto de perfil" />
+      </ContainerPhoto>
+      <ContainerName aria-label="Nombre de perfil">
         <NameProfile>{userData?.name}</NameProfile>
         <SurnameProfile>{userData?.surname}</SurnameProfile>
       </ContainerName>
-      <InfoSectionOneColumn {...userProfile} />
+      <InfoSectionOneColumn {...userProfile} tabindex="0" />
       <Footer />
     </>
   );

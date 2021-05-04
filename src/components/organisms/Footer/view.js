@@ -15,19 +15,19 @@ import appRoutes from '../../../config/appRoutes';
 function Footer() {
   return (
     <FooterContainer>
-      <LogoIcon to={appRoutes.meProfile} />
+      <LogoIcon to={appRoutes.meProfile} aria-label="Logo Good Way Pilgrim" />
       <SocialIcons>
         <SocialIconLink
           href="https://www.instagram.com/goodwaypilgrim/"
           target="_blank"
-          aria-label="Instagram"
+          aria-label="Vísitanos en Instagram"
         >
           <FaInstagram />
         </SocialIconLink>
         <SocialIconLink
           href="https://twitter.com/way_pilgrim"
           target="_blank"
-          aria-label="Twitter"
+          aria-label="Vísitanos en Twitter"
         >
           <FaTwitter />
         </SocialIconLink>

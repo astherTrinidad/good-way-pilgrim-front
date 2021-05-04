@@ -98,6 +98,7 @@ export default function Login() {
       <form onSubmit={handleSubmit}>
         <List />
         <TextInput
+          id="email"
           placeholder="Email"
           name="email"
           type="email"
@@ -106,8 +107,10 @@ export default function Login() {
           error={errors.email}
           onChange={handleChange}
           onBlur={handleBlur}
+          accesskey="e"
         />
         <TextInput
+          id="password"
           placeholder="Contraseña"
           name="password"
           type="password"
@@ -116,6 +119,7 @@ export default function Login() {
           error={errors.password}
           onChange={handleChange}
           onBlur={handleBlur}
+          accesskey="c"
         />
         <Button label="Enviar" type="submit" isFetching={isFetching} />
       </form>

@@ -47,31 +47,53 @@ export default function UserProfile() {
       <Navbar />
       <Container>
         <Row>
-          <Section>Perfil peregrino</Section>
+          <Section role="sección">Perfil peregrino</Section>
         </Row>
         <Row>
           <ColumnText>
             <Row>
-              <PhotoProfile />
+              <PhotoProfile aria-label="foto de perfil" tabIndex={0} />
             </Row>
-            <ContainerName>
-              <NameProfile>{userData?.name}</NameProfile>
-              <SurnameProfile>{userData?.surname}</SurnameProfile>
+            <ContainerName aria-label="Nombre del peregrino">
+              <NameProfile aria-label={userData?.name}>
+                {userData?.name}
+              </NameProfile>
+              <SurnameProfile aria-label={userData?.surname}>
+                {userData?.surname}
+              </SurnameProfile>
             </ContainerName>
-            <Text>Último camino: </Text>
-            <Text>Número de caminos realizados: </Text>
-            <Text>Kilómetros recorridos: </Text>
-            <Text>Número de logros: </Text>
+            <Text tabIndex={0}>Último camino: </Text>
+            <Text tabIndex={0}>Número de caminos realizados: </Text>
+            <Text tabIndex={0}>Kilómetros recorridos: </Text>
+            <Text tabIndex={0}>Número de logros: </Text>
             <Row>
-              <RowLogros>
-                <Logro src="" alt="" />
-                <Logro src="" alt="" />
-                <Logro src="" alt="" />
+              <RowLogros tabIndex={0} aria-label="Algunos logros conseguidos">
+                <Logro
+                  src=""
+                  alt="nombre logro 1"
+                  aria-label="nombre logro 1"
+                  tabIndex={0}
+                />
+                <Logro
+                  src=""
+                  alt="nombre logro 2"
+                  aria-label="nombre logro 2"
+                  tabIndex={0}
+                />
+                <Logro
+                  src=""
+                  alt="nombre logro 3"
+                  aria-label="nombre logro 3"
+                  tabIndex={0}
+                />
               </RowLogros>
             </Row>
           </ColumnText>
           <ColumnImg>
-            <Img src={dropMeUserProfile} alt="Texto" />
+            <Img
+              src={dropMeUserProfile}
+              alt="Un grupo de amigos abrazados en el atardecer"
+            />
           </ColumnImg>
         </Row>
       </Container>
