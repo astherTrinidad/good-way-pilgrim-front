@@ -35,11 +35,26 @@ const DeleteAccountModal = () => {
         {'¡No abandones al peregrino que llevas dentro!'}
       </DialogTitle>
       <DialogContent>
-        <Illustration src={modalIllustration} alt="Ilustración montaña" />
+        <Illustration
+          src={modalIllustration}
+          alt="Ilustración de una chica en la montaña"
+        />
       </DialogContent>
       <DialogActions>
-        <ButtonDelete onClick={deleteUser}>¡Me voy!</ButtonDelete>
-        <ButtonSave onClose={handleClose}>¡Me quedo!</ButtonSave>
+        <ButtonDelete
+          onClick={deleteUser}
+          role="button"
+          button-label="¡Me voy!"
+        >
+          ¡Me voy!
+        </ButtonDelete>
+        <ButtonSave
+          onClose={handleClose}
+          role="button"
+          button-label="¡Me quedo!"
+        >
+          ¡Me quedo!
+        </ButtonSave>
       </DialogActions>
     </>
   );

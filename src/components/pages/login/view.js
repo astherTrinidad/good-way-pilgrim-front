@@ -11,15 +11,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import url from '../../../config/url';
 import appRoutes from '../../../config/appRoutes';
 import { FaRegEye } from 'react-icons/fa';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Login() {
   const history = useHistory();
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
-  }; 
+  };
 
   const [data, setData] = useState({
     email: '',
@@ -28,7 +27,7 @@ export default function Login() {
 
   const [touched, setTouched] = useState({
     email: false,
-    password: false
+    password: false,
   });
 
   const [errors, setErrors] = useState({
@@ -43,7 +42,7 @@ export default function Login() {
       email: '',
       password: '',
     };
-    if (!validateEmail(data.email)) newErrors.email = 'Email inválido';    
+    if (!validateEmail(data.email)) newErrors.email = 'Email inválido';
 
     setErrors(newErrors);
   }, [data]);
@@ -56,7 +55,7 @@ export default function Login() {
     setData({
       ...data,
       [event.target.name]: event.target.value,
-    });    
+    });
   };
 
   const handleBlur = event => {
@@ -65,13 +64,10 @@ export default function Login() {
       [event.target.name]: true,
     });
   };
-  
+
   const handleSubmit = async e => {
-    e.preventDefault();    
+    e.preventDefault();
     var invalidForm = some(errors, error => !isEmpty(error));
-    //if(data.password == '' || data.email == '')
-      //invalidForm = true;
-    //const invalidForm = some(errors, error => !isEmpty(error));
     if (!invalidForm) {
       try {
         setIsfetching(true);
@@ -101,6 +97,7 @@ export default function Login() {
       <form onSubmit={handleSubmit}>
         <List />
         <TextInput
+          id="email"
           placeholder="Email"
           name="email"
           type="email"
@@ -109,18 +106,23 @@ export default function Login() {
           error={errors.email}
           onChange={handleChange}
           onBlur={handleBlur}
+          accesskey="e"
         />
         <TextInput
+          id="password"
           placeholder="Contraseña"
           name="password"
-          type= {passwordShown ? "text" : "password"}
+          type={passwordShown ? 'text' : 'password'}
           value={data.password}
           touched={touched.password}
           error={errors.password}
           onChange={handleChange}
           onBlur={handleBlur}
-        /><i className={`fa ${passwordShown ? "fa-eye-slash" : "fa-eye"} `} onClick={togglePasswordVisiblity}></i>
-        {/*{!errors.password ? "bien" : "mal"}*/}
+        />
+        <i
+          className={`fa ${passwordShown ? 'fa-eye-slash' : 'fa-eye'} `}
+          onClick={togglePasswordVisiblity}
+        ></i>
         <Button label="Enviar" type="submit" isFetching={isFetching} />
       </form>
     </Styles>

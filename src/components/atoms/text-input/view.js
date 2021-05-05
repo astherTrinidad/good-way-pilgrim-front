@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Input, Label, ErrorContainer, Container } from './styled';
 
 const TextInput = ({
+  id,
   placeholder,
-  placeholderColor,
   topIcon,
   rightIcon,
   value,
@@ -32,6 +32,7 @@ const TextInput = ({
   label,
   touched,
   disabled,
+  accesskey,
 }) => (
   <Container
     margin={margin}
@@ -50,11 +51,11 @@ const TextInput = ({
     >
       {label && <p>{label}:</p>}
       <Input
+        id={id}
         onKeyDown={onKeyDown}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        placeholderColor={placeholderColor}
         ref={refProp}
         borderRadius={borderRadius}
         borderTop={borderTop}
@@ -68,6 +69,7 @@ const TextInput = ({
         type={type}
         touched={touched}
         disabled={disabled}
+        accesskey={accesskey}
       />
       <Icon className="icon-input" />
     </Label>
@@ -76,6 +78,7 @@ const TextInput = ({
 );
 
 TextInput.propTypes = {
+  id: PropTypes.string,
   placeholder: PropTypes.string,
   placeholderColor: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -105,9 +108,11 @@ TextInput.propTypes = {
   label: PropTypes.string,
   touched: PropTypes.bool,
   disabled: PropTypes.bool,
+  accesskey: PropTypes.string,
 };
 
 TextInput.defaultProps = {
+  id: '',
   placeholder: '',
   placeholderColor: '',
   value: undefined,
@@ -137,6 +142,7 @@ TextInput.defaultProps = {
   label: '',
   touched: false,
   disabled: false,
+  accesskey: '',
 };
 
 export default TextInput;

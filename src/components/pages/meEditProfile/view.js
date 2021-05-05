@@ -156,7 +156,9 @@ export default function MeEditProfile() {
       <Navbar />
       <Container>
         <Row>
-          <Section>Editar Perfil</Section>
+          <Section role="sección" tabIndex="0">
+            Editar Perfil
+          </Section>
         </Row>
         <Row>
           <ColumnImg>
@@ -167,14 +169,22 @@ export default function MeEditProfile() {
           </ColumnImg>
           <ColumnText>
             <Row>
+<<<<<<< HEAD
+              <PhotoProfile aria-label="foto de perfil" tabIndex="0" />
+=======
               <PhotoProfile
                 src={(userData.picture) ? userData.picture : profilePhoto}
                 alt="Foto de perfil"
               ></PhotoProfile>
+>>>>>>> 0168b9bc7833d39710e40c6aae3d67ca02dee435
             </Row>
-            <ContainerName>
-              <NameProfile>{userData?.name}</NameProfile>
-              <SurnameProfile>{userData?.surname}</SurnameProfile>
+            <ContainerName aria-label="nombre de perfil" tabIndex="0">
+              <NameProfile aria-label={userData?.name} tabIndex="0">
+                {userData?.name}
+              </NameProfile>
+              <SurnameProfile aria-label={userData?.surname} tabIndex="0">
+                {userData?.surname}
+              </SurnameProfile>
             </ContainerName>
             <Row>
               <TextInputEditForm
@@ -263,6 +273,7 @@ export default function MeEditProfile() {
                       id="delete"
                       type="button"
                       onClick={handleClickOpen}
+                      button-label="Eliminar cuenta"
                     >
                       Eliminar cuenta
                     </ButtonDelete>
@@ -274,6 +285,8 @@ export default function MeEditProfile() {
                       onClick={handleClose}
                       aria-labelledby="No abandones al peregrino que llevas dentro"
                       aria-describedby="Modal de confirmación cancelación de la cuenta"
+                      aria-modal="true"
+                      role="dialog"
                     >
                       <DeleteAccountModal />
                     </Dialog>
@@ -282,6 +295,7 @@ export default function MeEditProfile() {
                       id="update"
                       type="submit"
                       onSubmit={handleSubmit}
+                      button-label="Guardar"
                     >
                       Guardar
                     </ButtonSave>

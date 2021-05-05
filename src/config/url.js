@@ -5,6 +5,7 @@ const url = {
   meDeleteProfile: '/pri/deleteProfile',
   userProfile: '/pri/showOtherProfile',
   searchProfile: '/pri/showUsers',
+  userProfile: '/pri/showOtherProfile',
   meDeleteProfile: '/pri/deleteProfile',
   register: '/pub/register',
   login: '/pub/login',

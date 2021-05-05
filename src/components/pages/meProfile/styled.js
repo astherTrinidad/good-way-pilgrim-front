@@ -20,6 +20,16 @@ export const Header = styled.div`
     height: 300px;
   }
 `;
+export const ContainerPhoto = styled.div`
+  margin-right: auto;
+  margin-left: auto;
+  height: 200px;
+  width: 200px;
+  margin-top: -85px;
+  border: 4px solid ${colors.turquoise};
+  border-radius: 50%;
+  background-color: ${colors.white};
+`;
 
 export const PhotoProfile = styled.img`
   height: 200px;
@@ -31,7 +41,7 @@ export const PhotoProfile = styled.img`
   margin-right: auto;
   margin-left: auto;
   border-radius: 50%;
-  border: 5px solid ${colors.mustard}
+  border: 5px solid ${colors.mustard};
 `;
 
 export const ContainerName = styled.div`

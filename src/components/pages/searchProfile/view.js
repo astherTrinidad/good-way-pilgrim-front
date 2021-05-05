@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
 import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle, { Button } from '../../../globalStyles';
 import dropMeUserProfile from '../../../assets/images/gota-user-profile.png';
 import url from '../../../config/url';
 import { toast } from 'react-toastify';
-
 import {
   Container,
   ColumnImg,
@@ -16,67 +16,27 @@ import {
   Row,
   SearchInput,
 } from './styled';
+import colors from '../../../assets/colors';
+import { result } from 'lodash';
+
+const people = ['Javi', 'Patri', 'Irene', 'Sara', 'Asther'];
 
 export default function SearchProfile() {
-  const history = useHistory();
-  const [userData, setUserData] = useState({});
-  const [isFetchingUsers, setIsFetchingUsers] = useState(false);
-  const respuesta = apiSearchUsers(localStorage.getItem('id'));
-
-  const [touched, setTouched] = useState({
-    name: false,
-  });
-
-  useEffect(() => {
-    async function fetchProfile() {
-      try {
-        const response = await apiSearchUsers();
-        delete response.picture;
-        setUserData(response);
-      } catch {
-        toast.error('Error del servidor.');
-      }
-    }
-    fetchProfile();
-  }, []);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleChange = event => {
-    setUserData({
-      ...userData,
-      [event.target.name]: event.target.value,
-    });
+    setSearchTerm(event.target.value);
   };
 
-  const handleBlur = event => {
-    setTouched({
-      ...touched,
-      [event.target.name]: true,
-    });
-  };
-
-  const handleSubmit = async e => {
-    e.preventDefault();
-    try {
-      setIsFetchingUsers(true);
-      var respuesta = await apiSearchUsers(userData);
-      if (respuesta.message == 'Expired token') {
-        toast.info(
-          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
-        );
-        history.replace(appRoutes.login);
-      } else if (respuesta.message == 'no results found') {
-        //Maquetar como consideres adecuado
-        toast.info('No se han encontrado usuarios');
-      } else {
-        setUserData(respuesta);
-        //Guardar el array de usuarios en la variable que quieras dentro de sesión y mostrarlos
-        sessionStorage.setItem('matchUsers', respuesta);
-      }
-    } catch (e) {
-      // setIsFetchingUsers(false);
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
-    }
-  };
+  useEffect(() => {
+    const results = people.filter(person =>
+      person.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(results);
+    console.log('*** soy resultado  **' + results);
+    var respuesta = apiSearchUsers(results);
+  }, [searchTerm]);
 
   return (
     <>
@@ -84,29 +44,31 @@ export default function SearchProfile() {
       <Navbar />
       <Container>
         <Row>
-          <Section>Buscar peregrino</Section>
+          <Section role="sección" tabIndex="0">
+            Buscar peregrino
+          </Section>
         </Row>
         <Row>
           <ColumnText>
-            <label htmlFor="name"></label>
-            <SearchInput
-              label="Nombre"
-              name="name"
-              placeholder="Buscar por nombre"
-              type="text"
-              value={userData?.name}
-              touched={touched.name}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            <Button
-              name="Buscar"
-              type="submit"
-              onSubmit={handleSubmit}
-              // setIsFetchingUsers={isFetchingUsers}
-            >
-              Buscar Peregrino
-            </Button>
+            <form>
+              <Row>
+                <label htmlFor="name"></label>
+                <SearchInput
+                  type="text"
+                  placeholder="Buscar"
+                  value={searchTerm}
+                  onChange={handleChange}
+                />
+              </Row>
+              <ul>
+                {searchResults.map(item => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+              <Button name="Buscar" type="submit">
+                Ver perfil
+              </Button>
+            </form>
           </ColumnText>
           <ColumnImg>
             <Img src={dropMeUserProfile} alt="Texto" />
@@ -119,8 +81,9 @@ export default function SearchProfile() {
 }
 
 // /*Llamada y control de errores del EP que devuelve los usuarios cuyo nombre se asemeje a la cadena introducida en el buscador*/
-async function apiSearchUsers(cadenaBusqueda) {
-  return fetch(`${url.base}${url.searchProfile}?string=${cadenaBusqueda}`, {
+async function apiSearchUsers(dataUser) {
+  console.log('en APi method ' + dataUser);
+  return fetch(`${url.base}${url.searchProfile}?string=${dataUser}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -175,3 +138,12 @@ async function apiSearchUsers(cadenaBusqueda) {
 //   setIsFetchingUser(false);
 //   toast.error('Error del servidor. Por favor, inténtelo de nuevo');
 // }
+
+// const respuesta = apiSearchUsers(sessionStorage.getItem('id'));
+/* <FaSearch
+                  aria-hidden="true"
+                  color={colors.turquoise}
+                  fontSize="2em"
+                  onClick={handleSubmit}
+                  title="Buscar usuario"
+                /> */
