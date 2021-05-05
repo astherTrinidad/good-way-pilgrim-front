@@ -105,3 +105,32 @@ export const Subtitle = styled.p`
     display: none;
   }
 `;
+
+export const ButtonDelete = styled.button`
+  width: 50%;
+  border-radius: 8px;
+
+  background-color: ${colors.red};
+  color: ${colors.white};
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  margin: 1rem;
+  padding: 1rem 1.5rem;
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    background: ${colors.redDark};
+    color: ${colors.white};
+    cursor: pointer;
+    box-shadow: inset 0px 11px 8px -10px ${colors.black};
+  }
+  @media screen and (max-width: 960px) {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 1rem;
+  }
+`;

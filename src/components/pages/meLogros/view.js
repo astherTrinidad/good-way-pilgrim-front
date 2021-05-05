@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import Dialog from '@material-ui/core/Dialog';
+import Slide from '@material-ui/core/Slide';
 import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
 import url from '../../../config/url';
 import { toast } from 'react-toastify';
-
 import {
   Container,
   Section,
@@ -15,8 +16,13 @@ import {
   TextWrapper,
   Heading,
   Subtitle,
+  ButtonDelete,
 } from './styled';
+import DeleteLogros from '../../modals/deleteLogros';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 export default function Logros() {
   const [userData, setUserData] = useState({});
 
@@ -31,6 +37,17 @@ export default function Logros() {
     }
     fetchProfile();
   }, []);
+
+  /* modal */
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -108,6 +125,28 @@ export default function Logros() {
             tabIndex={0}
           />
         </RowLogros>
+        <ButtonDelete
+          label="Resetear logros"
+          name="Resetear logros"
+          id="delete"
+          type="button"
+          onClick={handleClickOpen}
+          button-label="Resetear logros"
+        >
+          Resetear logros
+        </ButtonDelete>
+        <Dialog
+          open={open}
+          TransitionComponent={Transition}
+          keepMounted
+          onClick={handleClose}
+          aria-labelledby="¿Empezamos de cero?"
+          aria-describedby="Modal de confirmación resetear logros"
+          aria-modal="true"
+          role="dialog"
+        >
+          <DeleteLogros />
+        </Dialog>
       </Container>
       <Footer />
     </>
