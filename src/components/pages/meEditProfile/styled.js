@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
-import profilePhoto from '../../../assets/images/photo-profile-generic.png';
 
 export const Row = styled.div`
   display: flex;
@@ -51,7 +50,7 @@ export const ColumnText = styled.div`
   }
 `;
 
-export const PhotoProfile = styled.div`
+/*export const PhotoProfile = styled.div`
   height: 150px;
   width: 150px;
   background: url(${profilePhoto});
@@ -62,6 +61,17 @@ export const PhotoProfile = styled.div`
   margin-right: auto;
   margin-left: auto;
   border-radius: 50%;
+`;*/
+
+export const PhotoProfile = styled.img`
+  height: 150px;
+  width: 150px;
+  position: relative;
+  margin-top: -3.5rem;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 50%;
+  border: 5px solid ${colors.mustard};
 `;
 
 export const ContainerName = styled.div`

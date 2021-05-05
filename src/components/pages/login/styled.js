@@ -27,5 +27,26 @@ export default styled.div`
         background-repeat: no-repeat;
         background-size: cover;
     }
+    .fa-eye{
+        position: relative;  
+        left: 205px;
+        top: -72px;
+        cursor: pointer;
+        color: grey;
+    }
+    .fa-eye-slash{
+        position: relative;    
+        left: 205px;
+        top: -72px;
+        cursor: pointer;
+        color: grey;
+    }
+    .bien{
+        top: -72px;
+    }
+    .mal{
+        top: -86px;
+        color: red;
+    }
 
 `

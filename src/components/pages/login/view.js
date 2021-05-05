@@ -11,10 +11,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import url from '../../../config/url';
 import appRoutes from '../../../config/appRoutes';
 import { FaRegEye } from 'react-icons/fa';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 export default function Login() {
   const history = useHistory();
+  const [passwordShown, setPasswordShown] = useState(false);
+  const togglePasswordVisiblity = () => {
+    setPasswordShown(passwordShown ? false : true);
+  }; 
 
   const [data, setData] = useState({
     email: '',
@@ -23,7 +28,7 @@ export default function Login() {
 
   const [touched, setTouched] = useState({
     email: false,
-    password: false,
+    password: false
   });
 
   const [errors, setErrors] = useState({
@@ -38,13 +43,7 @@ export default function Login() {
       email: '',
       password: '',
     };
-
-    if (!data.email) newErrors.email = 'Campo obligatorio';
-    else if (!validateEmail(data.email)) newErrors.email = 'Email inválido';
-
-    if (!data.password) newErrors.password = 'Campo obligatorio';
-    else if (!validatePassword(data.password))
-      newErrors.password = 'Mínimo 8 caracteres, minúsuculas y mayúsculas';
+    if (!validateEmail(data.email)) newErrors.email = 'Email inválido';    
 
     setErrors(newErrors);
   }, [data]);
@@ -57,7 +56,7 @@ export default function Login() {
     setData({
       ...data,
       [event.target.name]: event.target.value,
-    });
+    });    
   };
 
   const handleBlur = event => {
@@ -66,10 +65,13 @@ export default function Login() {
       [event.target.name]: true,
     });
   };
-
+  
   const handleSubmit = async e => {
-    e.preventDefault();
-    const invalidForm = some(errors, error => !isEmpty(error));
+    e.preventDefault();    
+    var invalidForm = some(errors, error => !isEmpty(error));
+    //if(data.password == '' || data.email == '')
+      //invalidForm = true;
+    //const invalidForm = some(errors, error => !isEmpty(error));
     if (!invalidForm) {
       try {
         setIsfetching(true);
@@ -86,13 +88,13 @@ export default function Login() {
         setIsfetching(false);
       }
     } else {
+      //toast.warn("Por favor, rellena todos tus datos correctamente")
       setTouched({
         email: true,
         password: true,
       });
     }
   };
-
   return (
     <Styles>
       <FormHeader logo={gwpLogo} title="" info="" />
@@ -111,13 +113,14 @@ export default function Login() {
         <TextInput
           placeholder="Contraseña"
           name="password"
-          type="password"
+          type= {passwordShown ? "text" : "password"}
           value={data.password}
           touched={touched.password}
           error={errors.password}
           onChange={handleChange}
           onBlur={handleBlur}
-        />
+        /><i className={`fa ${passwordShown ? "fa-eye-slash" : "fa-eye"} `} onClick={togglePasswordVisiblity}></i>
+        {/*{!errors.password ? "bien" : "mal"}*/}
         <Button label="Enviar" type="submit" isFetching={isFetching} />
       </form>
     </Styles>
