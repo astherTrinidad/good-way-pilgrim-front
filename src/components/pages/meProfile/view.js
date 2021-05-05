@@ -15,7 +15,6 @@ import {
   ContainerName,
   ContainerPhoto,
 } from './styled';
-import profilePhoto from '../../../assets/images/photo-profile-generic.png';
 
 export default function MeProfile() {
   const history = useHistory();
