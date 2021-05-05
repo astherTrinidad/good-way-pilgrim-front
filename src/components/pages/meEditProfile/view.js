@@ -79,7 +79,7 @@ export default function MeEditProfile() {
     async function fetchProfile() {
       try {
         const response = await apiMeProfile();
-        if (response.message == "Expired token") {
+        if (response.message == 'Expired token') {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );
@@ -98,13 +98,13 @@ export default function MeEditProfile() {
     fetchProfile();
   }, []);
 
-  const convertirBase64 = (archivo) => {
+  const convertirBase64 = archivo => {
     var reader = new FileReader();
-    reader.readAsDataURL(archivo[0])
+    reader.readAsDataURL(archivo[0]);
     reader.onload = function () {
       userData.picture = reader.result;
-    }
-  }
+    };
+  };
 
   const handleChange = event => {
     setUserData({
@@ -169,14 +169,12 @@ export default function MeEditProfile() {
           </ColumnImg>
           <ColumnText>
             <Row>
-<<<<<<< HEAD
-              <PhotoProfile aria-label="foto de perfil" tabIndex="0" />
-=======
               <PhotoProfile
-                src={(userData.picture) ? userData.picture : profilePhoto}
+                src={userData.picture ? userData.picture : profilePhoto}
                 alt="Foto de perfil"
+                aria-label="foto de perfil"
+                tabIndex="0"
               ></PhotoProfile>
->>>>>>> 0168b9bc7833d39710e40c6aae3d67ca02dee435
             </Row>
             <ContainerName aria-label="nombre de perfil" tabIndex="0">
               <NameProfile aria-label={userData?.name} tabIndex="0">
@@ -193,8 +191,8 @@ export default function MeEditProfile() {
                 type="file"
                 //accept=".jpg,.jpeg,.png,.tiff,.eps"
                 //max-size="1048576"
-                onChange={(e) => convertirBase64(e.target.files)}
-              //onChange={handleChange}
+                onChange={e => convertirBase64(e.target.files)}
+                //onChange={handleChange}
               />
             </Row>
             <Row>
