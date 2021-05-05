@@ -2,6 +2,8 @@ const url = {
   base: process.env.REACT_APP_BASE_URL,
   meProfile: '/pri/showProfile',
   meEditProfile: '/pri/editProfile',
+  meDeleteProfile: '/pri/deleteProfile',
+  userProfile: '/pri/showOtherProfile',
   searchProfile: '/pri/showUsers',
   userProfile: '/pri/showOtherProfile',
   meDeleteProfile: '/pri/deleteProfile',

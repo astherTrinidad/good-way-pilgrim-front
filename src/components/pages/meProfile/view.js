@@ -74,5 +74,6 @@ async function apiMeProfile() {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
-  }).then(data => data.json());
+  }).then(data => data.json())
 }
+
