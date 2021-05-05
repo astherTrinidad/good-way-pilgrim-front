@@ -22,16 +22,6 @@ export default function MeProfile() {
 
   useEffect(() => {
     async function fetchProfile() {
-      /* try {
-        const response = await apiMeProfile();
-        response.oldPassword = '';
-        response.newPassword = '';
-        setUserData(response);
-      } catch {
-        toast.error(
-          'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
-        );
-      } */
       try {
         setIsFetchingUser(true);
         const datos = await apiMeProfile();
