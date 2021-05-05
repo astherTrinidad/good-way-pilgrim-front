@@ -10,6 +10,8 @@ import Styles from './styled';
 import 'react-toastify/dist/ReactToastify.css';
 import url from '../../../config/url';
 import appRoutes from '../../../config/appRoutes';
+import { FaRegEye } from 'react-icons/fa';
+
 
 export default function Login() {
   const history = useHistory();

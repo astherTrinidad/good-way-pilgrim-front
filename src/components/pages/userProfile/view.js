@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { BrowserRouter as Router, useHistory } from 'react-router-dom';
 import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
 import dropMeUserProfile from '../../../assets/images/gota-user-profile.png';
 import url from '../../../config/url';
+import { toast } from 'react-toastify';
 
 import {
   Container,
@@ -23,11 +23,26 @@ import {
 } from './styled';
 
 export default function UserProfile() {
+  const [userData, setUserData] = useState({});
+
   console.log('Llamando...');
   const respuesta = getAPIProfile(localStorage.getItem('id'));
-  console.log(respuesta);
+  console.log('respuesta' + respuesta);
+
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        const response = await getAPIProfile(40);
+        setUserData(response);
+      } catch {
+        toast.error('Error del servidor');
+      }
+    }
+    fetchProfile();
+  }, []);
+
   return (
-    <Router>
+    <>
       <GlobalStyle />
       <Navbar />
       <Container>
@@ -40,8 +55,8 @@ export default function UserProfile() {
               <PhotoProfile />
             </Row>
             <ContainerName>
-              <NameProfile>Nombre</NameProfile>
-              <SurnameProfile>Apellidos</SurnameProfile>
+              <NameProfile>{userData?.name}</NameProfile>
+              <SurnameProfile>{userData?.surname}</SurnameProfile>
             </ContainerName>
             <Text>Último camino: </Text>
             <Text>Número de caminos realizados: </Text>
@@ -49,9 +64,9 @@ export default function UserProfile() {
             <Text>Número de logros: </Text>
             <Row>
               <RowLogros>
-                <Logro src="" alt="Texto" />
-                <Logro src="" alt="Texto" />
-                <Logro src="" alt="Texto" />
+                <Logro src="" alt="" />
+                <Logro src="" alt="" />
+                <Logro src="" alt="" />
               </RowLogros>
             </Row>
           </ColumnText>
@@ -61,7 +76,7 @@ export default function UserProfile() {
         </Row>
       </Container>
       <Footer />
-    </Router>
+    </>
   );
 }
 

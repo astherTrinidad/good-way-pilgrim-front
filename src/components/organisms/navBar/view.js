@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
+import appRoutes from '../../../config/appRoutes';
+import { FaTimes, FaRegUserCircle } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { Button } from '../../../globalStyles';
 import {
@@ -10,90 +12,80 @@ import {
   NavMenu,
   NavItem,
   NavLinks,
-  SubNavItem,
+  NavMenuUserResponsive,
   ConchaIcon,
-  NavItemBtn,
   NavBtnLink,
+  IconUser,
+  NavMenuUser,
+  NavLinksMenu,
 } from './styled';
-import appRoutes from '../../../config/appRoutes';
 
 const Navbar = () => {
+  const history = useHistory();
+
   //Hook: valor inicial, función que actualizará el valor = inicializamos estado
-  const [click, setClick] = useState(false);
-  const [button, setButton] = useState(true);
+  const [click, setClick] = useState(true);
 
   const handleClick = () => setClick(!click);
 
   const closeSession = async e => {
     e.preventDefault();
     sessionStorage.removeItem('token');
-    window.location.reload();
+    history.replace(appRoutes.login);
   };
-
-  const showButton = () => {
-    if (window.innerWidth <= 960) {
-      setButton(false);
-    } else {
-      setButton(true);
-    }
-  };
-
-  useEffect(() => {
-    showButton();
-  }, []);
-  //cada vez que cambie de tamaño mostrar el botón
-  window.addEventListener('resize', showButton);
 
   return (
     <IconContext.Provider value={{ color: '#ffff' }}>
       <Nav>
         <NavbarContainer>
           <NavLogo to={appRoutes.meProfile} />
-          <MobileIcon onClick={handleClick}>
-            {click ? <FaTimes /> : <FaBars />}
-          </MobileIcon>
-          <NavMenu onClick={handleClick} click={click}>
+          <NavMenuUser onClick={handleClick} click={click}>
             <NavItem>
-              <NavLinks to={appRoutes.meProfile}>Mi perfil</NavLinks>
+              <NavLinksMenu to={appRoutes.meEditProfile}>
+                Editar perfil
+              </NavLinksMenu>
+              <NavLinksMenu to={appRoutes.searchProfile}>
+                Buscar peregrino
+              </NavLinksMenu>
+              <NavBtnLink to={appRoutes.login}>
+                <Button onClick={closeSession} fontBig>
+                  Cerrar sesión
+                </Button>
+              </NavBtnLink>
             </NavItem>
-            <NavItem>
-              <SubNavItem>
-                <NavLinks to={appRoutes.meEditProfile}>Editar perfil</NavLinks>
-              </SubNavItem>
-            </NavItem>
-            <NavItem>
-              <SubNavItem>
-                <NavLinks to={appRoutes.userProfile}>Buscar peregrino</NavLinks>
-              </SubNavItem>
-            </NavItem>
-            <ConchaIcon />
-            <NavItem>
-              <NavLinks to="/caminos">Caminos</NavLinks>
-            </NavItem>
+          </NavMenuUser>
 
+          <NavMenuUserResponsive onClick={handleClick} click={click}>
             <NavItem>
-              <NavLinks to="/mochila">Mochila</NavLinks>
+              <NavLinksMenu to={appRoutes.meProfile}>Mi perfil</NavLinksMenu>
+              <NavLinksMenu to={appRoutes.meEditProfile}>
+                Editar perfil
+              </NavLinksMenu>
+              <NavLinksMenu to={appRoutes.searchProfile}>
+                Buscar peregrino
+              </NavLinksMenu>
+              <ConchaIcon />
+              <NavLinksMenu to={appRoutes.caminos}>Caminos</NavLinksMenu>
+              <NavLinksMenu to={appRoutes.mochila}>Mochila</NavLinksMenu>
+              <NavLinksMenu to={appRoutes.logros}>Logros</NavLinksMenu>
+              <NavBtnLink to={appRoutes.login}>
+                <Button onClick={closeSession} fontBig>
+                  Cerrar sesión
+                </Button>
+              </NavBtnLink>
             </NavItem>
-
-            <NavItem>
-              <NavLinks to="/logros">Logros</NavLinks>
-            </NavItem>
-            <NavItemBtn>
-              {button ? (
-                <NavBtnLink to={appRoutes.login}>
-                  <Button onClick={closeSession} primary>
-                    Cerrar sesión
-                  </Button>
-                </NavBtnLink>
-              ) : (
-                <NavBtnLink to={appRoutes.login}>
-                  <Button onClick={closeSession} fontBig primary>
-                    Cerrar sesión
-                  </Button>
-                </NavBtnLink>
-              )}
-            </NavItemBtn>
+          </NavMenuUserResponsive>
+          <NavMenu>
+            <NavLinks to={appRoutes.meProfile}>Perfil</NavLinks>
+            <NavLinks to={appRoutes.caminos}>Caminos</NavLinks>
+            <NavLinks to={appRoutes.mochila}>Mochila</NavLinks>
+            <NavLinks to={appRoutes.logros}>Logros</NavLinks>
           </NavMenu>
+          <MobileIcon>
+            <IconUser onClick={handleClick}>
+              {click ? <FaRegUserCircle /> : <FaTimes className="FaTimes" />}
+            </IconUser>
+          </MobileIcon>
         </NavbarContainer>
       </Nav>
     </IconContext.Provider>
