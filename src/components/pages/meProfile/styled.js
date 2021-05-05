@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import colors from '../../../assets/colors';
 import bgHeaderMeProfile from '../../../assets/images/bg-header-me-profile-min.jpg';
 import bgHeaderShowProfileMobile from '../../../assets/images/bgHeaderShowProfileMobile-min.jpg';
-import profilePhoto from '../../../assets/images/photo-profile-generic.png';
 
 export const Header = styled.div`
   background: url(${bgHeaderMeProfile});
@@ -22,17 +21,17 @@ export const Header = styled.div`
   }
 `;
 
-export const PhotoProfile = styled.div`
+export const PhotoProfile = styled.img`
   height: 200px;
   width: 200px;
-  background: url(${profilePhoto});
-  background-repeat: no-repeat;
-  background-size: cover;
+  display: block;
+  margin: auto;
   position: relative;
   margin-top: -85px;
   margin-right: auto;
   margin-left: auto;
   border-radius: 50%;
+  border: 5px solid ${colors.mustard}
 `;
 
 export const ContainerName = styled.div`

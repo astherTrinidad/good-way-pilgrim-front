@@ -59,12 +59,12 @@ export default function SearchProfile() {
     try {
       setIsFetchingUsers(true);
       var respuesta = await apiSearchUsers(userData);
-      if (respuesta.message === 'Expired token') {
+      if (respuesta.message == 'Expired token') {
         toast.info(
           'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
         );
         history.replace(appRoutes.login);
-      } else if (respuesta.message === 'no results found') {
+      } else if (respuesta.message == 'no results found') {
         //Maquetar como consideres adecuado
         toast.info('No se han encontrado usuarios');
       } else {
