@@ -3,6 +3,7 @@ const routes = {
   register: '/registro',
   meProfile: '/perfil',
   meEditProfile: '/editar-perfil',
+  meLogros: '/logros',
   userProfile: '/usuarios/perfil',
   searchProfile: '/usuarios/buscar',
   frequentQuestion: '/preguntas-frecuentes',
