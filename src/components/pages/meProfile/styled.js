@@ -34,9 +34,14 @@ export const ContainerPhoto = styled.div`
 export const PhotoProfile = styled.img`
   height: 200px;
   width: 200px;
-  background-repeat: no-repeat;
-  background-size: cover;
+  display: block;
+  margin: auto;
+  position: relative;
+  margin-top: -85px;
+  margin-right: auto;
+  margin-left: auto;
   border-radius: 50%;
+  border: 5px solid ${colors.mustard};
 `;
 
 export const ContainerName = styled.div`
