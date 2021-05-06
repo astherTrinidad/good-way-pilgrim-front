@@ -33,7 +33,7 @@ export const ContainerLogros = styled.div`
   height: max-content;
   display: flex;
   flex-direction: column;
-  background-color: pink;
+  background-color: coral;
   justify-content: center;
   align-items: center;
 `;

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import  _  from 'lodash'
 import { useHistory } from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
@@ -23,27 +24,42 @@ import {
   DescriptionText,
 } from './styled';
 import DeleteLogros from '../../modals/deleteLogros';
-import logroBN from '../../../assets/images/logros/bn/el-casanova.png';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+const Logro = ({src, alt, tabIndex, name, description}) => {
+  return <ContainerLogros>
+    <LogroBN
+      src={src}
+      alt={alt}
+      tabIndex={tabIndex}
+    />
+    <NameText tabIndex={tabIndex}>{name}</NameText>
+    <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
+  </ContainerLogros>;
+};
+
 export default function MeLogros() {
   const history = useHistory();
-  const [userLogros, setUserLogros] = useState({});
+  const [allLogros, setAllLogros] = useState([]);
+  const [userLogros, setUserLogros] = useState([]);
+
 
   useEffect(() => {
     async function fetchProfile() {
       try {
         const response = await apiAllAchievements();
+        const myAchievementsResponse = await apiMyAchievements();
         if (response.message == 'Expired token') {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );
           history.replace(appRoutes.login);
         } else {
-          setUserLogros(response);
+          setAllLogros(response);
+          setUserLogros(myAchievementsResponse);
         }
       } catch {
         toast.error(
@@ -54,12 +70,29 @@ export default function MeLogros() {
     fetchProfile();
   }, []);
 
-  const handleChange = event => {
-    setUserLogros({
-      ...userLogros,
-      [event.target.picture]: event.target.value,
-    });
-  };
+  const renderLogros = allLogros?.map( (item) => {
+    console.log(item)
+    console.log(userLogros)
+
+    // const idLogros = userLogros.find( (element) => {
+    //   console.log('item.id' + item.id)
+    //   console.log('element.id_logro' + element.id_logro)
+    //   return  element.id_logro === item.id
+    // })
+
+    const idLogros = _.find(userLogros, (element) => {return element.id_logro === item.id});
+  
+     
+    console.log(idLogros)
+
+    
+    return <Logro
+    src={`./assets/logros/bn/${item.slug}.png`}
+    name={item.name}
+    description={item.description}
+    />
+  }) 
+
 
   /* modal */
   const [open, setOpen] = React.useState(false);
@@ -101,27 +134,10 @@ export default function MeLogros() {
           </TextWrapper>
         </Row>
         <RowLogros tabIndex={0} aria-label="Logros">
-          <ContainerLogros>
-            <LogroBN
-              src={logroBN}
-              alt="logro bn"
-              aria-label="nombre logro"
-              tabIndex={0}
-              onChange={handleChange}
-            />
-            <NameText tabIndex={0}>{userLogros[0].name}</NameText>
-            <DescriptionText tabIndex={0}>
-              {userLogros[0].description}
-            </DescriptionText>
-          </ContainerLogros>
-
-          {/* <LogroColor
-            src=""
-            alt="logro color"
-            aria-label="nombre logro"
-            tabIndex={0}
-          /> */}
+          
+        {renderLogros}
         </RowLogros>
+
         <Row>
           <Section role="sección" tabIndex={0}>
             AntiLogros
@@ -184,6 +200,16 @@ export default function MeLogros() {
 /*Llamada y control de errores del EP que devuelve todos los logros*/
 async function apiAllAchievements() {
   return fetch(`${url.base}/pri/AllAchievements`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+  }).then(data => data.json());
+}
+
+async function apiMyAchievements() {
+  return fetch(`${url.base}${url.meLogros}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
