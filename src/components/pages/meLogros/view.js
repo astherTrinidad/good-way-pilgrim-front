@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import  _findIndex from 'lodash/findIndex'
+import _findIndex from 'lodash/findIndex';
 import { useHistory } from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
@@ -28,23 +28,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Logro = ({src, alt, tabIndex, name, description}) => {
-  return <ContainerLogros>
-    <LogroImg
-      src={src}
-      alt={alt}
-      tabIndex={tabIndex}
-    />
-    <NameText tabIndex={tabIndex}>{name}</NameText>
-    <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
-  </ContainerLogros>;
+const Logro = ({ src, alt, tabIndex, name, description }) => {
+  return (
+    <ContainerLogros>
+      <LogroImg src={src} alt={alt} tabIndex={tabIndex} />
+      <NameText tabIndex={tabIndex}>{name}</NameText>
+      <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
+    </ContainerLogros>
+  );
 };
 
 export default function MeLogros() {
   const history = useHistory();
   const [allLogros, setAllLogros] = useState([]);
   const [userLogros, setUserLogros] = useState([]);
-
 
   useEffect(() => {
     async function fetchProfile() {
@@ -69,31 +66,40 @@ export default function MeLogros() {
     fetchProfile();
   }, []);
 
-  const renderLogros = allLogros?.slice(0,10)?.map( (item) => {
-    const idLogros = _findIndex(userLogros, (element) => {return element.id_logro === item.id});
-    const ruta = idLogros !== -1 ? './assets/logros/color/' : './assets/logros/bn/';
-    return <Logro
-    src={`${ruta}${item.slug}.png`}
-    name={item.name}
-    description={item.description}
-    alt={item.name}
-    tabIndex={0}
-    />
-  }) 
+  const renderLogros = allLogros?.slice(0, 10)?.map(item => {
+    const idLogros = _findIndex(userLogros, element => {
+      return element.id_logro === item.id;
+    });
+    const ruta =
+      idLogros !== -1 ? './assets/logros/color/' : './assets/logros/bn/';
+    return (
+      <Logro
+        src={`${ruta}${item.slug}.png`}
+        name={item.name}
+        description={item.description}
+        alt={item.name}
+        tabIndex={0}
+      />
+    );
+  });
 
-  const renderAntiLogros = allLogros?.slice(10,20)?.map( (item) => {
-    const idLogros = _findIndex(userLogros, (element) => {return element.id_logro === item.id});
-    const ruta = idLogros !== -1 ? './assets/logros/color/' : './assets/logros/bn/';
+  const renderAntiLogros = allLogros?.slice(10, 20)?.map(item => {
+    const idLogros = _findIndex(userLogros, element => {
+      return element.id_logro === item.id;
+    });
+    const ruta =
+      idLogros !== -1 ? './assets/logros/color/' : './assets/logros/bn/';
 
-    return <Logro
-    src={`${ruta}${item.slug}.png`}
-    name={item.name}
-    description={item.description}
-    alt={item.name}
-    tabIndex={0}
-    />
-  }) 
-
+    return (
+      <Logro
+        src={`${ruta}${item.slug}.png`}
+        name={item.name}
+        description={item.description}
+        alt={item.name}
+        tabIndex={0}
+      />
+    );
+  });
 
   /* modal */
   const [open, setOpen] = React.useState(false);
@@ -135,7 +141,7 @@ export default function MeLogros() {
           </TextWrapper>
         </Row>
         <RowLogros tabIndex={0} aria-label="Logros">
-        {renderLogros}
+          {renderLogros}
         </RowLogros>
 
         <Row>
@@ -162,8 +168,7 @@ export default function MeLogros() {
           </TextWrapper>
         </Row>
         <RowLogros tabIndex={0} aria-label="Logros">
-        {renderAntiLogros}
-
+          {renderAntiLogros}
         </RowLogros>
         <ButtonDelete
           label="Resetear logros"
@@ -211,16 +216,5 @@ async function apiMyAchievements() {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
-  }).then(data => data.json());
-}
-
-async function apiDeleteAchievements() {
-  return fetch(`${url.base}${url.deleteLogros}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-    },
-    body: JSON.stringify(),
   }).then(data => data.json());
 }

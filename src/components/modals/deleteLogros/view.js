@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import appRoutes from '../../../config/appRoutes';
 import url from '../../../config/url';
 import { Illustration, ButtonDelete, ButtonSave } from './styled';
-import modalIllustration from '../../../assets/images/modal-illustration-delete.png';
+import modalBin from '../../../assets/images/modal-achievements-delete.png';
 import { DialogContentText } from '@material-ui/core';
 
 const DeleteLogros = () => {
@@ -22,9 +22,15 @@ const DeleteLogros = () => {
     event.preventDefault();
     try {
       var respuesta = await apiDeleteAchievements();
-      toast.success('¡Esperamos volver a verte pronto peregrino!');
-      sessionStorage.removeItem('token');
-      history.replace(appRoutes.login);
+      if (respuesta.message == 'success') {
+        toast.info('Has eliminado el logro de tu lista');
+      }
+      if (respuesta.message == 'Expired token') {
+        toast.info(
+          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+        );
+        history.replace(appRoutes.login);
+      }
     } catch (e) {
       toast.error('Error del servidor. Por favor, inténtelo de nuevo');
     }
@@ -35,7 +41,7 @@ const DeleteLogros = () => {
       <DialogTitle id="deleteAccountmodal">{'¿Empezamos de cero?'}</DialogTitle>
       <DialogContent>
         <Illustration
-          src={modalIllustration}
+          src={modalBin}
           alt="Ilustración de una chica en la montaña"
         />
         <DialogContentText>
@@ -44,11 +50,11 @@ const DeleteLogros = () => {
       </DialogContent>
 
       <DialogActions>
-        <ButtonDelete onClick={deleteUser} role="button" button-label="No">
-          No
-        </ButtonDelete>
-        <ButtonSave onClose={handleClose} role="button" button-label="Sí">
+        <ButtonDelete onClick={deleteUser} role="button" button-label="Sí">
           Sí
+        </ButtonDelete>
+        <ButtonSave onClose={handleClose} role="button" button-label="No">
+          No
         </ButtonSave>
       </DialogActions>
     </>

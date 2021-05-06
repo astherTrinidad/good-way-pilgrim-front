@@ -40,11 +40,9 @@ export const ContainerLogros = styled.div`
   flex-direction: column;
   text-align: center;
 
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 768px) {
     width: 180px;
-
   }
-
 `;
 
 export const LogroImg = styled.img`
@@ -156,7 +154,7 @@ export const DescriptionText = styled.p`
   font-weight: 300;
   padding: 0.5rem 1rem 1rem 1rem;
 
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 768px) {
     font-size: 0.875rem;
     line-height: 1.5;
     padding: 0.5rem 0rem;
