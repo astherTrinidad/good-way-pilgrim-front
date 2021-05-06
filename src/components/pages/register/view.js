@@ -140,7 +140,7 @@ export default function Register() {
         />
 
         <TextInput
-          placeholder="Email (Máximo 40 caracteres)"
+          placeholder="Email"
           name="email"
           type="email"
           value={data.email}

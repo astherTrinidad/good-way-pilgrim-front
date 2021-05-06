@@ -34,6 +34,8 @@ export default function SearchProfile() {
     try {
       var respuesta = await apiSearchUsers(searchTerm);
       setSearchResults(respuesta);
+      console.log(respuesta);
+
       if (respuesta.message == 'Expired token') {
         toast.info(
           'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
