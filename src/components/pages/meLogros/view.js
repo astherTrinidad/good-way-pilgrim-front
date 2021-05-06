@@ -18,8 +18,12 @@ import {
   Heading,
   Subtitle,
   ButtonDelete,
+  NameText,
+  ContainerLogros,
+  DescriptionText,
 } from './styled';
 import DeleteLogros from '../../modals/deleteLogros';
+import logroBN from '../../../assets/images/logros/bn/el-casanova.png';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -74,7 +78,9 @@ export default function MeLogros() {
       <Navbar />
       <Container>
         <Row>
-          <Section role="sección">Logros</Section>
+          <Section role="sección" tabIndex={0}>
+            Logros
+          </Section>
         </Row>
         <Row>
           <TextWrapper>
@@ -95,13 +101,19 @@ export default function MeLogros() {
           </TextWrapper>
         </Row>
         <RowLogros tabIndex={0} aria-label="Logros">
-          <LogroBN
-            src=""
-            alt="logro bn"
-            aria-label="nombre logro"
-            tabIndex={0}
-            onChange={handleChange}
-          />
+          <ContainerLogros>
+            <LogroBN
+              src={logroBN}
+              alt="logro bn"
+              aria-label="nombre logro"
+              tabIndex={0}
+              onChange={handleChange}
+            />
+            <NameText tabIndex={0}>{userLogros[0].name}</NameText>
+            <DescriptionText tabIndex={0}>
+              {userLogros[0].description}
+            </DescriptionText>
+          </ContainerLogros>
 
           {/* <LogroColor
             src=""
@@ -111,7 +123,9 @@ export default function MeLogros() {
           /> */}
         </RowLogros>
         <Row>
-          <Section role="sección">AntiLogros</Section>
+          <Section role="sección" tabIndex={0}>
+            AntiLogros
+          </Section>
         </Row>
         <Row>
           <TextWrapper>

@@ -28,6 +28,16 @@ export const RowLogros = styled.div`
   margin-bottom: 4rem;
 `;
 
+export const ContainerLogros = styled.div`
+  width: max-content;
+  height: max-content;
+  display: flex;
+  flex-direction: column;
+  background-color: pink;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const LogroBN = styled.img`
   background-color: ${colors.lightGrey};
   border-radius: 50%;
@@ -133,4 +143,16 @@ export const ButtonDelete = styled.button`
     margin-right: auto;
     margin: 1rem;
   }
+`;
+
+export const NameText = styled.p`
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem 1rem 0 1rem;
+`;
+
+export const DescriptionText = styled.p`
+  font-size: 1rem;
+  font-weight: 300;
+  padding: 0.5rem 1rem 1rem 1rem;
 `;
