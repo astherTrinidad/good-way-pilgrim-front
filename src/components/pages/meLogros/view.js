@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import  _  from 'lodash'
+import  _findIndex from 'lodash/findIndex'
 import { useHistory } from 'react-router-dom';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
@@ -12,8 +12,7 @@ import {
   Container,
   Section,
   Row,
-  LogroBN,
-  LogroColor,
+  LogroImg,
   RowLogros,
   TextWrapper,
   Heading,
@@ -31,7 +30,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const Logro = ({src, alt, tabIndex, name, description}) => {
   return <ContainerLogros>
-    <LogroBN
+    <LogroImg
       src={src}
       alt={alt}
       tabIndex={tabIndex}
@@ -70,24 +69,22 @@ export default function MeLogros() {
     fetchProfile();
   }, []);
 
-  const renderLogros = allLogros?.map( (item) => {
-    console.log(item)
-    console.log(userLogros)
-
-    // const idLogros = userLogros.find( (element) => {
-    //   console.log('item.id' + item.id)
-    //   console.log('element.id_logro' + element.id_logro)
-    //   return  element.id_logro === item.id
-    // })
-
-    const idLogros = _.find(userLogros, (element) => {return element.id_logro === item.id});
-  
-     
-    console.log(idLogros)
-
-    
+  const renderLogros = allLogros?.slice(0,10)?.map( (item) => {
+    const idLogros = _findIndex(userLogros, (element) => {return element.id_logro === item.id});
+    const ruta = idLogros !== -1 ? './assets/logros/color/' : './assets/logros/bn/';
     return <Logro
-    src={`./assets/logros/bn/${item.slug}.png`}
+    src={`${ruta}${item.slug}.png`}
+    name={item.name}
+    description={item.description}
+    />
+  }) 
+
+  const renderAntiLogros = allLogros?.slice(11,20)?.map( (item) => {
+    const idLogros = _findIndex(userLogros, (element) => {return element.id_logro === item.id});
+    const ruta = idLogros !== -1 ? './assets/logros/color/' : './assets/logros/bn/';
+
+    return <Logro
+    src={`${ruta}${item.slug}.png`}
     name={item.name}
     description={item.description}
     />
@@ -134,7 +131,6 @@ export default function MeLogros() {
           </TextWrapper>
         </Row>
         <RowLogros tabIndex={0} aria-label="Logros">
-          
         {renderLogros}
         </RowLogros>
 
@@ -162,12 +158,8 @@ export default function MeLogros() {
           </TextWrapper>
         </Row>
         <RowLogros tabIndex={0} aria-label="Logros">
-          <LogroBN
-            src=""
-            alt="logro bn"
-            aria-label="nombre logro"
-            tabIndex={0}
-          />
+        {renderAntiLogros}
+
         </RowLogros>
         <ButtonDelete
           label="Resetear logros"

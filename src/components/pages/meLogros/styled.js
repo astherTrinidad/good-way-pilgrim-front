@@ -26,6 +26,9 @@ export const RowLogros = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 4rem;
+  max-width: 100%;
+  background-color: pink;
+  justify-content: center
 `;
 
 export const ContainerLogros = styled.div`
@@ -33,26 +36,17 @@ export const ContainerLogros = styled.div`
   height: max-content;
   display: flex;
   flex-direction: column;
-  background-color: coral;
   justify-content: center;
   align-items: center;
+  background-color: red;
 `;
 
-export const LogroBN = styled.img`
+export const LogroImg = styled.img`
   background-color: ${colors.lightGrey};
   border-radius: 50%;
   height: 100px;
   margin: 0.5rem;
   width: 100px;
-`;
-
-export const LogroColor = styled.img`
-  background-color: ${colors.lightGrey};
-  border-radius: 50%;
-  height: 100px;
-  margin: 0.5rem;
-  width: 100px;
-  position: absolute;
 `;
 
 export const TextWrapper = styled.div`
