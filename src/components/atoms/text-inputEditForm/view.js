@@ -32,7 +32,6 @@ const TextInputEditForm = ({
   label,
   touched,
   disabled,
-  accesskey,
 }) => (
   <Container
     margin={margin}
@@ -69,7 +68,6 @@ const TextInputEditForm = ({
         type={type}
         touched={touched}
         disabled={disabled}
-        accesskey={accesskey}
       />
       <Icon className="icon-input" />
     </Label>
@@ -109,7 +107,6 @@ TextInputEditForm.propTypes = {
   label: PropTypes.string,
   touched: PropTypes.bool,
   disabled: PropTypes.bool,
-  accesskey: PropTypes.string,
 };
 
 TextInputEditForm.defaultProps = {
@@ -142,7 +139,6 @@ TextInputEditForm.defaultProps = {
   label: '',
   touched: false,
   disabled: false,
-  accesskey: '',
 };
 
 export default TextInputEditForm;

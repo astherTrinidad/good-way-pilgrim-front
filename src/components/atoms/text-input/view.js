@@ -32,7 +32,6 @@ const TextInput = ({
   label,
   touched,
   disabled,
-  accesskey,
 }) => (
   <Container
     margin={margin}
@@ -69,7 +68,6 @@ const TextInput = ({
         type={type}
         touched={touched}
         disabled={disabled}
-        accesskey={accesskey}
       />
       <Icon className="icon-input" />
     </Label>
@@ -108,7 +106,6 @@ TextInput.propTypes = {
   label: PropTypes.string,
   touched: PropTypes.bool,
   disabled: PropTypes.bool,
-  accesskey: PropTypes.string,
 };
 
 TextInput.defaultProps = {
@@ -142,7 +139,6 @@ TextInput.defaultProps = {
   label: '',
   touched: false,
   disabled: false,
-  accesskey: '',
 };
 
 export default TextInput;

@@ -31,7 +31,7 @@ function InfoSectionOneColumn({
               >
                 {description}
               </Subtitle>
-              <Link to={appRoutes.caminos} buttonLabel="Ver caminos">
+              <Link to={appRoutes.caminos}>
                 <Button big fontBig primary={primary}>
                   {buttonLabel}
                 </Button>

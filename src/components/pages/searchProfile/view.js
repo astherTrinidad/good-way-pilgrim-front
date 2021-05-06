@@ -19,9 +19,8 @@ import {
 import colors from '../../../assets/colors';
 import { result } from 'lodash';
 
-const people = ['Javi', 'Patri', 'Irene', 'Sara', 'Asther'];
-
 export default function SearchProfile() {
+  const history = useHistory();
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
@@ -29,14 +28,26 @@ export default function SearchProfile() {
     setSearchTerm(event.target.value);
   };
 
-  useEffect(() => {
-    const results = people.filter(person =>
-      person.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setSearchResults(results);
-    console.log('*** soy resultado  **' + results);
-    var respuesta = apiSearchUsers(results);
-  }, [searchTerm]);
+  const handleSubmit = async event => {
+    event.preventDefault();
+
+    try {
+      var respuesta = await apiSearchUsers(searchTerm);
+      setSearchResults(respuesta);
+      if (respuesta.message == 'Expired token') {
+        toast.info(
+          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+        );
+        history.replace(appRoutes.login);
+      } else if (respuesta.message == 'no results found') {
+        toast.info('No se han encontrado usuarios');
+      } else {
+        sessionStorage.setItem('matchUsers', respuesta);
+      }
+    } catch (e) {
+      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+    }
+  };
 
   return (
     <>
@@ -50,7 +61,7 @@ export default function SearchProfile() {
         </Row>
         <Row>
           <ColumnText>
-            <form>
+            <form onSubmit={handleSubmit}>
               <Row>
                 <label htmlFor="name"></label>
                 <SearchInput

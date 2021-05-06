@@ -76,7 +76,7 @@ const Navbar = () => {
               <ConchaIcon />
               <NavLinksMenu to={appRoutes.caminos}>Caminos</NavLinksMenu>
               <NavLinksMenu to={appRoutes.mochila}>Mochila</NavLinksMenu>
-              <NavLinksMenu to={appRoutes.logros}>Logros</NavLinksMenu>
+              <NavLinksMenu to={appRoutes.meLogros}>Logros</NavLinksMenu>
               <NavBtnLink to={appRoutes.login}>
                 <Button onClick={closeSession} fontBig role="button">
                   Cerrar sesión
@@ -88,7 +88,7 @@ const Navbar = () => {
             <NavLinks to={appRoutes.meProfile}>Perfil</NavLinks>
             <NavLinks to={appRoutes.caminos}>Caminos</NavLinks>
             <NavLinks to={appRoutes.mochila}>Mochila</NavLinks>
-            <NavLinks to={appRoutes.logros}>Logros</NavLinks>
+            <NavLinks to={appRoutes.meLogros}>Logros</NavLinks>
           </NavMenu>
           <MobileIcon>
             <IconUser onClick={handleClick} aria-label="Acceso área usuario">
