@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import bgDesktop from '../../../assets/images/login-madre-desk.jpg';
 import bgMobile from '../../../assets/images/login-woods-resp.jpg';
 
-export default styled.div`
+export default styled.main`
   align-items: center;
   background: url(${bgDesktop});
   background-position: top center;

@@ -3,7 +3,7 @@ import colors from '../../../assets/colors';
 import bgHeaderMeProfile from '../../../assets/images/bg-header-me-profile-min.jpg';
 import bgHeaderShowProfileMobile from '../../../assets/images/bgHeaderShowProfileMobile-min.jpg';
 
-export const Header = styled.div`
+export const Header = styled.header`
   background: url(${bgHeaderMeProfile});
   background-repeat: no-repeat;
   background-size: cover;
@@ -42,6 +42,10 @@ export const PhotoProfile = styled.img`
   margin-left: auto;
   border-radius: 50%;
   border: 5px solid ${colors.mustard};
+`;
+
+export const Container = styled.main`
+  width: 100%;
 `;
 
 export const ContainerName = styled.div`

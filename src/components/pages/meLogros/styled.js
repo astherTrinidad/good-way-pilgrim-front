@@ -9,7 +9,7 @@ export const Row = styled.div`
     flex-direction: column;
   }
 `;
-export const Container = styled.div`
+export const Container = styled.main`
   display: flex;
   flex-direction: column;
   margin: 3rem auto;

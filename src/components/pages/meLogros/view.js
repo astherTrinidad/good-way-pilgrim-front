@@ -213,3 +213,14 @@ async function apiMyAchievements() {
     },
   }).then(data => data.json());
 }
+
+async function apiDeleteAchievements() {
+  return fetch(`${url.base}${url.deleteLogros}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: JSON.stringify(),
+  }).then(data => data.json());
+}
