@@ -76,10 +76,12 @@ export default function MeLogros() {
     src={`${ruta}${item.slug}.png`}
     name={item.name}
     description={item.description}
+    alt={item.name}
+    tabIndex={0}
     />
   }) 
 
-  const renderAntiLogros = allLogros?.slice(11,20)?.map( (item) => {
+  const renderAntiLogros = allLogros?.slice(10,20)?.map( (item) => {
     const idLogros = _findIndex(userLogros, (element) => {return element.id_logro === item.id});
     const ruta = idLogros !== -1 ? './assets/logros/color/' : './assets/logros/bn/';
 
@@ -87,6 +89,8 @@ export default function MeLogros() {
     src={`${ruta}${item.slug}.png`}
     name={item.name}
     description={item.description}
+    alt={item.name}
+    tabIndex={0}
     />
   }) 
 

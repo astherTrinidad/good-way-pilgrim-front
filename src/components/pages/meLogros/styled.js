@@ -23,22 +23,28 @@ export const Section = styled.h1`
 `;
 
 export const RowLogros = styled.div`
-  display: flex;
-  flex-direction: row;
   margin-bottom: 4rem;
   max-width: 100%;
-  background-color: pink;
-  justify-content: center
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export const ContainerLogros = styled.div`
-  width: max-content;
-  height: max-content;
-  display: flex;
-  flex-direction: column;
+  width: 250px;
   justify-content: center;
   align-items: center;
-  background-color: red;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  @media screen and (max-width: 768px){
+    width: 180px;
+
+  }
+
 `;
 
 export const LogroImg = styled.img`
@@ -149,4 +155,10 @@ export const DescriptionText = styled.p`
   font-size: 1rem;
   font-weight: 300;
   padding: 0.5rem 1rem 1rem 1rem;
+
+  @media screen and (max-width: 768px){
+    font-size: 0.875rem;
+    line-height: 1.5;
+    padding: 0.5rem 0rem;
+  }
 `;
