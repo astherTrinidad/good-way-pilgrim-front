@@ -12,7 +12,7 @@ const url = {
   login: '/pub/login',
   logros: 'pri/AllAchievements',
   addLogros: '/pri/addAchievement',
-  deleteLogros: '/pri/deleteAchievements',
+  deleteAchievements: '/pri/deleteAchievements',
 };
 
 export default url;

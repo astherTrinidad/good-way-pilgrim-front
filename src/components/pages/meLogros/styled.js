@@ -32,7 +32,7 @@ export const RowLogros = styled.div`
 `;
 
 export const ContainerLogros = styled.div`
-  width: 250px;
+  width: 230px;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
@@ -103,7 +103,7 @@ export const Subtitle = styled.p`
   margin-top: 3rem;
   margin-bottom: 2rem;
   text-align: center;
-  width: 86%;
+  width: 80%;
 
   @media screen and (max-width: 960px) {
     font-size: 1.35em;
@@ -153,10 +153,10 @@ export const DescriptionText = styled.p`
   font-size: 1rem;
   font-weight: 300;
   padding: 0.5rem 1rem 1rem 1rem;
+  line-height: 1.5;
 
   @media screen and (max-width: 768px) {
     font-size: 0.875rem;
-    line-height: 1.5;
     padding: 0.5rem 0rem;
   }
 `;

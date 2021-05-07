@@ -22,16 +22,22 @@ import {
   ContainerLogros,
   DescriptionText,
 } from './styled';
-import DeleteLogros from '../../modals/deleteLogros';
+import { DeleteAchievements, ConfirmAddAchievement } from '../../modals';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Logro = ({ src, alt, tabIndex, name, description }) => {
+// const [click, setClick] = useState([]);
+
+// const isClicked = () => {
+//   setClick(true);
+// };
+
+const Logro = ({ src, alt, tabIndex, name, description, handleClick }) => {
   return (
     <ContainerLogros>
-      <LogroImg src={src} alt={alt} tabIndex={tabIndex} />
+      <LogroImg src={src} alt={alt} tabIndex={tabIndex} onClick={handleClick} />
       <NameText tabIndex={tabIndex}>{name}</NameText>
       <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
     </ContainerLogros>
@@ -83,6 +89,10 @@ export default function MeLogros() {
     );
   });
 
+  const handleClick = () => {
+    alert('*****');
+  };
+
   const renderAntiLogros = allLogros?.slice(10, 20)?.map(item => {
     const idLogros = _findIndex(userLogros, element => {
       return element.id_logro === item.id;
@@ -97,6 +107,7 @@ export default function MeLogros() {
         description={item.description}
         alt={item.name}
         tabIndex={0}
+        onClick={handleClick}
       />
     );
   });
@@ -106,6 +117,8 @@ export default function MeLogros() {
 
   const handleClickOpen = () => {
     setOpen(true);
+    const date = Date().toLocaleString();
+    console.log(date);
   };
 
   const handleClose = () => {
@@ -136,7 +149,8 @@ export default function MeLogros() {
               tabIndex="0"
             >
               Emprende el camino y al final del día selecciona los logros
-              conseguidos
+              conseguidos, para ello pulsa en la imagen y quedará registrado en
+              tu perfil
             </Subtitle>
           </TextWrapper>
         </Row>
@@ -190,7 +204,7 @@ export default function MeLogros() {
           aria-modal="true"
           role="dialog"
         >
-          <DeleteLogros />
+          <ConfirmAddAchievement />
         </Dialog>
       </Container>
       <Footer />
@@ -198,7 +212,6 @@ export default function MeLogros() {
   );
 }
 
-/*Llamada y control de errores del EP que devuelve todos los logros*/
 async function apiAllAchievements() {
   return fetch(`${url.base}/pri/AllAchievements`, {
     method: 'GET',
@@ -216,5 +229,17 @@ async function apiMyAchievements() {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
+  }).then(data => data.json());
+}
+
+async function apiAddAchievement(achievementInfo) {
+  //El objeto que entra como parámetro debe incluir el id del logro como "id_logro" y la fecha como "date"
+  return fetch(`${url.base}${url.addLogros}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: JSON.stringify(achievementInfo),
   }).then(data => data.json());
 }

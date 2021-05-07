@@ -10,7 +10,7 @@ import { Illustration, ButtonDelete, ButtonSave } from './styled';
 import modalBin from '../../../assets/images/modal-achievements-delete.png';
 import { DialogContentText } from '@material-ui/core';
 
-const DeleteLogros = () => {
+const DeleteAchievements = () => {
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
@@ -61,9 +61,9 @@ const DeleteLogros = () => {
   );
 };
 
-export default DeleteLogros;
+export default DeleteAchievements;
 async function apiDeleteAchievements() {
-  return fetch(`${url.base}${url.deleteLogros}`, {
+  return fetch(`${url.base}${url.deleteAchievements}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

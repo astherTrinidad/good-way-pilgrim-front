@@ -1,4 +1,4 @@
 import DeleteAccount from './deleteAccount';
-import DeleteLogros from './deleteLogros';
-
-export { DeleteAccount, DeleteLogros };
+import DeleteAchievements from './deleteAchievements';
+import ConfirmAddAchievement from './confirmAddAchievement';
+export { DeleteAccount, DeleteAchievements, ConfirmAddAchievement };
