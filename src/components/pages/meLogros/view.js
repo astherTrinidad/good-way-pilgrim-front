@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import _findIndex from 'lodash/findIndex';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Dialog from '@material-ui/core/Dialog';
 import Slide from '@material-ui/core/Slide';
 import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
 import url from '../../../config/url';
-import { toast } from 'react-toastify';
 import {
   Container,
   Section,
@@ -28,16 +28,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-// const [click, setClick] = useState([]);
-
-// const isClicked = () => {
-//   setClick(true);
-// };
-
-const Logro = ({ src, alt, tabIndex, name, description, handleClick }) => {
+const Logro = ({ src, alt, tabIndex, name, description, onClick }) => {
   return (
-    <ContainerLogros>
-      <LogroImg src={src} alt={alt} tabIndex={tabIndex} onClick={handleClick} />
+    <ContainerLogros onClick={onClick}>
+      <LogroImg src={src} alt={alt} tabIndex={tabIndex} />
       <NameText tabIndex={tabIndex}>{name}</NameText>
       <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
     </ContainerLogros>
@@ -48,6 +42,26 @@ export default function MeLogros() {
   const history = useHistory();
   const [allLogros, setAllLogros] = useState([]);
   const [userLogros, setUserLogros] = useState([]);
+
+  const [open, setOpen] = React.useState(false);
+  const [openAddModal, setOpenAddModal] = React.useState(false);
+
+  const handleClickOpenModalDelete = () => {
+    setOpen(true);
+  };
+
+  const handleCloseModalDelete = () => {
+    setOpen(false);
+  };
+
+  const handleClickCloseModalAdd = () => {
+    setOpenAddModal(false);
+    console.log('enHandle');
+  };
+
+  const onClick = () => {
+    setOpenAddModal(true);
+  };
 
   useEffect(() => {
     async function fetchProfile() {
@@ -85,13 +99,10 @@ export default function MeLogros() {
         description={item.description}
         alt={item.name}
         tabIndex={0}
+        onClick={onClick}
       />
     );
   });
-
-  const handleClick = () => {
-    alert('*****');
-  };
 
   const renderAntiLogros = allLogros?.slice(10, 20)?.map(item => {
     const idLogros = _findIndex(userLogros, element => {
@@ -107,23 +118,10 @@ export default function MeLogros() {
         description={item.description}
         alt={item.name}
         tabIndex={0}
-        onClick={handleClick}
+        onClick={onClick}
       />
     );
   });
-
-  /* modal */
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-    const date = Date().toLocaleString();
-    console.log(date);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <>
@@ -189,7 +187,7 @@ export default function MeLogros() {
           name="Resetear logros"
           id="delete"
           type="button"
-          onClick={handleClickOpen}
+          onClick={handleClickOpenModalDelete}
           button-label="Resetear logros"
         >
           Resetear logros
@@ -198,9 +196,22 @@ export default function MeLogros() {
           open={open}
           TransitionComponent={Transition}
           keepMounted
-          onClick={handleClose}
+          onClick={handleCloseModalDelete}
           aria-labelledby="¿Empezamos de cero?"
           aria-describedby="Modal de confirmación resetear logros"
+          aria-modal="true"
+          role="dialog"
+          maxWidth="md"
+        >
+          <DeleteAchievements />
+        </Dialog>
+        <Dialog
+          open={openAddModal}
+          TransitionComponent={Transition}
+          keepMounted
+          onClick={handleClickCloseModalAdd}
+          aria-labelledby="¡Enhorabuena por conseguirlo!"
+          aria-describedby="¿Quiéres añadir el logro?"
           aria-modal="true"
           role="dialog"
         >
@@ -229,17 +240,5 @@ async function apiMyAchievements() {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
-  }).then(data => data.json());
-}
-
-async function apiAddAchievement(achievementInfo) {
-  //El objeto que entra como parámetro debe incluir el id del logro como "id_logro" y la fecha como "date"
-  return fetch(`${url.base}${url.addLogros}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-    },
-    body: JSON.stringify(achievementInfo),
   }).then(data => data.json());
 }

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { DialogContentText } from '@material-ui/core';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
 import appRoutes from '../../../config/appRoutes';
 import url from '../../../config/url';
 import { Illustration, ButtonDelete, ButtonSave, Container } from './styled';
@@ -13,15 +13,43 @@ import modalAddAchievement from '../../../assets/images/modal-achievement-add.pn
 const ConfirmAddAchievement = () => {
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
+
+  const [userAchievement, setUserAchievement] = useState({
+    achievement: '',
+    date: '',
+  });
   const handleClose = () => {
     setOpen(false);
   };
 
-  const addAchievement = async event => {
-    console.log('en delete');
+  const getCurrentData = () => {
+    let addAchievementDate = new Date();
+    let day =
+      addAchievementDate.getDate() < 9
+        ? '0' + addAchievementDate.getDate()
+        : addAchievementDate.getDate();
+    let month =
+      addAchievementDate.getMonth() < 9
+        ? '0' + addAchievementDate.getMonth()
+        : addAchievementDate.getMonth();
+    let year = addAchievementDate.getFullYear();
+    return (addAchievementDate = year + '-' + month + '-' + day);
+  };
+
+  const getAchievementId = () => {
+    console.log('id');
+  };
+
+  const onClickAddAchievement = async event => {
     event.preventDefault();
     try {
-      var respuesta = await apiAddAchievement(); //achievementInfo parameter
+      const idL = (userAchievement.achievement = 3);
+      setUserAchievement(idL);
+      const achievementDate = (userAchievement.date = getCurrentData());
+      setUserAchievement(achievementDate);
+      console.log('*** id ** ' + getAchievementId());
+
+      var respuesta = await apiAddAchievement(userAchievement);
       if (respuesta.message == 'success') {
         toast.success('¡Enhorabuena peregrino! Has conseguido un nuevo logro');
       }
@@ -52,7 +80,11 @@ const ConfirmAddAchievement = () => {
           <ButtonDelete onClick={handleClose} role="button" button-label="No">
             No
           </ButtonDelete>
-          <ButtonSave onClose={addAchievement} role="button" button-label="Sí">
+          <ButtonSave
+            onClick={onClickAddAchievement}
+            role="button"
+            button-label="Sí"
+          >
             Sí
           </ButtonSave>
         </DialogActions>
@@ -64,7 +96,6 @@ const ConfirmAddAchievement = () => {
 export default ConfirmAddAchievement;
 
 async function apiAddAchievement(achievementInfo) {
-  //El objeto que entra como parámetro debe incluir el id del logro como "id_logro" y la fecha como "date"
   return fetch(`${url.base}${url.addLogros}`, {
     method: 'PUT',
     headers: {

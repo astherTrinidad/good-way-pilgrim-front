@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
 
+export const Container = styled.div`
+  max-width: 600px;
+  height: max-content;
+  justify-content: center;
+  align-items: center;
+  color: ${colors.darkGrey};
+  text-align: center;
+`;
+
 export const Illustration = styled.img`
   background-size: cover;
   width: auto;
@@ -19,7 +28,7 @@ export const ButtonDelete = styled.button`
   font-size: 1rem;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-  margin: 0 auto;
+  margin: 0 1rem 1rem 1rem;
   padding: 1rem 1.5rem;
   transition: all 0.3s ease-out;
 
@@ -28,12 +37,6 @@ export const ButtonDelete = styled.button`
     color: ${colors.white};
     cursor: pointer;
     box-shadow: inset 0px 11px 8px -10px ${colors.black};
-  }
-  @media screen and (max-width: 960px) {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin: 1rem;
   }
 `;
 
@@ -48,8 +51,7 @@ export const ButtonSave = styled.button`
   font-family: 'Poppins', sans-serif;
   padding: 1rem 1.5rem;
   transition: all 0.3s ease-out;
-  margin: 1rem;
-
+  margin: 0 1rem 1rem 0;
   width: 50%;
 
   &:hover {
@@ -57,12 +59,5 @@ export const ButtonSave = styled.button`
     color: ${colors.white};
     cursor: pointer;
     box-shadow: inset 0px 11px 8px -10px ${colors.black};
-  }
-
-  @media screen and (max-width: 960px) {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin: 1rem;
   }
 `;

@@ -12,36 +12,43 @@ export const Row = styled.div`
 export const Container = styled.main`
   display: flex;
   flex-direction: column;
+  height: max-content;
+  justify-content: center;
+  align-items: center;
   margin: 3rem auto;
   width: 80%;
-  height: max-content;
 `;
 export const Section = styled.h1`
+  color: ${colors.darkGrey};
   font-size: 1.5em;
   margin-bottom: 2rem;
-  color: ${colors.darkGrey};
 `;
 
 export const RowLogros = styled.div`
-  margin-bottom: 4rem;
-  max-width: 100%;
-  justify-content: center;
   align-items: center;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 4rem;
+  margin-top: -3rem;
+  max-width: 100%;
 `;
 
 export const ContainerLogros = styled.div`
-  width: 230px;
-  justify-content: center;
   align-items: center;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
   text-align: center;
+  width: 230px;
 
-  @media screen and (max-width: 768px) {
-    width: 180px;
+  @media screen and (max-width: 968px) {
+    width: 33%;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 50%;
   }
 `;
 
@@ -66,7 +73,7 @@ export const TextWrapper = styled.div`
   }
 `;
 
-export const Heading = styled.h1`
+export const Heading = styled.h2`
   color: ${colors.darkGrey};
   display: block;
   font-family: 'Poppins', sans-serif;
@@ -81,18 +88,18 @@ export const Heading = styled.h1`
   width: 100%;
 
   @media screen and (max-width: 960px) {
-    font-size: 1.5em;
+    font-size: 1.25em;
   }
 
   @media screen and (max-width: 768px) {
-    font-size: 1.5em;
+    font-size: 1.25em;
     margin-bottom: 2rem;
     margin-top: 1rem;
     max-width: 100%;
   }
 `;
 
-export const Subtitle = styled.p`
+export const Subtitle = styled.h3`
   display: block;
   font-family: 'Poppins', sans-serif;
   font-size: 1.5em;
@@ -106,10 +113,12 @@ export const Subtitle = styled.p`
   width: 80%;
 
   @media screen and (max-width: 960px) {
-    font-size: 1.35em;
+    font-size: 1em;
+    margin: 0 0 1rem 0;
+    width: 100%;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 767px) {
     display: none;
   }
 `;
@@ -126,7 +135,7 @@ export const ButtonDelete = styled.button`
   justify-content: center;
   font-family: 'Poppins', sans-serif;
   margin: 1rem;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1rem;
   transition: all 0.3s ease-out;
 
   &:hover {
@@ -152,11 +161,11 @@ export const NameText = styled.p`
 export const DescriptionText = styled.p`
   font-size: 1rem;
   font-weight: 300;
-  padding: 0.5rem 1rem 1rem 1rem;
   line-height: 1.5;
+  padding: 0.5rem 1rem 1rem 1rem;
 
   @media screen and (max-width: 768px) {
-    font-size: 0.875rem;
+    font-size: 0.813rem;
     padding: 0.5rem 0rem;
   }
 `;

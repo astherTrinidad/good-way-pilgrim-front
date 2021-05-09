@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import appRoutes from '../../../config/appRoutes';
 import url from '../../../config/url';
-import { Illustration, ButtonDelete, ButtonSave } from './styled';
+import { Illustration, ButtonDelete, ButtonSave, Container } from './styled';
 import modalBin from '../../../assets/images/modal-achievements-delete.png';
 import { DialogContentText } from '@material-ui/core';
 
@@ -38,25 +38,28 @@ const DeleteAchievements = () => {
 
   return (
     <>
-      <DialogTitle id="deleteAccountmodal">{'¿Empezamos de cero?'}</DialogTitle>
-      <DialogContent>
-        <Illustration
-          src={modalBin}
-          alt="Ilustración de una chica en la montaña"
-        />
-        <DialogContentText>
-          {'¿Seguro que quieres eliminar todos tus logros?'}
-        </DialogContentText>
-      </DialogContent>
-
-      <DialogActions>
-        <ButtonDelete onClick={deleteUser} role="button" button-label="Sí">
-          Sí
-        </ButtonDelete>
-        <ButtonSave onClose={handleClose} role="button" button-label="No">
-          No
-        </ButtonSave>
-      </DialogActions>
+      <Container>
+        <DialogTitle id="deleteAccountmodal">
+          {'¿Empezamos de cero?'}
+        </DialogTitle>
+        <DialogContent>
+          <Illustration
+            src={modalBin}
+            alt="Ilustración de una chica en la montaña"
+          />
+          <DialogContentText>
+            {'¿Seguro que quieres eliminar todos tus logros?'}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <ButtonDelete onClick={deleteUser} role="button" button-label="Sí">
+            Sí
+          </ButtonDelete>
+          <ButtonSave onClose={handleClose} role="button" button-label="No">
+            No
+          </ButtonSave>
+        </DialogActions>
+      </Container>
     </>
   );
 };

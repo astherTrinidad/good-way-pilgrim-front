@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import colors from '../../../assets/colors';
 
 export const Container = styled.div`
-  width: 100%;
+  max-width: 600px;
   height: max-content;
   justify-content: center;
   align-items: center;
@@ -28,7 +28,7 @@ export const ButtonDelete = styled.button`
   font-size: 1rem;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-  margin: 0 0 1rem 1rem;
+  margin: 0 1rem 1rem 1rem;
   padding: 1rem 1.5rem;
   transition: all 0.3s ease-out;
 
