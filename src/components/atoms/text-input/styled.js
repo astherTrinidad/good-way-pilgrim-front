@@ -31,7 +31,7 @@ export const Input = styled.input`
 
   &::placeholder {
     color: ${props => props.placeholderColor};
-    font-size: 1em;
+    font-size: 0.755em;
   }
 `;
 

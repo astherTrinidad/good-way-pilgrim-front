@@ -3,13 +3,16 @@ import isEmpty from 'lodash/isEmpty';
 import some from 'lodash/some';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
+import Dialog from '@material-ui/core/Dialog';
+import Slide from '@material-ui/core/Slide';
+import appRoutes from '../../../config/appRoutes';
+import url from '../../../config/url';
+import { validatePassword } from '../../../utils';
+import GlobalStyle from '../../../globalStyles';
 import { TextInputEditForm } from '../../atoms';
 import { Navbar, Footer } from '../../organisms';
-import { validatePassword } from '../../../utils';
-import appRoutes from '../../../config/appRoutes';
-import GlobalStyle from '../../../globalStyles';
 import dropMeEditProfile from '../../../assets/images/gota-show-profile.png';
-import url from '../../../config/url';
+import profilePhoto from '../../../assets/images/photo-profile-generic.png';
 import {
   Container,
   ColumnImg,
@@ -26,18 +29,13 @@ import {
   ButtonSave,
   RowButton,
 } from './styled';
-
+import DeleteAccountModal from '../../modals/deleteAccount';
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 export default function MeEditProfile() {
   const history = useHistory();
   const [userData, setUserData] = useState({});
-
-  const [touched, setTouched] = useState({
-    name: false,
-    surname: false,
-    email: false,
-    password: false,
-    passwordConfirm: false,
-  });
 
   const [errors, setErrors] = useState({
     name: '',
@@ -58,7 +56,7 @@ export default function MeEditProfile() {
       passwordConfirm: '',
     };
 
-    if (!userData.oldPassword && userData.newPassword)
+    if (!userData.oldPassword)
       newErrors.oldPassword = 'Introduce tu contraseña actual';
     if (userData.newPassword && !validatePassword(userData.newPassword))
       newErrors.newPassword = 'Mínimo 8 caracteres, minúsculas y mayúsculas';
@@ -68,8 +66,6 @@ export default function MeEditProfile() {
     )
       newErrors.passwordConfirm = 'La contraseña no coincide';
     if (userData.passwordConfirm && !userData.newPassword)
-      newErrors.newPassword = 'Introduce tu nueva contraseña';
-    if (userData.oldPassword && !userData.newPassword && !userData.newPassword)
       newErrors.newPassword = 'Introduce tu nueva contraseña';
 
     setErrors(newErrors);
@@ -83,10 +79,16 @@ export default function MeEditProfile() {
     async function fetchProfile() {
       try {
         const response = await apiMeProfile();
-        response.oldPassword = '';
-        response.newPassword = '';
-        delete response.picture;
-        setUserData(response);
+        if (response.message == 'Expired token') {
+          toast.info(
+            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+          );
+          history.replace(appRoutes.login);
+        } else {
+          response.oldPassword = '';
+          response.newPassword = '';
+          setUserData(response);
+        }
       } catch {
         toast.error(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
@@ -96,17 +98,18 @@ export default function MeEditProfile() {
     fetchProfile();
   }, []);
 
+  const convertirBase64 = archivo => {
+    var reader = new FileReader();
+    reader.readAsDataURL(archivo[0]);
+    reader.onload = function () {
+      userData.picture = reader.result;
+    };
+  };
+
   const handleChange = event => {
     setUserData({
       ...userData,
       [event.target.name]: event.target.value,
-    });
-  };
-
-  const handleBlur = event => {
-    setTouched({
-      ...touched,
-      [event.target.name]: true,
     });
   };
 
@@ -132,20 +135,19 @@ export default function MeEditProfile() {
       } catch (e) {
         toast.error('Error del servidor. Por favor, inténtelo de nuevo');
       }
+    } else {
+      toast.warn('Por favor, rellena todos los datos necesarios');
     }
   };
+  /* modal */
+  const [open, setOpen] = React.useState(false);
 
-  const deleteUser = async event => {
-    console.log('en delete');
-    event.preventDefault();
-    try {
-      var respuesta = await apiDeleteProfile();
-      toast.success('¡Esperamos volver a verte pronto peregrino!');
-      sessionStorage.removeItem('token');
-      history.replace(appRoutes.login);
-    } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
-    }
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -154,20 +156,45 @@ export default function MeEditProfile() {
       <Navbar />
       <Container>
         <Row>
-          <Section>Editar Perfil</Section>
+          <Section role="sección" tabIndex="0">
+            Editar Perfil
+          </Section>
         </Row>
         <Row>
           <ColumnImg>
-            <Img src={dropMeEditProfile} alt="Texto" />
+            <Img
+              src={dropMeEditProfile}
+              alt="Peregrino andando sobre un sendero en la montaña"
+            />
           </ColumnImg>
           <ColumnText>
             <Row>
-              <PhotoProfile />
+              <PhotoProfile
+                src={userData.picture ? userData.picture : profilePhoto}
+                alt="Foto de perfil"
+                aria-label="foto de perfil"
+                tabIndex="0"
+              ></PhotoProfile>
             </Row>
-            <ContainerName>
-              <NameProfile>{userData?.name}</NameProfile>
-              <SurnameProfile>{userData?.surname}</SurnameProfile>
+            <ContainerName aria-label="nombre de perfil" tabIndex="0">
+              <NameProfile aria-label={userData?.name} tabIndex="0">
+                {userData?.name}
+              </NameProfile>
+              <SurnameProfile aria-label={userData?.surname} tabIndex="0">
+                {userData?.surname}
+              </SurnameProfile>
             </ContainerName>
+            <Row>
+              <TextInputEditForm
+                label="Nueva foto de perfil"
+                name="picture"
+                type="file"
+                //accept=".jpg,.jpeg,.png,.tiff,.eps"
+                //max-size="1048576"
+                onChange={e => convertirBase64(e.target.files)}
+                //onChange={handleChange}
+              />
+            </Row>
             <Row>
               <FormEdit>
                 <form onSubmit={handleSubmit}>
@@ -178,10 +205,9 @@ export default function MeEditProfile() {
                       placeholder="Nombre"
                       type="text"
                       value={userData?.name}
-                      touched={touched.name}
                       error={errors.name}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={validate}
                     />
                     <TextInputEditForm
                       label="Apellidos"
@@ -189,10 +215,9 @@ export default function MeEditProfile() {
                       name="surname"
                       type="text"
                       value={userData?.surname}
-                      touched={touched.surname}
                       error={errors.surname}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={validate}
                     />
                   </Row>
                   <Row>
@@ -212,10 +237,9 @@ export default function MeEditProfile() {
                       name="newPassword"
                       type="password"
                       value={userData?.newPassword}
-                      touched={touched.newPassword}
                       error={errors.newPassword}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={validate}
                     />
                     <TextInputEditForm
                       label="Confirme contraseña"
@@ -223,23 +247,21 @@ export default function MeEditProfile() {
                       name="passwordConfirm"
                       type="password"
                       value={userData?.passwordConfirm}
-                      touched={touched.passwordConfirm}
                       error={errors.passwordConfirm}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={validate}
                     />
                   </Row>
                   <Row>
                     <TextInputEditForm
-                      label="Contraseña actual"
+                      label="Contraseña actual*"
                       placeholder="Min. 8 caracteres, minúsculas y mayúsculas"
                       name="oldPassword"
                       type="password"
                       value={userData?.oldPassword}
-                      touched={touched.oldPassword}
                       error={errors.oldPassword}
                       onChange={handleChange}
-                      onBlur={handleBlur}
+                      onBlur={validate}
                     />
                   </Row>
                   <RowButton>
@@ -248,15 +270,30 @@ export default function MeEditProfile() {
                       name="Eliminar cuenta"
                       id="delete"
                       type="button"
-                      onClick={deleteUser}
+                      onClick={handleClickOpen}
+                      button-label="Eliminar cuenta"
                     >
                       Eliminar cuenta
                     </ButtonDelete>
+
+                    <Dialog
+                      open={open}
+                      TransitionComponent={Transition}
+                      keepMounted
+                      onClick={handleClose}
+                      aria-labelledby="No abandones al peregrino que llevas dentro"
+                      aria-describedby="Modal de confirmación cancelación de la cuenta"
+                      aria-modal="true"
+                      role="dialog"
+                    >
+                      <DeleteAccountModal />
+                    </Dialog>
                     <ButtonSave
                       label="Enviar"
                       id="update"
                       type="submit"
                       onSubmit={handleSubmit}
+                      button-label="Guardar"
                     >
                       Guardar
                     </ButtonSave>
@@ -289,14 +326,5 @@ async function apiEditProfile(dataUser) {
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
     body: JSON.stringify(dataUser),
-  }).then(data => data.json());
-}
-async function apiDeleteProfile() {
-  return fetch(`${url.base}${url.meDeleteProfile}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-    },
   }).then(data => data.json());
 }

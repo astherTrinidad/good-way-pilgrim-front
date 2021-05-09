@@ -4,7 +4,7 @@ import gwpLogoColor from '../../../assets/images/gwp-logo-color.png';
 
 import { Link } from 'react-router-dom';
 
-export const FooterContainer = styled.div`
+export const FooterContainer = styled.footer`
   padding: 4rem 0 2rem 0;
   display: flex;
   flex-direction: column;

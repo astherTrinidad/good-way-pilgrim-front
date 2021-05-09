@@ -140,7 +140,7 @@ export default function Register() {
         />
 
         <TextInput
-          placeholder="Email (Máximo 40 caracteres)"
+          placeholder="Email"
           name="email"
           type="email"
           value={data.email}
@@ -150,7 +150,7 @@ export default function Register() {
           onBlur={handleBlur}
         />
         <TextInput
-          placeholder="Contraseña (Min. 8 caracteres, minúsculas y mayúsculas)"
+          placeholder="Contraseña (Min. 8 caracteres, minús y mayús)"
           name="password"
           type="password"
           value={data.password}

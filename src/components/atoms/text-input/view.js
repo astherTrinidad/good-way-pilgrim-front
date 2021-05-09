@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Input, Label, ErrorContainer, Container } from './styled';
 
 const TextInput = ({
+  id,
   placeholder,
-  placeholderColor,
   topIcon,
   rightIcon,
   value,
@@ -50,11 +50,11 @@ const TextInput = ({
     >
       {label && <p>{label}:</p>}
       <Input
+        id={id}
         onKeyDown={onKeyDown}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        placeholderColor={placeholderColor}
         ref={refProp}
         borderRadius={borderRadius}
         borderTop={borderTop}
@@ -76,6 +76,7 @@ const TextInput = ({
 );
 
 TextInput.propTypes = {
+  id: PropTypes.string,
   placeholder: PropTypes.string,
   placeholderColor: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -108,6 +109,7 @@ TextInput.propTypes = {
 };
 
 TextInput.defaultProps = {
+  id: '',
   placeholder: '',
   placeholderColor: '',
   value: undefined,
