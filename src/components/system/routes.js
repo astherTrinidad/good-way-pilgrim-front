@@ -9,11 +9,9 @@ import {
 import appRoutes from '../../config/appRoutes';
 import Login from '../pages/login/index';
 import Register from '../pages/register/index';
-import UserProfile from '../pages/userProfile/index';
 import MeProfile from '../pages/meProfile/index';
 import MeEditProfile from '../pages/meEditProfile/index';
 import MeLogros from '../pages/meLogros/index';
-import SearchProfile from '../pages/searchProfile/index';
 import FrequentQuestion from '../pages/frequentQuestion/index';
 import PrivacyConsumers from '../pages/privacyConsumers/index';
 
@@ -32,16 +30,6 @@ function Routes() {
           exact
         />
         <PrivateRoute path={appRoutes.meLogros} component={MeLogros} exact />
-        <PrivateRoute
-          path={appRoutes.userProfile}
-          component={UserProfile}
-          exact
-        />
-        <PrivateRoute
-          path={appRoutes.searchProfile}
-          component={SearchProfile}
-          exact
-        />
         <PrivateRoute
           path={appRoutes.frequentQuestion}
           component={FrequentQuestion}

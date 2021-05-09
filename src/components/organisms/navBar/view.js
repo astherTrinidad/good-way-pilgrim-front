@@ -49,9 +49,6 @@ const Navbar = () => {
               <NavLinksMenu to={appRoutes.meEditProfile}>
                 Editar perfil
               </NavLinksMenu>
-              <NavLinksMenu to={appRoutes.searchProfile}>
-                Buscar peregrino
-              </NavLinksMenu>
               <NavBtnLink to={appRoutes.login}>
                 <Button onClick={closeSession} fontBig>
                   Cerrar sesión
@@ -69,9 +66,6 @@ const Navbar = () => {
               <NavLinksMenu to={appRoutes.meProfile}>Mi perfil</NavLinksMenu>
               <NavLinksMenu to={appRoutes.meEditProfile}>
                 Editar perfil
-              </NavLinksMenu>
-              <NavLinksMenu to={appRoutes.searchProfile}>
-                Buscar peregrino
               </NavLinksMenu>
               <ConchaIcon />
               <NavLinksMenu to={appRoutes.caminos}>Caminos</NavLinksMenu>
