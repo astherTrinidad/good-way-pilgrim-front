@@ -3,12 +3,13 @@ const url = {
   meProfile: '/pri/showProfile',
   meEditProfile: '/pri/editProfile',
   meDeleteProfile: '/pri/deleteProfile',
-  userProfile: '/pri/showOtherProfile',
-  searchProfile: '/pri/showUsers',
-  userProfile: '/pri/showOtherProfile',
+  meLogros: '/pri/MyAchievements',
   meDeleteProfile: '/pri/deleteProfile',
   register: '/pub/register',
   login: '/pub/login',
+  logros: 'pri/AllAchievements',
+  addLogros: '/pri/addAchievement',
+  deleteAchievements: '/pri/deleteAchievements',
 };
 
 export default url;

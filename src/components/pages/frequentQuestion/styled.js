@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
 
-export const Container = styled.div`
+export const Container = styled.main`
   display: flex;
   flex-direction: column;
   margin: 3rem auto;

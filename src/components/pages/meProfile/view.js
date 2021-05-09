@@ -14,6 +14,7 @@ import {
   SurnameProfile,
   ContainerName,
   ContainerPhoto,
+  Container,
 } from './styled';
 
 export default function MeProfile() {
@@ -52,17 +53,19 @@ export default function MeProfile() {
       <GlobalStyle />
       <Navbar />
       <Header />
+      <Container>
+        <PhotoProfile
+          src={userData.picture ? userData.picture : profilePhoto}
+          alt="Foto de perfil"
+          aria-label="foto de perfil"
+        ></PhotoProfile>
+        <ContainerName aria-label="Nombre de perfil">
+          <NameProfile>{userData?.name}</NameProfile>
+          <SurnameProfile>{userData?.surname}</SurnameProfile>
+        </ContainerName>
+        <InfoSectionOneColumn {...userProfile} tabindex="0" />
+      </Container>
 
-      <PhotoProfile
-        src={userData.picture ? userData.picture : profilePhoto}
-        alt="Foto de perfil"
-        aria-label="foto de perfil"
-      ></PhotoProfile>
-      <ContainerName aria-label="Nombre de perfil">
-        <NameProfile>{userData?.name}</NameProfile>
-        <SurnameProfile>{userData?.surname}</SurnameProfile>
-      </ContainerName>
-      <InfoSectionOneColumn {...userProfile} tabindex="0" />
       <Footer />
     </>
   );
