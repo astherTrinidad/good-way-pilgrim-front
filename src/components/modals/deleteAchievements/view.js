@@ -20,7 +20,6 @@ const DeleteAchievements = () => {
   };
 
   const deleteUser = async event => {
-    console.log('en delete');
     event.preventDefault();
     try {
       var respuesta = await apiDeleteAchievements();
@@ -36,7 +35,7 @@ const DeleteAchievements = () => {
         );
         history.replace(appRoutes.login);
       }
-      window.location.reload(true);
+      window.location.reload();
     } catch (e) {
       toast.error('Error del servidor. Por favor, inténtelo de nuevo');
     }

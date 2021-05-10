@@ -89,47 +89,64 @@ export default function MeLogros() {
       setIsColor(false);
       console.log('es false');
 
-      let onClickIdAchievement = (deleteUserAchievement.achievement =
-        event.target.id);
+      try {
+        let onClickIdAchievement = (deleteUserAchievement.achievement =
+          event.target.id);
+        setDeleteAchievement(onClickIdAchievement);
 
-      console.log('*******' + deleteUserAchievement.achievement);
-      var respuesta = await apiDeleteAchievement(deleteUserAchievement);
-      setDeleteAchievement(onClickIdAchievement);
+        console.log('*******' + deleteUserAchievement.achievement);
+        var responseDelete = await apiDeleteAchievement(deleteUserAchievement);
+        console.log('response ' + deleteUserAchievement.achievement);
+        setDeleteAchievement(deleteUserAchievement);
 
-      const myAchievementsResponse = await apiMyAchievements();
-      setUserLogros(myAchievementsResponse);
+        const myAchievementsResponse = await apiMyAchievements();
+        setUserLogros(myAchievementsResponse);
+
+        if (responseDelete.message == 'success') {
+          toast.info('¡Logro eliminado! Consíguelo de nuevo');
+        }
+        if (responseDelete.message == 'Expired token') {
+          toast.info(
+            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+          );
+          history.replace(appRoutes.login);
+        }
+      } catch (e) {
+        toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+      }
     } else {
       setIsColor(true);
       console.log('es true');
-    }
-    event.preventDefault();
 
-    try {
-      let onClickIdAchievement = (addUserAchievement.achievement =
-        event.target.id);
-      let achievementDate = (addUserAchievement.date = getCurrentDate());
-      setAddUserAchievement(onClickIdAchievement);
-      setAddUserAchievement(achievementDate);
+      try {
+        let onClickIdAchievement = (addUserAchievement.achievement =
+          event.target.id);
+        let achievementDate = (addUserAchievement.date = getCurrentDate());
+        setAddUserAchievement(onClickIdAchievement);
+        setAddUserAchievement(achievementDate);
 
-      var respuesta = await apiAddAchievement(addUserAchievement);
+        var respuesta = await apiAddAchievement(addUserAchievement);
 
-      console.log('respuesta ' + addUserAchievement.achievement);
+        console.log('respuesta ' + addUserAchievement.achievement);
 
-      setAddUserAchievement(addUserAchievement);
-      const myAchievementsResponse = await apiMyAchievements();
-      setUserLogros(myAchievementsResponse);
+        setAddUserAchievement(addUserAchievement);
+        const myAchievementsResponse = await apiMyAchievements();
+        setUserLogros(myAchievementsResponse);
 
-      if (respuesta.message == 'success') {
-        toast.success('¡Enhorabuena peregrino! Has conseguido un nuevo logro');
+        if (respuesta.message == 'success') {
+          toast.success(
+            '¡Enhorabuena peregrino! Has conseguido un nuevo logro'
+          );
+        }
+        if (respuesta.message == 'Expired token') {
+          toast.info(
+            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+          );
+          history.replace(appRoutes.login);
+        }
+      } catch (e) {
+        toast.error('Error del servidor. Por favor, inténtelo de nuevo');
       }
-      if (respuesta.message == 'Expired token') {
-        toast.info(
-          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
-        );
-        history.replace(appRoutes.login);
-      }
-    } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
 
@@ -323,6 +340,6 @@ async function apiDeleteAchievement(achievementInfo) {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
-    body: JSON.stringify(),
+    body: JSON.stringify(achievementInfo),
   }).then(data => data.json());
 }
