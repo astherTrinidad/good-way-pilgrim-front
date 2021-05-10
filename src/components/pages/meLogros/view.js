@@ -51,9 +51,12 @@ export default function MeLogros() {
   const history = useHistory();
   const [allLogros, setAllLogros] = useState([]);
   const [userLogros, setUserLogros] = useState([]);
-  const [userAchievement, setUserAchievement] = useState({
+  const [addUserAchievement, setAddUserAchievement] = useState({
     achievement: '',
     date: '',
+  });
+  const [deleteUserAchievement, setDeleteAchievement] = useState({
+    achievement: '',
   });
   const [open, setOpen] = React.useState(false);
 
@@ -65,7 +68,7 @@ export default function MeLogros() {
     setOpen(false);
   };
 
-  const getCurrentData = () => {
+  const getCurrentDate = () => {
     let addAchievementDate = new Date();
     let day =
       addAchievementDate.getDate() <= 9
@@ -80,18 +83,32 @@ export default function MeLogros() {
   };
 
   const onClick = async event => {
+    event.preventDefault();
+
     try {
-      const onClickIdAchievement = (userAchievement.achievement =
+      let onClickIdAchievement = (addUserAchievement.achievement =
         event.target.id);
-      setUserAchievement(onClickIdAchievement);
+      let achievementDate = (addUserAchievement.date = getCurrentDate());
+      setAddUserAchievement(onClickIdAchievement);
+      setAddUserAchievement(achievementDate);
 
-      const achievementDate = (userAchievement.date = getCurrentData());
-      setUserAchievement(achievementDate);
-      console.log(userAchievement.achievement + '   ' + userAchievement.date);
-      var respuesta = await apiAddAchievement(userAchievement);
+      var respuesta = await apiAddAchievement(addUserAchievement);
 
+      console.log('respuesta ' + addUserAchievement.achievement);
+
+      onClickIdAchievement = deleteUserAchievement.achievement =
+        event.target.id;
+
+      console.log('*******' + deleteUserAchievement.achievement);
+
+      if (event.target.id == deleteUserAchievement.achievement) {
+        setDeleteAchievement(onClickIdAchievement);
+
+        var responseDelete = await apiDeleteAchievement(deleteUserAchievement);
+      }
+
+      setAddUserAchievement(addUserAchievement);
       const myAchievementsResponse = await apiMyAchievements();
-
       setUserLogros(myAchievementsResponse);
 
       if (respuesta.message == 'success') {
