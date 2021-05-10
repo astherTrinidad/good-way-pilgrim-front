@@ -51,6 +51,8 @@ export default function MeLogros() {
   const history = useHistory();
   const [allLogros, setAllLogros] = useState([]);
   const [userLogros, setUserLogros] = useState([]);
+  const [isColor, setIsColor] = useState(false);
+
   const [addUserAchievement, setAddUserAchievement] = useState({
     achievement: '',
     date: '',
@@ -83,6 +85,23 @@ export default function MeLogros() {
   };
 
   const onClick = async event => {
+    if (isColor) {
+      setIsColor(false);
+      console.log('es false');
+
+      let onClickIdAchievement = (deleteUserAchievement.achievement =
+        event.target.id);
+
+      console.log('*******' + deleteUserAchievement.achievement);
+      var respuesta = await apiDeleteAchievement(deleteUserAchievement);
+      setDeleteAchievement(onClickIdAchievement);
+
+      const myAchievementsResponse = await apiMyAchievements();
+      setUserLogros(myAchievementsResponse);
+    } else {
+      setIsColor(true);
+      console.log('es true');
+    }
     event.preventDefault();
 
     try {
@@ -95,17 +114,6 @@ export default function MeLogros() {
       var respuesta = await apiAddAchievement(addUserAchievement);
 
       console.log('respuesta ' + addUserAchievement.achievement);
-
-      onClickIdAchievement = deleteUserAchievement.achievement =
-        event.target.id;
-
-      console.log('*******' + deleteUserAchievement.achievement);
-
-      if (event.target.id == deleteUserAchievement.achievement) {
-        setDeleteAchievement(onClickIdAchievement);
-
-        var responseDelete = await apiDeleteAchievement(deleteUserAchievement);
-      }
 
       setAddUserAchievement(addUserAchievement);
       const myAchievementsResponse = await apiMyAchievements();

@@ -36,6 +36,7 @@ const DeleteAchievements = () => {
         );
         history.replace(appRoutes.login);
       }
+      window.location.reload(true);
     } catch (e) {
       toast.error('Error del servidor. Por favor, inténtelo de nuevo');
     }
