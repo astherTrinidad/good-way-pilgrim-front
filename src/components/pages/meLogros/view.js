@@ -8,6 +8,7 @@ import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
 import url from '../../../config/url';
+import { DeleteAchievements } from '../../modals';
 import {
   Container,
   Section,
@@ -22,24 +23,14 @@ import {
   ContainerLogros,
   DescriptionText,
 } from './styled';
-import { DeleteAchievements } from '../../modals';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Logro = ({
-  id,
-  src,
-  alt,
-  tabIndex,
-  name,
-  description,
-  onClick,
-  handleChange,
-}) => {
+const Logro = ({ id, src, alt, tabIndex, name, description, onClick }) => {
   return (
-    <ContainerLogros onClick={onClick} onChange={handleChange}>
+    <ContainerLogros onClick={onClick}>
       <LogroImg id={id} src={src} alt={alt} tabIndex={tabIndex} />
       <NameText tabIndex={tabIndex}>{name}</NameText>
       <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
@@ -87,16 +78,13 @@ export default function MeLogros() {
   const onClick = async event => {
     if (isColor) {
       setIsColor(false);
-      console.log('es false');
 
       try {
         let onClickIdAchievement = (deleteUserAchievement.achievement =
           event.target.id);
         setDeleteAchievement(onClickIdAchievement);
 
-        console.log('*******' + deleteUserAchievement.achievement);
         var responseDelete = await apiDeleteAchievement(deleteUserAchievement);
-        console.log('response ' + deleteUserAchievement.achievement);
         setDeleteAchievement(deleteUserAchievement);
 
         const myAchievementsResponse = await apiMyAchievements();
@@ -116,29 +104,27 @@ export default function MeLogros() {
       }
     } else {
       setIsColor(true);
-      console.log('es true');
 
       try {
         let onClickIdAchievement = (addUserAchievement.achievement =
           event.target.id);
+
         let achievementDate = (addUserAchievement.date = getCurrentDate());
         setAddUserAchievement(onClickIdAchievement);
         setAddUserAchievement(achievementDate);
 
-        var respuesta = await apiAddAchievement(addUserAchievement);
-
-        console.log('respuesta ' + addUserAchievement.achievement);
-
+        var responseAdd = await apiAddAchievement(addUserAchievement);
         setAddUserAchievement(addUserAchievement);
+
         const myAchievementsResponse = await apiMyAchievements();
         setUserLogros(myAchievementsResponse);
 
-        if (respuesta.message == 'success') {
+        if (responseAdd.message == 'success') {
           toast.success(
             '¡Enhorabuena peregrino! Has conseguido un nuevo logro'
           );
         }
-        if (respuesta.message == 'Expired token') {
+        if (responseAdd.message == 'Expired token') {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );
