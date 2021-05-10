@@ -14,7 +14,6 @@ export const Container = styled.main`
   flex-direction: column;
   height: max-content;
   justify-content: center;
-  align-items: center;
   margin: 3rem auto;
   width: 80%;
 `;
@@ -22,6 +21,9 @@ export const Section = styled.h1`
   color: ${colors.darkGrey};
   font-size: 1.5em;
   margin-bottom: 2rem;
+  text-align: left;
+  justify-content: left;
+  align-items: left;
 `;
 
 export const RowLogros = styled.div`
@@ -126,7 +128,6 @@ export const Subtitle = styled.h3`
 export const ButtonDelete = styled.button`
   width: 50%;
   border-radius: 8px;
-
   background-color: ${colors.red};
   color: ${colors.white};
   font-style: normal;
@@ -134,7 +135,7 @@ export const ButtonDelete = styled.button`
   font-size: 1rem;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-  margin: 1rem;
+  margin: 1rem auto;
   padding: 1rem 1rem;
   transition: all 0.3s ease-out;
 
@@ -146,9 +147,7 @@ export const ButtonDelete = styled.button`
   }
   @media screen and (max-width: 960px) {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin: 1rem;
+    margin: 1rem auto;
   }
 `;
 

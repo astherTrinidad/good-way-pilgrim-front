@@ -8,6 +8,7 @@ import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
 import url from '../../../config/url';
+import { DeleteAchievements } from '../../modals';
 import {
   Container,
   Section,
@@ -22,24 +23,14 @@ import {
   ContainerLogros,
   DescriptionText,
 } from './styled';
-import { DeleteAchievements } from '../../modals';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Logro = ({
-  id,
-  src,
-  alt,
-  tabIndex,
-  name,
-  description,
-  onClick,
-  handleChange,
-}) => {
+const Logro = ({ id, src, alt, tabIndex, name, description, onClick }) => {
   return (
-    <ContainerLogros onClick={onClick} onChange={handleChange}>
+    <ContainerLogros onClick={onClick}>
       <LogroImg id={id} src={src} alt={alt} tabIndex={tabIndex} />
       <NameText tabIndex={tabIndex}>{name}</NameText>
       <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
@@ -51,9 +42,14 @@ export default function MeLogros() {
   const history = useHistory();
   const [allLogros, setAllLogros] = useState([]);
   const [userLogros, setUserLogros] = useState([]);
-  const [userAchievement, setUserAchievement] = useState({
+  const [isColor, setIsColor] = useState(false);
+
+  const [addUserAchievement, setAddUserAchievement] = useState({
     achievement: '',
     date: '',
+  });
+  const [deleteUserAchievement, setDeleteAchievement] = useState({
+    achievement: '',
   });
   const [open, setOpen] = React.useState(false);
 
@@ -65,7 +61,7 @@ export default function MeLogros() {
     setOpen(false);
   };
 
-  const getCurrentData = () => {
+  const getCurrentDate = () => {
     let addAchievementDate = new Date();
     let day =
       addAchievementDate.getDate() <= 9
@@ -80,31 +76,63 @@ export default function MeLogros() {
   };
 
   const onClick = async event => {
-    try {
-      const onClickIdAchievement = (userAchievement.achievement =
-        event.target.id);
-      setUserAchievement(onClickIdAchievement);
+    if (isColor) {
+      setIsColor(false);
 
-      const achievementDate = (userAchievement.date = getCurrentData());
-      setUserAchievement(achievementDate);
-      console.log(userAchievement.achievement + '   ' + userAchievement.date);
-      var respuesta = await apiAddAchievement(userAchievement);
+      try {
+        let onClickIdAchievement = (deleteUserAchievement.achievement =
+          event.target.id);
+        setDeleteAchievement(onClickIdAchievement);
 
-      const myAchievementsResponse = await apiMyAchievements();
+        var responseDelete = await apiDeleteAchievement(deleteUserAchievement);
+        setDeleteAchievement(deleteUserAchievement);
 
-      setUserLogros(myAchievementsResponse);
+        const myAchievementsResponse = await apiMyAchievements();
+        setUserLogros(myAchievementsResponse);
 
-      if (respuesta.message == 'success') {
-        toast.success('¡Enhorabuena peregrino! Has conseguido un nuevo logro');
+        if (responseDelete.message == 'success') {
+          toast.info('¡Logro eliminado! Consíguelo de nuevo');
+        }
+        if (responseDelete.message == 'Expired token') {
+          toast.info(
+            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+          );
+          history.replace(appRoutes.login);
+        }
+      } catch (e) {
+        toast.error('Error del servidor. Por favor, inténtelo de nuevo');
       }
-      if (respuesta.message == 'Expired token') {
-        toast.info(
-          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
-        );
-        history.replace(appRoutes.login);
+    } else {
+      setIsColor(true);
+
+      try {
+        let onClickIdAchievement = (addUserAchievement.achievement =
+          event.target.id);
+
+        let achievementDate = (addUserAchievement.date = getCurrentDate());
+        setAddUserAchievement(onClickIdAchievement);
+        setAddUserAchievement(achievementDate);
+
+        var responseAdd = await apiAddAchievement(addUserAchievement);
+        setAddUserAchievement(addUserAchievement);
+
+        const myAchievementsResponse = await apiMyAchievements();
+        setUserLogros(myAchievementsResponse);
+
+        if (responseAdd.message == 'success') {
+          toast.success(
+            '¡Enhorabuena peregrino! Has conseguido un nuevo logro'
+          );
+        }
+        if (responseAdd.message == 'Expired token') {
+          toast.info(
+            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+          );
+          history.replace(appRoutes.login);
+        }
+      } catch (e) {
+        toast.error('Error del servidor. Por favor, inténtelo de nuevo');
       }
-    } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
 
@@ -298,6 +326,6 @@ async function apiDeleteAchievement(achievementInfo) {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
-    body: JSON.stringify(),
+    body: JSON.stringify(achievementInfo),
   }).then(data => data.json());
 }
