@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -11,6 +11,8 @@ import modalBin from '../../../assets/images/modal-achievements-delete.png';
 import { DialogContentText } from '@material-ui/core';
 
 const DeleteAchievements = () => {
+  const [userLogros, setUserLogros] = useState([]);
+
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
@@ -22,8 +24,11 @@ const DeleteAchievements = () => {
     event.preventDefault();
     try {
       var respuesta = await apiDeleteAchievements();
+      const myAchievementsResponse = await apiMyAchievements();
+
       if (respuesta.message == 'success') {
-        toast.info('Has eliminado el logro de tu lista');
+        setUserLogros(myAchievementsResponse);
+        toast.info('Has eliminado los logros de tu lista');
       }
       if (respuesta.message == 'Expired token') {
         toast.info(
@@ -73,5 +78,15 @@ async function apiDeleteAchievements() {
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
     body: JSON.stringify(),
+  }).then(data => data.json());
+}
+
+async function apiMyAchievements() {
+  return fetch(`${url.base}${url.meLogros}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
   }).then(data => data.json());
 }
