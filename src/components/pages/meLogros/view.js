@@ -22,16 +22,25 @@ import {
   ContainerLogros,
   DescriptionText,
 } from './styled';
-import { DeleteAchievements, ConfirmAddAchievement } from '../../modals';
+import { DeleteAchievements } from '../../modals';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Logro = ({ src, alt, tabIndex, name, description, onClick }) => {
+const Logro = ({
+  id,
+  src,
+  alt,
+  tabIndex,
+  name,
+  description,
+  onClick,
+  handleChange,
+}) => {
   return (
-    <ContainerLogros onClick={onClick}>
-      <LogroImg src={src} alt={alt} tabIndex={tabIndex} />
+    <ContainerLogros onClick={onClick} onChange={handleChange}>
+      <LogroImg id={id} src={src} alt={alt} tabIndex={tabIndex} />
       <NameText tabIndex={tabIndex}>{name}</NameText>
       <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
     </ContainerLogros>
@@ -42,9 +51,11 @@ export default function MeLogros() {
   const history = useHistory();
   const [allLogros, setAllLogros] = useState([]);
   const [userLogros, setUserLogros] = useState([]);
-
+  const [userAchievement, setUserAchievement] = useState({
+    achievement: '',
+    date: '',
+  });
   const [open, setOpen] = React.useState(false);
-  const [openAddModal, setOpenAddModal] = React.useState(false);
 
   const handleClickOpenModalDelete = () => {
     setOpen(true);
@@ -54,13 +65,47 @@ export default function MeLogros() {
     setOpen(false);
   };
 
-  const handleClickCloseModalAdd = () => {
-    setOpenAddModal(false);
-    console.log('enHandle');
+  const getCurrentData = () => {
+    let addAchievementDate = new Date();
+    let day =
+      addAchievementDate.getDate() <= 9
+        ? '0' + addAchievementDate.getDate()
+        : addAchievementDate.getDate();
+    let month =
+      addAchievementDate.getMonth() <= 9
+        ? '0' + addAchievementDate.getMonth()
+        : addAchievementDate.getMonth();
+    let year = addAchievementDate.getFullYear();
+    return (addAchievementDate = year + '-' + month + '-' + day);
   };
 
-  const onClick = () => {
-    setOpenAddModal(true);
+  const onClick = async event => {
+    try {
+      const onClickIdAchievement = (userAchievement.achievement =
+        event.target.id);
+      setUserAchievement(onClickIdAchievement);
+
+      const achievementDate = (userAchievement.date = getCurrentData());
+      setUserAchievement(achievementDate);
+      console.log(userAchievement.achievement + '   ' + userAchievement.date);
+      var respuesta = await apiAddAchievement(userAchievement);
+
+      const myAchievementsResponse = await apiMyAchievements();
+
+      setUserLogros(myAchievementsResponse);
+
+      if (respuesta.message == 'success') {
+        toast.success('¡Enhorabuena peregrino! Has conseguido un nuevo logro');
+      }
+      if (respuesta.message == 'Expired token') {
+        toast.info(
+          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+        );
+        history.replace(appRoutes.login);
+      }
+    } catch (e) {
+      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+    }
   };
 
   useEffect(() => {
@@ -92,8 +137,10 @@ export default function MeLogros() {
     });
     const ruta =
       idLogros !== -1 ? './assets/logros/color/' : './assets/logros/bn/';
+
     return (
       <Logro
+        id={item.id}
         src={`${ruta}${item.slug}.png`}
         name={item.name}
         description={item.description}
@@ -113,6 +160,7 @@ export default function MeLogros() {
 
     return (
       <Logro
+        id={item.id}
         src={`${ruta}${item.slug}.png`}
         name={item.name}
         description={item.description}
@@ -164,18 +212,19 @@ export default function MeLogros() {
         <Row>
           <TextWrapper>
             <Heading
-              aria-label="¿Quién dijo que conseguir un logro fuera difícil?"
+              aria-label="Conviertete en un auténtico peregrino"
               tabIndex="0"
             >
-              ¿Quién dijo que conseguir un logro fuera difícil?
+              Conviertete en un auténtico peregrino
             </Heading>
             <Subtitle
               aria-label="Emprende el camino y al final del día selecciona 
               los logros conseguidos"
               tabIndex="0"
             >
-              Emprende el camino y al final del día selecciona los logros
-              conseguidos
+              Toda experiencia es bienvenida y todos hemos pasado por alguna de
+              estas fases, no te avergüences. ¡Sigue disfrutando del Camino
+              hasta el final!
             </Subtitle>
           </TextWrapper>
         </Row>
@@ -205,18 +254,6 @@ export default function MeLogros() {
         >
           <DeleteAchievements />
         </Dialog>
-        <Dialog
-          open={openAddModal}
-          TransitionComponent={Transition}
-          keepMounted
-          onClick={handleClickCloseModalAdd}
-          aria-labelledby="¡Enhorabuena por conseguirlo!"
-          aria-describedby="¿Quiéres añadir el logro?"
-          aria-modal="true"
-          role="dialog"
-        >
-          <ConfirmAddAchievement />
-        </Dialog>
       </Container>
       <Footer />
     </>
@@ -240,5 +277,27 @@ async function apiMyAchievements() {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
+  }).then(data => data.json());
+}
+
+async function apiAddAchievement(achievementInfo) {
+  return fetch(`${url.base}${url.addLogros}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: JSON.stringify(achievementInfo),
+  }).then(data => data.json());
+}
+
+async function apiDeleteAchievement(achievementInfo) {
+  return fetch(`${url.base}${url.deleteAchievement}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: JSON.stringify(),
   }).then(data => data.json());
 }
