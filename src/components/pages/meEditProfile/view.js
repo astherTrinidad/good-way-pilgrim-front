@@ -232,6 +232,18 @@ export default function MeEditProfile() {
                   </Row>
                   <Row>
                     <TextInputEditForm
+                      label="Contraseña actual*"
+                      placeholder="Min. 8 caracteres, minúsculas y mayúsculas"
+                      name="oldPassword"
+                      type="password"
+                      value={userData?.oldPassword}
+                      error={errors.oldPassword}
+                      onChange={handleChange}
+                      onBlur={validate}
+                    />
+                  </Row>
+                  <Row>
+                    <TextInputEditForm
                       label="Nueva contraseña"
                       placeholder="Min. 8 caracteres, minúsculas y mayúsculas"
                       name="newPassword"
@@ -248,18 +260,6 @@ export default function MeEditProfile() {
                       type="password"
                       value={userData?.passwordConfirm}
                       error={errors.passwordConfirm}
-                      onChange={handleChange}
-                      onBlur={validate}
-                    />
-                  </Row>
-                  <Row>
-                    <TextInputEditForm
-                      label="Contraseña actual*"
-                      placeholder="Min. 8 caracteres, minúsculas y mayúsculas"
-                      name="oldPassword"
-                      type="password"
-                      value={userData?.oldPassword}
-                      error={errors.oldPassword}
                       onChange={handleChange}
                       onBlur={validate}
                     />

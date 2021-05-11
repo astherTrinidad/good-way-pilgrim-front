@@ -9,6 +9,7 @@ const url = {
   login: '/pub/login',
   logros: 'pri/AllAchievements',
   addLogros: '/pri/addAchievement',
+  deleteAchievement: '/pri/deleteAchievement',
   deleteAchievements: '/pri/deleteAchievements',
 };
 

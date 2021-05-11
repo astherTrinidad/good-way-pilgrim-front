@@ -90,7 +90,7 @@ export default function Register() {
     if (!invalidForm) {
       try {
         setIsfetching(true);
-        delete data.passwordConfirm
+        delete data.passwordConfirm;
         var datos = await apiRegister(data);
         datos = JSON.parse(datos);
         if (datos.message === undefined) {
