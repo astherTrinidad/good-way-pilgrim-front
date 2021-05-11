@@ -4,16 +4,15 @@ import some from 'lodash/some'; //verificamos los elementos de un array
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { TextInput, Button, FormHeader, List } from '../../atoms/';
-import { validateEmail, validatePassword } from '../../../utils';
+import { validateEmail } from '../../../utils';
 import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
 import Styles from './styled';
 import 'react-toastify/dist/ReactToastify.css';
 import url from '../../../config/url';
 import appRoutes from '../../../config/appRoutes';
-import { FaRegEye } from 'react-icons/fa';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Login() {
+  const [userData, setUserData] = useState({});
   const history = useHistory();
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => {
@@ -76,15 +75,26 @@ export default function Login() {
         if (datos.message === 'success') {
           sessionStorage.setItem('token', datos.token);
           toast.success('¡Bienvenido/a!');
-          history.replace(appRoutes.meProfile);
+          console.log(data.name);
+          console.log(data.achievement);
+
+          datos = await apiMeProfile();
+          if (datos.message === undefined) {
+            setUserData(datos);
+          }
+
+          const achievementUserLength =
+            datos.achievements.length !== 0 || datos.achievements.paths !== 0
+              ? history.replace(appRoutes.meProfile)
+              : history.replace(appRoutes.meProfileData);
         }
+
         setIsfetching(false);
       } catch (e) {
         toast.error('Error del servidor. Inténtelo más tarde');
         setIsfetching(false);
       }
     } else {
-      //toast.warn("Por favor, rellena todos tus datos correctamente")
       setTouched({
         email: true,
         password: true,
@@ -144,4 +154,14 @@ async function apiLoginUser(credentials) {
   let content = await response.text();
 
   return content;
+}
+
+async function apiMeProfile() {
+  return fetch(`${url.base}${url.meProfile}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+  }).then(data => data.json());
 }

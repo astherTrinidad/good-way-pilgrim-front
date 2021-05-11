@@ -10,6 +10,7 @@ import appRoutes from '../../config/appRoutes';
 import Login from '../pages/login/index';
 import Register from '../pages/register/index';
 import MeProfile from '../pages/meProfile/index';
+import MeProfileData from '../pages/meProfileData/index';
 import MeEditProfile from '../pages/meEditProfile/index';
 import MeLogros from '../pages/meLogros/index';
 import FrequentQuestion from '../pages/frequentQuestion/index';
@@ -24,6 +25,11 @@ function Routes() {
         <PublicRoute path={appRoutes.login} component={Login} exact />
         <PublicRoute path={appRoutes.register} component={Register} exact />
         <PrivateRoute path={appRoutes.meProfile} component={MeProfile} exact />
+        <PrivateRoute
+          path={appRoutes.meProfileData}
+          component={MeProfileData}
+          exact
+        />
         <PrivateRoute
           path={appRoutes.meEditProfile}
           component={MeEditProfile}
