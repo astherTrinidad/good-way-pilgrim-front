@@ -90,9 +90,6 @@ export default function MeLogros() {
         const myAchievementsResponse = await apiMyAchievements();
         setUserLogros(myAchievementsResponse);
 
-        if (responseDelete.message == 'success') {
-          toast.info('¡Logro eliminado! Consíguelo de nuevo');
-        }
         if (responseDelete.message == 'Expired token') {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
@@ -119,11 +116,6 @@ export default function MeLogros() {
         const myAchievementsResponse = await apiMyAchievements();
         setUserLogros(myAchievementsResponse);
 
-        if (responseAdd.message == 'success') {
-          toast.success(
-            '¡Enhorabuena peregrino! Has conseguido un nuevo logro'
-          );
-        }
         if (responseAdd.message == 'Expired token') {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
