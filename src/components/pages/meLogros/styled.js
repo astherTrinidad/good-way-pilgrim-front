@@ -76,16 +76,15 @@ export const TextWrapper = styled.div`
 `;
 
 export const Heading = styled.h2`
-  color: ${colors.darkGrey};
+  color: ${colors.turquoise};
   display: block;
   font-family: 'Poppins', sans-serif;
-  font-size: 2.5em;
+  font-size: 2em;
   font-weight: bold;
   line-height: 1.5;
   margin-right: auto;
   margin-left: auto;
   margin-top: 1rem;
-  margin-bottom: 2rem;
   text-align: center;
   width: 100%;
 
@@ -102,6 +101,7 @@ export const Heading = styled.h2`
 `;
 
 export const Subtitle = styled.h3`
+  color: ${colors.darkGrey};
   display: block;
   font-family: 'Poppins', sans-serif;
   font-size: 1.5em;
@@ -109,7 +109,7 @@ export const Subtitle = styled.h3`
   line-height: 1.5;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 3rem;
+  margin-top: 1rem;
   margin-bottom: 2rem;
   text-align: center;
   width: 80%;
@@ -152,12 +152,14 @@ export const ButtonDelete = styled.button`
 `;
 
 export const NameText = styled.p`
+  color: ${colors.darkGrey};
   font-size: 1rem;
   font-weight: bold;
   padding: 1rem 1rem 0 1rem;
 `;
 
 export const DescriptionText = styled.p`
+  color: ${colors.darkGrey};
   font-size: 1rem;
   font-weight: 300;
   line-height: 1.5;
