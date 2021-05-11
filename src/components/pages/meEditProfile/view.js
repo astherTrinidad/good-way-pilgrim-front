@@ -12,6 +12,7 @@ import GlobalStyle from '../../../globalStyles';
 import { TextInputEditForm } from '../../atoms';
 import { Navbar, Footer } from '../../organisms';
 import dropMeEditProfile from '../../../assets/images/gota-show-profile.png';
+import profilePhoto from '../../../assets/images/photo-profile-generic.png';
 import {
   Container,
   ColumnImg,
@@ -78,10 +79,16 @@ export default function MeEditProfile() {
     async function fetchProfile() {
       try {
         const response = await apiMeProfile();
-        response.oldPassword = '';
-        response.newPassword = '';
-        delete response.picture;
-        setUserData(response);
+        if (response.message == 'Expired token') {
+          toast.info(
+            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+          );
+          history.replace(appRoutes.login);
+        } else {
+          response.oldPassword = '';
+          response.newPassword = '';
+          setUserData(response);
+        }
       } catch {
         toast.error(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
@@ -90,6 +97,14 @@ export default function MeEditProfile() {
     }
     fetchProfile();
   }, []);
+
+  const convertirBase64 = archivo => {
+    var reader = new FileReader();
+    reader.readAsDataURL(archivo[0]);
+    reader.onload = function () {
+      userData.picture = reader.result;
+    };
+  };
 
   const handleChange = event => {
     setUserData({
@@ -100,7 +115,6 @@ export default function MeEditProfile() {
 
   const handleSubmit = async event => {
     event.preventDefault();
-
     const invalidForm = some(errors, error => !isEmpty(error));
     if (!invalidForm) {
       try {
@@ -135,7 +149,6 @@ export default function MeEditProfile() {
   const handleClose = () => {
     setOpen(false);
   };
-  /* final modal */
 
   return (
     <>
@@ -143,7 +156,9 @@ export default function MeEditProfile() {
       <Navbar />
       <Container>
         <Row>
-          <Section>Editar Perfil</Section>
+          <Section role="sección" tabIndex="0">
+            Editar Perfil
+          </Section>
         </Row>
         <Row>
           <ColumnImg>
@@ -154,12 +169,32 @@ export default function MeEditProfile() {
           </ColumnImg>
           <ColumnText>
             <Row>
-              <PhotoProfile />
+              <PhotoProfile
+                src={userData.picture ? userData.picture : profilePhoto}
+                alt="Foto de perfil"
+                aria-label="foto de perfil"
+                tabIndex="0"
+              ></PhotoProfile>
             </Row>
-            <ContainerName>
-              <NameProfile>{userData?.name}</NameProfile>
-              <SurnameProfile>{userData?.surname}</SurnameProfile>
+            <ContainerName aria-label="nombre de perfil" tabIndex="0">
+              <NameProfile aria-label={userData?.name} tabIndex="0">
+                {userData?.name}
+              </NameProfile>
+              <SurnameProfile aria-label={userData?.surname} tabIndex="0">
+                {userData?.surname}
+              </SurnameProfile>
             </ContainerName>
+            <Row>
+              <TextInputEditForm
+                label="Nueva foto de perfil"
+                name="picture"
+                type="file"
+                //accept=".jpg,.jpeg,.png,.tiff,.eps"
+                //max-size="1048576"
+                onChange={e => convertirBase64(e.target.files)}
+                //onChange={handleChange}
+              />
+            </Row>
             <Row>
               <FormEdit>
                 <form onSubmit={handleSubmit}>
@@ -236,6 +271,7 @@ export default function MeEditProfile() {
                       id="delete"
                       type="button"
                       onClick={handleClickOpen}
+                      button-label="Eliminar cuenta"
                     >
                       Eliminar cuenta
                     </ButtonDelete>
@@ -247,6 +283,8 @@ export default function MeEditProfile() {
                       onClick={handleClose}
                       aria-labelledby="No abandones al peregrino que llevas dentro"
                       aria-describedby="Modal de confirmación cancelación de la cuenta"
+                      aria-modal="true"
+                      role="dialog"
                     >
                       <DeleteAccountModal />
                     </Dialog>
@@ -255,6 +293,7 @@ export default function MeEditProfile() {
                       id="update"
                       type="submit"
                       onSubmit={handleSubmit}
+                      button-label="Guardar"
                     >
                       Guardar
                     </ButtonSave>

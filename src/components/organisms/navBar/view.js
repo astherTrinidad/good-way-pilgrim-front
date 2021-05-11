@@ -35,17 +35,19 @@ const Navbar = () => {
   };
 
   return (
-    <IconContext.Provider value={{ color: '#ffff' }}>
+    <IconContext.Provider
+      value={{ color: '#ffff' }}
+      tabIndex={0}
+      aria-label="Acceso área usuario"
+      role="Área usuario"
+    >
       <Nav>
         <NavbarContainer>
-          <NavLogo to={appRoutes.meProfile} />
+          <NavLogo to={appRoutes.meProfile} tabIndex={0} />
           <NavMenuUser onClick={handleClick} click={click}>
             <NavItem>
               <NavLinksMenu to={appRoutes.meEditProfile}>
                 Editar perfil
-              </NavLinksMenu>
-              <NavLinksMenu to={appRoutes.searchProfile}>
-                Buscar peregrino
               </NavLinksMenu>
               <NavBtnLink to={appRoutes.login}>
                 <Button onClick={closeSession} fontBig>
@@ -55,34 +57,35 @@ const Navbar = () => {
             </NavItem>
           </NavMenuUser>
 
-          <NavMenuUserResponsive onClick={handleClick} click={click}>
+          <NavMenuUserResponsive
+            onClick={handleClick}
+            click={click}
+            aria-expanded="true"
+          >
             <NavItem>
               <NavLinksMenu to={appRoutes.meProfile}>Mi perfil</NavLinksMenu>
               <NavLinksMenu to={appRoutes.meEditProfile}>
                 Editar perfil
               </NavLinksMenu>
-              <NavLinksMenu to={appRoutes.searchProfile}>
-                Buscar peregrino
-              </NavLinksMenu>
               <ConchaIcon />
               <NavLinksMenu to={appRoutes.caminos}>Caminos</NavLinksMenu>
               <NavLinksMenu to={appRoutes.mochila}>Mochila</NavLinksMenu>
-              <NavLinksMenu to={appRoutes.logros}>Logros</NavLinksMenu>
+              <NavLinksMenu to={appRoutes.meLogros}>Logros</NavLinksMenu>
               <NavBtnLink to={appRoutes.login}>
-                <Button onClick={closeSession} fontBig>
+                <Button onClick={closeSession} fontBig role="button">
                   Cerrar sesión
                 </Button>
               </NavBtnLink>
             </NavItem>
           </NavMenuUserResponsive>
-          <NavMenu>
+          <NavMenu aria-hidden="false">
             <NavLinks to={appRoutes.meProfile}>Perfil</NavLinks>
             <NavLinks to={appRoutes.caminos}>Caminos</NavLinks>
             <NavLinks to={appRoutes.mochila}>Mochila</NavLinks>
-            <NavLinks to={appRoutes.logros}>Logros</NavLinks>
+            <NavLinks to={appRoutes.meLogros}>Logros</NavLinks>
           </NavMenu>
           <MobileIcon>
-            <IconUser onClick={handleClick}>
+            <IconUser onClick={handleClick} aria-label="Acceso área usuario">
               {click ? <FaRegUserCircle /> : <FaTimes className="FaTimes" />}
             </IconUser>
           </MobileIcon>

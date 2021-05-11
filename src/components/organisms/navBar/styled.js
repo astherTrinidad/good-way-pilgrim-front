@@ -116,6 +116,8 @@ export const NavMenuUser = styled.ul`
   top: ${({ click }) =>
     click ? 0 : '100%'}; //haga click, si hace clic es true -> muestro menú
   opacity: ${({ click }) => (click ? '0' : 1)};
+  display: ${({ click }) => (click ? 'none' : 'visibility')};
+
   justify-content: center;
   background: ${colors.mustard};
   transition: all 0.5s ease;

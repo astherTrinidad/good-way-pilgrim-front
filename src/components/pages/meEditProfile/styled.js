@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
-import profilePhoto from '../../../assets/images/photo-profile-generic.png';
 
 export const Row = styled.div`
   display: flex;
@@ -11,7 +10,7 @@ export const Row = styled.div`
   }
 `;
 
-export const Container = styled.div`
+export const Container = styled.main`
   display: flex;
   flex-direction: column;
   margin: 3rem auto;
@@ -51,17 +50,15 @@ export const ColumnText = styled.div`
   }
 `;
 
-export const PhotoProfile = styled.div`
+export const PhotoProfile = styled.img`
   height: 150px;
   width: 150px;
-  background: url(${profilePhoto});
-  background-repeat: no-repeat;
-  background-size: cover;
   position: relative;
   margin-top: -3.5rem;
   margin-right: auto;
   margin-left: auto;
   border-radius: 50%;
+  border: 5px solid ${colors.mustard};
 `;
 
 export const ContainerName = styled.div`
@@ -120,7 +117,6 @@ export const ButtonSave = styled.button`
   padding: 1rem 1.5rem;
   transition: all 0.3s ease-out;
   margin: 1rem;
-
   width: 50%;
 
   &:hover {

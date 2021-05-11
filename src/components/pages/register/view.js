@@ -90,6 +90,7 @@ export default function Register() {
     if (!invalidForm) {
       try {
         setIsfetching(true);
+        delete data.passwordConfirm;
         var datos = await apiRegister(data);
         datos = JSON.parse(datos);
         if (datos.message === undefined) {
@@ -140,7 +141,7 @@ export default function Register() {
         />
 
         <TextInput
-          placeholder="Email (Máximo 40 caracteres)"
+          placeholder="Email"
           name="email"
           type="email"
           value={data.email}

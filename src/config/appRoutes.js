@@ -3,8 +3,7 @@ const routes = {
   register: '/registro',
   meProfile: '/perfil',
   meEditProfile: '/editar-perfil',
-  userProfile: '/usuarios/perfil',
-  searchProfile: '/usuarios/buscar',
+  meLogros: '/logros',
   frequentQuestion: '/preguntas-frecuentes',
   privacyConsumers: '/politicas-de-privacidad',
 };
