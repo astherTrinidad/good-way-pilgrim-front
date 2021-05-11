@@ -84,7 +84,7 @@ export default function Login() {
           }
 
           const achievementUserLength =
-            datos.achievements.length !== 0 || datos.achievements.paths !== 0
+            datos.achievements.length !== 0 || datos.paths.length !== 0
               ? history.replace(appRoutes.meProfile)
               : history.replace(appRoutes.meProfileData);
         }
