@@ -75,8 +75,6 @@ export default function Login() {
         if (datos.message === 'success') {
           sessionStorage.setItem('token', datos.token);
           toast.success('¡Bienvenido/a!');
-          console.log(data.name);
-          console.log(data.achievement);
 
           datos = await apiMeProfile();
           if (datos.message === undefined) {
@@ -84,7 +82,7 @@ export default function Login() {
           }
 
           const achievementUserLength =
-            datos.achievements.length !== 0 || datos.paths.length !== 0
+            datos.achievements.length !== 0 || datos.paths !== 0
               ? history.replace(appRoutes.meProfileData)
               : history.replace(appRoutes.meProfile);
         }

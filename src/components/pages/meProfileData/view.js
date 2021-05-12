@@ -62,6 +62,8 @@ export default function MeProfileData() {
           <NameProfile>{userData?.name}</NameProfile>
           <SurnameProfile>{userData?.surname}</SurnameProfile>
         </ContainerName>
+        <NameProfile>{userData?.km}</NameProfile>
+        <NameProfile>{userData?.paths}</NameProfile>
       </Container>
 
       <Footer />
