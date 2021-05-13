@@ -38,7 +38,7 @@ Para ejecutar los tests utilizamos Postman, que se puede usar online (precisa de
 
 ## React
 
-El proyecto contiene un fichero para configurar las imágenes docker y su ejecución mediante docker-compose: docker-compose.yml, con detalles de las tecnologías utilizadas y los puertos. Este proyecto en local corre en el puerto 8000, lo que significa que se podrá ejecutar en el navegador con:
+El proyecto contiene un fichero para configurar crear llamadas de manera local https://es.reactjs.org/ 
 
 Para especificar las variables, React utiliza un fichero .env. En este fichero aparece, por ejemplo, la definición del entorno:
 ```
