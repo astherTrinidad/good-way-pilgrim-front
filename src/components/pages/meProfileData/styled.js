@@ -12,6 +12,20 @@ export const Row = styled.div`
   margin: 3rem auto;
   width: 50%;
   height: max-content;
+
+  @media screen and (max-width: 578px) {
+    width: 80%;
+  }
+`;
+
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 3rem auto;
+  width: 50%;
+  height: max-content;
 `;
 
 export const RowLogros = styled.div`
@@ -22,6 +36,9 @@ export const RowLogros = styled.div`
   max-width: 50%;
   height: max-content;
   margin: 4rem auto;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const Header = styled.header`
@@ -146,12 +163,13 @@ export const Subtitle = styled.h3`
 export const TextWrapper = styled.div`
   align-items: center;
   justify-content: center;
-  max-width: 50%;
+  max-width: max-content;
   height: max-content;
   text-align: center;
   margin: auto auto;
   @media screen and (max-width: 768px) {
     margin: auto auto;
+    width: 100%;
   }
 `;
 
@@ -169,6 +187,7 @@ export const TextType = styled.p`
   color: ${colors.darkGrey};
   font-size: 2rem;
   font-weight: 300;
+  width: max-content;
   @media screen and (max-width: 578px) {
     font-size: 1rem;
   }
@@ -190,14 +209,23 @@ export const ConchaIconContainer = styled.div`
   display: block;
   height: 50px;
   width: 50px;
-  margin: -100px 2rem 0 2rem;
+  position: absolute;
   background-color: ${colors.mustard};
+  margin-top: -100px;
+  margin-left: 50px;
+  @media screen and (max-width: 578px) {
+    margin-left: 0;
+  }
 `;
 
 export const Line = styled.hr`
   border: 2px solid ${colors.mustard};
-  width: 100px;
+  width: 150px;
   transform: rotate(90deg);
   position: absolute;
-  margin: 3rem 0 0 -25px;
+  margin: 3rem 0 0 50px;
+  z-index: -25;
+  @media screen and (max-width: 578px) {
+    margin: 3rem 0 0 0;
+  }
 `;

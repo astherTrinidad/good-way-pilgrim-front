@@ -23,6 +23,7 @@ import {
   ConchaIcon,
   ConchaIconContainer,
   Line,
+  Column,
 } from './styled';
 import Logro from '../../atoms/logro';
 
@@ -57,7 +58,7 @@ export default function MeProfileData() {
   }, []);
 
   const renderLastLogros = userLogros.map(item => {
-    const ruta = './assets/logros/color/';
+    const ruta = '/assets/logros/color/';
 
     return (
       <Logro
@@ -98,18 +99,24 @@ export default function MeProfileData() {
           {renderLastLogros}
         </RowLogros>
         <Row>
-          <TextWrapper>
-            <TextNumber>{userData?.paths}</TextNumber>
-            <TextType>Caminos</TextType>
-          </TextWrapper>
-          <ConchaIconContainer>
-            <ConchaIcon />
+          <Column>
+            <TextWrapper>
+              <TextNumber>{userData?.paths}</TextNumber>
+              <TextType>Caminos</TextType>
+            </TextWrapper>
+          </Column>
+          <Column>
+            <ConchaIconContainer>
+              <ConchaIcon />
+            </ConchaIconContainer>
             <Line />
-          </ConchaIconContainer>
-          <TextWrapper>
-            <TextNumber>{userData?.km}</TextNumber>
-            <TextType>Km totales</TextType>
-          </TextWrapper>
+          </Column>
+          <Column>
+            <TextWrapper>
+              <TextNumber>{userData?.km}</TextNumber>
+              <TextType>Km totales</TextType>
+            </TextWrapper>
+          </Column>
         </Row>
       </Container>
 
