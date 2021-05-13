@@ -21,10 +21,12 @@ import {
   TextType,
   Row,
 } from './styled';
+import Logro from '../../atoms/logro';
 
 export default function MeProfileData() {
   const history = useHistory();
   const [userData, setUserData] = useState({});
+  const [userLogros, setUserLogros] = useState([]);
 
   useEffect(() => {
     async function fetchProfile() {
@@ -32,6 +34,8 @@ export default function MeProfileData() {
         const datos = await apiMeProfile();
         if (datos.message === undefined) {
           setUserData(datos);
+          console.log(datos);
+          setUserLogros(datos.achievements);
         }
         if (datos.message === 'Expired token') {
           history.replace(appRoutes.login);
@@ -48,19 +52,21 @@ export default function MeProfileData() {
     }
     fetchProfile();
   }, []);
-  // const achievement = userData?.achievements.map(item => {
-  //   const ruta = './assets/logros/color/';
-  //   return (
-  //     <Logro
-  //       id={item.id}
-  //       src={`${ruta}${item.slug}.png`}
-  //       name={item.name}
-  //       description={item.description}
-  //       alt={item.name}
-  //       tabIndex={0}
-  //     />
-  //   );
-  // });
+
+  const renderLastLogros = userLogros.map(item => {
+    const ruta = './assets/logros/color/';
+
+    return (
+      <Logro
+        id={item.id}
+        src={`${ruta}${item.slug}.png`}
+        name={item.name}
+        description={item.description}
+        alt={item.name}
+        tabIndex={0}
+      />
+    );
+  });
 
   return (
     <>
@@ -86,7 +92,7 @@ export default function MeProfileData() {
           </Subtitle>
         </TextWrapper>
         <RowLogros tabIndex={0} aria-label="Logros">
-          {/* {achievement} */}
+          {renderLastLogros}
         </RowLogros>
         <Row>
           <TextWrapper>

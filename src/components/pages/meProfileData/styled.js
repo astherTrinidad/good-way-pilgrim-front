@@ -20,8 +20,7 @@ export const RowLogros = styled.div`
   margin-bottom: 4rem;
   margin-top: -3rem;
   max-width: 80%;
-  background-color: pink;
-  height: 150px;
+  height: max-content;
   margin-left: auto;
   margin-right: auto;
 `;
