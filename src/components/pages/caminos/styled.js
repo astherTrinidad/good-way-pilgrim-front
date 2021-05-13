@@ -4,11 +4,25 @@ import colors from '../../../assets/colors';
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
-
   @media screen and (max-width: 768px) {
     flex-direction: column;
   }
 `;
+
+export const ColumnMenu = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  background-color: yellow;
+`;
+
+export const ColumnCamino = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 2rem;
+`;
+
 export const Container = styled.main`
   display: flex;
   flex-direction: column;
@@ -26,24 +40,22 @@ export const Section = styled.h1`
   align-items: left;
 `;
 
-export const RowLogros = styled.div`
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+export const RowCaminos = styled.div`
+  align-items: left;
+  justify-content: left;
   margin-bottom: 4rem;
   margin-top: -3rem;
   max-width: 100%;
 `;
 
 export const TextWrapper = styled.div`
-  align-items: center;
-  justify-content: center;
+  align-items: left;
+  justify-content: left;
   margin: 0 auto;
   max-width: 100%;
   padding-top: 0;
   padding-bottom: 60px;
-  text-align: center;
+  text-align: left;
   @media screen and (max-width: 768px) {
     padding-bottom: 65px;
   }
@@ -59,7 +71,7 @@ export const Heading = styled.h2`
   margin-right: auto;
   margin-left: auto;
   margin-top: 1rem;
-  text-align: center;
+  text-align: left;
   width: 100%;
 
   @media screen and (max-width: 960px) {
@@ -81,11 +93,9 @@ export const Subtitle = styled.h3`
   font-size: 1.5em;
   font-weight: 300;
   line-height: 1.5;
-  margin-right: auto;
-  margin-left: auto;
   margin-top: 1rem;
-  margin-bottom: 2rem;
-  text-align: center;
+  margin-bottom: 3rem;
+  text-align: left;
   width: 80%;
 
   @media screen and (max-width: 960px) {
