@@ -2,14 +2,16 @@ import styled from 'styled-components';
 import colors from '../../../assets/colors';
 import bgHeaderMeProfileData from '../../../assets/images/bg-header-me-profileData.jpg';
 import bgHeaderShowProfileMobile from '../../../assets/images/bgHeaderShowProfileMobile-min.jpg';
+import concha from '../../../assets/images/ic_concha.png';
 
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
-
-  @media screen and (max-width: 768px) {
-    flex-direction: column;
-  }
+  align-items: center;
+  justify-content: center;
+  margin: 3rem auto;
+  width: 50%;
+  height: max-content;
 `;
 
 export const RowLogros = styled.div`
@@ -17,12 +19,9 @@ export const RowLogros = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 4rem;
-  margin-top: -3rem;
-  max-width: 80%;
+  max-width: 50%;
   height: max-content;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 4rem auto;
 `;
 
 export const Header = styled.header`
@@ -67,6 +66,7 @@ export const PhotoProfile = styled.img`
 `;
 
 export const Container = styled.main`
+  align-items: center;
   width: 100%;
 `;
 
@@ -146,13 +146,12 @@ export const Subtitle = styled.h3`
 export const TextWrapper = styled.div`
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
-  max-width: 100%;
-  padding-top: 0;
-  padding-bottom: 60px;
+  max-width: 50%;
+  height: max-content;
   text-align: center;
+  margin: auto auto;
   @media screen and (max-width: 768px) {
-    padding-bottom: 65px;
+    margin: auto auto;
   }
 `;
 
@@ -160,10 +159,45 @@ export const TextNumber = styled.p`
   color: ${colors.darkGrey};
   font-size: 4rem;
   font-weight: 800;
+
+  @media screen and (max-width: 578px) {
+    font-size: 2rem;
+  }
 `;
 
 export const TextType = styled.p`
   color: ${colors.darkGrey};
   font-size: 2rem;
   font-weight: 300;
+  @media screen and (max-width: 578px) {
+    font-size: 1rem;
+  }
+`;
+
+export const ConchaIcon = styled.div`
+  display: block;
+  background-image: url(${concha});
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 30px;
+  width: 30px;
+  margin: 0.5rem auto;
+  background-color: ${colors.mustard};
+`;
+
+export const ConchaIconContainer = styled.div`
+  border-radius: 50%;
+  display: block;
+  height: 50px;
+  width: 50px;
+  margin: -100px 2rem 0 2rem;
+  background-color: ${colors.mustard};
+`;
+
+export const Line = styled.hr`
+  border: 2px solid ${colors.mustard};
+  width: 100px;
+  transform: rotate(90deg);
+  position: absolute;
+  margin: 3rem 0 0 -25px;
 `;

@@ -20,6 +20,9 @@ import {
   TextNumber,
   TextType,
   Row,
+  ConchaIcon,
+  ConchaIconContainer,
+  Line,
 } from './styled';
 import Logro from '../../atoms/logro';
 
@@ -99,6 +102,10 @@ export default function MeProfileData() {
             <TextNumber>{userData?.paths}</TextNumber>
             <TextType>Caminos</TextType>
           </TextWrapper>
+          <ConchaIconContainer>
+            <ConchaIcon />
+            <Line />
+          </ConchaIconContainer>
           <TextWrapper>
             <TextNumber>{userData?.km}</TextNumber>
             <TextType>Km totales</TextType>
