@@ -20,12 +20,12 @@ Con estos pasos la API estará preparada para hacerle llamadas desde el front o 
 2.  Iniciar Docker
 3.	Instala las dependencias de node
 ```
-###npm install
+npm install
 ```
 
 4.	Inicia la aplicación
 ```
-###npm start
+npm start
 ```
 
 Se aportan instrucciones detalladas de cada uno de estos pasos en los apartados siguientes.
