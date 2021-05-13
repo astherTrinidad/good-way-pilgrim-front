@@ -5,11 +5,11 @@ Proyecto
 
 ## Características 📋
 
-•	Framework
+###	Framework
 
-Se utiliza React.
+Se utiliza React. https://es.reactjs.org/
 
-•	Versión
+###	Versión
 
 17.0.2
 
