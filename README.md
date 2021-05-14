@@ -15,7 +15,7 @@ Se utiliza React. https://es.reactjs.org/
 
 ## Quick start 🚀
 
-Con estos pasos la API estará preparada para hacerle llamadas al back
+Con estos pasos la API estará preparada para hacerle llamadas al back y ver la aplicación en funcionamiento
 1.	Descarga del proyecto desde el repositorio de GitHub https://github.com/astherTrinidad/good-way-pilgrim-front
 2.  Iniciar Docker
 3.	Abrir una consola, situarse en la carpeta del proyecto e instala las dependencias de node
@@ -38,7 +38,7 @@ Para ejecutar los tests utilizamos Postman, que se puede usar online (precisa de
 
 ## React
 
-El proyecto contiene un fichero para configurar las llamadas de manera local server.js
+El proyecto contiene un fichero server.js para configurar las llamadas de manera local 
 
 Para especificar las variables, React utiliza un fichero .env. En este fichero aparece, por ejemplo, la definición del entorno:
 ```
