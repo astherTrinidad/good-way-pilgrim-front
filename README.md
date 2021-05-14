@@ -11,7 +11,22 @@ Se utiliza React. https://es.reactjs.org/
 
 17.0.2
 
+### Node/NPM Versions
+
+v15.13.0
+
+Podemos cambiar de versiones de node entre los diferentes proyectos usando nvm (macOS/Linux) or nvm-windows
+
+```
+nvm use <version>
+```
+
 ## Quick start 🚀
+
+Creamos una aplicación con el siguiente método:
+```
+npx good-way-pilgrim-front
+```
 
 Con estos pasos la API estará preparada para hacerle llamadas al back y ver la aplicación en funcionamiento
 1.	Descarga del proyecto desde el repositorio de GitHub 
