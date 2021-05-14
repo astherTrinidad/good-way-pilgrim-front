@@ -10,17 +10,18 @@ Dentro del patrón Modelo-Vista-Controlador, nos situamos en la Vista. En ella c
 Se utiliza React.
 https://es.reactjs.org/
 
-###	React versión
+### Versiones
+•  React: 
+   17.0.2
 
-17.0.2
+•  Node:
+   v15.13.0
 
-### Node version
+•  NPM:
+   7.7.6
 
-v15.13.0
-
-### NPM version
-
-7.7.6
+###	Lenguajes
+ El código se escribe en JavaScript, pudiendo ser opcional el uso de JSX (extensión de JavaScript) facilitando la creación de componente interactivos y reutilizables.
 
 Listamos las versiones de node instaladas
 ```
@@ -87,6 +88,7 @@ Dentro de la carpeta de configuración del proyecto, indicamos en un fichero lla
 
 •	React
 •	React-Router-Dom
+•	ES7
 •	Styled Components
 •	Material UI
 •	Prettier
