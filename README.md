@@ -3,6 +3,7 @@
 ## Características 📋
 
 ###	Framework
+![logo react](https://user-images.githubusercontent.com/61313038/118236531-7a9aee00-b496-11eb-93ed-8e6ea0417edb.png)
 
 Se utiliza React. https://es.reactjs.org/
 
@@ -13,19 +14,19 @@ Se utiliza React. https://es.reactjs.org/
 ## Quick start 🚀
 
 Con estos pasos la API estará preparada para hacerle llamadas al back y ver la aplicación en funcionamiento
-1.	Descarga del proyecto desde el repositorio de GitHub https://github.com/astherTrinidad/good-way-pilgrim-front
+1.	Descarga del proyecto desde el repositorio de GitHub 
+    https://github.com/astherTrinidad/good-way-pilgrim-front
 2.  Iniciar Docker
 3.	Abrir una consola, situarse en la carpeta del proyecto e instala las dependencias de node
 ```
 npm install
 ```
+Dentro del proyecto, podemos verificar todas las dependencias que nos instalamos durante toda la creación del proyecto junto con todas sus versiones correspondientes en un fichero llamado package.json.
 
 4.	Inicia la aplicación
 ```
 npm start
 ```
-
-Se aportan instrucciones detalladas de cada uno de estos pasos en los apartados siguientes.
 
 
 ## Pruebas ⚙️
@@ -33,7 +34,7 @@ Se aportan instrucciones detalladas de cada uno de estos pasos en los apartados 
 Para ejecutar los tests utilizamos Postman, que se puede usar online (precisa descargar el cliente https://www.postman.com/downloads/) o en local también tras descarga previa. Llevamos a cabo primero una llamada al end point del login con un usuario y una contraseña estándar de la base de datos para obtener el token y ya con él podemos probar el resto de llamadas a los end points de la API.
 
 
-## React ![logo react](https://user-images.githubusercontent.com/61313038/118236531-7a9aee00-b496-11eb-93ed-8e6ea0417edb.png)
+## React 
 
 El proyecto contiene un fichero server.js para configurar las llamadas de manera local 
 
