@@ -44,12 +44,12 @@ REACT_APP_BASE_URL=http://localhost:8000
 ```
 Dentro de la carpeta de configuración del proyecto, indicamos en un fichero llamado url las variables de entorno en las que asignamos cada uno de los endpoints disponibles. Por otro lado disponemos de un segundo fichero llamado appRoutes, en el que asignamos cada una de las rutas en las que se sitúan cada una de nuestras páginas que componen el proyecto.
 
-## Estructura de carpetas 📁 
+### Estructura de carpetas 📁 
 
 <img width="680" alt="estructura de carpetas![Uploading Captura de pantalla 2021-05-14 a las 9.19.20.png…]()
 " src="https://user-images.githubusercontent.com/61313038/118235336-e8deb100-b494-11eb-9c8c-8840bec0a1c7.png">
 
-## Estructura de carpetas de componentes visuales 📁 
+### Estructura de carpetas de componentes visuales 📁 
 
 <img width="680" alt="estructura de carpetas de componentes" src="https://user-images.githubusercontent.com/61313038/118235839-918d1080-b495-11eb-9d89-ea776356d18a.png">
 
