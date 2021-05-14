@@ -42,7 +42,7 @@ Dentro del proyecto, podemos verificar todas las dependencias que nos instalamos
 ```
 npm start
 ```
-
+5. Abrimos el navegador y podemos ver la aplicación en http://localhost:3000/
 
 ## Pruebas ⚙️
 
