@@ -34,6 +34,7 @@ El código se escribe en JavaScript, pudiendo ser opcional el uso de JSX (extens
 Definimos cada uno de los estilos en los diferentes componentes mediante styled-components, éste a su vez utiliza todas las propiedades y valores de CSS. 
 
 
+
 ## Quick start 🚀
 
 Previamente creamos la aplicación con el siguiente método:
@@ -48,13 +49,13 @@ Con estos pasos la APP estará preparada para hacerle llamadas al back y ver la 
 3.	Abrir una consola
 4.  Instalar o actualizar las dependencias necesarias de node
 ```
-cd good-way-pilgrim-front
 npm install
 ```
 Dentro del proyecto, podemos verificar todas las dependencias que nos instalamos durante toda la creación del proyecto junto con todas sus versiones correspondientes en un fichero llamado package.json.
 
 4.	Iniciar el servidor
 ```
+cd good-way-pilgrim-front
 npm start
 ```
 5. Para visitar la aplicación:
