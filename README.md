@@ -23,17 +23,18 @@ nvm use <version>
 
 ## Quick start 🚀
 
-Creamos la aplicación con el siguiente método:
+Previamente creamos la aplicación con el siguiente método:
 ```
 npx create-react-app good-way-pilgrim-front
 ```
 
-Con estos pasos la API estará preparada para hacerle llamadas al back y ver la aplicación en funcionamiento
+Con estos pasos la APP estará preparada para hacerle llamadas al back y ver la aplicación en funcionamiento
 1.	Descarga del proyecto desde el repositorio de GitHub 
     https://github.com/astherTrinidad/good-way-pilgrim-front
 2.  Iniciar Docker
-3.	Abrir una consola, situarse en la carpeta del proyecto e instala las dependencias de node
+3.	Abrir una consola, situarse en la carpeta del proyecto e instalar las dependencias de node
 ```
+cd good-way-pilgrim-front
 npm install
 ```
 Dentro del proyecto, podemos verificar todas las dependencias que nos instalamos durante toda la creación del proyecto junto con todas sus versiones correspondientes en un fichero llamado package.json.
