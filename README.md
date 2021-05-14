@@ -28,8 +28,10 @@ nvm use <version>
 ```
 
 ###	Lenguajes
- El código se escribe en JavaScript, pudiendo ser opcional el uso de JSX (extensión de JavaScript) facilitando la creación de componente interactivos y reutilizables.
 
+El código se escribe en JavaScript, pudiendo ser opcional el uso de JSX (extensión de JavaScript) facilitando la creación de componentes interactivos y reutilizables.
+
+Definimos cada uno de los estilos en los diferentes componentes mediante styled-components, éste a su vez utiliza todas las propiedades y valores de CSS. 
 
 
 ## Quick start 🚀
