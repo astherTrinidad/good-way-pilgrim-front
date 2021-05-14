@@ -15,7 +15,11 @@ Se utiliza React. https://es.reactjs.org/
 
 v15.13.0
 
-Podemos cambiar de versiones de node entre los diferentes proyectos con el comando:
+Listamos las versiones de node instaladas
+```
+nvm ls
+```
+Cambiamos de versiones de node entre los diferentes proyectos con el siguiente comando:
 
 ```
 nvm use <version>
