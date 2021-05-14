@@ -1,8 +1,6 @@
 # good-way-pilgrim-front
 
-Good Way Pilgrim
-
-Una aplicación utilizada para gestionar datos según las preferencias del usuario.
+Dentro del patrón Modelo-Vista-Controlador, nos situamos en la Vista.
 
 ## Características 📋
 
@@ -12,13 +10,17 @@ Una aplicación utilizada para gestionar datos según las preferencias del usuar
 Se utiliza React.
 https://es.reactjs.org/
 
-###	Versión
+###	React versión
 
 17.0.2
 
-### Node/NPM Versions
+### Node version
 
 v15.13.0
+
+### NPM version
+
+7.7.6
 
 Listamos las versiones de node instaladas
 ```
