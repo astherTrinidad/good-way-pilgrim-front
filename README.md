@@ -1,6 +1,6 @@
 # good-way-pilgrim-front
 
-Dentro del patrón Modelo-Vista-Controlador, nos situamos en la Vista.
+Dentro del patrón Modelo-Vista-Controlador, nos situamos en la Vista.En ella construimos una interfaz de usuario de manera interactiva con un entorno estándar para facilitar el mantenimiento futuro y la incorporación de nuevos desarrolladores al proyecto. Además, todo el proyecto, excepto los nombres de algunas carpetas que corresponden a entidades cuya traducción sería semánticamente incorrecta, se desarrolla en inglés para facilitar el acceso al código a cualquier desarrollador. 
 
 ## Características 📋
 
