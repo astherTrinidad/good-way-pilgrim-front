@@ -44,7 +44,7 @@ Para especificar las variables, React utiliza un fichero .env. En este fichero a
 ```
 REACT_APP_BASE_URL=http://localhost:8000
 ```
-Dentro de la carpeta de configuración del proyecto almacenaremos en un fichero llamado url en la que asignaremos cada uno de los endpoints y por otro lado en un fichero llamado appRoutes, asignaremos cada una de las rutas en las que se sitúan cada una de nuestras páginas del proyecto.
+Dentro de la carpeta de configuración del proyecto, indicamos en un fichero llamado url las variables de entorno en las que asignamos cada uno de los endpoints disponibles. Por otro lado disponemos de un segundo fichero llamado appRoutes, en el que asignamos cada una de las rutas en las que se sitúan cada una de nuestras páginas que componen el proyecto.
 
 
 ## Construido con 🛠️
