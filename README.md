@@ -65,7 +65,7 @@ Para ejecutar los tests utilizamos Postman, que se puede usar online (precisa de
 
 ## React 
 
-El proyecto contiene un fichero server.js para configurar las llamadas de manera local 
+El proyecto contiene un fichero server.js para configurar o simular llamadas a los futuros endpoints de manera local y así verficar que la conexión a un servidor back se hace correctamente.
 
 Para especificar las variables, React utiliza un fichero .env. En este fichero aparece, por ejemplo, la definición del entorno:
 ```
