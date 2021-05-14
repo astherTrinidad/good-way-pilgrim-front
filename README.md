@@ -11,17 +11,11 @@ Se utiliza React.
 https://es.reactjs.org/
 
 ### Versiones
-•  React: 
-   17.0.2
+•  React:  17.0.2
 
-•  Node:
-   v15.13.0
+•  Node:   v15.13.0
 
-•  NPM:
-   7.7.6
-
-###	Lenguajes
- El código se escribe en JavaScript, pudiendo ser opcional el uso de JSX (extensión de JavaScript) facilitando la creación de componente interactivos y reutilizables.
+•  NPM:    7.7.6
 
 Listamos las versiones de node instaladas
 ```
@@ -32,6 +26,11 @@ Cambiamos de versiones de node entre los diferentes proyectos con el siguiente c
 ```
 nvm use <version>
 ```
+
+###	Lenguajes
+ El código se escribe en JavaScript, pudiendo ser opcional el uso de JSX (extensión de JavaScript) facilitando la creación de componente interactivos y reutilizables.
+
+
 
 ## Quick start 🚀
 
