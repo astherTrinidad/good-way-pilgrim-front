@@ -25,7 +25,7 @@ nvm use <version>
 
 Creamos una aplicación con el siguiente método:
 ```
-npx good-way-pilgrim-front
+npx create-react-app good-way-pilgrim-front
 ```
 
 Con estos pasos la API estará preparada para hacerle llamadas al back y ver la aplicación en funcionamiento
