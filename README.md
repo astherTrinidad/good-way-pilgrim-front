@@ -23,7 +23,7 @@ nvm use <version>
 
 ## Quick start 🚀
 
-Creamos una aplicación con el siguiente método:
+Creamos la aplicación con el siguiente método:
 ```
 npx create-react-app good-way-pilgrim-front
 ```
