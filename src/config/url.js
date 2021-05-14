@@ -11,6 +11,8 @@ const url = {
   addLogros: '/pri/addAchievement',
   deleteAchievement: '/pri/deleteAchievement',
   deleteAchievements: '/pri/deleteAchievements',
+  caminos: '/pri/allPaths',
+  csvDownload: '/pub/csv_download',
 };
 
 export default url;

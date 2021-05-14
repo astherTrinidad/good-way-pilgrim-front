@@ -13,30 +13,17 @@ import {
   Container,
   Section,
   Row,
-  LogroImg,
   RowLogros,
   TextWrapper,
   Heading,
   Subtitle,
   ButtonDelete,
-  NameText,
-  ContainerLogros,
-  DescriptionText,
 } from './styled';
+import Logro from '../../atoms/logro';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const Logro = ({ id, src, alt, tabIndex, name, description, onClick }) => {
-  return (
-    <ContainerLogros onClick={onClick}>
-      <LogroImg id={id} src={src} alt={alt} tabIndex={tabIndex} />
-      <NameText tabIndex={tabIndex}>{name}</NameText>
-      <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
-    </ContainerLogros>
-  );
-};
 
 export default function MeLogros() {
   const history = useHistory();
