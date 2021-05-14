@@ -15,7 +15,7 @@ Se utiliza React. https://es.reactjs.org/
 
 v15.13.0
 
-Podemos cambiar de versiones de node entre los diferentes proyectos usando nvm (macOS/Linux) or nvm-windows
+Podemos cambiar de versiones de node entre los diferentes proyectos con el comando:
 
 ```
 nvm use <version>
