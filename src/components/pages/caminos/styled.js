@@ -109,6 +109,32 @@ export const Subtitle = styled.h3`
   }
 `;
 
+export const TextDownload = styled.a`
+  color: ${colors.turquoise};
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-weight: 300;
+
+  &:nth-of-type(1) {
+    border-right: 1px solid ${colors.mustard};
+    padding-right: 2rem;
+
+    @media screen and (max-width: 578px) {
+      border-right: 0;
+      padding-right: 0;
+    }
+  }
+
+  &:nth-of-type(2) {
+    padding-left: 2rem;
+    border-right: 0;
+  }
+
+  &:hover {
+    color: ${colors.darkGrey};
+  }
+`;
+
 export const ButtonDelete = styled.button`
   width: 50%;
   border-radius: 8px;

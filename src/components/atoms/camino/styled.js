@@ -15,7 +15,7 @@ export const TextNameCamino = styled.h4`
   color: ${colors.turquoise};
   font-weight: 300;
   font-size: 2rem;
-  margin-bottom: 1rem;
+  margin: 2.5rem 0 2rem 0;
 `;
 
 export const TextCamino = styled.p`
@@ -35,4 +35,12 @@ export const DescriptionText = styled.p`
   @media screen and (max-width: 768px) {
     padding: 0.5rem 0rem;
   }
+`;
+
+export const Value = styled.span`
+  font-weight: 300;
+`;
+
+export const Key = styled.span`
+  font-weight: 700;
 `;

@@ -17,8 +17,10 @@ import {
   ColumnMenu,
   ColumnCamino,
   RowCaminos,
+  TextDownload,
 } from './styled';
 import { Camino } from '../../atoms';
+import etapasPDF from '../../../assets/downloadPDF/etapasPDF.pdf';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -27,6 +29,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function Caminos() {
   const history = useHistory();
   const [allCaminos, setCaminos] = useState([]);
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     async function fetchProfile() {
@@ -39,7 +42,6 @@ export default function Caminos() {
           history.replace(appRoutes.login);
         } else {
           setCaminos(response);
-          console.log('start' + response[0].start);
         }
       } catch {
         toast.error(
@@ -56,17 +58,36 @@ export default function Caminos() {
         key={paths}
         tabIndex={0}
         id={item.id}
-        src=""
-        alt={item.name}
         name={item.name}
-        start={`Origen: ${item.start}`}
-        finish={`Destino: ${item.finish}`}
-        num_etapas={`Número total de etapas: ${item.num_etapas}`}
-        km={`Kilómetros: ${item.km}`}
+        start={item.start}
+        finish={item.finish}
+        num_etapas={item.num_etapas}
+        km={item.km}
         description={item.description}
       />
     );
   });
+
+  const onClickCSV = async event => {
+    event.preventDefault();
+    try {
+      const datos = await apiCsvDownload();
+      if (datos.message === undefined) {
+        setUserData(datos);
+      }
+      if (datos.message === 'Expired token') {
+        history.replace(appRoutes.login);
+        toast.info(
+          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+        );
+        history.replace(appRoutes.login);
+      }
+    } catch {
+      toast.error(
+        'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+      );
+    }
+  };
 
   return (
     <>
@@ -95,9 +116,22 @@ export default function Caminos() {
               los logros conseguidos"
                   tabIndex="0"
                 >
-                  Puedes descargárte toda la información de los caminos en el
-                  siguiente enlace.
+                  Puedes descargárte toda la información de los caminos y de las
+                  etapas seleccionando en los siguientes enlaces.
                 </Subtitle>
+                <TextDownload
+                  tabIndex="Descargar csv caminos"
+                  onClick={onClickCSV}
+                >
+                  Descargar csv caminos
+                </TextDownload>
+                <TextDownload
+                  tabIndex="Descargar pdf etapas"
+                  href={etapasPDF}
+                  download
+                >
+                  Descargar pdf etapas
+                </TextDownload>
               </TextWrapper>
             </Row>
             <RowCaminos tabIndex={0} aria-label="Caminos">
@@ -113,6 +147,16 @@ export default function Caminos() {
 
 async function apiAllPaths() {
   return fetch(`${url.base}${url.caminos}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+  }).then(data => data.json());
+}
+
+async function apiCsvDownload() {
+  return fetch(`${url.base}${url.csvDownload}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

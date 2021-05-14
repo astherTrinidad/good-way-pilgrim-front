@@ -4,6 +4,8 @@ import {
   TextNameCamino,
   TextCamino,
   DescriptionText,
+  Value,
+  Key,
 } from './styled';
 
 const Camino = ({
@@ -18,10 +20,22 @@ const Camino = ({
   return (
     <ContainerCaminos>
       <TextNameCamino tabIndex={tabIndex}>{name}</TextNameCamino>
-      <TextCamino tabIndex={tabIndex}>{start}</TextCamino>
-      <TextCamino tabIndex={tabIndex}>{finish}</TextCamino>
-      <TextCamino tabIndex={tabIndex}>{num_etapas}</TextCamino>
-      <TextCamino tabIndex={tabIndex}>{km}</TextCamino>
+      <TextCamino tabIndex={tabIndex}>
+        <Key>Origen: </Key>
+        <Value>{start}</Value>
+      </TextCamino>
+      <TextCamino tabIndex={tabIndex}>
+        <Key>Destino: </Key>
+        <Value>{finish}</Value>
+      </TextCamino>
+      <TextCamino tabIndex={tabIndex}>
+        <Key>Número total de etapas: </Key>
+        <Value>{num_etapas}</Value>
+      </TextCamino>
+      <TextCamino tabIndex={tabIndex}>
+        <Key>Kilómetros: </Key>
+        <Value>{km}</Value>
+      </TextCamino>
       <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
     </ContainerCaminos>
   );
