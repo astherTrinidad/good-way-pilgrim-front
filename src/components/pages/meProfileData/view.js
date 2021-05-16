@@ -76,7 +76,7 @@ export default function MeProfileData() {
     <>
       <GlobalStyle />
       <Navbar />
-      <Header />
+      <Header loading="lazy" />
       <Container>
         <PhotoProfile
           src={userData.picture ? userData.picture : profilePhoto}
