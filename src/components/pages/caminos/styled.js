@@ -68,6 +68,16 @@ export const TextWrapper = styled.div`
   }
 `;
 
+export const TextEtapa = styled.div`
+  align-items: left;
+  color: ${colors.darkGrey};
+  justify-content: left;
+  margin: 5rem auto 0 auto;
+  max-width: 100%;
+  text-align: left;
+  font-size: 1.5rem;
+`;
+
 export const Heading = styled.h2`
   color: ${colors.turquoise};
   display: block;
@@ -144,10 +154,10 @@ export const TextDownload = styled.a`
   }
 `;
 
-export const ButtonDelete = styled.button`
+export const ButtonSave = styled.button`
   width: 50%;
   border-radius: 8px;
-  background-color: ${colors.red};
+  background-color: ${colors.turquoise};
   color: ${colors.white};
   font-style: normal;
   font-weight: 500;
@@ -159,7 +169,7 @@ export const ButtonDelete = styled.button`
   transition: all 0.3s ease-out;
 
   &:hover {
-    background: ${colors.redDark};
+    background: ${colors.turquoiseDark};
     color: ${colors.white};
     cursor: pointer;
     box-shadow: inset 0px 11px 8px -10px ${colors.black};

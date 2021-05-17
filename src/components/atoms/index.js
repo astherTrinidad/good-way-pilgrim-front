@@ -5,6 +5,7 @@ import FormHeader from './form-header';
 import List from './list';
 import Logro from './logro';
 import Camino from './camino';
+import CaminoEtapa from './caminoEtapa';
 import Etapa from './etapa';
 export {
   TextInput,
@@ -13,6 +14,7 @@ export {
   TextInputEditForm,
   List,
   Logro,
+  CaminoEtapa,
   Camino,
   Etapa,
 };

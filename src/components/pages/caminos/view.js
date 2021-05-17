@@ -18,11 +18,11 @@ import {
   ColumnCamino,
   RowCaminos,
   TextDownload,
+  ButtonSave,
+  TextEtapa,
 } from './styled';
-import { Camino, Logro } from '../../atoms';
+import { Camino, Etapa, CaminoEtapa } from '../../atoms';
 import etapasPDF from '../../../assets/downloadPDF/etapasPDF.pdf';
-import { TextCamino } from '../../atoms/camino/styled';
-import Button from '../../atoms/button';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -72,11 +72,20 @@ export default function Caminos() {
           num_etapas={item.num_etapas}
           km={item.km}
           description={item.description}
+        />
+        <ButtonSave type="button" value="add" name="Añadir camino">
+          Añadir camino
+        </ButtonSave>
+        <TextEtapa>Etapas</TextEtapa>
+
+        <CaminoEtapa
           etapas={item.etapas.map((etapa, paths) => {
+            const index = paths < 9 ? '0' + (paths + 1) : paths + 1;
             return (
               <>
-                <Camino
+                <Etapa
                   key={paths}
+                  numEtapa={index}
                   tabIndex={0}
                   start={etapa.start}
                   finish={etapa.finish}
@@ -87,14 +96,11 @@ export default function Caminos() {
             );
           })}
         />
-        <Button type="button" value="add" name="Añadir camino">
-          Añadir camino
-        </Button>
       </>
     );
   });
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
-    return <Camino key={paths} name={item.name} />;
+    return <CaminoEtapa key={paths} name={item.name} />;
   });
 
   const onClickCSV = async event => {
