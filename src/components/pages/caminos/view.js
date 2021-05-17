@@ -3,7 +3,7 @@ import _findIndex from 'lodash/findIndex';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Slide from '@material-ui/core/Slide';
-import { Navbar, Footer } from '../../organisms';
+import { Navbar, Footer, AsideCaminos } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
 import url from '../../../config/url';
@@ -19,8 +19,10 @@ import {
   RowCaminos,
   TextDownload,
 } from './styled';
-import { Camino } from '../../atoms';
+import { Camino, Logro } from '../../atoms';
 import etapasPDF from '../../../assets/downloadPDF/etapasPDF.pdf';
+import { TextCamino } from '../../atoms/camino/styled';
+import Button from '../../atoms/button';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -30,18 +32,23 @@ export default function Caminos() {
   const history = useHistory();
   const [allCaminos, setCaminos] = useState([]);
   const [userData, setUserData] = useState({});
+  const [etapasCamino, setEtapasCamino] = useState([]);
 
   useEffect(() => {
     async function fetchProfile() {
       try {
-        const response = await apiAllPaths();
-        if (response.message == 'Expired token') {
+        const responseAllPaths = await apiAllPaths();
+
+        if (responseAllPaths.message === undefined) {
+          setCaminos(responseAllPaths);
+          setEtapasCamino(responseAllPaths.etapas);
+        }
+
+        if (responseAllPaths.message == 'Expired token') {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );
           history.replace(appRoutes.login);
-        } else {
-          setCaminos(response);
         }
       } catch {
         toast.error(
@@ -54,18 +61,40 @@ export default function Caminos() {
 
   const renderPaths = allCaminos.map((item, paths) => {
     return (
-      <Camino
-        key={paths}
-        tabIndex={0}
-        id={item.id}
-        name={item.name}
-        start={item.start}
-        finish={item.finish}
-        num_etapas={item.num_etapas}
-        km={item.km}
-        description={item.description}
-      />
+      <>
+        <Camino
+          key={paths}
+          tabIndex={0}
+          id={item.id}
+          name={item.name}
+          start={item.start}
+          finish={item.finish}
+          num_etapas={item.num_etapas}
+          km={item.km}
+          description={item.description}
+          etapas={item.etapas.map((etapa, paths) => {
+            return (
+              <>
+                <Camino
+                  key={paths}
+                  tabIndex={0}
+                  start={etapa.start}
+                  finish={etapa.finish}
+                  km={etapa.km}
+                  description={etapa.description}
+                />
+              </>
+            );
+          })}
+        />
+        <Button type="button" value="add" name="Añadir camino">
+          Añadir camino
+        </Button>
+      </>
     );
+  });
+  const renderPathsToSubmenu = allCaminos.map((item, paths) => {
+    return <Camino key={paths} name={item.name} />;
   });
 
   const onClickCSV = async event => {
@@ -99,9 +128,12 @@ export default function Caminos() {
             Caminos
           </Section>
         </Row>
-
         <Row>
-          <ColumnMenu>Hola</ColumnMenu>
+          <ColumnMenu>
+            <RowCaminos tabIndex={0} aria-label="Caminos">
+              {renderPathsToSubmenu}
+            </RowCaminos>
+          </ColumnMenu>
           <ColumnCamino>
             <Row>
               <TextWrapper>
@@ -119,19 +151,21 @@ export default function Caminos() {
                   Puedes descargárte toda la información de los caminos y de las
                   etapas seleccionando en los siguientes enlaces.
                 </Subtitle>
-                <TextDownload
-                  tabIndex="Descargar csv caminos"
-                  onClick={onClickCSV}
-                >
-                  Descargar csv caminos
-                </TextDownload>
-                <TextDownload
-                  tabIndex="Descargar pdf etapas"
-                  href={etapasPDF}
-                  download
-                >
-                  Descargar pdf etapas
-                </TextDownload>
+                <Row>
+                  <TextDownload
+                    tabIndex="Descargar csv caminos"
+                    onClick={onClickCSV}
+                  >
+                    Descargar csv caminos
+                  </TextDownload>
+                  <TextDownload
+                    tabIndex="Descargar pdf etapas"
+                    href={etapasPDF}
+                    download
+                  >
+                    Descargar pdf etapas
+                  </TextDownload>
+                </Row>
               </TextWrapper>
             </Row>
             <RowCaminos tabIndex={0} aria-label="Caminos">

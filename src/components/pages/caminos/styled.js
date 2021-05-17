@@ -14,6 +14,9 @@ export const ColumnMenu = styled.div`
   flex-direction: column;
   width: 30%;
   background-color: yellow;
+  @media screen and (max-width: 968px) {
+    display: none;
+  }
 `;
 
 export const ColumnCamino = styled.div`
@@ -21,6 +24,10 @@ export const ColumnCamino = styled.div`
   flex-direction: column;
   width: 70%;
   margin: 2rem;
+  @media screen and (max-width: 968px) {
+    margin: 0rem;
+    width: 100%;
+  }
 `;
 
 export const Container = styled.main`
@@ -75,11 +82,11 @@ export const Heading = styled.h2`
   width: 100%;
 
   @media screen and (max-width: 960px) {
-    font-size: 1.25em;
+    font-size: 1.5em;
   }
 
   @media screen and (max-width: 768px) {
-    font-size: 1.25em;
+    font-size: 1.5em;
     margin-bottom: 2rem;
     margin-top: 1rem;
     max-width: 100%;
@@ -96,7 +103,7 @@ export const Subtitle = styled.h3`
   margin-top: 1rem;
   margin-bottom: 3rem;
   text-align: left;
-  width: 80%;
+  width: 100%;
 
   @media screen and (max-width: 960px) {
     font-size: 1em;
@@ -117,17 +124,19 @@ export const TextDownload = styled.a`
 
   &:nth-of-type(1) {
     border-right: 1px solid ${colors.mustard};
-    padding-right: 2rem;
+    padding: 0 2rem 1rem 0;
 
     @media screen and (max-width: 578px) {
-      border-right: 0;
-      padding-right: 0;
+      display: none;
     }
   }
 
   &:nth-of-type(2) {
     padding-left: 2rem;
     border-right: 0;
+    @media screen and (max-width: 578px) {
+      display: none;
+    }
   }
 
   &:hover {

@@ -16,6 +16,7 @@ const Camino = ({
   num_etapas,
   km,
   description,
+  etapas,
 }) => {
   return (
     <ContainerCaminos>
@@ -35,6 +36,10 @@ const Camino = ({
       <TextCamino tabIndex={tabIndex}>
         <Key>Kilómetros: </Key>
         <Value>{km}</Value>
+      </TextCamino>
+      <TextCamino tabIndex={tabIndex}>
+        <Key>Etapas: </Key>
+        <Value>{etapas}</Value>
       </TextCamino>
       <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
     </ContainerCaminos>

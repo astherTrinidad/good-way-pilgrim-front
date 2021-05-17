@@ -5,6 +5,7 @@ import FormHeader from './form-header';
 import List from './list';
 import Logro from './logro';
 import Camino from './camino';
+import Etapa from './etapa';
 export {
   TextInput,
   Button,
@@ -13,4 +14,5 @@ export {
   List,
   Logro,
   Camino,
+  Etapa,
 };
