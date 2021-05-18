@@ -5,7 +5,6 @@ import {
   TextEtapa,
   DescriptionText,
   Value,
-  Key,
 } from './styled';
 
 const CaminoEtapa = ({
@@ -20,6 +19,9 @@ const CaminoEtapa = ({
 }) => {
   return (
     <ContainerEtapa>
+      <TextNameEtapa tabIndex={tabIndex}>
+        <Value>{name}</Value>
+      </TextNameEtapa>
       <TextEtapa tabIndex={tabIndex}>
         <Value>{start}</Value>
       </TextEtapa>

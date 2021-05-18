@@ -3,7 +3,7 @@ import _findIndex from 'lodash/findIndex';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Slide from '@material-ui/core/Slide';
-import { Navbar, Footer, AsideCaminos } from '../../organisms';
+import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
 import url from '../../../config/url';
@@ -20,9 +20,12 @@ import {
   TextDownload,
   ButtonSave,
   TextEtapa,
+  TextMenu,
+  TextLink,
 } from './styled';
 import { Camino, Etapa, CaminoEtapa } from '../../atoms';
 import etapasPDF from '../../../assets/downloadPDF/etapasPDF.pdf';
+import dropTop from '../../../assets/images/gota-user-profile.png';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -60,10 +63,12 @@ export default function Caminos() {
   }, []);
 
   const renderPaths = allCaminos.map((item, paths) => {
+    // console.log(`lalalla/caminos/#${item.id}`);
+
     return (
       <>
         <Camino
-          key={paths}
+          keyo={paths}
           tabIndex={0}
           id={item.id}
           name={item.name}
@@ -77,15 +82,15 @@ export default function Caminos() {
           Añadir camino
         </ButtonSave>
         <TextEtapa>Etapas</TextEtapa>
-
         <CaminoEtapa
-          etapas={item.etapas.map((etapa, paths) => {
-            const index = paths < 9 ? '0' + (paths + 1) : paths + 1;
+          etapas={item.etapas.map((etapa, indexPaths) => {
+            const indexEtapa =
+              indexPaths < 9 ? '0' + (indexPaths + 1) : indexPaths + 1;
             return (
               <>
                 <Etapa
-                  key={paths}
-                  numEtapa={index}
+                  key={indexPaths}
+                  numEtapa={indexEtapa}
                   tabIndex={0}
                   start={etapa.start}
                   finish={etapa.finish}
@@ -100,6 +105,8 @@ export default function Caminos() {
     );
   });
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
+    console.log(`/caminos/#${item.id}`);
+
     return <CaminoEtapa key={paths} name={item.name} />;
   });
 
@@ -130,14 +137,18 @@ export default function Caminos() {
       <Navbar />
       <Container>
         <Row>
-          <Section role="sección" tabIndex={0}>
-            Caminos
-          </Section>
-        </Row>
-        <Row>
           <ColumnMenu>
+            <Section role="sección" tabIndex={0} title="Caminos">
+              Caminos
+            </Section>
+            <img src={dropTop} alt="" />
             <RowCaminos tabIndex={0} aria-label="Caminos">
-              {renderPathsToSubmenu}
+              <TextLink>Caminos</TextLink>
+              <TextMenu to={`./#${renderPaths.id}`}>
+                {renderPathsToSubmenu}
+              </TextMenu>
+              <TextLink>Camino actual</TextLink>
+              <TextLink>Histórico de caminos</TextLink>
             </RowCaminos>
           </ColumnMenu>
           <ColumnCamino>

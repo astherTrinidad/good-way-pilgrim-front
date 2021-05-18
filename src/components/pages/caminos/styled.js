@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
+import { Link } from 'react-router-dom';
 
 export const Row = styled.div`
   display: flex;
@@ -12,18 +13,18 @@ export const Row = styled.div`
 export const ColumnMenu = styled.div`
   display: flex;
   flex-direction: column;
-  width: 30%;
-  background-color: yellow;
-  @media screen and (max-width: 968px) {
-    display: none;
+  width: 12%;
+  position: fixed;
+  @media screen and (max-width: 768px) {
+    position: relative;
   }
 `;
 
 export const ColumnCamino = styled.div`
   display: flex;
   flex-direction: column;
-  width: 70%;
-  margin: 2rem;
+  width: 75%;
+  margin-left: 25%;
   @media screen and (max-width: 968px) {
     margin: 0rem;
     width: 100%;
@@ -36,7 +37,7 @@ export const Container = styled.main`
   height: max-content;
   justify-content: center;
   margin: 3rem auto;
-  width: 80%;
+  width: 75%;
 `;
 export const Section = styled.h1`
   color: ${colors.darkGrey};
@@ -56,26 +57,65 @@ export const RowCaminos = styled.div`
 `;
 
 export const TextWrapper = styled.div`
+  display: block;
   align-items: left;
   justify-content: left;
-  margin: 0 auto;
+  margin: 0 auto 3rem auto;
   max-width: 100%;
-  padding-top: 0;
-  padding-bottom: 60px;
   text-align: left;
+  line-height: 2;
+
+  &:nth-of-type(1) {
+    margin-top: 3rem;
+  }
+
   @media screen and (max-width: 768px) {
     padding-bottom: 65px;
   }
 `;
 
-export const TextEtapa = styled.div`
+export const TextLink = styled.p`
+  align-items: left;
+  border-bottom: 1px solid ${colors.turquoise};
+  color: ${colors.darkGrey};
+  display: block;
+  justify-content: left;
+  line-height: 2;
+  margin: 0 auto 1rem auto;
+  max-width: 100%;
+  padding-top: 1rem;
+  text-align: left;
+
+  &:nth-of-type(1) {
+    margin-top: 3rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding-bottom: 65px;
+    display: none;
+  }
+`;
+
+export const TextMenu = styled.p`
+  cursor: pointer;
+  margin-top: 2rem;
+
+  &:nth-of-type(1) {
+    margin-top: 1rem;
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const TextEtapa = styled.p`
   align-items: left;
   color: ${colors.darkGrey};
+  font-size: 1.5rem;
   justify-content: left;
   margin: 5rem auto 0 auto;
   max-width: 100%;
   text-align: left;
-  font-size: 1.5rem;
 `;
 
 export const Heading = styled.h2`
@@ -134,7 +174,7 @@ export const TextDownload = styled.a`
 
   &:nth-of-type(1) {
     border-right: 1px solid ${colors.mustard};
-    padding: 0 2rem 1rem 0;
+    padding: 0 2rem 0 0;
 
     @media screen and (max-width: 578px) {
       display: none;

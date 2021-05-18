@@ -8,7 +8,7 @@ export const ContainerEtapa = styled.div`
   text-align: center;
   width: 100%;
   text-align: left;
-  margin-bottom: 3rem;
+  margin-bottom: 0;
   height: max-content;
 `;
 
@@ -17,6 +17,11 @@ export const TextEtapa = styled.p`
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.5;
+`;
+
+export const TextNameEtapa = styled.a`
+  color: ${colors.mediumGrey};
+  line-height: 1;
 `;
 
 export const DescriptionText = styled.p`
