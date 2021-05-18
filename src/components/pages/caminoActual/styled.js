@@ -12,7 +12,6 @@ export const Row = styled.div`
 
 export const DropMenu = styled.img`
   width: 100%;
-  margin-bottom: 2rem;
 `;
 
 export const ColumnMenu = styled.div`

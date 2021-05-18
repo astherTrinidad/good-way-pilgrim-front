@@ -28,40 +28,26 @@ import { Camino, Etapa, CaminoEtapa } from '../../atoms';
 import etapasPDF from '../../../assets/downloadPDF/etapasPDF.pdf';
 import dropTop from '../../../assets/images/gota-user-profile.png';
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 export default function Caminos() {
   const history = useHistory();
   const [allCaminos, setCaminos] = useState([]);
   const [userPath, setUserPath] = useState({
     camino: '',
-    start_date: '',
   });
   const [etapasCamino, setEtapasCamino] = useState([]);
 
-  const getCurrentDate = () => {
-    let addPathDate = new Date();
-    let day =
-      addPathDate.getDate() < 9
-        ? '0' + addPathDate.getDate()
-        : addPathDate.getDate();
-    let month =
-      addPathDate.getMonth() < 9
-        ? '0' + addPathDate.getMonth()
-        : addPathDate.getMonth();
-    let year = addPathDate.getFullYear();
-    return (addPathDate = year + '-' + month + '-' + day);
-  };
-
-  const onClickAddPath = async event => {
+  const onClickArchivePath = async event => {
     event.preventDefault();
     try {
       const pathId = (userPath.camino = event.target.id);
-        // console.log(`lalalla/caminos/#${item.id}`);
       setUserPath(pathId);
       console.log('path id: ' + pathId);
-      const pathDate = (userPath.start_date = getCurrentDate());
-      setUserPath(pathDate);
-      console.log('path date:  ' + pathDate);
-      const responseAddUserPath = await apiAddActivePath(userPath);
+
+      const responseAddUserPath = await apiArchivePath(userPath);
       if (responseAddUserPath.message === undefined) {
         setUserPath(responseAddUserPath);
       }
@@ -124,10 +110,10 @@ export default function Caminos() {
           id={item.id}
           type="button"
           value="add"
-          name="Añadir camino"
-          onClick={onClickAddPath}
+          name="Archivar camino"
+          onClick={onClickArchivePath}
         >
-          Añadir camino
+          Archivar camino
         </ButtonSave>
         <TextEtapa>Etapas</TextEtapa>
         <CaminoEtapa
@@ -158,27 +144,6 @@ export default function Caminos() {
     return <CaminoEtapa key={paths} name={item.name} />;
   });
 
-  const onClickCSV = async event => {
-    event.preventDefault();
-    try {
-      const datos = await apiCsvDownload();
-      if (datos.message === undefined) {
-        setUserPath(datos);
-      }
-      if (datos.message === 'Expired token') {
-        history.replace(appRoutes.login);
-        toast.info(
-          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
-        );
-        history.replace(appRoutes.login);
-      }
-    } catch {
-      toast.error(
-        'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
-      );
-    }
-  };
-
   return (
     <>
       <GlobalStyle />
@@ -186,7 +151,6 @@ export default function Caminos() {
       <Container>
         <Row>
           <ColumnMenu>
-           
             <DropMenu src={dropTop} alt="" />
             <RowCaminos tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
@@ -199,43 +163,11 @@ export default function Caminos() {
           </ColumnMenu>
           <ColumnCamino>
           <Row>
-          <Section role="sección" tabIndex={0} title="Caminos">
-              Caminos
+          <Section role="sección" tabIndex={0} title="Camino Actual">
+              Camino Actual
             </Section>
           </Row>
-            <Row>
-              <TextWrapper>
-                <Heading
-                  aria-label="Olvídate del tiempo y simplemente camina"
-                  tabIndex="0"
-                >
-                  Olvídate del tiempo y simplemente camina
-                </Heading>
-                <Subtitle
-                  aria-label="Emprende el camino y al final del día selecciona 
-              los logros conseguidos"
-                  tabIndex="0"
-                >
-                  Puedes descargárte toda la información de los caminos y de las
-                  etapas seleccionando en los siguientes enlaces.
-                </Subtitle>
-                <Row>
-                  <TextDownload
-                    tabIndex="Descargar csv caminos"
-                    onClick={onClickCSV}
-                  >
-                    Descargar csv caminos
-                  </TextDownload>
-                  <TextDownload
-                    tabIndex="Descargar pdf etapas"
-                    href={etapasPDF}
-                    download
-                  >
-                    Descargar pdf etapas
-                  </TextDownload>
-                </Row>
-              </TextWrapper>
-            </Row>
+
             <RowCaminos tabIndex={0} aria-label="Caminos">
               {renderPaths}
             </RowCaminos>
@@ -257,34 +189,14 @@ async function apiAllPaths() {
   }).then(data => data.json());
 }
 
-async function apiCsvDownload() {
-  return fetch(`${url.base}${url.csvDownload}`, {
-    method: 'GET',
+
+async function apiArchivePath(pathId) {
+  return fetch(`${url.base}${url.archivePath}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
+    body: JSON.stringify(pathId),
   }).then(data => data.json());
-}
-
-async function apiAddActivePath(dataPath) {
-  let response = await fetch(`${url.base}${url.addActivePath}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-
-    },
-    body: JSON.stringify(dataPath),
-  });
-  if (!response.ok) {
-    if (response.status === 400) {
-      toast.error('Datos recibidos incorrectos');
-    }
-    if (response.status === 422) {
-      toast.error('El camino seleccionado ya está activo');
-    }
-  }
-  let content = await response.text();
-  return content;
 }

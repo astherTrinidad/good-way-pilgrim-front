@@ -6,6 +6,7 @@ const routes = {
   meEditProfile: '/editar-perfil',
   meLogros: '/logros',
   caminos: '/caminos',
+  caminoActual: '/camino-actual',
   frequentQuestion: '/preguntas-frecuentes',
   privacyConsumers: '/politicas-de-privacidad',
 };
