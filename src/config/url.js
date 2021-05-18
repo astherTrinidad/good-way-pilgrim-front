@@ -13,6 +13,7 @@ const url = {
   deleteAchievements: '/pri/deleteAchievements',
   caminos: '/pri/allPaths',
   csvDownload: '/pub/csv_download',
+  addActivePath: '/pri/addActivePath',
 };
 
 export default url;

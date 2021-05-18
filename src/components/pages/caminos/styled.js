@@ -10,6 +10,10 @@ export const Row = styled.div`
   }
 `;
 
+export const DropMenu = styled.img`
+  width: 100%;
+`;
+
 export const ColumnMenu = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,6 +21,7 @@ export const ColumnMenu = styled.div`
   position: fixed;
   @media screen and (max-width: 768px) {
     position: relative;
+    width: 100%;
   }
 `;
 
@@ -137,7 +142,6 @@ export const Heading = styled.h2`
 
   @media screen and (max-width: 768px) {
     font-size: 1.5em;
-    margin-bottom: 2rem;
     margin-top: 1rem;
     max-width: 100%;
   }

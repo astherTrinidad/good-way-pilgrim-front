@@ -22,6 +22,7 @@ import {
   TextEtapa,
   TextMenu,
   TextLink,
+  DropMenu,
 } from './styled';
 import { Camino, Etapa, CaminoEtapa } from '../../atoms';
 import etapasPDF from '../../../assets/downloadPDF/etapasPDF.pdf';
@@ -34,8 +35,53 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function Caminos() {
   const history = useHistory();
   const [allCaminos, setCaminos] = useState([]);
-  const [userData, setUserData] = useState({});
+  const [userPath, setUserPath] = useState({
+    camino: '',
+    start_date: '',
+  });
   const [etapasCamino, setEtapasCamino] = useState([]);
+
+  const getCurrentDate = () => {
+    let addPathDate = new Date();
+    let day =
+      addPathDate.getDate() < 9
+        ? '0' + addPathDate.getDate()
+        : addPathDate.getDate();
+    let month =
+      addPathDate.getMonth() < 9
+        ? '0' + addPathDate.getMonth()
+        : addPathDate.getMonth();
+    let year = addPathDate.getFullYear();
+    return (addPathDate = year + '-' + month + '-' + day);
+  };
+
+  const onClickAddPath = async event => {
+    event.preventDefault();
+    try {
+      const pathId = (userPath.camino = event.target.id);
+        // console.log(`lalalla/caminos/#${item.id}`);
+      setUserPath(pathId);
+      console.log('path id: ' + pathId);
+      const pathDate = (userPath.start_date = getCurrentDate());
+      setUserPath(pathDate);
+      console.log('path date:  ' + pathDate);
+      const responseAddUserPath = await apiAddActivePath(userPath);
+      if (responseAddUserPath.message === undefined) {
+        setUserPath(responseAddUserPath);
+      }
+      if (responseAddUserPath.message === 'Expired token') {
+        history.replace(appRoutes.login);
+        toast.info(
+          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+        );
+        history.replace(appRoutes.login);
+      }
+    } catch {
+      toast.error(
+        'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+      );
+    }
+  };
 
   useEffect(() => {
     async function fetchProfile() {
@@ -78,7 +124,13 @@ export default function Caminos() {
           km={item.km}
           description={item.description}
         />
-        <ButtonSave type="button" value="add" name="Añadir camino">
+        <ButtonSave
+          id={item.id}
+          type="button"
+          value="add"
+          name="Añadir camino"
+          onClick={onClickAddPath}
+        >
           Añadir camino
         </ButtonSave>
         <TextEtapa>Etapas</TextEtapa>
@@ -105,7 +157,7 @@ export default function Caminos() {
     );
   });
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
-    console.log(`/caminos/#${item.id}`);
+    // console.log(`/caminos/#${item.id}`);
 
     return <CaminoEtapa key={paths} name={item.name} />;
   });
@@ -115,7 +167,7 @@ export default function Caminos() {
     try {
       const datos = await apiCsvDownload();
       if (datos.message === undefined) {
-        setUserData(datos);
+        setUserPath(datos);
       }
       if (datos.message === 'Expired token') {
         history.replace(appRoutes.login);
@@ -141,7 +193,7 @@ export default function Caminos() {
             <Section role="sección" tabIndex={0} title="Caminos">
               Caminos
             </Section>
-            <img src={dropTop} alt="" />
+            <DropMenu src={dropTop} alt="" />
             <RowCaminos tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
               <TextMenu to={`./#${renderPaths.id}`}>
@@ -214,4 +266,26 @@ async function apiCsvDownload() {
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
   }).then(data => data.json());
+}
+
+async function apiAddActivePath(dataPath) {
+  let response = await fetch(`${url.base}${url.addActivePath}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+
+    },
+    body: JSON.stringify(dataPath),
+  });
+  if (!response.ok) {
+    if (response.status === 400) {
+      toast.error('Datos recibidos incorrectos');
+    }
+    if (response.status === 422) {
+      toast.error('El camino seleccionado ya está activo');
+    }
+  }
+  let content = await response.text();
+  return content;
 }
