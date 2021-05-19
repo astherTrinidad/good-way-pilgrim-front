@@ -86,7 +86,7 @@ export const TextLink = styled.p`
   color: ${colors.darkGrey};
   display: block;
   justify-content: left;
-  line-height: 2;
+  line-height: 1.5;
   margin: 0 auto 1rem auto;
   max-width: 100%;
   padding-top: 1rem;

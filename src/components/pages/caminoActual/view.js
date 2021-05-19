@@ -24,6 +24,7 @@ import {
   TextMenu,
   TextLink,
   DropMenu,
+  TextEmptyEtapas,
 } from './styled';
 import { Camino, CaminoEtapa, EtapaActual } from '../../atoms';
 import dropTop from '../../../assets/images/gota-user-profile.png';
@@ -48,12 +49,11 @@ export default function Caminos() {
     event.preventDefault();
     try {
       const pathId = (archivePath.camino = event.target.id);
-      console.log('ID CAMINO ACTUAL: ' + pathId);
       const responseArchivePath = await apiArchivePath(archivePath);
       setActivePath(null);
+
       if (responseArchivePath.message === undefined) {
         setArchivePath(pathId);
-        console.log(JSON.stringify('archive: ' + pathId));
       } else if (responseArchivePath.message === 'Expired token') {
         history.replace(appRoutes.login);
         toast.info(
@@ -74,15 +74,16 @@ export default function Caminos() {
       try {
         const response = await apiAllPaths();
         const responseActivePaths = await apiActivePath();
+
         const responseUserEtapasRealizadas = await apiEtapasRealizadas(
           responseActivePaths.id
         );
 
         if (response.message === undefined) {
           setCaminos(response);
-          setActivePath(responseActivePaths);
           setEtapas(responseActivePaths.etapas);
           setUserEtapasRealizadas(responseUserEtapasRealizadas);
+          setActivePath(responseActivePaths);
         }
 
         if (response.message == 'Expired token') {
@@ -160,30 +161,45 @@ export default function Caminos() {
                 Camino Actual
               </Section>
             </Row>
-
-            <RowCamino tabIndex={0} aria-label="Caminos">
+            {activePath ? (
               <>
-                <Camino
-                  tabIndex={0}
-                  id={activePath?.id}
-                  name={activePath?.name}
-                  start={activePath?.start}
-                  finish={activePath?.finish}
-                  num_etapas={activePath?.num_etapas}
-                  description={activePath?.description}
-                />
-                <ButtonSave
-                  id={activePath?.id}
-                  type="button"
-                  value="add"
-                  name="Archivar camino"
-                  onClick={onClickArchivePath}
-                >
-                  Archivar camino
-                </ButtonSave>
+                <RowCamino tabIndex={0} aria-label="Caminos">
+                  <Camino
+                    tabIndex={0}
+                    id={activePath?.id}
+                    name={activePath?.name}
+                    start={activePath?.start}
+                    finish={activePath?.finish}
+                    num_etapas={activePath?.num_etapas}
+                    description={activePath?.description}
+                  />
+                  <ButtonSave
+                    id={activePath?.id}
+                    type="button"
+                    value="add"
+                    name="Archivar camino"
+                    onClick={onClickArchivePath}
+                  >
+                    Archivar camino
+                  </ButtonSave>
+                </RowCamino>
+
+                <RowEtapas>{renderPaths}</RowEtapas>
               </>
-            </RowCamino>
-            <RowEtapas>{renderPaths}</RowEtapas>
+            ) : (
+              <>
+                <RowCamino tabIndex={0} aria-label="Caminos">
+                  <TextEmptyEtapas>
+                    ¡Ánimo! Seguro que estás listo para empezar un camino.
+                  </TextEmptyEtapas>
+                  <TextEmptyEtapas>
+                    Ve a la lista de caminos, elige el que más te apetezca o el
+                    que se ajuste a tus necesidades. Añádelo a tu perfil y ponte
+                    las botas, no necesitas más!
+                  </TextEmptyEtapas>
+                </RowCamino>
+              </>
+            )}
           </ColumnCamino>
         </Row>
       </Container>

@@ -95,7 +95,7 @@ export const TextLink = styled.p`
   color: ${colors.darkGrey};
   display: block;
   justify-content: left;
-  line-height: 2;
+  line-height: 1.5;
   margin: 0 auto 1rem auto;
   max-width: 100%;
   padding-top: 1rem;
@@ -131,6 +131,21 @@ export const TextEtapa = styled.p`
   margin: 5rem auto 0 auto;
   max-width: 100%;
   text-align: left;
+`;
+
+export const TextEmptyEtapas = styled.p`
+  color: ${colors.darkGrey};
+  font-size: 1.25rem;
+  font-weight: 300;
+  justify-content: center;
+  line-height: 1.5;
+
+  &:first-of-type {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 7rem auto 1rem auto;
+    color: ${colors.turquoise};
+  }
 `;
 
 export const Heading = styled.h2`
