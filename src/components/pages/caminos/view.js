@@ -55,6 +55,7 @@ export default function Caminos() {
     event.preventDefault();
     try {
       var pathId = event.target.id;
+      console.log('ID: ' + pathId);
       var pathDate = getCurrentDate();
       var userPath = new Object();
       userPath.camino = pathId;
@@ -64,11 +65,11 @@ export default function Caminos() {
       console.log(respuesta);
       if (respuesta.message === 'success') {
         toast.success(
-          'Camino añadido. Accede a la pestaá de camino activo para editar tus etapas'
+          'Camino añadido. Accede a la pestaña de camino activo para editar tus etapas'
         );
       } else {
         if (respuesta.message == 'User already has an active path') {
-          toast.error(
+          toast.info(
             'Ya tienes un camino activo. Por favor, archívalo antes de añadir uno nuevo.'
           );
         }

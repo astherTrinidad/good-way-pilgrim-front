@@ -29,6 +29,7 @@ import { Camino, Etapa, CaminoEtapa, EtapaActual } from '../../atoms';
 import etapasPDF from '../../../assets/downloadPDF/etapasPDF.pdf';
 import dropTop from '../../../assets/images/gota-user-profile.png';
 import photoEtapa from '../../../assets/images/etapaBN.png';
+import { act } from 'react-dom/test-utils';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -44,12 +45,14 @@ export default function Caminos() {
   const [userEtapas, setUserEtapas] = useState({
     camino: '',
   });
+
   const onClickArchivePath = async event => {
     event.preventDefault();
     try {
       const pathId = (archivePath.camino = event.target.id);
+      console.log('ID CAMINO ACTUAL: ' + pathId);
       const responseArchivePath = await apiArchivePath(archivePath);
-
+      setActivePath(null);
       if (responseArchivePath.message === undefined) {
         setArchivePath(pathId);
         console.log(JSON.stringify('archive: ' + pathId));
@@ -60,6 +63,7 @@ export default function Caminos() {
         );
         history.replace(appRoutes.login);
       }
+      pathId = '';
     } catch {
       toast.error(
         'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
@@ -76,12 +80,12 @@ export default function Caminos() {
         }
 
         const responseActivePaths = await apiActivePath();
-
+        console.log('id use effect actual: ' + responseActivePaths.id);
+        console.log('nombre ' + responseActivePaths.name);
         if (responseActivePaths.message === undefined) {
           setActivePath(responseActivePaths);
           setEtapas(responseActivePaths.etapas);
         }
-
         if (responseActivePaths.message == 'Expired token') {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
@@ -146,16 +150,16 @@ export default function Caminos() {
             <RowCamino tabIndex={0} aria-label="Caminos">
               <Camino
                 tabIndex={0}
-                id={activePath.id}
-                name={activePath.name}
-                start={activePath.start}
-                finish={activePath.finish}
-                num_etapas={activePath.num_etapas}
-                km={activePath.km}
-                description={activePath.description}
+                id={activePath?.id}
+                name={activePath?.name}
+                start={activePath?.start}
+                finish={activePath?.finish}
+                num_etapas={activePath?.num_etapas}
+                km={activePath?.km}
+                description={activePath?.description}
               />
               <ButtonSave
-                id={activePath.id}
+                id={activePath?.id}
                 type="button"
                 value="add"
                 name="Archivar camino"
