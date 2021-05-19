@@ -166,7 +166,7 @@ export default function Caminos() {
     try {
       let datos = await apiCsvDownload();
       const csvData = new Blob([datos], { type: 'text/csv;charset=utf-8;' });
-      FileSaver.saveAs(csvData, 'data.csv');
+      FileSaver.saveAs(csvData, 'GWP_caminos.csv');
 
     } catch {
       toast.error(
