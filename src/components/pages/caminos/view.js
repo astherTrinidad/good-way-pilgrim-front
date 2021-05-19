@@ -257,7 +257,7 @@ async function apiCsvDownload() {
   return fetch(`${url.base}${url.csvDownload}`, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/csv',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
   }).then(data => data.json());
