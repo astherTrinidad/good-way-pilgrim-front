@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react';
 import _findIndex from 'lodash/findIndex';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Dialog from '@material-ui/core/Dialog';
+import Slide from '@material-ui/core/Slide';
 import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
 import url from '../../../config/url';
+
+import { ConfirmFinishPath } from '../../modals';
+
 import {
   Container,
   Section,
@@ -31,6 +36,10 @@ import pathBN from '../../../assets/images/etapaBN.png';
 import pathColor from '../../../assets/images/etapaColor.png';
 
 export default function Caminos() {
+  const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
+
   const history = useHistory();
   const [allCaminos, setCaminos] = useState([]);
   const [archivePath, setArchivePath] = useState({
@@ -44,20 +53,29 @@ export default function Caminos() {
   });
   const [userEtapasRealizadas, setUserEtapasRealizadas] = useState([]);
   const [isFetching, setIsfetching] = useState(false);
-  const [finishPath, setFinishPath] = useState({
-    camino: '',
-    finish_date: '',
-  });
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpenModalDelete = () => {
+    setOpen(true);
+  };
+
+  const handleCloseModalDelete = () => {
+    setOpen(false);
+  };
+
   const onClickArchivePath = async event => {
     event.preventDefault();
     try {
       setIsfetching(true);
+      archivePath.camino = event.target.id;
+      setArchivePath(archivePath.camino);
 
-      const pathId = (archivePath.camino = event.target.id);
       const responseArchivePath = await apiArchivePath(archivePath);
-
-      if (responseArchivePath.message === undefined) {
-        setArchivePath(pathId);
+      if (responseArchivePath.message === 'success') {
+        toast.success(
+          'Camino archivado. ¡Descubre nuevos caminos en la pestaña caminos!'
+        );
       } else if (responseArchivePath.message === 'Expired token') {
         history.replace(appRoutes.login);
         toast.info(
@@ -65,7 +83,8 @@ export default function Caminos() {
         );
         history.replace(appRoutes.login);
       }
-      pathId = '';
+
+      history.replace(appRoutes.caminos);
     } catch {
       toast.error(
         'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
@@ -128,48 +147,6 @@ export default function Caminos() {
       }
     } catch (e) {
       toast.error('Error del servidor. Por favor, inténtelo de nuevo');
-    }
-  };
-
-  const getCurrentDate = () => {
-    let addPathDate = new Date();
-    let day =
-      addPathDate.getDate() < 9
-        ? '0' + addPathDate.getDate()
-        : addPathDate.getDate();
-    let month =
-      addPathDate.getMonth() < 9
-        ? '0' + addPathDate.getMonth()
-        : addPathDate.getMonth();
-    let year = addPathDate.getFullYear();
-    return (addPathDate = year + '-' + month + '-' + day);
-  };
-
-  const onClickFinishPath = async event => {
-    event.preventDefault();
-    try {
-      setIsfetching(true);
-      const pathId = (finishPath.camino = activePath.id);
-      const etapaFinishDate = (finishPath.finish_date = getCurrentDate());
-
-      setFinishPath(etapaFinishDate);
-      setFinishPath(pathId);
-
-      var response = await apiFinishPath(finishPath);
-      if (response.message == 'success') {
-        setFinishPath(response);
-        toast.success('¡Enhorabuena peregrino! Has terminado el camino');
-        setIsfetching(false);
-      }
-      if (response.message == 'Expired token') {
-        toast.info(
-          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
-        );
-        history.replace(appRoutes.login);
-      }
-    } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
-      setIsfetching(false);
     }
   };
 
@@ -251,9 +228,22 @@ export default function Caminos() {
                   label="Terminar Camino"
                   type="button"
                   value="finish"
-                  onClick={onClickFinishPath}
+                  onClick={handleClickOpenModalDelete}
                   isFetching={isFetching}
                 />
+                <Dialog
+                  open={open}
+                  TransitionComponent={Transition}
+                  keepMounted
+                  onClick={handleCloseModalDelete}
+                  aria-labelledby="¡Genial, terminaste el camino!"
+                  aria-describedby="Modal de confirmación terminar camino"
+                  aria-modal="true"
+                  role="dialog"
+                  maxWidth="md"
+                >
+                  <ConfirmFinishPath />
+                </Dialog>
               </>
             ) : (
               <>
@@ -321,20 +311,6 @@ async function apiArchivePath(pathId) {
 async function apiAddEtapa(etapaInfo) {
   let response = await fetch(`${url.base}${url.addEtapa}`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-    },
-    body: JSON.stringify(etapaInfo),
-  });
-
-  let content = await response.text();
-  return content;
-}
-
-async function apiFinishPath(etapaInfo) {
-  let response = await fetch(`${url.base}${url.finishPath}`, {
-    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
