@@ -25,14 +25,10 @@ import {
   TextLink,
   DropMenu,
 } from './styled';
-import { Camino, Etapa, CaminoEtapa, EtapaActual } from '../../atoms';
-import etapasPDF from '../../../assets/downloadPDF/etapasPDF.pdf';
+import { Camino, CaminoEtapa, EtapaActual } from '../../atoms';
 import dropTop from '../../../assets/images/gota-user-profile.png';
-import photoEtapa from '../../../assets/images/etapaBN.png';
-import { act } from 'react-dom/test-utils';
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+import pathBN from '../../../assets/images/etapaBN.png';
+import pathColor from '../../../assets/images/etapaColor.png';
 
 export default function Caminos() {
   const history = useHistory();
@@ -82,10 +78,6 @@ export default function Caminos() {
           responseActivePaths.id
         );
 
-        console.log(
-          'respuesta: ' + JSON.stringify(responseUserEtapasRealizadas)
-        );
-
         if (response.message === undefined) {
           setCaminos(response);
           setActivePath(responseActivePaths);
@@ -112,7 +104,6 @@ export default function Caminos() {
     event.preventDefault();
     try {
       const pathId = (userEtapas.camino = archivePath);
-      console.log('ID CAMINO ACTUAL: ' + pathId);
       let onClickIdEtapa = (etapas = event.target.id);
       setUserEtapas(pathId);
       setUserEtapas(onClickIdEtapa);
@@ -121,12 +112,20 @@ export default function Caminos() {
     }
   };
 
-  const renderPaths = etapas.map((item, etapa) => {
-    // console.log(`lalalla/caminos/#${item.id}`);
+  const renderPathsToSubmenu = allCaminos.map((item, paths) => {
+    // console.log(`/caminos/#${item.id}`);
 
+    return <CaminoEtapa key={paths} name={item.name} />;
+  });
+
+  const renderPaths = etapas?.map((item, etapa) => {
+    const idEtapa = _findIndex(userEtapasRealizadas, element => {
+      return element.id === item.id;
+    });
+    const ruta = idEtapa !== -1 ? `${pathColor}` : `${pathBN}`;
     return (
       <EtapaActual
-        src={photoEtapa}
+        src={ruta}
         alt={item.name}
         key={etapa}
         tabIndex={0}
@@ -136,11 +135,6 @@ export default function Caminos() {
         onClick={onClickAddEtapa}
       />
     );
-  });
-  const renderPathsToSubmenu = allCaminos.map((item, paths) => {
-    // console.log(`/caminos/#${item.id}`);
-
-    return <CaminoEtapa key={paths} name={item.name} />;
   });
 
   return (

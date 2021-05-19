@@ -9,7 +9,6 @@ export const ContainerEtapa = styled.div`
   margin: 0 auto;
   text-align: center;
   width: 200px;
-  background-color: yellow;
   height: 250px;
 
   @media screen and (max-width: 968px) {
@@ -29,11 +28,16 @@ export const EtapaImg = styled.img`
   width: 100px;
 `;
 
-export const Text = styled.p`
+export const Text = styled.span`
   color: ${colors.darkGrey};
   font-size: 1rem;
   padding: auto 0.5rem;
   line-height: 1.5;
+`;
+
+export const MidleDash = styled.p`
+  color: ${colors.mustard};
+  font-size: 1rem;
 `;
 
 export const DescriptionText = styled.p`

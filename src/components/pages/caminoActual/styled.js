@@ -69,7 +69,6 @@ export const RowEtapas = styled.div`
   margin-bottom: 4rem;
   margin-top: -3rem;
   max-width: 100%;
-  background-color: pink;
 `;
 
 export const TextWrapper = styled.div`
