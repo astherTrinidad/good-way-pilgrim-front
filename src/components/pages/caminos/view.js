@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import _findIndex from 'lodash/findIndex';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Slide from '@material-ui/core/Slide';
 import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
@@ -55,7 +54,7 @@ export default function Caminos() {
     event.preventDefault();
     try {
       const pathId = (userPath.camino = event.target.id);
-        // console.log(`lalalla/caminos/#${item.id}`);
+      // console.log(`lalalla/caminos/#${item.id}`);
       setUserPath(pathId);
       console.log('path id: ' + pathId);
       const pathDate = (userPath.start_date = getCurrentDate());
@@ -162,9 +161,7 @@ export default function Caminos() {
     event.preventDefault();
     try {
       const datos = await apiCsvDownload();
-      if (datos.message === undefined) {
-        setUserPath(datos);
-      }
+
       if (datos.message === 'Expired token') {
         history.replace(appRoutes.login);
         toast.info(
@@ -186,7 +183,6 @@ export default function Caminos() {
       <Container>
         <Row>
           <ColumnMenu>
-           
             <DropMenu src={dropTop} alt="" />
             <RowCaminos tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
@@ -198,11 +194,11 @@ export default function Caminos() {
             </RowCaminos>
           </ColumnMenu>
           <ColumnCamino>
-          <Row>
-          <Section role="sección" tabIndex={0} title="Caminos">
-              Caminos
-            </Section>
-          </Row>
+            <Row>
+              <Section role="sección" tabIndex={0} title="Caminos">
+                Caminos
+              </Section>
+            </Row>
             <Row>
               <TextWrapper>
                 <Heading
@@ -273,16 +269,15 @@ async function apiAddActivePath(dataPath) {
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
-
     },
     body: JSON.stringify(dataPath),
   });
   if (!response.ok) {
     if (response.status === 400) {
-      toast.error('Datos recibidos incorrectos');
+      toast.error('Error de servidor, inténtalo más tarde');
     }
     if (response.status === 422) {
-      toast.error('El camino seleccionado ya está activo');
+      toast.error('Ya tienes un camino activo');
     }
   }
   let content = await response.text();

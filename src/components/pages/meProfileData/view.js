@@ -40,6 +40,7 @@ export default function MeProfileData() {
           setUserData(datos);
           console.log(datos);
           setUserLogros(datos.achievements);
+          console.log('****' + datos.achievements);
         }
         if (datos.message === 'Expired token') {
           history.replace(appRoutes.login);
@@ -57,11 +58,12 @@ export default function MeProfileData() {
     fetchProfile();
   }, []);
 
-  const renderLastLogros = userLogros.map(item => {
+  const renderLastLogros = userLogros.map((item, achievement) => {
     const ruta = '/assets/logros/color/';
 
     return (
       <Logro
+        key={achievement}
         id={item.id}
         src={`${ruta}${item.slug}.png`}
         name={item.name}
