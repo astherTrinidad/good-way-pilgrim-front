@@ -50,7 +50,6 @@ export default function Caminos() {
     try {
       const pathId = (archivePath.camino = event.target.id);
       const responseArchivePath = await apiArchivePath(archivePath);
-      setActivePath(null);
 
       if (responseArchivePath.message === undefined) {
         setArchivePath(pathId);
@@ -74,23 +73,20 @@ export default function Caminos() {
       try {
         const response = await apiAllPaths();
         const responseActivePaths = await apiActivePath();
-
         const responseUserEtapasRealizadas = await apiEtapasRealizadas(
           responseActivePaths.id
         );
-
-        if (response.message === undefined) {
-          setCaminos(response);
-          setEtapas(responseActivePaths.etapas);
-          setUserEtapasRealizadas(responseUserEtapasRealizadas);
-          setActivePath(responseActivePaths);
-        }
 
         if (response.message == 'Expired token') {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );
           history.replace(appRoutes.login);
+        } else {
+          setCaminos(response);
+          setEtapas(responseActivePaths.etapas);
+          setUserEtapasRealizadas(responseUserEtapasRealizadas);
+          setActivePath(responseActivePaths);
         }
       } catch {
         toast.error(
@@ -102,12 +98,28 @@ export default function Caminos() {
   }, []);
 
   const onClickAddEtapa = async event => {
-    event.preventDefault();
     try {
-      const pathId = (userEtapas.camino = archivePath);
-      let onClickIdEtapa = (etapas = event.target.id);
+      let pathId = (userEtapas.camino = activePath.id);
+      let etapaId = (userEtapas.etapa = event.target.id);
+
+      var responseAddEtapa = await apiAddEtapa(userEtapas);
       setUserEtapas(pathId);
-      setUserEtapas(onClickIdEtapa);
+      setUserEtapas(etapaId);
+      setUserEtapas(userEtapas);
+
+      console.log('response add ' + responseAddEtapa);
+      var responseUserEtapasRealizadas = await apiEtapasRealizadas(
+        userEtapas.camino
+      );
+
+      setUserEtapasRealizadas(responseUserEtapasRealizadas);
+
+      if (responseAddEtapa.message == 'Expired token') {
+        toast.info(
+          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+        );
+        history.replace(appRoutes.login);
+      }
     } catch (e) {
       toast.error('Error del servidor. Por favor, inténtelo de nuevo');
     }
@@ -126,6 +138,7 @@ export default function Caminos() {
     const ruta = idEtapa !== -1 ? `${pathColor}` : `${pathBN}`;
     return (
       <EtapaActual
+        id={item.id}
         src={ruta}
         alt={item.name}
         key={etapa}
@@ -247,4 +260,18 @@ async function apiArchivePath(pathId) {
     },
     body: JSON.stringify(pathId),
   }).then(data => data.json());
+}
+
+async function apiAddEtapa(etapaInfo) {
+  let response = await fetch(`${url.base}${url.addEtapa}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: JSON.stringify(etapaInfo),
+  });
+
+  let content = await response.text();
+  return content;
 }
