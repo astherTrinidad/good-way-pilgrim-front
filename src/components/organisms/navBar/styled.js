@@ -162,11 +162,10 @@ export const NavMenuUserResponsive = styled.ul`
   height: max-content;
   position: absolute;
   top: 60px;
-  padding: 1.25rem 0;
-  /* display: ${({ click }) => (click ? 'none' : 'flex')}; */
   left: ${({ click }) =>
     click ? '-100%' : 0}; //haga click, si hace clic es true -> muestro menú
   opacity: 1;
+  padding: 0 0 1rem 0;
   transition: all 0.5s ease;
   justify-content: center;
   background: ${colors.mustard};

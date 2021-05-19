@@ -13,6 +13,9 @@ import MeProfile from '../pages/meProfile/index';
 import MeProfileData from '../pages/meProfileData/index';
 import MeEditProfile from '../pages/meEditProfile/index';
 import MeLogros from '../pages/meLogros/index';
+import Caminos from '../pages/caminos/index';
+import CaminoActual from '../pages/caminoActual/index';
+
 import FrequentQuestion from '../pages/frequentQuestion/index';
 import PrivacyConsumers from '../pages/privacyConsumers/index';
 
@@ -36,6 +39,9 @@ function Routes() {
           exact
         />
         <PrivateRoute path={appRoutes.meLogros} component={MeLogros} exact />
+        <PrivateRoute path={appRoutes.caminos} component={Caminos} exact />
+        <PrivateRoute path={appRoutes.caminoActual} component={CaminoActual} exact />
+
         <PrivateRoute
           path={appRoutes.frequentQuestion}
           component={FrequentQuestion}

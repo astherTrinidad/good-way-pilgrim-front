@@ -68,7 +68,13 @@ const Navbar = () => {
                 Editar perfil
               </NavLinksMenu>
               <ConchaIcon />
-              <NavLinksMenu to={appRoutes.caminos}>Caminos</NavLinksMenu>
+              <NavLinksMenu to={appRoutes.caminos}>Ver caminos</NavLinksMenu>
+              <NavLinksMenu to={appRoutes.caminoActual}>Camino actual</NavLinksMenu>
+              <NavLinksMenu to={appRoutes.caminos}>
+                Histórico de caminos
+              </NavLinksMenu>
+              <ConchaIcon />
+
               <NavLinksMenu to={appRoutes.mochila}>Mochila</NavLinksMenu>
               <NavLinksMenu to={appRoutes.meLogros}>Logros</NavLinksMenu>
               <NavBtnLink to={appRoutes.login}>

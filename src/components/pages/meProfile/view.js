@@ -52,7 +52,7 @@ export default function MeProfile() {
     <>
       <GlobalStyle />
       <Navbar />
-      <Header />
+      <Header loading="lazy" />
       <Container>
         <PhotoProfile
           src={userData.picture ? userData.picture : profilePhoto}
