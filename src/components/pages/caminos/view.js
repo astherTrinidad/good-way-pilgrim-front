@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import _findIndex from 'lodash/findIndex';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import FileSaver from 'file-saver';
 import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
@@ -53,23 +54,31 @@ export default function Caminos() {
   const onClickAddPath = async event => {
     event.preventDefault();
     try {
-      const pathId = (userPath.camino = event.target.id);
-      // console.log(`lalalla/caminos/#${item.id}`);
-      setUserPath(pathId);
-      console.log('path id: ' + pathId);
-      const pathDate = (userPath.start_date = getCurrentDate());
-      setUserPath(pathDate);
-      console.log('path date:  ' + pathDate);
-      const responseAddUserPath = await apiAddActivePath(userPath);
-      if (responseAddUserPath.message === undefined) {
-        setUserPath(responseAddUserPath);
-      }
-      if (responseAddUserPath.message === 'Expired token') {
-        history.replace(appRoutes.login);
-        toast.info(
-          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+      var pathId = event.target.id;
+      var pathDate = getCurrentDate();
+      var userPath = new Object();
+      userPath.camino = pathId;
+      userPath.start_date = pathDate;
+      var responseAddUserPath = await apiAddActivePath(userPath);
+      var respuesta = JSON.parse(responseAddUserPath);
+      console.log(respuesta);
+      if (respuesta.message === 'success') {
+        toast.success(
+          'Camino añadido. Accede a la pestaá de camino activo para editar tus etapas'
         );
-        history.replace(appRoutes.login);
+      } else {
+        if (respuesta.message == 'User already has an active path') {
+          toast.error(
+            'Ya tienes un camino activo. Por favor, archívalo antes de añadir uno nuevo.'
+          );
+        }
+        if (respuesta.message == 'Expired token') {
+          history.replace(appRoutes.login);
+          toast.info(
+            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+          );
+          history.replace(appRoutes.login);
+        }
       }
     } catch {
       toast.error(
@@ -109,7 +118,7 @@ export default function Caminos() {
     return (
       <>
         <Camino
-          keyo={paths}
+          key={paths}
           tabIndex={0}
           id={item.id}
           name={item.name}
@@ -158,17 +167,10 @@ export default function Caminos() {
   });
 
   const onClickCSV = async event => {
-    event.preventDefault();
     try {
-      const datos = await apiCsvDownload();
-
-      if (datos.message === 'Expired token') {
-        history.replace(appRoutes.login);
-        toast.info(
-          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
-        );
-        history.replace(appRoutes.login);
-      }
+      let datos = await apiCsvDownload();
+      const csvData = new Blob([datos], { type: 'text/csv;charset=utf-8;' });
+      FileSaver.saveAs(csvData, 'GWP_caminos.csv');
     } catch {
       toast.error(
         'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
@@ -257,10 +259,10 @@ async function apiCsvDownload() {
   return fetch(`${url.base}${url.csvDownload}`, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/csv',
+      'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
-  }).then(data => data.json());
+  }).then(response => response.text());
 }
 
 async function apiAddActivePath(dataPath) {
@@ -272,14 +274,7 @@ async function apiAddActivePath(dataPath) {
     },
     body: JSON.stringify(dataPath),
   });
-  if (!response.ok) {
-    if (response.status === 400) {
-      toast.error('Error de servidor, inténtalo más tarde');
-    }
-    if (response.status === 422) {
-      toast.error('Ya tienes un camino activo');
-    }
-  }
+
   let content = await response.text();
   return content;
 }
