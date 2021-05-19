@@ -1,5 +1,6 @@
 import Caminos from './caminos';
 import CaminoActual from './caminoActual';
+import CaminoHistorico from './caminoHistorico';
 import Login from './login';
 import Register from './register';
 import MeProfile from './meProfile';
@@ -11,6 +12,7 @@ import PrivacyConsumers from './privacyConsumers';
 
 export {
   CaminoActual,
+  CaminoHistorico,
   Caminos,
   Login,
   Register,

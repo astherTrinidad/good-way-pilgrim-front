@@ -5,7 +5,6 @@ export const ContainerEtapa = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin: 0 auto;
   text-align: center;
   width: 200px;
@@ -23,6 +22,7 @@ export const ContainerEtapa = styled.div`
 export const EtapaImg = styled.img`
   background-color: ${colors.lightGrey};
   border-radius: 50%;
+  cursor: pointer;
   height: 100px;
   margin: 0.5rem;
   width: 100px;

@@ -84,7 +84,7 @@ const Navbar = () => {
               <NavLinksMenu to={appRoutes.caminoActual}>
                 Camino actual
               </NavLinksMenu>
-              <NavLinksMenu to={appRoutes.caminos}>
+              <NavLinksMenu to={appRoutes.caminoHistorico}>
                 Histórico de caminos
               </NavLinksMenu>
               <NavBtnLink to={appRoutes.login}>
@@ -110,7 +110,7 @@ const Navbar = () => {
               <NavLinksMenu to={appRoutes.caminoActual}>
                 Camino actual
               </NavLinksMenu>
-              <NavLinksMenu to={appRoutes.caminos}>
+              <NavLinksMenu to={appRoutes.caminoHistorico}>
                 Histórico de caminos
               </NavLinksMenu>
               <ConchaIcon />
