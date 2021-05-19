@@ -22,7 +22,7 @@ const ConfirmAddAchievement = () => {
     setOpen(false);
   };
 
-  const getCurrentData = () => {
+  const getCurrentDate = () => {
     let addAchievementDate = new Date();
     let day =
       addAchievementDate.getDate() < 9
@@ -45,7 +45,7 @@ const ConfirmAddAchievement = () => {
     try {
       const idL = (userAchievement.achievement = 3);
       setUserAchievement(idL);
-      const achievementDate = (userAchievement.date = getCurrentData());
+      const achievementDate = (userAchievement.date = getCurrentDate());
       setUserAchievement(achievementDate);
       console.log('*** id ** ' + getAchievementId());
 

@@ -15,6 +15,7 @@ const url = {
   addActivePath: '/pri/addActivePath',
   activePath: '/pri/getActivePath',
   archivePath: '/pri/archivePath',
+  finishPath: '/pri/finishPath',
   etapasRealizadas: '/pri/getEtapasRealizadas',
   addEtapa: '/pri/addEtapa',
   csvDownload: '/pub/csv_download',

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import _findIndex from 'lodash/findIndex';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Slide from '@material-ui/core/Slide';
 import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
@@ -26,7 +25,7 @@ import {
   DropMenu,
   TextEmptyEtapas,
 } from './styled';
-import { Camino, CaminoEtapa, EtapaActual } from '../../atoms';
+import { ButtonTurquoise, Camino, CaminoEtapa, EtapaActual } from '../../atoms';
 import dropTop from '../../../assets/images/gota-user-profile.png';
 import pathBN from '../../../assets/images/etapaBN.png';
 import pathColor from '../../../assets/images/etapaColor.png';
@@ -44,10 +43,16 @@ export default function Caminos() {
     etapa: '',
   });
   const [userEtapasRealizadas, setUserEtapasRealizadas] = useState([]);
-
+  const [isFetching, setIsfetching] = useState(false);
+  const [finishPath, setFinishPath] = useState({
+    camino: '',
+    finish_date: '',
+  });
   const onClickArchivePath = async event => {
     event.preventDefault();
     try {
+      setIsfetching(true);
+
       const pathId = (archivePath.camino = event.target.id);
       const responseArchivePath = await apiArchivePath(archivePath);
 
@@ -65,6 +70,7 @@ export default function Caminos() {
       toast.error(
         'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
       );
+      setIsfetching(false);
     }
   };
 
@@ -122,6 +128,48 @@ export default function Caminos() {
       }
     } catch (e) {
       toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+    }
+  };
+
+  const getCurrentDate = () => {
+    let addPathDate = new Date();
+    let day =
+      addPathDate.getDate() < 9
+        ? '0' + addPathDate.getDate()
+        : addPathDate.getDate();
+    let month =
+      addPathDate.getMonth() < 9
+        ? '0' + addPathDate.getMonth()
+        : addPathDate.getMonth();
+    let year = addPathDate.getFullYear();
+    return (addPathDate = year + '-' + month + '-' + day);
+  };
+
+  const onClickFinishPath = async event => {
+    event.preventDefault();
+    try {
+      setIsfetching(true);
+      const pathId = (finishPath.camino = activePath.id);
+      const etapaFinishDate = (finishPath.finish_date = getCurrentDate());
+
+      setFinishPath(etapaFinishDate);
+      setFinishPath(pathId);
+
+      var response = await apiFinishPath(finishPath);
+      if (response.message == 'success') {
+        setFinishPath(response);
+        toast.success('¡Enhorabuena peregrino! Has terminado el camino');
+        setIsfetching(false);
+      }
+      if (response.message == 'Expired token') {
+        toast.info(
+          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+        );
+        history.replace(appRoutes.login);
+      }
+    } catch (e) {
+      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+      setIsfetching(false);
     }
   };
 
@@ -186,18 +234,26 @@ export default function Caminos() {
                     num_etapas={activePath?.num_etapas}
                     description={activePath?.description}
                   />
-                  <ButtonSave
+
+                  <ButtonTurquoise
                     id={activePath?.id}
+                    label="Archivar camino"
                     type="button"
-                    value="add"
-                    name="Archivar camino"
+                    value="archive"
                     onClick={onClickArchivePath}
-                  >
-                    Archivar camino
-                  </ButtonSave>
+                    isFetching={isFetching}
+                  />
                 </RowCamino>
 
                 <RowEtapas>{renderPaths}</RowEtapas>
+                <ButtonTurquoise
+                  id={activePath?.id}
+                  label="Terminar Camino"
+                  type="button"
+                  value="finish"
+                  onClick={onClickFinishPath}
+                  isFetching={isFetching}
+                />
               </>
             ) : (
               <>
@@ -265,6 +321,20 @@ async function apiArchivePath(pathId) {
 async function apiAddEtapa(etapaInfo) {
   let response = await fetch(`${url.base}${url.addEtapa}`, {
     method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: JSON.stringify(etapaInfo),
+  });
+
+  let content = await response.text();
+  return content;
+}
+
+async function apiFinishPath(etapaInfo) {
+  let response = await fetch(`${url.base}${url.finishPath}`, {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
