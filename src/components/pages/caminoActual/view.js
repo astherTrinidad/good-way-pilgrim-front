@@ -44,7 +44,9 @@ export default function Caminos() {
   const [etapas, setEtapas] = useState([]);
   const [userEtapas, setUserEtapas] = useState({
     camino: '',
+    etapa: '',
   });
+  const [userEtapasRealizadas, setUserEtapasRealizadas] = useState([]);
 
   const onClickArchivePath = async event => {
     event.preventDefault();
@@ -74,19 +76,24 @@ export default function Caminos() {
   useEffect(() => {
     async function fetchProfile() {
       try {
-        const responseAllPaths = await apiAllPaths();
-        if (responseAllPaths.message === undefined) {
-          setCaminos(responseAllPaths);
-        }
-
+        const response = await apiAllPaths();
         const responseActivePaths = await apiActivePath();
-        console.log('id use effect actual: ' + responseActivePaths.id);
-        console.log('nombre ' + responseActivePaths.name);
-        if (responseActivePaths.message === undefined) {
+        const responseUserEtapasRealizadas = await apiEtapasRealizadas(
+          responseActivePaths.id
+        );
+
+        console.log(
+          'respuesta: ' + JSON.stringify(responseUserEtapasRealizadas)
+        );
+
+        if (response.message === undefined) {
+          setCaminos(response);
           setActivePath(responseActivePaths);
           setEtapas(responseActivePaths.etapas);
+          setUserEtapasRealizadas(responseUserEtapasRealizadas);
         }
-        if (responseActivePaths.message == 'Expired token') {
+
+        if (response.message == 'Expired token') {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );
@@ -101,6 +108,19 @@ export default function Caminos() {
     fetchProfile();
   }, []);
 
+  const onClickAddEtapa = async event => {
+    event.preventDefault();
+    try {
+      const pathId = (userEtapas.camino = archivePath);
+      console.log('ID CAMINO ACTUAL: ' + pathId);
+      let onClickIdEtapa = (etapas = event.target.id);
+      setUserEtapas(pathId);
+      setUserEtapas(onClickIdEtapa);
+    } catch (e) {
+      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+    }
+  };
+
   const renderPaths = etapas.map((item, etapa) => {
     // console.log(`lalalla/caminos/#${item.id}`);
 
@@ -113,7 +133,7 @@ export default function Caminos() {
         start={item.start}
         finish={item.finish}
         km={item.km}
-        // onClick={onClick}
+        onClick={onClickAddEtapa}
       />
     );
   });
@@ -148,25 +168,26 @@ export default function Caminos() {
             </Row>
 
             <RowCamino tabIndex={0} aria-label="Caminos">
-              <Camino
-                tabIndex={0}
-                id={activePath?.id}
-                name={activePath?.name}
-                start={activePath?.start}
-                finish={activePath?.finish}
-                num_etapas={activePath?.num_etapas}
-                km={activePath?.km}
-                description={activePath?.description}
-              />
-              <ButtonSave
-                id={activePath?.id}
-                type="button"
-                value="add"
-                name="Archivar camino"
-                onClick={onClickArchivePath}
-              >
-                Archivar camino
-              </ButtonSave>
+              <>
+                <Camino
+                  tabIndex={0}
+                  id={activePath?.id}
+                  name={activePath?.name}
+                  start={activePath?.start}
+                  finish={activePath?.finish}
+                  num_etapas={activePath?.num_etapas}
+                  description={activePath?.description}
+                />
+                <ButtonSave
+                  id={activePath?.id}
+                  type="button"
+                  value="add"
+                  name="Archivar camino"
+                  onClick={onClickArchivePath}
+                >
+                  Archivar camino
+                </ButtonSave>
+              </>
             </RowCamino>
             <RowEtapas>{renderPaths}</RowEtapas>
           </ColumnCamino>
@@ -198,7 +219,7 @@ async function apiActivePath() {
 }
 
 async function apiEtapasRealizadas(etapaPathId) {
-  return fetch(`${url.base}${url.etapasRealizadas}`, {
+  return fetch(`${url.base}${url.etapasRealizadas}?camino=${etapaPathId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
