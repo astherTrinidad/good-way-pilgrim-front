@@ -16,18 +16,19 @@ import {
   Subtitle,
   ColumnMenu,
   ColumnCamino,
-  RowCaminos,
+  RowEtapas,
   TextDownload,
+  RowCamino,
   ButtonSave,
   TextEtapa,
   TextMenu,
   TextLink,
   DropMenu,
 } from './styled';
-import { Camino, Etapa, CaminoEtapa } from '../../atoms';
+import { Camino, Etapa, CaminoEtapa, EtapaActual } from '../../atoms';
 import etapasPDF from '../../../assets/downloadPDF/etapasPDF.pdf';
 import dropTop from '../../../assets/images/gota-user-profile.png';
-
+import photoEtapa from '../../../assets/images/etapaBN.png';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -35,23 +36,24 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function Caminos() {
   const history = useHistory();
   const [allCaminos, setCaminos] = useState([]);
-  const [userPath, setUserPath] = useState({
+  const [archivePath, setArchivePath] = useState({
     camino: '',
   });
-  const [etapasCamino, setEtapasCamino] = useState([]);
-
+  const [activePath, setActivePath] = useState([]);
+  const [etapas, setEtapas] = useState([]);
+  const [userEtapas, setUserEtapas] = useState({
+    camino: '',
+  });
   const onClickArchivePath = async event => {
     event.preventDefault();
     try {
-      const pathId = (userPath.camino = event.target.id);
-      setUserPath(pathId);
-      console.log('path id: ' + pathId);
+      const pathId = (archivePath.camino = event.target.id);
+      const responseArchivePath = await apiArchivePath(archivePath);
 
-      const responseAddUserPath = await apiArchivePath(userPath);
-      if (responseAddUserPath.message === undefined) {
-        setUserPath(responseAddUserPath);
-      }
-      if (responseAddUserPath.message === 'Expired token') {
+      if (responseArchivePath.message === undefined) {
+        setArchivePath(pathId);
+        console.log(JSON.stringify('archive: ' + pathId));
+      } else if (responseArchivePath.message === 'Expired token') {
         history.replace(appRoutes.login);
         toast.info(
           'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
@@ -69,13 +71,18 @@ export default function Caminos() {
     async function fetchProfile() {
       try {
         const responseAllPaths = await apiAllPaths();
-
         if (responseAllPaths.message === undefined) {
           setCaminos(responseAllPaths);
-          setEtapasCamino(responseAllPaths.etapas);
         }
 
-        if (responseAllPaths.message == 'Expired token') {
+        const responseActivePaths = await apiActivePath();
+
+        if (responseActivePaths.message === undefined) {
+          setActivePath(responseActivePaths);
+          setEtapas(responseActivePaths.etapas);
+        }
+
+        if (responseActivePaths.message == 'Expired token') {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );
@@ -90,52 +97,20 @@ export default function Caminos() {
     fetchProfile();
   }, []);
 
-  const renderPaths = allCaminos.map((item, paths) => {
+  const renderPaths = etapas.map((item, etapa) => {
     // console.log(`lalalla/caminos/#${item.id}`);
 
     return (
-      <>
-        <Camino
-          keyo={paths}
-          tabIndex={0}
-          id={item.id}
-          name={item.name}
-          start={item.start}
-          finish={item.finish}
-          num_etapas={item.num_etapas}
-          km={item.km}
-          description={item.description}
-        />
-        <ButtonSave
-          id={item.id}
-          type="button"
-          value="add"
-          name="Archivar camino"
-          onClick={onClickArchivePath}
-        >
-          Archivar camino
-        </ButtonSave>
-        <TextEtapa>Etapas</TextEtapa>
-        <CaminoEtapa
-          etapas={item.etapas.map((etapa, indexPaths) => {
-            const indexEtapa =
-              indexPaths < 9 ? '0' + (indexPaths + 1) : indexPaths + 1;
-            return (
-              <>
-                <Etapa
-                  key={indexPaths}
-                  numEtapa={indexEtapa}
-                  tabIndex={0}
-                  start={etapa.start}
-                  finish={etapa.finish}
-                  km={etapa.km}
-                  description={etapa.description}
-                />
-              </>
-            );
-          })}
-        />
-      </>
+      <EtapaActual
+        src={photoEtapa}
+        alt={item.name}
+        key={etapa}
+        tabIndex={0}
+        start={item.start}
+        finish={item.finish}
+        km={item.km}
+        // onClick={onClick}
+      />
     );
   });
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
@@ -152,25 +127,44 @@ export default function Caminos() {
         <Row>
           <ColumnMenu>
             <DropMenu src={dropTop} alt="" />
-            <RowCaminos tabIndex={0} aria-label="Caminos">
+            <RowCamino tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
               <TextMenu to={`./#${renderPaths.id}`}>
                 {renderPathsToSubmenu}
               </TextMenu>
               <TextLink>Camino actual</TextLink>
               <TextLink>Histórico de caminos</TextLink>
-            </RowCaminos>
+            </RowCamino>
           </ColumnMenu>
           <ColumnCamino>
-          <Row>
-          <Section role="sección" tabIndex={0} title="Camino Actual">
-              Camino Actual
-            </Section>
-          </Row>
+            <Row>
+              <Section role="sección" tabIndex={0} title="Camino Actual">
+                Camino Actual
+              </Section>
+            </Row>
 
-            <RowCaminos tabIndex={0} aria-label="Caminos">
-              {renderPaths}
-            </RowCaminos>
+            <RowCamino tabIndex={0} aria-label="Caminos">
+              <Camino
+                tabIndex={0}
+                id={activePath.id}
+                name={activePath.name}
+                start={activePath.start}
+                finish={activePath.finish}
+                num_etapas={activePath.num_etapas}
+                km={activePath.km}
+                description={activePath.description}
+              />
+              <ButtonSave
+                id={activePath.id}
+                type="button"
+                value="add"
+                name="Archivar camino"
+                onClick={onClickArchivePath}
+              >
+                Archivar camino
+              </ButtonSave>
+            </RowCamino>
+            <RowEtapas>{renderPaths}</RowEtapas>
           </ColumnCamino>
         </Row>
       </Container>
@@ -189,6 +183,25 @@ async function apiAllPaths() {
   }).then(data => data.json());
 }
 
+async function apiActivePath() {
+  return fetch(`${url.base}${url.activePath}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+  }).then(data => data.json());
+}
+
+async function apiEtapasRealizadas(etapaPathId) {
+  return fetch(`${url.base}${url.etapasRealizadas}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+  }).then(data => data.json());
+}
 
 async function apiArchivePath(pathId) {
   return fetch(`${url.base}${url.archivePath}`, {

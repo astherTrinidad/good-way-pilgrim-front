@@ -7,6 +7,8 @@ import Logro from './logro';
 import Camino from './camino';
 import CaminoEtapa from './caminoEtapa';
 import Etapa from './etapa';
+import EtapaActual from './etapaActual';
+
 export {
   TextInput,
   Button,
@@ -17,4 +19,6 @@ export {
   CaminoEtapa,
   Camino,
   Etapa,
+  EtapaActual,
+
 };
