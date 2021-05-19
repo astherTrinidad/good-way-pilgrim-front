@@ -12,7 +12,6 @@ export const Row = styled.div`
 
 export const DropMenu = styled.img`
   width: 100%;
-  margin-bottom: 2rem;
 `;
 
 export const ColumnMenu = styled.div`
@@ -54,12 +53,23 @@ export const Section = styled.h1`
   align-items: left;
 `;
 
-export const RowCaminos = styled.div`
+export const RowCamino = styled.div`
   align-items: left;
   justify-content: left;
   margin-bottom: 4rem;
   margin-top: -3rem;
   max-width: 100%;
+`;
+
+export const RowEtapas = styled.div`
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 4rem;
+  margin-top: -3rem;
+  max-width: 100%;
+  background-color: pink;
 `;
 
 export const TextWrapper = styled.div`

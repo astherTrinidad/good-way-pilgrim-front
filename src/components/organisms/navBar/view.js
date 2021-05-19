@@ -69,7 +69,7 @@ const Navbar = () => {
               </NavLinksMenu>
               <ConchaIcon />
               <NavLinksMenu to={appRoutes.caminos}>Ver caminos</NavLinksMenu>
-              <NavLinksMenu to={appRoutes.caminos}>Camino actual</NavLinksMenu>
+              <NavLinksMenu to={appRoutes.caminoActual}>Camino actual</NavLinksMenu>
               <NavLinksMenu to={appRoutes.caminos}>
                 Histórico de caminos
               </NavLinksMenu>

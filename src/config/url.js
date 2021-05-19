@@ -12,6 +12,11 @@ const url = {
   deleteAchievement: '/pri/deleteAchievement',
   deleteAchievements: '/pri/deleteAchievements',
   caminos: '/pri/allPaths',
+  addActivePath: '/pri/addActivePath',
+  activePath: '/pri/getActivePath',
+  caminoActual: '/pri/getActivePath',
+  archivePath: '/pri/archivePath',
+  etapasRealizadas: '/pri/getEtapasRealizadas',
   csvDownload: '/pub/csv_download',
 };
 

@@ -1,4 +1,5 @@
 import Caminos from './caminos';
+import CaminoActual from './caminoActual';
 import Login from './login';
 import Register from './register';
 import MeProfile from './meProfile';
@@ -9,6 +10,7 @@ import FrequentQuestion from './frequentQuestion';
 import PrivacyConsumers from './privacyConsumers';
 
 export {
+  CaminoActual,
   Caminos,
   Login,
   Register,

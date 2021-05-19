@@ -36,6 +36,7 @@ const Camino = ({
         <Key>Kilómetros: </Key>
         <Value>{km}</Value>
       </TextCamino>
+
       <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
     </ContainerCaminos>
   );
