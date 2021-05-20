@@ -7,7 +7,7 @@ import concha from '../../../assets/images/ic_concha.png';
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   margin: 3rem auto;
   width: 50%;
@@ -29,13 +29,16 @@ export const Column = styled.div`
 `;
 
 export const RowLogros = styled.div`
-  align-items: center;
+  /* align-items: center; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   max-width: 55%;
   height: max-content;
   margin: 4rem auto;
+  @media screen and (max-width: 968px) {
+    max-width: 80%;
+  }
   @media screen and (max-width: 768px) {
     flex-direction: column;
   }

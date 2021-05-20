@@ -55,14 +55,11 @@ export default function Caminos() {
     event.preventDefault();
     try {
       var pathId = event.target.id;
-      console.log('ID: ' + pathId);
       var pathDate = getCurrentDate();
-      var userPath = new Object();
       userPath.camino = pathId;
       userPath.start_date = pathDate;
       var responseAddUserPath = await apiAddActivePath(userPath);
       var respuesta = JSON.parse(responseAddUserPath);
-      console.log(respuesta);
       if (respuesta.message === 'success') {
         toast.success(
           'Camino añadido. Accede a la pestaña de camino activo para editar tus etapas'
@@ -71,6 +68,10 @@ export default function Caminos() {
         if (respuesta.message == 'User already has an active path') {
           toast.info(
             'Ya tienes un camino activo. Por favor, archívalo antes de añadir uno nuevo.'
+          );
+        } else if (respuesta.message == 'User already has this path') {
+          toast.info(
+            'Ya realizaste el camino. Por favor, selecciona uno nuevo o accede a tu histórico de caminos.'
           );
         }
         if (respuesta.message == 'Expired token') {
