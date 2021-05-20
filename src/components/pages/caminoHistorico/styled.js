@@ -40,7 +40,6 @@ export const Container = styled.main`
   display: flex;
   flex-direction: column;
   height: max-content;
-  justify-content: center;
   margin: 3rem auto;
   width: 75%;
 `;

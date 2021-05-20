@@ -34,12 +34,10 @@ import { ButtonTurquoise, Camino, CaminoEtapa, EtapaActual } from '../../atoms';
 import dropTop from '../../../assets/images/gota-user-profile.png';
 import pathBN from '../../../assets/images/etapaBN.png';
 import pathColor from '../../../assets/images/etapaColor.png';
-
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 export default function Caminos() {
-  const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
-
   const history = useHistory();
   const [allCaminos, setCaminos] = useState([]);
   const [archivePath, setArchivePath] = useState({
@@ -72,6 +70,7 @@ export default function Caminos() {
       setArchivePath(archivePath.camino);
 
       const responseArchivePath = await apiArchivePath(archivePath);
+
       if (responseArchivePath.message === 'success') {
         toast.success(
           'Camino archivado. ¡Descubre nuevos caminos en la pestaña caminos!'
@@ -98,20 +97,22 @@ export default function Caminos() {
       try {
         const response = await apiAllPaths();
         const responseActivePaths = await apiActivePath();
-        const responseUserEtapasRealizadas = await apiEtapasRealizadas(
-          responseActivePaths.id
-        );
 
-        if (response.message == 'Expired token') {
+        if (response.message == undefined) {
+          setCaminos(response);
+        }
+        if (responseActivePaths.message != 'User hasnt got an active path') {
+          const responseUserEtapasRealizadas = await apiEtapasRealizadas(
+            responseActivePaths.id
+          );
+          setEtapas(responseActivePaths.etapas);
+          setActivePath(responseActivePaths);
+          setUserEtapasRealizadas(responseUserEtapasRealizadas);
+        } else if (response.message == 'Expired token') {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );
           history.replace(appRoutes.login);
-        } else {
-          setCaminos(response);
-          setEtapas(responseActivePaths.etapas);
-          setUserEtapasRealizadas(responseUserEtapasRealizadas);
-          setActivePath(responseActivePaths);
         }
       } catch {
         toast.error(
@@ -132,7 +133,6 @@ export default function Caminos() {
       setUserEtapas(etapaId);
       setUserEtapas(userEtapas);
 
-      console.log('response add ' + responseAddEtapa);
       var responseUserEtapasRealizadas = await apiEtapasRealizadas(
         userEtapas.camino
       );
@@ -149,7 +149,6 @@ export default function Caminos() {
       toast.error('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
-
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
     // console.log(`/caminos/#${item.id}`);
 
@@ -186,9 +185,7 @@ export default function Caminos() {
             <DropMenu src={dropTop} alt="" />
             <RowCamino tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
-              <TextMenu to={`./#${renderPaths.id}`}>
-                {renderPathsToSubmenu}
-              </TextMenu>
+              <TextMenu>{renderPathsToSubmenu}</TextMenu>
               <TextLink>Camino actual</TextLink>
               <TextLink>Histórico de caminos</TextLink>
             </RowCamino>
@@ -199,7 +196,7 @@ export default function Caminos() {
                 Camino Actual
               </Section>
             </Row>
-            {activePath ? (
+            {activePath.length !== 0 ? (
               <>
                 <RowCamino tabIndex={0} aria-label="Caminos">
                   <Camino

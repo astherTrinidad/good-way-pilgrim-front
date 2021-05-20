@@ -26,27 +26,36 @@ import {
   DropMenu,
   TextEmptyEtapas,
 } from './styled';
-import { Camino, CaminoEtapa, EtapaActual } from '../../atoms';
+import { ButtonTurquoise, Camino, CaminoEtapa, EtapaActual } from '../../atoms';
 import dropTop from '../../../assets/images/gota-user-profile.png';
-import pathBN from '../../../assets/images/etapaBN.png';
-import pathColor from '../../../assets/images/etapaColor.png';
+import PathsData from '../../molecules';
 
 export default function CaminoHistorico() {
   const history = useHistory();
-  const [allCaminos, setCaminos] = useState([]);
-
+  const [allUserPath, setAllUserPath] = useState([]);
+  const [allCaminos, setAllCaminos] = useState([]);
+  const [reactivePath, setReactivePath] = useState({
+    camino: '',
+  });
   useEffect(() => {
     async function fetchProfile() {
       try {
         const response = await apiAllPaths();
 
-        if (response.message == 'Expired token') {
+        const responseAllUserPaths = await apiMyPaths();
+        console.log('response user' + responseAllUserPaths.message);
+
+        if (
+          response.message == 'Expired token' ||
+          responseAllUserPaths.message
+        ) {
           toast.info(
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );
           history.replace(appRoutes.login);
         } else {
-          setCaminos(response);
+          setAllCaminos(response);
+          setAllUserPath(responseAllUserPaths);
         }
       } catch {
         toast.error(
@@ -57,10 +66,58 @@ export default function CaminoHistorico() {
     fetchProfile();
   }, []);
 
+  const onClickReactive = async event => {
+    event.preventDefault();
+    try {
+      reactivePath.camino = event.target.id;
+      const responseReactive = await apiReactivePath(reactivePath);
+      console.log(responseReactive);
+      setReactivePath(responseReactive);
+      const responseAllUserPaths = await apiMyPaths();
+      setAllUserPath(responseAllUserPaths);
+
+      if (
+        responseReactive.message == 'Expired token' ||
+        responseAllUserPaths.message
+      ) {
+        toast.info(
+          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+        );
+        history.replace(appRoutes.login);
+      }
+    } catch (e) {
+      toast.error(
+        'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+      );
+    }
+  };
+
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
     // console.log(`/caminos/#${item.id}`);
 
     return <CaminoEtapa key={paths} name={item.name} />;
+  });
+
+  const renderUserPaths = allUserPath.map((item, paths) => {
+    return (
+      <>
+        <PathsData
+          key={paths}
+          id={item.id}
+          name={item.name}
+          status={item.status}
+          start_date={item.start_date}
+          finish_date={item.finish_date}
+          etapas={item.etapas}
+        />
+        <ButtonTurquoise
+          id={item.id}
+          label="Reactivar"
+          value="reactive"
+          onClick={onClickReactive}
+        />
+      </>
+    );
   });
 
   return (
@@ -84,6 +141,7 @@ export default function CaminoHistorico() {
                 Histórico de caminos
               </Section>
             </Row>
+            {renderUserPaths}
           </ColumnCamino>
         </Row>
       </Container>
@@ -91,6 +149,7 @@ export default function CaminoHistorico() {
     </>
   );
 }
+
 async function apiAllPaths() {
   return fetch(`${url.base}${url.caminos}`, {
     method: 'GET',
@@ -98,5 +157,26 @@ async function apiAllPaths() {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
+  }).then(data => data.json());
+}
+
+async function apiMyPaths() {
+  return fetch(`${url.base}${url.myPaths}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+  }).then(data => data.json());
+}
+
+async function apiReactivePath(pathInfo) {
+  return fetch(`${url.base}${url.reactivePath}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: JSON.stringify(pathInfo),
   }).then(data => data.json());
 }
