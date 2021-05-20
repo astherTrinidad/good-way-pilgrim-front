@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import colors from '../../../assets/colors';
 
 export const Container = styled.button`
-  width: 50%;
+  width: 25%;
   border-radius: 8px;
   background-color: ${colors.turquoise};
   color: ${colors.white};
@@ -11,7 +11,7 @@ export const Container = styled.button`
   font-size: 1rem;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-  margin: 1rem auto;
+  margin: 0 0 1rem 0;
   padding: 1rem 1rem;
   transition: all 0.3s ease-out;
 

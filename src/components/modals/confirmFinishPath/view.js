@@ -41,23 +41,14 @@ const ConfirmFinishPath = () => {
     event.preventDefault();
     try {
       setIsfetching(true);
-      const responseActivePaths = await apiActivePath();
+      var responseActivePaths = await apiActivePath();
       setActivePath(responseActivePaths);
-      const pathId = (finishPath.camino = responseActivePaths.id);
-      const etapaFinishDate = (finishPath.finish_date = getCurrentDate());
-      const response = await apiFinishPath(finishPath);
+      var pathId = (finishPath.camino = responseActivePaths.id);
+      var etapaFinishDate = (finishPath.finish_date = getCurrentDate());
+      var response = await apiFinishPath(finishPath);
       setFinishPath(etapaFinishDate);
       setFinishPath(pathId);
 
-      if (
-        response.message == 'success' ||
-        responseActivePaths.message == 'success'
-      ) {
-        setFinishPath(response);
-
-        toast.success('¡Enhorabuena peregrino! Has terminado el camino');
-        setIsfetching(false);
-      }
       if (response.message == 'Expired token') {
         toast.info(
           'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
@@ -65,6 +56,8 @@ const ConfirmFinishPath = () => {
         history.replace(appRoutes.login);
       }
 
+      toast.success('¡Enhorabuena peregrino! Has terminado el camino');
+      setIsfetching(false);
       history.replace(appRoutes.caminos);
     } catch (e) {
       toast.error('Error del servidor. Por favor, inténtelo de nuevo');
@@ -95,7 +88,12 @@ const ConfirmFinishPath = () => {
           >
             Sí
           </ButtonDelete>
-          <ButtonSave onClose={handleClose} role="button" button-label="No">
+          <ButtonSave
+            onClose={handleClose}
+            role="button"
+            button-label="No"
+            isFetching={isFetching}
+          >
             No
           </ButtonSave>
         </DialogActions>
