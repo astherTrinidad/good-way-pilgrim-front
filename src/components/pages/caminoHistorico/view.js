@@ -141,9 +141,9 @@ export default function CaminoHistorico() {
             </Section>
             <DropMenu src={dropTop} alt="" />
             <RowCamino tabIndex={0} aria-label="Caminos">
-              <TextLink>Caminos</TextLink>
+              <TextLink href="/caminos">Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
-              <TextLink>Camino actual</TextLink>
+              <TextLink href="/camino-actual">Camino actual</TextLink>
               <TextLink>Historial de caminos</TextLink>
             </RowCamino>
           </ColumnMenu>

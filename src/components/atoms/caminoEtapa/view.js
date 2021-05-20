@@ -8,6 +8,7 @@ import {
 } from './styled';
 
 const CaminoEtapa = ({
+  id,
   tabIndex,
   name,
   start,
@@ -16,9 +17,10 @@ const CaminoEtapa = ({
   km,
   description,
   etapas,
+  href,
 }) => {
   return (
-    <ContainerEtapa>
+    <ContainerEtapa href={href}>
       <TextNameEtapa tabIndex={tabIndex}>
         <Value>{name}</Value>
       </TextNameEtapa>

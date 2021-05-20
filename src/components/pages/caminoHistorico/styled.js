@@ -109,7 +109,7 @@ export const TextWrapper = styled.div`
   }
 `;
 
-export const TextLink = styled.p`
+export const TextLink = styled.a`
   align-items: left;
   border-bottom: 1px solid ${colors.turquoise};
   color: ${colors.darkGrey};

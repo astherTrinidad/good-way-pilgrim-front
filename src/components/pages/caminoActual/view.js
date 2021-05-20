@@ -187,10 +187,12 @@ export default function Caminos() {
             </Section>
             <DropMenu src={dropTop} alt="" />
             <RowCamino tabIndex={0} aria-label="Caminos">
-              <TextLink>Caminos</TextLink>
+              <TextLink href="/caminos">Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
               <TextLink>Camino actual</TextLink>
-              <TextLink>Historial de caminos</TextLink>
+              <TextLink href="/historial-de-caminos">
+                Historial de caminos
+              </TextLink>
             </RowCamino>
           </ColumnMenu>
           <ColumnCamino>
