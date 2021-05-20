@@ -22,6 +22,7 @@ export const ContainerLogros = styled.div`
 export const LogroImg = styled.img`
   background-color: ${colors.lightGrey};
   border-radius: 50%;
+  cursor: pointer;
   height: 100px;
   margin: 0.5rem;
   width: 100px;
