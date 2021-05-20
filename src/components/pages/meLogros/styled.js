@@ -27,7 +27,7 @@ export const Section = styled.h1`
 `;
 
 export const RowLogros = styled.div`
-  align-items: center;
+  /* align-items: center; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

@@ -104,7 +104,11 @@ export default function MeProfileData() {
           <Column>
             <TextWrapper>
               <TextNumber>{userData?.paths}</TextNumber>
-              <TextType>Caminos</TextType>
+              {userData?.paths === 1 ? (
+                <TextType>Camino</TextType>
+              ) : (
+                <TextType>Caminos</TextType>
+              )}
             </TextWrapper>
           </Column>
           <Column>

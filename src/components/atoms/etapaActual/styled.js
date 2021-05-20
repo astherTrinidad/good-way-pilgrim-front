@@ -7,7 +7,7 @@ export const ContainerEtapa = styled.div`
   flex-direction: column;
   margin: 0 auto;
   text-align: center;
-  width: 200px;
+  width: 250px;
   height: 250px;
 
   @media screen and (max-width: 968px) {
