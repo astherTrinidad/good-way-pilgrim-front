@@ -182,6 +182,9 @@ export default function Caminos() {
       <Container>
         <Row>
           <ColumnMenu>
+            <Section role="sección" tabIndex={0} title="Camino Actual">
+              Camino Actual
+            </Section>
             <DropMenu src={dropTop} alt="" />
             <RowCamino tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
@@ -191,11 +194,6 @@ export default function Caminos() {
             </RowCamino>
           </ColumnMenu>
           <ColumnCamino>
-            <Row>
-              <Section role="sección" tabIndex={0} title="Camino Actual">
-                Camino Actual
-              </Section>
-            </Row>
             {activePath.length !== 0 ? (
               <>
                 <RowCamino tabIndex={0} aria-label="Caminos">
@@ -206,6 +204,7 @@ export default function Caminos() {
                     start={activePath?.start}
                     finish={activePath?.finish}
                     num_etapas={activePath?.num_etapas}
+                    km={activePath?.km}
                     description={activePath?.description}
                   />
 
@@ -245,14 +244,26 @@ export default function Caminos() {
             ) : (
               <>
                 <RowCamino tabIndex={0} aria-label="Caminos">
-                  <TextEmptyEtapas>
-                    ¡Ánimo! Seguro que estás listo para empezar un camino.
-                  </TextEmptyEtapas>
-                  <TextEmptyEtapas>
-                    Ve a la lista de caminos, elige el que más te apetezca o el
-                    que se ajuste a tus necesidades. Añádelo a tu perfil y ponte
-                    las botas, no necesitas más!
-                  </TextEmptyEtapas>
+                  <TextEmptyEtapas></TextEmptyEtapas>
+                  <TextEmptyEtapas></TextEmptyEtapas>
+                  <TextWrapper>
+                    <Heading
+                      aria-label="¡Ánimo! Seguro que estás listo para empezar un camino."
+                      tabIndex="0"
+                    >
+                      ¡Ánimo! Seguro que estás listo para empezar un camino.
+                    </Heading>
+                    <Subtitle
+                      aria-label="Ve a la lista de caminos, elige el que más te apetezca o el
+                  que se ajuste a tus necesidades. Añádelo a tu perfil y ponte
+                  las botas, no necesitas más!"
+                      tabIndex="0"
+                    >
+                      Ve a la lista de caminos, elige el que más te apetezca o
+                      el que se ajuste a tus necesidades. Añádelo a tu perfil y
+                      ponte las botas, no necesitas más!
+                    </Subtitle>
+                  </TextWrapper>
                 </RowCamino>
               </>
             )}

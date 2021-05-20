@@ -11,7 +11,7 @@ export const Container = styled.button`
   font-size: 1rem;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-  margin: 0 0 1rem 0;
+  margin: 1rem 0 2.5rem 0;
   padding: 1rem 1rem;
   transition: all 0.3s ease-out;
 
@@ -27,8 +27,9 @@ export const Container = styled.button`
     margin-left: 10px;
   }
 
-  @media screen and (max-width: 960px) {
+  @media screen and (max-width: 768px) {
     display: block;
-    margin: 1rem auto;
+    margin: 1rem auto 3rem auto;
+    width: 50%;
   }
 `;

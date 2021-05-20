@@ -187,6 +187,9 @@ export default function Caminos() {
       <Container>
         <Row>
           <ColumnMenu>
+            <Section role="sección" tabIndex={0} title="Caminos">
+              Caminos
+            </Section>
             <DropMenu src={dropTop} alt="" />
             <RowCaminos tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
@@ -198,11 +201,6 @@ export default function Caminos() {
             </RowCaminos>
           </ColumnMenu>
           <ColumnCamino>
-            <Row>
-              <Section role="sección" tabIndex={0} title="Caminos">
-                Caminos
-              </Section>
-            </Row>
             <Row>
               <TextWrapper>
                 <Heading

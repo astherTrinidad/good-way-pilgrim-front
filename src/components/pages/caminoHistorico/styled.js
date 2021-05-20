@@ -5,31 +5,51 @@ import { Link } from 'react-router-dom';
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 968px) {
     flex-direction: column;
   }
 `;
 
 export const DropMenu = styled.img`
-  width: 100%;
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 578px) {
+    display: block;
+    width: 80%;
+  }
 `;
 
 export const ColumnMenu = styled.div`
   display: flex;
   flex-direction: column;
-  width: 12%;
+  width: 15%;
   position: fixed;
-  @media screen and (max-width: 768px) {
+
+  @media screen and (max-width: 968px) {
+    width: 100%;
+    display: block;
+    position: relative;
+    margin-bottom: 4rem;
+  }
+
+  @media screen and (max-width: 578px) {
     position: relative;
     width: 100%;
+    margin-bottom: 0;
   }
 `;
 
 export const ColumnCamino = styled.div`
   display: flex;
   flex-direction: column;
-  width: 75%;
-  margin-left: 25%;
+  width: 80%;
+  margin-left: 30%;
   @media screen and (max-width: 968px) {
     margin: 0rem;
     width: 100%;
@@ -41,8 +61,9 @@ export const Container = styled.main`
   flex-direction: column;
   height: max-content;
   margin: 3rem auto;
-  width: 75%;
+  width: 80%;
 `;
+
 export const Section = styled.h1`
   color: ${colors.darkGrey};
   font-size: 1.5em;
@@ -50,12 +71,12 @@ export const Section = styled.h1`
   text-align: left;
   justify-content: left;
   align-items: left;
+  line-height: 1.5;
 `;
 
 export const RowCamino = styled.div`
   align-items: left;
   justify-content: left;
-  margin-bottom: 4rem;
   margin-top: -3rem;
   max-width: 100%;
 `;
@@ -104,7 +125,7 @@ export const TextLink = styled.p`
     margin-top: 3rem;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 968px) {
     padding-bottom: 65px;
     display: none;
   }
@@ -117,7 +138,7 @@ export const TextMenu = styled.p`
   &:nth-of-type(1) {
     margin-top: 1rem;
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 968px) {
     display: none;
   }
 `;
@@ -130,21 +151,6 @@ export const TextEtapa = styled.p`
   margin: 5rem auto 0 auto;
   max-width: 100%;
   text-align: left;
-`;
-
-export const TextEmptyEtapas = styled.p`
-  color: ${colors.darkGrey};
-  font-size: 1.25rem;
-  font-weight: 300;
-  justify-content: center;
-  line-height: 1.5;
-
-  &:first-of-type {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 7rem auto 1rem auto;
-    color: ${colors.turquoise};
-  }
 `;
 
 export const Heading = styled.h2`
@@ -166,8 +172,11 @@ export const Heading = styled.h2`
 
   @media screen and (max-width: 768px) {
     font-size: 1.5em;
-    margin-top: 1rem;
+    margin-top: 4rem;
     max-width: 100%;
+  }
+  @media screen and (max-width: 578px) {
+    display: none;
   }
 `;
 
@@ -175,7 +184,7 @@ export const Subtitle = styled.h3`
   color: ${colors.darkGrey};
   display: block;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.5em;
+  font-size: 1.25em;
   font-weight: 300;
   line-height: 1.5;
   margin-top: 1rem;
@@ -189,61 +198,11 @@ export const Subtitle = styled.h3`
     width: 100%;
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 768px) {
+    margin: 1rem 0 1rem 0;
+  }
+
+  @media screen and (max-width: 578px) {
     display: none;
-  }
-`;
-
-export const TextDownload = styled.a`
-  color: ${colors.turquoise};
-  cursor: pointer;
-  font-size: 1.25rem;
-  font-weight: 300;
-
-  &:nth-of-type(1) {
-    border-right: 1px solid ${colors.mustard};
-    padding: 0 2rem 0 0;
-
-    @media screen and (max-width: 578px) {
-      display: none;
-    }
-  }
-
-  &:nth-of-type(2) {
-    padding-left: 2rem;
-    border-right: 0;
-    @media screen and (max-width: 578px) {
-      display: none;
-    }
-  }
-
-  &:hover {
-    color: ${colors.darkGrey};
-  }
-`;
-
-export const ButtonSave = styled.button`
-  width: 50%;
-  border-radius: 8px;
-  background-color: ${colors.turquoise};
-  color: ${colors.white};
-  font-style: normal;
-  font-weight: 500;
-  font-size: 1rem;
-  justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  margin: 1rem auto;
-  padding: 1rem 1rem;
-  transition: all 0.3s ease-out;
-
-  &:hover {
-    background: ${colors.turquoiseDark};
-    color: ${colors.white};
-    cursor: pointer;
-    box-shadow: inset 0px 11px 8px -10px ${colors.black};
-  }
-  @media screen and (max-width: 960px) {
-    display: block;
-    margin: 1rem auto;
   }
 `;
