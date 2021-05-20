@@ -14,9 +14,10 @@ const url = {
   caminos: '/pri/allPaths',
   addActivePath: '/pri/addActivePath',
   activePath: '/pri/getActivePath',
-  caminoActual: '/pri/getActivePath',
   archivePath: '/pri/archivePath',
+  finishPath: '/pri/finishPath',
   etapasRealizadas: '/pri/getEtapasRealizadas',
+  addEtapa: '/pri/addEtapa',
   csvDownload: '/pub/csv_download',
 };
 

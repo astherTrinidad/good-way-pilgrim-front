@@ -33,7 +33,7 @@ export const RowLogros = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 50%;
+  max-width: 55%;
   height: max-content;
   margin: 4rem auto;
   @media screen and (max-width: 768px) {
