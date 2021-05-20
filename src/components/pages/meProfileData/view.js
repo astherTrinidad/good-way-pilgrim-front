@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { Navbar, Footer } from '../../organisms';
 import url from '../../../config/url';
 import profilePhoto from '../../../assets/images/photo-profile-generic.png';
+import conchaBN from '../../../assets/images/etapaBN.png';
+
 import {
   Header,
   PhotoProfile,
@@ -74,6 +76,11 @@ export default function MeProfileData() {
     );
   });
 
+  const numAchievements = [1, 2, 3];
+  const renderEmptyAchievement = numAchievements.map(() => {
+    return <Logro id="2" src={conchaBN} alt="{item.name}" tabIndex={0} />;
+  });
+  console.log('datos: ' + userData.achievements);
   return (
     <>
       <GlobalStyle />
@@ -90,16 +97,41 @@ export default function MeProfileData() {
           <SurnameProfile>{userData?.surname}</SurnameProfile>
         </ContainerName>
         <TextWrapper>
-          <Heading aria-label="Tus últimos logros conseguidos" tabIndex="0">
-            Tus últimos logros conseguidos
-          </Heading>
-          <Subtitle aria-label="¡Enhorabuena!" tabIndex="0">
-            ¡Enhorabuena!
-          </Subtitle>
+          {userData.achievements < 1 ? (
+            <>
+              <Heading
+                aria-label="Aquí se mostrarán tus últimos logros"
+                tabIndex="0"
+              >
+                Aquí se mostrarán tus últimos logros
+              </Heading>
+              <Subtitle
+                aria-label="¿A qué esperas para conseguirlos?"
+                tabIndex="0"
+              >
+                ¿A qué esperas para conseguirlo?
+              </Subtitle>
+            </>
+          ) : (
+            <>
+              <Heading aria-label="Tus últimos logros conseguidos" tabIndex="0">
+                Tus últimos logros conseguidos
+              </Heading>
+              <Subtitle aria-label="¡Enhorabuena!" tabIndex="0">
+                ¡Enhorabuena!
+              </Subtitle>
+            </>
+          )}
         </TextWrapper>
-        <RowLogros tabIndex={0} aria-label="Logros">
-          {renderLastLogros}
-        </RowLogros>
+        {userData.achievements < 1 ? (
+          <RowLogros tabIndex={0} aria-label="Logros">
+            {renderEmptyAchievement}
+          </RowLogros>
+        ) : (
+          <RowLogros tabIndex={0} aria-label="Logros">
+            {renderLastLogros}
+          </RowLogros>
+        )}
         <Row>
           <Column>
             <TextWrapper>
