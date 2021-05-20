@@ -199,11 +199,11 @@ export const TextType = styled.p`
 export const ConchaIcon = styled.div`
   display: block;
   background-image: url(${concha});
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
   height: 30px;
   width: 30px;
-  margin: 0.5rem auto;
+  margin: 0.75rem auto;
   background-color: ${colors.mustard};
 `;
 
@@ -215,7 +215,7 @@ export const ConchaIconContainer = styled.div`
   position: absolute;
   background-color: ${colors.mustard};
   margin-top: -100px;
-  margin-left: 50px;
+
   @media screen and (max-width: 578px) {
     margin-left: 0;
   }
@@ -223,12 +223,12 @@ export const ConchaIconContainer = styled.div`
 
 export const Line = styled.hr`
   border: 2px solid ${colors.mustard};
-  width: 150px;
+  width: 200px;
   transform: rotate(90deg);
   position: absolute;
-  margin: 3rem 0 0 50px;
+  margin: 4rem 0 0 0;
   z-index: -25;
   @media screen and (max-width: 578px) {
-    margin: 3rem 0 0 0;
+    margin: 4rem 0 0 0;
   }
 `;
