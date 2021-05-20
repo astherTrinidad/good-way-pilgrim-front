@@ -197,7 +197,7 @@ export default function Caminos() {
                 {renderPathsToSubmenu}
               </TextMenu>
               <TextLink>Camino actual</TextLink>
-              <TextLink>Histórico de caminos</TextLink>
+              <TextLink>Historial de caminos</TextLink>
             </RowCaminos>
           </ColumnMenu>
           <ColumnCamino>

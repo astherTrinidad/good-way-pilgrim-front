@@ -85,7 +85,7 @@ const Navbar = () => {
                 Camino actual
               </NavLinksMenu>
               <NavLinksMenu to={appRoutes.caminoHistorico}>
-                Histórico de caminos
+                Historial de caminos
               </NavLinksMenu>
               <NavBtnLink to={appRoutes.login}>
                 <Button onClick={closeSession} fontBig>
@@ -111,7 +111,7 @@ const Navbar = () => {
                 Camino actual
               </NavLinksMenu>
               <NavLinksMenu to={appRoutes.caminoHistorico}>
-                Histórico de caminos
+                Historial de caminos
               </NavLinksMenu>
               <ConchaIcon />
 

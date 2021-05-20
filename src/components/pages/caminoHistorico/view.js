@@ -136,7 +136,7 @@ export default function CaminoHistorico() {
       <Container>
         <Row>
           <ColumnMenu>
-            <Section role="sección" tabIndex={0} title="Histórico de caminos">
+            <Section role="sección" tabIndex={0} title="Historial de caminos">
               Historial de caminos
             </Section>
             <DropMenu src={dropTop} alt="" />
@@ -144,7 +144,7 @@ export default function CaminoHistorico() {
               <TextLink>Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
               <TextLink>Camino actual</TextLink>
-              <TextLink>Histórico de caminos</TextLink>
+              <TextLink>Historial de caminos</TextLink>
             </RowCamino>
           </ColumnMenu>
           <ColumnCamino>

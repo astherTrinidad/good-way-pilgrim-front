@@ -7,7 +7,7 @@ const routes = {
   meLogros: '/logros',
   caminos: '/caminos',
   caminoActual: '/camino-actual',
-  caminoHistorico: '/historico-de-caminos',
+  caminoHistorico: '/historial-de-caminos',
   frequentQuestion: '/preguntas-frecuentes',
   privacyConsumers: '/politicas-de-privacidad',
 };

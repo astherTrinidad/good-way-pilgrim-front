@@ -20,7 +20,7 @@ const AsideCaminos = () => {
           <a href="">Camino actual</a>
         </li>
         <li>
-          <a href="">Histórico de Caminos</a>
+          <a href="">Historial de Caminos</a>
         </li>
       </ul>
     </Nav>
