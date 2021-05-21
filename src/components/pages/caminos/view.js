@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import _findIndex from 'lodash/findIndex';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import FileSaver from 'file-saver';
 import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
 import url from '../../../config/url';
+
 import {
   Container,
   Section,
@@ -36,7 +37,6 @@ export default function Caminos() {
     start_date: '',
   });
   const [etapasCamino, setEtapasCamino] = useState([]);
-
   const getCurrentDate = () => {
     let addPathDate = new Date();
     let day =
@@ -162,10 +162,18 @@ export default function Caminos() {
       </>
     );
   });
+
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
     // console.log(`/caminos/#${item.id}`);
+    console.log('nombre: ' + allCaminos[paths].name);
 
-    return <CaminoEtapa key={paths} name={item.name} />;
+    return (
+      <CaminoEtapa
+        href={`#${allCaminos[paths].id}`}
+        key={paths}
+        name={item.name}
+      />
+    );
   });
 
   const onClickCSV = async event => {
@@ -187,22 +195,20 @@ export default function Caminos() {
       <Container>
         <Row>
           <ColumnMenu>
+            <Section role="sección" tabIndex={0} title="Caminos">
+              Caminos
+            </Section>
             <DropMenu src={dropTop} alt="" />
             <RowCaminos tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
-              <TextMenu to={`./#${renderPaths.id}`}>
-                {renderPathsToSubmenu}
-              </TextMenu>
-              <TextLink>Camino actual</TextLink>
-              <TextLink>Histórico de caminos</TextLink>
+              <TextMenu>{renderPathsToSubmenu}</TextMenu>
+              <TextLink href="/camino-actual">Camino actual</TextLink>
+              <TextLink href="/historial-de-caminos">
+                Historial de caminos
+              </TextLink>
             </RowCaminos>
           </ColumnMenu>
           <ColumnCamino>
-            <Row>
-              <Section role="sección" tabIndex={0} title="Caminos">
-                Caminos
-              </Section>
-            </Row>
             <Row>
               <TextWrapper>
                 <Heading

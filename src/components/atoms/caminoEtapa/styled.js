@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
 
-export const ContainerEtapa = styled.div`
+export const ContainerEtapa = styled.a`
   align-items: left;
   display: flex;
   flex-direction: column;

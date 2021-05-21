@@ -11,13 +11,25 @@ export const Row = styled.div`
 `;
 
 export const DropMenu = styled.img`
-  width: 100%;
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 578px) {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+  }
 `;
 
 export const ColumnMenu = styled.div`
   display: flex;
   flex-direction: column;
-  width: 12%;
+  width: 15%;
   position: fixed;
   @media screen and (max-width: 768px) {
     position: relative;
@@ -28,8 +40,8 @@ export const ColumnMenu = styled.div`
 export const ColumnCamino = styled.div`
   display: flex;
   flex-direction: column;
-  width: 75%;
-  margin-left: 25%;
+  width: 80%;
+  margin-left: 30%;
   @media screen and (max-width: 968px) {
     margin: 0rem;
     width: 100%;
@@ -42,7 +54,7 @@ export const Container = styled.main`
   height: max-content;
   justify-content: center;
   margin: 3rem auto;
-  width: 75%;
+  width: 80%;
 `;
 export const Section = styled.h1`
   color: ${colors.darkGrey};
@@ -89,7 +101,7 @@ export const TextWrapper = styled.div`
   }
 `;
 
-export const TextLink = styled.p`
+export const TextLink = styled.a`
   align-items: left;
   border-bottom: 1px solid ${colors.turquoise};
   color: ${colors.darkGrey};
@@ -176,7 +188,7 @@ export const Subtitle = styled.h3`
   color: ${colors.darkGrey};
   display: block;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.5em;
+  font-size: 1.25em;
   font-weight: 300;
   line-height: 1.5;
   margin-top: 1rem;

@@ -74,7 +74,12 @@ export default function CaminoHistorico() {
       console.log(responseReactive);
       setReactivePath(responseReactive);
       const responseAllUserPaths = await apiMyPaths();
-      setAllUserPath(responseAllUserPaths);
+
+      if (responseReactive.message == 'User already has an active path') {
+        toast.info(
+          'Ya tienes un camino activo. Archívalo o termínalo antes de activar este'
+        );
+      }
 
       if (
         responseReactive.message == 'Expired token' ||
@@ -110,12 +115,16 @@ export default function CaminoHistorico() {
           finish_date={item.finish_date}
           etapas={item.etapas}
         />
-        <ButtonTurquoise
-          id={item.id}
-          label="Reactivar"
-          value="reactive"
-          onClick={onClickReactive}
-        />
+        {item.status !== 'Completed' ? (
+          <ButtonTurquoise
+            id={item.id}
+            label="Reactivar"
+            value="reactive"
+            onClick={onClickReactive}
+          />
+        ) : (
+          <></>
+        )}
       </>
     );
   });
@@ -127,20 +136,47 @@ export default function CaminoHistorico() {
       <Container>
         <Row>
           <ColumnMenu>
+            <Section role="sección" tabIndex={0} title="Historial de caminos">
+              Historial de caminos
+            </Section>
             <DropMenu src={dropTop} alt="" />
             <RowCamino tabIndex={0} aria-label="Caminos">
-              <TextLink>Caminos</TextLink>
+              <TextLink href="/caminos">Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
-              <TextLink>Camino actual</TextLink>
-              <TextLink>Histórico de caminos</TextLink>
+              <TextLink href="/camino-actual">Camino actual</TextLink>
+              <TextLink>Historial de caminos</TextLink>
             </RowCamino>
           </ColumnMenu>
           <ColumnCamino>
-            <Row>
-              <Section role="sección" tabIndex={0} title="Histórico de caminos">
-                Histórico de caminos
-              </Section>
-            </Row>
+            <RowCamino tabIndex={0} aria-label="Caminos">
+              <TextWrapper>
+                <Heading
+                  aria-label="¿No recuerdas que caminos realizaste?"
+                  tabIndex="0"
+                >
+                  ¿No recuerdas que caminos realizaste?
+                </Heading>
+                <Subtitle
+                  aria-label="Puedes recordar los caminos que marcaste como terminados o
+                  retomar caminos archivados. Para esto último sólo tienes que
+                  elegir el camino deseado y pulsar en el botón de Reactivar."
+                  tabIndex="0"
+                >
+                  ¿No recuerdas que caminos realizaste? Puedes recordar los
+                  caminos que marcaste como terminados o retomar caminos
+                  archivados. Para esto último sólo tienes que elegir el camino
+                  deseado y pulsar en el botón de Reactivar.
+                </Subtitle>
+                <Subtitle
+                  aria-label="No
+                  olvides revisar que no tengas ningún camino activo."
+                  tabIndex="0"
+                >
+                  No olvides revisar que no tengas ningún camino activo.
+                </Subtitle>
+              </TextWrapper>
+            </RowCamino>
+
             {renderUserPaths}
           </ColumnCamino>
         </Row>
