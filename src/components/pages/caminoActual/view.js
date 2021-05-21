@@ -30,7 +30,13 @@ import {
   DropMenu,
   TextEmptyEtapas,
 } from './styled';
-import { ButtonTurquoise, Camino, CaminoEtapa, EtapaActual } from '../../atoms';
+import {
+  ButtonTurquoise,
+  ButtonGreen,
+  Camino,
+  CaminoEtapa,
+  EtapaActual,
+} from '../../atoms';
 import dropTop from '../../../assets/images/gota-user-profile.png';
 import pathBN from '../../../assets/images/etapaBN.png';
 import pathColor from '../../../assets/images/etapaColor.png';
@@ -72,9 +78,7 @@ export default function Caminos() {
       const responseArchivePath = await apiArchivePath(archivePath);
 
       if (responseArchivePath.message === 'success') {
-        toast.success(
-          'Camino archivado. ¡Descubre nuevos caminos en la pestaña caminos!'
-        );
+        toast.success('¡Camino archivado!');
       } else if (responseArchivePath.message === 'Expired token') {
         history.replace(appRoutes.login);
         toast.info(
@@ -221,7 +225,7 @@ export default function Caminos() {
                 </RowCamino>
 
                 <RowEtapas>{renderPaths}</RowEtapas>
-                <ButtonTurquoise
+                <ButtonGreen
                   id={activePath?.id}
                   label="Terminar Camino"
                   type="button"
@@ -229,6 +233,7 @@ export default function Caminos() {
                   onClick={handleClickOpenModalDelete}
                   isFetching={isFetching}
                 />
+
                 <Dialog
                   open={open}
                   TransitionComponent={Transition}

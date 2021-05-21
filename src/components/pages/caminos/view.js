@@ -67,11 +67,11 @@ export default function Caminos() {
       } else {
         if (respuesta.message == 'User already has an active path') {
           toast.info(
-            'Ya tienes un camino activo. Por favor, archívalo antes de añadir uno nuevo.'
+            'Ya tienes un camino actual. Archívalo antes de añadir uno nuevo.'
           );
         } else if (respuesta.message == 'User already has this path') {
           toast.info(
-            'Ya realizaste el camino. Por favor, selecciona uno nuevo o accede a tu histórico de caminos.'
+            'Ya realizaste este camino. Consulta tu historial o selecciona otro.'
           );
         }
         if (respuesta.message == 'Expired token') {
@@ -134,10 +134,10 @@ export default function Caminos() {
           id={item.id}
           type="button"
           value="add"
-          name="Añadir camino"
+          name="Añadir camino a Camino actual"
           onClick={onClickAddPath}
         >
-          Añadir camino
+          Añadir a Camino actual
         </ButtonSave>
         <TextEtapa>Etapas</TextEtapa>
         <CaminoEtapa
