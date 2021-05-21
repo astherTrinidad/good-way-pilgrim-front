@@ -71,15 +71,20 @@ export default function CaminoHistorico() {
     try {
       reactivePath.camino = event.target.id;
       const responseReactive = await apiReactivePath(reactivePath);
-      console.log(responseReactive);
-      setReactivePath(responseReactive);
+      console.log('reactiveSMS: ' + responseReactive.message);
       const responseAllUserPaths = await apiMyPaths();
+      // setReactivePath(responseReactive);
 
-      if (responseReactive.message == 'User already has an active path') {
+      if (responseReactive.message == 'success') {
+        toast.info('¡Camino reactivado!');
+      } else if (
+        responseReactive.message == 'User already has an active path'
+      ) {
         toast.info(
-          'Ya tienes un camino activo. Archívalo o termínalo antes de activar este'
+          'Ya tienes un camino actual. Archívalo o termínalo antes de activar este'
         );
       }
+      // history.replace(appRoutes.caminos);
 
       if (
         responseReactive.message == 'Expired token' ||
@@ -162,17 +167,9 @@ export default function CaminoHistorico() {
                   elegir el camino deseado y pulsar en el botón de Reactivar."
                   tabIndex="0"
                 >
-                  ¿No recuerdas que caminos realizaste? Puedes recordar los
-                  caminos que marcaste como terminados o retomar caminos
-                  archivados. Para esto último sólo tienes que elegir el camino
-                  deseado y pulsar en el botón de Reactivar.
-                </Subtitle>
-                <Subtitle
-                  aria-label="No
-                  olvides revisar que no tengas ningún camino activo."
-                  tabIndex="0"
-                >
-                  No olvides revisar que no tengas ningún camino activo.
+                  Puedes recordar los caminos que marcaste como terminados o
+                  retomar caminos archivados. Para esto último sólo tienes que
+                  elegir el camino deseado y pulsar en el botón de Reactivar.
                 </Subtitle>
               </TextWrapper>
             </RowCamino>

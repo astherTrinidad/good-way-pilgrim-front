@@ -77,7 +77,9 @@ const ConfirmFinishPath = () => {
             alt="Ilustración de una chico corriendo"
           />
           <DialogContentText>
-            {'Una vez marcado no podrás deshacerlo ¿estás seguro?'}
+            {
+              'Si deseas marcar este camino como terminado, no podrás reactivarlo. ¿Estás seguro?'
+            }
           </DialogContentText>
         </DialogContent>
         <DialogActions>

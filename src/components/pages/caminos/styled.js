@@ -11,18 +11,11 @@ export const Row = styled.div`
 `;
 
 export const DropMenu = styled.img`
-  display: none;
+  margin: 0 auto 3rem auto;
+  width: 100%;
 
   @media screen and (max-width: 768px) {
-    display: block;
-    width: 50%;
-    margin: 0 auto;
-  }
-
-  @media screen and (max-width: 578px) {
-    display: block;
     width: 80%;
-    margin: 0 auto;
   }
 `;
 

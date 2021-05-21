@@ -1,6 +1,7 @@
 import TextInput from './text-input';
 import TextInputEditForm from './text-inputEditForm';
 import Button from './button';
+import ButtonGreen from './buttonGreen';
 import ButtonTurquoise from './buttontTurquoise';
 import FormHeader from './form-header';
 import List from './list';
@@ -13,6 +14,7 @@ import EtapaActual from './etapaActual';
 export {
   TextInput,
   Button,
+  ButtonGreen,
   ButtonTurquoise,
   FormHeader,
   TextInputEditForm,
