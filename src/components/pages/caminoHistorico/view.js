@@ -27,7 +27,7 @@ import {
   TextEmptyEtapas,
 } from './styled';
 import { ButtonTurquoise, Camino, CaminoEtapa, EtapaActual } from '../../atoms';
-import dropTop from '../../../assets/images/gota-user-profile.png';
+import dropTop from '../../../assets/images/gota-historial-de-caminos.png';
 import PathsData from '../../molecules';
 
 export default function CaminoHistorico() {
@@ -43,7 +43,6 @@ export default function CaminoHistorico() {
         const response = await apiAllPaths();
 
         const responseAllUserPaths = await apiMyPaths();
-        console.log('response user' + responseAllUserPaths.message);
 
         if (
           response.message == 'Expired token' ||
@@ -71,7 +70,6 @@ export default function CaminoHistorico() {
     try {
       reactivePath.camino = event.target.id;
       const responseReactive = await apiReactivePath(reactivePath);
-      console.log('reactiveSMS: ' + responseReactive.message);
       const responseAllUserPaths = await apiMyPaths();
       // setReactivePath(responseReactive);
 
@@ -103,8 +101,6 @@ export default function CaminoHistorico() {
   };
 
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
-    // console.log(`/caminos/#${item.id}`);
-
     return <CaminoEtapa key={paths} name={item.name} />;
   });
 

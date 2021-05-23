@@ -37,7 +37,7 @@ import {
   CaminoEtapa,
   EtapaActual,
 } from '../../atoms';
-import dropTop from '../../../assets/images/gota-user-profile.png';
+import dropTop from '../../../assets/images/gota-camino-actual.png';
 import pathBN from '../../../assets/images/etapaBN.png';
 import pathColor from '../../../assets/images/etapaColor.png';
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -154,8 +154,6 @@ export default function Caminos() {
     }
   };
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
-    // console.log(`/caminos/#${item.id}`);
-
     return <CaminoEtapa key={paths} name={item.name} />;
   });
 

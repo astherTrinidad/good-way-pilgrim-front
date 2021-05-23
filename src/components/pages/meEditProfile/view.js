@@ -47,7 +47,6 @@ export default function MeEditProfile() {
   });
 
   const validate = useCallback(() => {
-    console.log('en validate');
     const newErrors = {
       name: '',
       surname: '',

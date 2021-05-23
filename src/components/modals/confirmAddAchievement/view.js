@@ -36,10 +36,6 @@ const ConfirmAddAchievement = () => {
     return (addAchievementDate = year + '-' + month + '-' + day);
   };
 
-  const getAchievementId = () => {
-    console.log('id');
-  };
-
   const onClickAddAchievement = async event => {
     event.preventDefault();
     try {
@@ -47,7 +43,6 @@ const ConfirmAddAchievement = () => {
       setUserAchievement(idL);
       const achievementDate = (userAchievement.date = getCurrentDate());
       setUserAchievement(achievementDate);
-      console.log('*** id ** ' + getAchievementId());
 
       var respuesta = await apiAddAchievement(userAchievement);
       if (respuesta.message == 'success') {

@@ -22,12 +22,13 @@ import {
   ButtonSave,
   TextEtapa,
   TextMenu,
+  TextMenuNav,
   TextLink,
   DropMenu,
 } from './styled';
 import { Camino, Etapa, CaminoEtapa } from '../../atoms';
 import etapasPDF from '../../../assets/downloadPDF/etapasPDF.pdf';
-import dropTop from '../../../assets/images/gota-user-profile.png';
+import dropTop from '../../../assets/images/gota-caminos.png';
 
 export default function Caminos() {
   const history = useHistory();
@@ -115,8 +116,6 @@ export default function Caminos() {
   }, []);
 
   const renderPaths = allCaminos.map((item, paths) => {
-    // console.log(`lalalla/caminos/#${item.id}`);
-
     return (
       <>
         <Camino
@@ -164,9 +163,6 @@ export default function Caminos() {
   });
 
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
-    // console.log(`/caminos/#${item.id}`);
-    console.log('nombre: ' + allCaminos[paths].name);
-
     return (
       <CaminoEtapa
         href={`#${allCaminos[paths].id}`}
@@ -198,6 +194,8 @@ export default function Caminos() {
             <Section role="sección" tabIndex={0} title="Caminos">
               Caminos
             </Section>
+            <TextMenuNav>{renderPathsToSubmenu}</TextMenuNav>
+
             <DropMenu src={dropTop} alt="" />
             <RowCaminos tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
@@ -215,7 +213,8 @@ export default function Caminos() {
                   aria-label="Olvídate del tiempo y simplemente camina"
                   tabIndex="0"
                 >
-                  Olvídate del tiempo y simplemente camina
+                  Olvídate del tiempo, escucha la naturaleza, disfruta de la
+                  brisa mañanera y camina
                 </Heading>
                 <Subtitle
                   aria-label="Emprende el camino y al final del día selecciona 

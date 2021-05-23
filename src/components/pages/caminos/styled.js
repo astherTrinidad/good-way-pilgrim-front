@@ -15,7 +15,7 @@ export const DropMenu = styled.img`
   width: 100%;
 
   @media screen and (max-width: 768px) {
-    width: 80%;
+    width: 100%;
   }
 `;
 
@@ -115,6 +115,20 @@ export const TextMenu = styled.p`
   }
   @media screen and (max-width: 768px) {
     display: none;
+  }
+`;
+
+export const TextMenuNav = styled.p`
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  margin-top: 2rem;
+  text-align: center;
+  position: fixed;
+  background-color: ${colors.white};
+
+  &:nth-of-type(1) {
+    margin-top: 4rem;
   }
 `;
 
