@@ -60,7 +60,7 @@ const ConfirmFinishPath = () => {
       setIsfetching(false);
       history.replace(appRoutes.caminos);
     } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+      console.log('Error del servidor. Por favor, inténtelo de nuevo');
       setIsfetching(false);
     }
   };

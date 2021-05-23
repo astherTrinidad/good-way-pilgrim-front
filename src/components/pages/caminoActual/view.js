@@ -89,7 +89,7 @@ export default function Caminos() {
 
       history.replace(appRoutes.caminos);
     } catch {
-      toast.error(
+      console.log(
         'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
       );
       setIsfetching(false);
@@ -119,7 +119,7 @@ export default function Caminos() {
           history.replace(appRoutes.login);
         }
       } catch {
-        toast.error(
+        console.log(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
         );
       }
@@ -150,7 +150,7 @@ export default function Caminos() {
         history.replace(appRoutes.login);
       }
     } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+      console.log('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {

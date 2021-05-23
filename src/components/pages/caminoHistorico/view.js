@@ -57,7 +57,7 @@ export default function CaminoHistorico() {
           setAllUserPath(responseAllUserPaths);
         }
       } catch {
-        toast.error(
+        console.log(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
         );
       }
@@ -94,7 +94,7 @@ export default function CaminoHistorico() {
         history.replace(appRoutes.login);
       }
     } catch (e) {
-      toast.error(
+      console.log(
         'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
       );
     }

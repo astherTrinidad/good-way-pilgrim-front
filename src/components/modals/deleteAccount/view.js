@@ -24,7 +24,7 @@ const DeleteAccountModal = () => {
       sessionStorage.removeItem('token');
       history.replace(appRoutes.login);
     } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+      console.log('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
 

@@ -84,7 +84,7 @@ export default function Caminos() {
         }
       }
     } catch {
-      toast.error(
+      console.log(
         'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
       );
     }
@@ -107,7 +107,7 @@ export default function Caminos() {
           history.replace(appRoutes.login);
         }
       } catch {
-        toast.error(
+        console.log(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
         );
       }
@@ -178,7 +178,7 @@ export default function Caminos() {
       const csvData = new Blob([datos], { type: 'text/csv;charset=utf-8;' });
       FileSaver.saveAs(csvData, 'GWP_caminos.csv');
     } catch {
-      toast.error(
+      console.log(
         'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
       );
     }

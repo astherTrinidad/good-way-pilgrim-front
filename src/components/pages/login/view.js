@@ -89,7 +89,7 @@ export default function Login() {
 
         setIsfetching(false);
       } catch (e) {
-        toast.error('Error del servidor. Inténtelo más tarde');
+        console.log('Error del servidor. Inténtelo más tarde');
         setIsfetching(false);
       }
     } else {

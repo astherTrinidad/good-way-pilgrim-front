@@ -84,7 +84,7 @@ export default function MeLogros() {
           history.replace(appRoutes.login);
         }
       } catch (e) {
-        toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+        console.log('Error del servidor. Por favor, inténtelo de nuevo');
       }
     } else {
       setIsColor(true);
@@ -110,7 +110,7 @@ export default function MeLogros() {
           history.replace(appRoutes.login);
         }
       } catch (e) {
-        toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+        console.log('Error del servidor. Por favor, inténtelo de nuevo');
       }
     }
   };
@@ -130,7 +130,7 @@ export default function MeLogros() {
           setUserLogros(myAchievementsResponse);
         }
       } catch {
-        toast.error(
+        console.log(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
         );
       }

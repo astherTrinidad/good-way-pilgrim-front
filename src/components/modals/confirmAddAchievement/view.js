@@ -55,7 +55,7 @@ const ConfirmAddAchievement = () => {
         history.replace(appRoutes.login);
       }
     } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+      console.log('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
   return (

@@ -57,7 +57,7 @@ const Navbar = () => {
           setUserData(rutaPerfil);
         }
       } catch {
-        toast.error(
+        console.log(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
         );
       }
