@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import appRoutes from '../../../config/appRoutes';
 import url from '../../../config/url';
 import { toast } from 'react-toastify';
-import { FaTimes, FaRegUserCircle } from 'react-icons/fa';
+import { FaTimes, FaRegUserCircle, FaBars } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { Button } from '../../../globalStyles';
 import {
@@ -65,6 +65,7 @@ const Navbar = () => {
     fetchProfile();
   }, []);
 
+  console.log(window.innerWidth);
   return (
     <IconContext.Provider
       value={{ color: '#ffff' }}
@@ -131,7 +132,15 @@ const Navbar = () => {
           </NavMenu>
           <MobileIcon>
             <IconUser onClick={handleClick} aria-label="Acceso área usuario">
-              {click ? <FaRegUserCircle /> : <FaTimes className="FaTimes" />}
+              {click ? (
+                window.innerWidth >= 578 ? (
+                  <FaRegUserCircle />
+                ) : (
+                  <FaBars className="FaBars" />
+                )
+              ) : (
+                <FaTimes className="FaTimes" />
+              )}
             </IconUser>
           </MobileIcon>
         </NavbarContainer>

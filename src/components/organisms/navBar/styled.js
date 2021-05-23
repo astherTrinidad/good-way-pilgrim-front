@@ -100,6 +100,14 @@ export const IconUser = styled.div`
     height: 63px;
     padding: 1rem;
   }
+
+  .FaBars {
+    margin-top: -22px;
+    margin-right: -23px;
+    width: 63px;
+    height: 63px;
+    padding: 1rem;
+  }
 `;
 
 export const NavMenuUser = styled.ul`
