@@ -16,7 +16,18 @@ export const Name = styled.p`
 
   @media screen and (max-width: 578px) {
     padding-bottom: 1rem;
-    border-bottom: 2px solid ${colors.mustard};
+  }
+`;
+
+export const Status = styled.span`
+  padding-left: 1.5rem;
+  font-size: 0.938rem;
+  font-weight: 300;
+  color: ${colors.mustard};
+
+  @media screen and (max-width: 768px) {
+    font-size: 1rem;
+    border-right: 0;
   }
 `;
 

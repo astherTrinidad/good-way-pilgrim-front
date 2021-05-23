@@ -105,13 +105,15 @@ export default function CaminoHistorico() {
   });
 
   const renderUserPaths = allUserPath.map((item, paths) => {
+    console.log(item.status);
+    const pathStatus = item.status === 'Completed' ? 'Completado' : 'Archivado';
     return (
       <>
         <PathsData
           key={paths}
           id={item.id}
           name={item.name}
-          status={item.status}
+          status={pathStatus}
           start_date={item.start_date}
           finish_date={item.finish_date}
           etapas={item.etapas}
