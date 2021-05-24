@@ -27,7 +27,7 @@ import {
   DropMenu,
 } from './styled';
 import { Camino, Etapa, CaminoEtapa } from '../../atoms';
-import etapasPDF from '../../../assets/downloadPDF/etapasPDF.pdf';
+import GWPcaminoEtapas from '../../../assets/downloadPDF/GWPcaminoEtapas.pdf';
 import dropTop from '../../../assets/images/gota-caminos.png';
 
 export default function Caminos() {
@@ -194,7 +194,7 @@ export default function Caminos() {
             <Section role="sección" tabIndex={0} title="Caminos">
               Caminos
             </Section>
-            <TextMenuNav>{renderPathsToSubmenu}</TextMenuNav>
+            {/* <TextMenuNav>{renderPathsToSubmenu}</TextMenuNav> */}
 
             <DropMenu src={dropTop} alt="" />
             <RowCaminos tabIndex={0} aria-label="Caminos">
@@ -233,7 +233,7 @@ export default function Caminos() {
                   </TextDownload>
                   <TextDownload
                     tabIndex="Descargar pdf etapas"
-                    href={etapasPDF}
+                    href={GWPcaminoEtapas}
                     download
                   >
                     Descargar pdf etapas

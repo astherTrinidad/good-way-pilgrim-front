@@ -74,7 +74,7 @@ export default function CaminoHistorico() {
       // setReactivePath(responseReactive);
 
       if (responseReactive.message == 'success') {
-        toast.info('¡Camino reactivado!');
+        toast.success('¡Camino reactivado!');
       } else if (
         responseReactive.message == 'User already has an active path'
       ) {
