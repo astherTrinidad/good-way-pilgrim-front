@@ -170,7 +170,7 @@ export const Subtitle = styled.h3`
   color: ${colors.darkGrey};
   display: block;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: 300;
   line-height: 1.5;
   margin-top: 1rem;

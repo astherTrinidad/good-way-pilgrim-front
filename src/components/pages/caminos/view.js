@@ -27,7 +27,7 @@ import {
   DropMenu,
 } from './styled';
 import { Camino, Etapa, CaminoEtapa } from '../../atoms';
-import GWPcaminoEtapas from '../../../assets/downloadPDF/GWPcaminoEtapas.pdf';
+import GWPinfoCaminos from '../../../assets/downloadPDF/GWPinfoCaminos.pdf';
 import dropTop from '../../../assets/images/gota-caminos.png';
 
 export default function Caminos() {
@@ -217,13 +217,17 @@ export default function Caminos() {
                   brisa mañanera y camina
                 </Heading>
                 <Subtitle
+                  aria-label="Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los cinco caminos que aparecen en esta página y a continuación pulses en Añadir a camino actual para incluirlo en tu perfil."
+                  tabIndex="0"
+                >
+                  Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los cinco caminos que aparecen en esta página y a continuación pulses en "Añadir a camino actual" para incluirlo en tu perfil. 
+                </Subtitle>
+                <Subtitle
                   aria-label="Emprende el camino y al final del día selecciona 
               los logros conseguidos"
                   tabIndex="0"
                 >
-                  Puedes descargárte toda la información de los caminos y de las
-                  etapas seleccionando en los siguientes enlaces.
-                </Subtitle>
+                Una vez añadido, podrás ver cada una de las etapas que componen ese camino, y al final del día sólo tendrás que marcar aquellas etapas que hayas finalizado.</Subtitle>
                 <Row>
                   <TextDownload
                     tabIndex="Descargar csv caminos"
@@ -233,7 +237,7 @@ export default function Caminos() {
                   </TextDownload>
                   <TextDownload
                     tabIndex="Descargar pdf etapas"
-                    href={GWPcaminoEtapas}
+                    href={GWPinfoCaminos}
                     download
                   >
                     Descargar pdf etapas
