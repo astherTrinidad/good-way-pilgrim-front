@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
-import { Link } from 'react-router-dom';
 
 export const Row = styled.div`
   display: flex;
@@ -11,8 +10,8 @@ export const Row = styled.div`
 `;
 
 export const DropMenu = styled.img`
-  margin: 0 auto 3rem auto;
-  width: 100%;
+  margin: 0 auto 1rem auto;
+  width: 90%;
 
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -196,13 +195,10 @@ export const Subtitle = styled.h3`
 
   @media screen and (max-width: 960px) {
     font-size: 1em;
-    margin: 0 0 1rem 0;
+    margin: 1rem 0 1rem 0;
     width: 100%;
   }
 
-  @media screen and (max-width: 767px) {
-    display: none;
-  }
 `;
 
 export const TextDownload = styled.a`
@@ -215,9 +211,15 @@ export const TextDownload = styled.a`
     border-right: 1px solid ${colors.mustard};
     padding: 0 2rem 0 0;
 
+    @media screen and(max-width: 768px){
+      padding: 0;
+
+    }
+
     @media screen and (max-width: 578px) {
       display: none;
     }
+
   }
 
   &:nth-of-type(2) {

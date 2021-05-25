@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
-import { Link } from 'react-router-dom';
 
 export const Row = styled.div`
   display: flex;
@@ -11,11 +10,11 @@ export const Row = styled.div`
 `;
 
 export const DropMenu = styled.img`
-  margin: 0 auto 3rem auto;
-  width: 100%;
+  margin: 0 auto 1rem auto;
+  width: 90%;
 
   @media screen and (max-width: 768px) {
-    width: 80%;
+    width: 100%;
   }
 `;
 
@@ -144,18 +143,6 @@ export const TextEtapa = styled.p`
 `;
 
 export const TextEmptyEtapas = styled.p`
-  color: ${colors.darkGrey};
-  font-size: 1.25rem;
-  font-weight: 300;
-  justify-content: center;
-  line-height: 1.5;
-
-  &:first-of-type {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 7rem auto 1rem auto;
-    color: ${colors.turquoise};
-  }
 `;
 
 export const Heading = styled.h2`
@@ -167,7 +154,7 @@ export const Heading = styled.h2`
   line-height: 1.5;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 1rem;
+  margin-top: 4.5rem;
   text-align: left;
   width: 100%;
 
@@ -201,7 +188,7 @@ export const Subtitle = styled.h3`
   }
 
   @media screen and (max-width: 767px) {
-    display: none;
+    margin-top: 1rem;
   }
 `;
 

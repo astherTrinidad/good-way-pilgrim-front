@@ -37,7 +37,8 @@ import {
   CaminoEtapa,
   EtapaActual,
 } from '../../atoms';
-import dropTop from '../../../assets/images/gota-camino-actual.png';
+import dropWomanBoots from '../../../assets/images/gota-camino-actual.png';
+import dropBoots from '../../../assets/images/dropBoots.png';
 import pathBN from '../../../assets/images/etapaBN.png';
 import pathColor from '../../../assets/images/etapaColor.png';
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -187,7 +188,7 @@ export default function Caminos() {
             <Section role="sección" tabIndex={0} title="Camino Actual">
               Camino Actual
             </Section>
-            <DropMenu src={dropTop} alt="" />
+            <DropMenu src={dropWomanBoots} alt="Mujer con botas de montaña " />
             <RowCamino tabIndex={0} aria-label="Caminos">
               <TextLink href="/caminos">Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
@@ -250,8 +251,7 @@ export default function Caminos() {
             ) : (
               <>
                 <RowCamino tabIndex={0} aria-label="Caminos">
-                  <TextEmptyEtapas></TextEmptyEtapas>
-                  <TextEmptyEtapas></TextEmptyEtapas>
+                  <TextEmptyEtapas />
                   <TextWrapper>
                     <Heading
                       aria-label="¡Ánimo! Seguro que estás listo para empezar un camino."

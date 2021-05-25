@@ -7,7 +7,7 @@ import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
 import url from '../../../config/url';
-
+import CircleScroll from '../../atoms/circleScroll'
 import {
   Container,
   Section,
@@ -29,7 +29,7 @@ import {
 } from './styled';
 import { Camino, Etapa, CaminoEtapa } from '../../atoms';
 import GWPinfoCaminos from '../../../assets/downloadPDF/GWPinfoCaminos.pdf';
-import dropTop from '../../../assets/images/gota-caminos.png';
+import dropTopCaminos from '../../../assets/images/gota-caminos.png';
 
 export default function Caminos() {
   const history = useHistory();
@@ -199,7 +199,7 @@ export default function Caminos() {
             <Section role="sección" tabIndex={0} title="Caminos">
               Caminos
             </Section>
-            <DropMenu src={dropTop} alt="" />
+            <DropMenu src={dropTopCaminos} alt="Ermita de San Juan Gaztelugatxe" />
             <RowCaminos tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
@@ -261,6 +261,7 @@ export default function Caminos() {
               {renderPaths}
             </RowCaminos>
           </ColumnCamino>
+          <CircleScroll tabIndex={0}/>
         </Row>
       </Container>
       <Footer />
