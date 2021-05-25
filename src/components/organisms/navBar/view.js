@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import appRoutes from '../../../config/appRoutes';
-import url from '../../../config/url';
-import { toast } from 'react-toastify';
-import { FaTimes, FaRegUserCircle, FaBars } from 'react-icons/fa';
-import { IconContext } from 'react-icons/lib';
-import { Button } from '../../../globalStyles';
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import appRoutes from "../../../config/appRoutes";
+import url from "../../../config/url";
+import { toast } from "react-toastify";
+import { FaTimes, FaRegUserCircle, FaBars } from "react-icons/fa";
+import { IconContext } from "react-icons/lib";
+import { Button } from "../../../globalStyles";
 import {
   Nav,
   NavbarContainer,
@@ -20,7 +20,7 @@ import {
   IconUser,
   NavMenuUser,
   NavLinksMenu,
-} from './styled';
+} from "./styled";
 
 const Navbar = () => {
   const history = useHistory();
@@ -31,9 +31,9 @@ const Navbar = () => {
 
   const handleClick = () => setClick(!click);
 
-  const closeSession = async e => {
+  const closeSession = async (e) => {
     e.preventDefault();
-    sessionStorage.removeItem('token');
+    sessionStorage.removeItem("token");
     history.replace(appRoutes.login);
   };
 
@@ -47,9 +47,9 @@ const Navbar = () => {
             ? appRoutes.meProfileData
             : appRoutes.meProfile;
 
-        if (response.message == 'Expired token') {
+        if (response.message == "Expired token") {
           toast.info(
-            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+            "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
           history.replace(appRoutes.login);
         } else {
@@ -58,7 +58,7 @@ const Navbar = () => {
         }
       } catch {
         console.log(
-          'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+          "Error del servidor. Por favor, cierra sesión y vuelve a entrar"
         );
       }
     }
@@ -68,7 +68,7 @@ const Navbar = () => {
   console.log(window.innerWidth);
   return (
     <IconContext.Provider
-      value={{ color: '#ffff' }}
+      value={{ color: "#ffff" }}
       tabIndex={0}
       aria-label="Acceso área usuario"
       role="Área usuario"
@@ -115,7 +115,7 @@ const Navbar = () => {
               </NavLinksMenu>
               <ConchaIcon />
 
-              <NavLinksMenu to={appRoutes.mochila}>Mochila</NavLinksMenu>
+              <NavLinksMenu to={appRoutes.backpack}>Mochila</NavLinksMenu>
               <NavLinksMenu to={appRoutes.meLogros}>Logros</NavLinksMenu>
               <NavBtnLink to={appRoutes.login}>
                 <Button onClick={closeSession} fontBig role="button">
@@ -127,7 +127,7 @@ const Navbar = () => {
           <NavMenu aria-hidden="false">
             <NavLinks to={userData}>Perfil</NavLinks>
             <NavLinks to={appRoutes.caminos}>Caminos</NavLinks>
-            <NavLinks to={appRoutes.mochila}>Mochila</NavLinks>
+            <NavLinks to={appRoutes.backpack}>Mochila</NavLinks>
             <NavLinks to={appRoutes.meLogros}>Logros</NavLinks>
           </NavMenu>
           <MobileIcon>
@@ -153,10 +153,10 @@ export default Navbar;
 
 async function apiMeProfile() {
   return fetch(`${url.base}${url.meProfile}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
