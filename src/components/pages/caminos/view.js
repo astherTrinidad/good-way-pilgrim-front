@@ -7,7 +7,7 @@ import { Navbar, Footer } from '../../organisms';
 import appRoutes from '../../../config/appRoutes';
 import GlobalStyle from '../../../globalStyles';
 import url from '../../../config/url';
-
+import CircleScroll from '../../atoms/circleScroll'
 import {
   Container,
   Section,
@@ -22,12 +22,14 @@ import {
   ButtonSave,
   TextEtapa,
   TextMenu,
+  TextMenuActual,
   TextLink,
   DropMenu,
+  
 } from './styled';
 import { Camino, Etapa, CaminoEtapa } from '../../atoms';
-import etapasPDF from '../../../assets/downloadPDF/etapasPDF.pdf';
-import dropTop from '../../../assets/images/gota-user-profile.png';
+import GWPinfoCaminos from '../../../assets/downloadPDF/GWPinfoCaminos.pdf';
+import dropTopCaminos from '../../../assets/images/gota-caminos.png';
 
 export default function Caminos() {
   const history = useHistory();
@@ -83,7 +85,7 @@ export default function Caminos() {
         }
       }
     } catch {
-      toast.error(
+      console.log(
         'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
       );
     }
@@ -93,7 +95,8 @@ export default function Caminos() {
     async function fetchProfile() {
       try {
         const responseAllPaths = await apiAllPaths();
-
+        const responseActivePaths = await apiActivePath();
+        console.log(responseActivePaths)
         if (responseAllPaths.message === undefined) {
           setCaminos(responseAllPaths);
           setEtapasCamino(responseAllPaths.etapas);
@@ -106,7 +109,7 @@ export default function Caminos() {
           history.replace(appRoutes.login);
         }
       } catch {
-        toast.error(
+        console.log(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
         );
       }
@@ -115,12 +118,10 @@ export default function Caminos() {
   }, []);
 
   const renderPaths = allCaminos.map((item, paths) => {
-    // console.log(`lalalla/caminos/#${item.id}`);
-
     return (
       <>
         <Camino
-          key={paths}
+           key={paths}
           tabIndex={0}
           id={item.id}
           name={item.name}
@@ -129,7 +130,8 @@ export default function Caminos() {
           num_etapas={item.num_etapas}
           km={item.km}
           description={item.description}
-        />
+          />
+          
         <ButtonSave
           id={item.id}
           type="button"
@@ -139,7 +141,9 @@ export default function Caminos() {
         >
           Añadir a Camino actual
         </ButtonSave>
+       
         <TextEtapa>Etapas</TextEtapa>
+
         <CaminoEtapa
           etapas={item.etapas.map((etapa, indexPaths) => {
             const indexEtapa =
@@ -158,15 +162,12 @@ export default function Caminos() {
               </>
             );
           })}
-        />
+          />
+
       </>
     );
   });
-
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
-    // console.log(`/caminos/#${item.id}`);
-    console.log('nombre: ' + allCaminos[paths].name);
-
     return (
       <CaminoEtapa
         href={`#${allCaminos[paths].id}`}
@@ -182,7 +183,7 @@ export default function Caminos() {
       const csvData = new Blob([datos], { type: 'text/csv;charset=utf-8;' });
       FileSaver.saveAs(csvData, 'GWP_caminos.csv');
     } catch {
-      toast.error(
+      console.log(
         'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
       );
     }
@@ -198,11 +199,12 @@ export default function Caminos() {
             <Section role="sección" tabIndex={0} title="Caminos">
               Caminos
             </Section>
-            <DropMenu src={dropTop} alt="" />
+            <DropMenu src={dropTopCaminos} alt="Ermita de San Juan Gaztelugatxe" />
             <RowCaminos tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
               <TextLink href="/camino-actual">Camino actual</TextLink>
+              <TextMenuActual>{userPath.name}</TextMenuActual>
               <TextLink href="/historial-de-caminos">
                 Historial de caminos
               </TextLink>
@@ -215,16 +217,29 @@ export default function Caminos() {
                   aria-label="Olvídate del tiempo y simplemente camina"
                   tabIndex="0"
                 >
-                  Olvídate del tiempo y simplemente camina
+                  Olvídate del tiempo, escucha la naturaleza, disfruta de la
+                  brisa mañanera y camina
                 </Heading>
                 <Subtitle
-                  aria-label="Emprende el camino y al final del día selecciona 
-              los logros conseguidos"
+                  aria-label="Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los caminos que aparecen en esta página y a continuación pulses en Añadir a camino actual para incluirlo en tu perfil."
                   tabIndex="0"
                 >
-                  Puedes descargárte toda la información de los caminos y de las
-                  etapas seleccionando en los siguientes enlaces.
+                  Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los caminos que aparecen en esta página y a continuación pulses en el botón de "Añadir a camino actual" para incluirlo en tu perfil. 
                 </Subtitle>
+                <Subtitle
+                  aria-label="Una vez añadido, podrás ver en la sección de Camino Actual cada una de las etapas que componen ese camino, y al final del día sólo tendrás que marcar aquellas etapas que hayas finalizado.</Subtitle>
+                  "
+                  tabIndex="0"
+                >
+                Una vez añadido, podrás ver en la sección de Camino Actual cada una de las etapas que componen ese camino, y al final del día sólo tendrás que marcar aquellas etapas que hayas finalizado.</Subtitle>
+                
+                <Subtitle
+                  aria-label="Si no dispones de más días para seguir caminando y aún no has finalizado todas las etapas, puedes archivar el camino y retomarlo de nuevo cuando quieras. Si por otro lado has completado todas las etapas, pulsa en el botón de Terminar y podrás ver que se ha añadido a tu Historial de caminos junto con tus caminos archivados. 
+                  "
+                  tabIndex="0"
+                >
+                  Si no dispones de más días para seguir caminando y aún no has finalizado todas las etapas, puedes archivar el camino y retomarlo de nuevo cuando quieras. Si por otro lado has completado todas las etapas, pulsa en el botón de Terminar y podrás ver que se ha añadido a tu Historial de caminos junto con tus caminos archivados. 
+</Subtitle>               
                 <Row>
                   <TextDownload
                     tabIndex="Descargar csv caminos"
@@ -234,7 +249,7 @@ export default function Caminos() {
                   </TextDownload>
                   <TextDownload
                     tabIndex="Descargar pdf etapas"
-                    href={etapasPDF}
+                    href={GWPinfoCaminos}
                     download
                   >
                     Descargar pdf etapas
@@ -246,6 +261,7 @@ export default function Caminos() {
               {renderPaths}
             </RowCaminos>
           </ColumnCamino>
+          <CircleScroll tabIndex={0}/>
         </Row>
       </Container>
       <Footer />
@@ -285,4 +301,14 @@ async function apiAddActivePath(dataPath) {
 
   let content = await response.text();
   return content;
+}
+
+async function apiActivePath() {
+  return fetch(`${url.base}${url.activePath}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+  }).then(data => data.json());
 }

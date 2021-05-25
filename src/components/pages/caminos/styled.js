@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
-import { Link } from 'react-router-dom';
 
 export const Row = styled.div`
   display: flex;
@@ -11,11 +10,11 @@ export const Row = styled.div`
 `;
 
 export const DropMenu = styled.img`
-  margin: 0 auto 3rem auto;
-  width: 100%;
+  margin: 0 auto 1rem auto;
+  width: 90%;
 
   @media screen and (max-width: 768px) {
-    width: 80%;
+    width: 100%;
   }
 `;
 
@@ -107,14 +106,44 @@ export const TextLink = styled.a`
 `;
 
 export const TextMenu = styled.p`
+  font-weight: 300;
+  color: ${colors.mediumGrey};
   cursor: pointer;
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   &:nth-of-type(1) {
     margin-top: 1rem;
   }
   @media screen and (max-width: 768px) {
     display: none;
+  }
+`;
+
+export const TextMenuActual = styled.p`
+font-weight: 300;
+color: ${colors.mediumGrey};
+margin-top: 1rem;
+
+&:nth-of-type(1) {
+  margin-top: 1rem;
+}
+@media screen and (max-width: 768px) {
+  display: none;
+}
+`;
+
+
+export const TextMenuNav = styled.p`
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  margin-top: 2rem;
+  text-align: center;
+  position: fixed;
+  background-color: ${colors.white};
+
+  &:nth-of-type(1) {
+    margin-top: 4rem;
   }
 `;
 
@@ -156,23 +185,20 @@ export const Subtitle = styled.h3`
   color: ${colors.darkGrey};
   display: block;
   font-family: 'Poppins', sans-serif;
-  font-size: 1.5em;
+  font-size: 1.125em;
   font-weight: 300;
   line-height: 1.5;
   margin-top: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   text-align: left;
   width: 100%;
 
   @media screen and (max-width: 960px) {
     font-size: 1em;
-    margin: 0 0 1rem 0;
+    margin: 1rem 0 1rem 0;
     width: 100%;
   }
 
-  @media screen and (max-width: 767px) {
-    display: none;
-  }
 `;
 
 export const TextDownload = styled.a`
@@ -185,9 +211,15 @@ export const TextDownload = styled.a`
     border-right: 1px solid ${colors.mustard};
     padding: 0 2rem 0 0;
 
+    @media screen and(max-width: 768px){
+      padding: 0;
+
+    }
+
     @media screen and (max-width: 578px) {
       display: none;
     }
+
   }
 
   &:nth-of-type(2) {

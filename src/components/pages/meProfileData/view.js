@@ -40,9 +40,7 @@ export default function MeProfileData() {
         const datos = await apiMeProfile();
         if (datos.message === undefined) {
           setUserData(datos);
-          console.log(datos);
           setUserLogros(datos.achievements);
-          console.log('****' + datos.achievements);
         }
         if (datos.message === 'Expired token') {
           history.replace(appRoutes.login);
@@ -52,7 +50,7 @@ export default function MeProfileData() {
           history.replace(appRoutes.login);
         }
       } catch {
-        toast.error(
+        console.log(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
         );
       }
@@ -80,7 +78,6 @@ export default function MeProfileData() {
   const renderEmptyAchievement = numAchievements.map(() => {
     return <Logro id="2" src={conchaBN} alt="{item.name}" tabIndex={0} />;
   });
-  console.log('datos: ' + userData.achievements);
   return (
     <>
       <GlobalStyle />

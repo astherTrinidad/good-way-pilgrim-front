@@ -36,10 +36,6 @@ const ConfirmAddAchievement = () => {
     return (addAchievementDate = year + '-' + month + '-' + day);
   };
 
-  const getAchievementId = () => {
-    console.log('id');
-  };
-
   const onClickAddAchievement = async event => {
     event.preventDefault();
     try {
@@ -47,7 +43,6 @@ const ConfirmAddAchievement = () => {
       setUserAchievement(idL);
       const achievementDate = (userAchievement.date = getCurrentDate());
       setUserAchievement(achievementDate);
-      console.log('*** id ** ' + getAchievementId());
 
       var respuesta = await apiAddAchievement(userAchievement);
       if (respuesta.message == 'success') {
@@ -60,7 +55,7 @@ const ConfirmAddAchievement = () => {
         history.replace(appRoutes.login);
       }
     } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+      console.log('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
   return (

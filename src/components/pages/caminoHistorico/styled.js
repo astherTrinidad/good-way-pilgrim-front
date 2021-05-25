@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
-import { Link } from 'react-router-dom';
 
 export const Row = styled.div`
   display: flex;
@@ -11,11 +10,13 @@ export const Row = styled.div`
 `;
 
 export const DropMenu = styled.img`
-  margin: 0 auto 3rem auto;
-  width: 100%;
+  margin: 0 auto 1rem auto;
+  width: 90%;
 
   @media screen and (max-width: 768px) {
-    width: 80%;
+    width: 100%;
+    margin: 0 auto 3rem auto;
+
   }
 `;
 
@@ -60,7 +61,7 @@ export const Container = styled.main`
 
 export const Section = styled.h1`
   color: ${colors.darkGrey};
-  font-size: 1.5em;
+  font-size: 1.25em;
   margin-bottom: 2rem;
   text-align: left;
   justify-content: left;
@@ -126,8 +127,10 @@ export const TextLink = styled.a`
 `;
 
 export const TextMenu = styled.p`
+  font-weight: 300;
+  color: ${colors.mediumGrey};
   cursor: pointer;
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   &:nth-of-type(1) {
     margin-top: 1rem;
@@ -156,7 +159,7 @@ export const Heading = styled.h2`
   line-height: 1.5;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 1rem;
+  margin-top: 4.5rem;
   text-align: left;
   width: 100%;
 
@@ -168,9 +171,6 @@ export const Heading = styled.h2`
     font-size: 1.5em;
     margin-top: 4rem;
     max-width: 100%;
-  }
-  @media screen and (max-width: 578px) {
-    display: none;
   }
 `;
 
@@ -193,10 +193,8 @@ export const Subtitle = styled.h3`
   }
 
   @media screen and (max-width: 768px) {
-    margin: 1rem 0 1rem 0;
+    margin: 1rem 0 0 0;
   }
 
-  @media screen and (max-width: 578px) {
-    display: none;
-  }
+
 `;

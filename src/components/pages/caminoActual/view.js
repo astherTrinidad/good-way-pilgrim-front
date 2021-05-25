@@ -37,7 +37,8 @@ import {
   CaminoEtapa,
   EtapaActual,
 } from '../../atoms';
-import dropTop from '../../../assets/images/gota-user-profile.png';
+import dropWomanBoots from '../../../assets/images/gota-camino-actual.png';
+import dropBoots from '../../../assets/images/dropBoots.png';
 import pathBN from '../../../assets/images/etapaBN.png';
 import pathColor from '../../../assets/images/etapaColor.png';
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -89,7 +90,7 @@ export default function Caminos() {
 
       history.replace(appRoutes.caminos);
     } catch {
-      toast.error(
+      console.log(
         'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
       );
       setIsfetching(false);
@@ -119,7 +120,7 @@ export default function Caminos() {
           history.replace(appRoutes.login);
         }
       } catch {
-        toast.error(
+        console.log(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
         );
       }
@@ -150,12 +151,10 @@ export default function Caminos() {
         history.replace(appRoutes.login);
       }
     } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+      console.log('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
-    // console.log(`/caminos/#${item.id}`);
-
     return <CaminoEtapa key={paths} name={item.name} />;
   });
 
@@ -189,11 +188,12 @@ export default function Caminos() {
             <Section role="sección" tabIndex={0} title="Camino Actual">
               Camino Actual
             </Section>
-            <DropMenu src={dropTop} alt="" />
+            <DropMenu src={dropWomanBoots} alt="Mujer con botas de montaña " />
             <RowCamino tabIndex={0} aria-label="Caminos">
               <TextLink href="/caminos">Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
               <TextLink>Camino actual</TextLink>
+              <TextMenu>{activePath.name}</TextMenu>
               <TextLink href="/historial-de-caminos">
                 Historial de caminos
               </TextLink>
@@ -251,8 +251,7 @@ export default function Caminos() {
             ) : (
               <>
                 <RowCamino tabIndex={0} aria-label="Caminos">
-                  <TextEmptyEtapas></TextEmptyEtapas>
-                  <TextEmptyEtapas></TextEmptyEtapas>
+                  <TextEmptyEtapas />
                   <TextWrapper>
                     <Heading
                       aria-label="¡Ánimo! Seguro que estás listo para empezar un camino."

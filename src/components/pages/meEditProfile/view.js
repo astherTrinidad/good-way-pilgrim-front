@@ -47,7 +47,6 @@ export default function MeEditProfile() {
   });
 
   const validate = useCallback(() => {
-    console.log('en validate');
     const newErrors = {
       name: '',
       surname: '',
@@ -90,7 +89,7 @@ export default function MeEditProfile() {
           setUserData(response);
         }
       } catch {
-        toast.error(
+        console.log(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
         );
       }
@@ -133,7 +132,7 @@ export default function MeEditProfile() {
           }
         }
       } catch (e) {
-        toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+        console.log('Error del servidor. Por favor, inténtelo de nuevo');
       }
     } else {
       toast.warn('Por favor, rellena todos los datos necesarios');

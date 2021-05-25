@@ -37,7 +37,7 @@ const DeleteAchievements = () => {
       }
       window.location.reload();
     } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+      console.log('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
 
