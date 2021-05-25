@@ -11,7 +11,7 @@ export const Row = styled.div`
 
 export const DropMenu = styled.img`
   margin: 0 auto 1rem auto;
-  width: 90%;
+  width: 100%;
 
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -197,6 +197,19 @@ export const Subtitle = styled.h3`
     font-size: 1em;
     margin: 1rem 0 1rem 0;
     width: 100%;
+  }
+
+
+  @media screen and (max-width: 578px) {
+    font-size: 1em;
+    margin: 1rem 0 1rem 0;
+    width: 100%;
+
+    &:nth-of-type(1) {
+    display: none;
+    margin: 1rem 0 0 0;
+
+  }
   }
 
 `;

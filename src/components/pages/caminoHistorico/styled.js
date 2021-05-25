@@ -11,7 +11,7 @@ export const Row = styled.div`
 
 export const DropMenu = styled.img`
   margin: 0 auto 1rem auto;
-  width: 90%;
+  width: 100%;
 
   @media screen and (max-width: 768px) {
     width: 100%;
@@ -159,7 +159,7 @@ export const Heading = styled.h2`
   line-height: 1.5;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 4.5rem;
+  margin-top: 9rem;
   text-align: left;
   width: 100%;
 

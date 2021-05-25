@@ -118,6 +118,8 @@ export default function Caminos() {
   }, []);
 
   const renderPaths = allCaminos.map((item, paths) => {
+    console.log('idListado: '+allCaminos[paths].id)
+
     return (
       <>
         <Camino
@@ -168,6 +170,7 @@ export default function Caminos() {
     );
   });
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
+    console.log('id: '+allCaminos[paths].id)
     return (
       <CaminoEtapa
         href={`#${allCaminos[paths].id}`}
@@ -204,7 +207,6 @@ export default function Caminos() {
               <TextLink>Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
               <TextLink href="/camino-actual">Camino actual</TextLink>
-              <TextMenuActual>{userPath.name}</TextMenuActual>
               <TextLink href="/historial-de-caminos">
                 Historial de caminos
               </TextLink>
@@ -224,21 +226,17 @@ export default function Caminos() {
                   aria-label="Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los caminos que aparecen en esta página y a continuación pulses en Añadir a camino actual para incluirlo en tu perfil."
                   tabIndex="0"
                 >
-                  Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los caminos que aparecen en esta página y a continuación pulses en el botón de "Añadir a camino actual" para incluirlo en tu perfil. 
+                  Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los caminos que aparecen en esta página pulsando en el botón de "Añadir a camino actual" para incluirlo en tu perfil.                 Una vez añadido, podrás ver en la sección de Camino Actual cada una de sus etapas, y al final del día sólo tendrás que marcar aquellas que hayas finalizado.
+
                 </Subtitle>
-                <Subtitle
-                  aria-label="Una vez añadido, podrás ver en la sección de Camino Actual cada una de las etapas que componen ese camino, y al final del día sólo tendrás que marcar aquellas etapas que hayas finalizado.</Subtitle>
-                  "
-                  tabIndex="0"
-                >
-                Una vez añadido, podrás ver en la sección de Camino Actual cada una de las etapas que componen ese camino, y al final del día sólo tendrás que marcar aquellas etapas que hayas finalizado.</Subtitle>
+                
                 
                 <Subtitle
-                  aria-label="Si no dispones de más días para seguir caminando y aún no has finalizado todas las etapas, puedes archivar el camino y retomarlo de nuevo cuando quieras. Si por otro lado has completado todas las etapas, pulsa en el botón de Terminar y podrás ver que se ha añadido a tu Historial de caminos junto con tus caminos archivados. 
+                  aria-label="Si no dispones de más días para seguir caminando y aún no has finalizado todas las etapas, puedes archivar el camino y retomarlo de nuevo cuando quieras. Si por otro lado has completado todas las etapas, pulsa en el botón de Terminar. 
                   "
                   tabIndex="0"
                 >
-                  Si no dispones de más días para seguir caminando y aún no has finalizado todas las etapas, puedes archivar el camino y retomarlo de nuevo cuando quieras. Si por otro lado has completado todas las etapas, pulsa en el botón de Terminar y podrás ver que se ha añadido a tu Historial de caminos junto con tus caminos archivados. 
+                  Si no dispones de más días para seguir caminando y aún no has finalizado todas las etapas, puedes archivar el camino y retomarlo de nuevo cuando quieras. Si por otro lado has completado todas las etapas, pulsa en el botón de "Terminar". 
 </Subtitle>               
                 <Row>
                   <TextDownload

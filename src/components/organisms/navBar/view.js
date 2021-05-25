@@ -133,7 +133,7 @@ const Navbar = () => {
           <MobileIcon>
             <IconUser onClick={handleClick} aria-label="Acceso área usuario">
               {click ? (
-                window.innerWidth >= 578 ? (
+                window.innerWidth >= 769 ? (
                   <FaRegUserCircle />
                 ) : (
                   <FaBars className="FaBars" />
