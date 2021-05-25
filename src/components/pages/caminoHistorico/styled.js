@@ -53,14 +53,14 @@ export const ColumnCamino = styled.div`
 export const Container = styled.main`
   display: flex;
   flex-direction: column;
-  height: max-content;
+  height: 600px;
   margin: 3rem auto;
   width: 80%;
 `;
 
 export const Section = styled.h1`
   color: ${colors.darkGrey};
-  font-size: 1.5em;
+  font-size: 1.25em;
   margin-bottom: 2rem;
   text-align: left;
   justify-content: left;
@@ -126,8 +126,10 @@ export const TextLink = styled.a`
 `;
 
 export const TextMenu = styled.p`
+  font-weight: 300;
+  color: ${colors.mediumGrey};
   cursor: pointer;
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   &:nth-of-type(1) {
     margin-top: 1rem;

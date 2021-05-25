@@ -22,9 +22,10 @@ import {
   ButtonSave,
   TextEtapa,
   TextMenu,
-  TextMenuNav,
+  TextMenuActual,
   TextLink,
   DropMenu,
+  
 } from './styled';
 import { Camino, Etapa, CaminoEtapa } from '../../atoms';
 import GWPinfoCaminos from '../../../assets/downloadPDF/GWPinfoCaminos.pdf';
@@ -94,7 +95,8 @@ export default function Caminos() {
     async function fetchProfile() {
       try {
         const responseAllPaths = await apiAllPaths();
-
+        const responseActivePaths = await apiActivePath();
+        console.log(responseActivePaths)
         if (responseAllPaths.message === undefined) {
           setCaminos(responseAllPaths);
           setEtapasCamino(responseAllPaths.etapas);
@@ -119,7 +121,7 @@ export default function Caminos() {
     return (
       <>
         <Camino
-          key={paths}
+           key={paths}
           tabIndex={0}
           id={item.id}
           name={item.name}
@@ -128,7 +130,8 @@ export default function Caminos() {
           num_etapas={item.num_etapas}
           km={item.km}
           description={item.description}
-        />
+          />
+          
         <ButtonSave
           id={item.id}
           type="button"
@@ -138,7 +141,9 @@ export default function Caminos() {
         >
           Añadir a Camino actual
         </ButtonSave>
+       
         <TextEtapa>Etapas</TextEtapa>
+
         <CaminoEtapa
           etapas={item.etapas.map((etapa, indexPaths) => {
             const indexEtapa =
@@ -157,11 +162,11 @@ export default function Caminos() {
               </>
             );
           })}
-        />
+          />
+
       </>
     );
   });
-
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
     return (
       <CaminoEtapa
@@ -194,13 +199,12 @@ export default function Caminos() {
             <Section role="sección" tabIndex={0} title="Caminos">
               Caminos
             </Section>
-            {/* <TextMenuNav>{renderPathsToSubmenu}</TextMenuNav> */}
-
             <DropMenu src={dropTop} alt="" />
             <RowCaminos tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
               <TextLink href="/camino-actual">Camino actual</TextLink>
+              <TextMenuActual>{userPath.name}</TextMenuActual>
               <TextLink href="/historial-de-caminos">
                 Historial de caminos
               </TextLink>
@@ -217,17 +221,25 @@ export default function Caminos() {
                   brisa mañanera y camina
                 </Heading>
                 <Subtitle
-                  aria-label="Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los cinco caminos que aparecen en esta página y a continuación pulses en Añadir a camino actual para incluirlo en tu perfil."
+                  aria-label="Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los caminos que aparecen en esta página y a continuación pulses en Añadir a camino actual para incluirlo en tu perfil."
                   tabIndex="0"
                 >
-                  Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los cinco caminos que aparecen en esta página y a continuación pulses en "Añadir a camino actual" para incluirlo en tu perfil. 
+                  Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los caminos que aparecen en esta página y a continuación pulses en el botón de "Añadir a camino actual" para incluirlo en tu perfil. 
                 </Subtitle>
                 <Subtitle
-                  aria-label="Emprende el camino y al final del día selecciona 
-              los logros conseguidos"
+                  aria-label="Una vez añadido, podrás ver en la sección de Camino Actual cada una de las etapas que componen ese camino, y al final del día sólo tendrás que marcar aquellas etapas que hayas finalizado.</Subtitle>
+                  "
                   tabIndex="0"
                 >
-                Una vez añadido, podrás ver cada una de las etapas que componen ese camino, y al final del día sólo tendrás que marcar aquellas etapas que hayas finalizado.</Subtitle>
+                Una vez añadido, podrás ver en la sección de Camino Actual cada una de las etapas que componen ese camino, y al final del día sólo tendrás que marcar aquellas etapas que hayas finalizado.</Subtitle>
+                
+                <Subtitle
+                  aria-label="Si no dispones de más días para seguir caminando y aún no has finalizado todas las etapas, puedes archivar el camino y retomarlo de nuevo cuando quieras. Si por otro lado has completado todas las etapas, pulsa en el botón de Terminar y podrás ver que se ha añadido a tu Historial de caminos junto con tus caminos archivados. 
+                  "
+                  tabIndex="0"
+                >
+                  Si no dispones de más días para seguir caminando y aún no has finalizado todas las etapas, puedes archivar el camino y retomarlo de nuevo cuando quieras. Si por otro lado has completado todas las etapas, pulsa en el botón de Terminar y podrás ver que se ha añadido a tu Historial de caminos junto con tus caminos archivados. 
+</Subtitle>               
                 <Row>
                   <TextDownload
                     tabIndex="Descargar csv caminos"
@@ -288,4 +300,14 @@ async function apiAddActivePath(dataPath) {
 
   let content = await response.text();
   return content;
+}
+
+async function apiActivePath() {
+  return fetch(`${url.base}${url.activePath}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
+  }).then(data => data.json());
 }

@@ -37,6 +37,7 @@ export const ColumnCamino = styled.div`
   flex-direction: column;
   width: 80%;
   margin-left: 30%;
+  height: max-content;
   @media screen and (max-width: 968px) {
     margin: 0rem;
     width: 100%;
@@ -119,8 +120,10 @@ export const TextLink = styled.a`
 `;
 
 export const TextMenu = styled.p`
+  font-weight: 300;
+  color: ${colors.mediumGrey};
   cursor: pointer;
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   &:nth-of-type(1) {
     margin-top: 1rem;

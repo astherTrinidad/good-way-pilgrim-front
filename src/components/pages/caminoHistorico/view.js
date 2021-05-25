@@ -37,13 +37,17 @@ export default function CaminoHistorico() {
   const [reactivePath, setReactivePath] = useState({
     camino: '',
   });
+  const [activePath, setActivePath] = useState([]);
+
   useEffect(() => {
     async function fetchProfile() {
       try {
         const response = await apiAllPaths();
 
         const responseAllUserPaths = await apiMyPaths();
+        const responseActivePaths = await apiActivePath();
 
+    
         if (
           response.message == 'Expired token' ||
           responseAllUserPaths.message
@@ -52,10 +56,14 @@ export default function CaminoHistorico() {
             'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
           );
           history.replace(appRoutes.login);
-        } else {
+        }else {
           setAllCaminos(response);
           setAllUserPath(responseAllUserPaths);
         }
+        if (responseActivePaths.message != 'User hasnt got an active path') {
+          setActivePath(responseActivePaths);
+        }
+        
       } catch {
         console.log(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
@@ -147,6 +155,8 @@ export default function CaminoHistorico() {
               <TextLink href="/caminos">Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
               <TextLink href="/camino-actual">Camino actual</TextLink>
+              <TextMenu>{activePath.name}</TextMenu>
+
               <TextLink>Historial de caminos</TextLink>
             </RowCamino>
           </ColumnMenu>
@@ -209,5 +219,15 @@ async function apiReactivePath(pathInfo) {
       Authorization: 'Bearer ' + sessionStorage.getItem('token'),
     },
     body: JSON.stringify(pathInfo),
+  }).then(data => data.json());
+}
+
+async function apiActivePath() {
+  return fetch(`${url.base}${url.activePath}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+    },
   }).then(data => data.json());
 }

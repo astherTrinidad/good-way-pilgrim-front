@@ -107,8 +107,10 @@ export const TextLink = styled.a`
 `;
 
 export const TextMenu = styled.p`
+  font-weight: 300;
+  color: ${colors.mediumGrey};
   cursor: pointer;
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   &:nth-of-type(1) {
     margin-top: 1rem;
@@ -117,6 +119,20 @@ export const TextMenu = styled.p`
     display: none;
   }
 `;
+
+export const TextMenuActual = styled.p`
+font-weight: 300;
+color: ${colors.mediumGrey};
+margin-top: 1rem;
+
+&:nth-of-type(1) {
+  margin-top: 1rem;
+}
+@media screen and (max-width: 768px) {
+  display: none;
+}
+`;
+
 
 export const TextMenuNav = styled.p`
   display: flex;
@@ -170,11 +186,11 @@ export const Subtitle = styled.h3`
   color: ${colors.darkGrey};
   display: block;
   font-family: 'Poppins', sans-serif;
-  font-size: 1em;
+  font-size: 1.125em;
   font-weight: 300;
   line-height: 1.5;
   margin-top: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   text-align: left;
   width: 100%;
 
