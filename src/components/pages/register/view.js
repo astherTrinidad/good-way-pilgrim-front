@@ -101,7 +101,7 @@ export default function Register() {
         history.replace(appRoutes.login);
       } catch (e) {
         setIsfetching(false);
-        toast.error('Error de servidor. Inténtelo más tarde');
+        console.log('Error de servidor. Inténtelo más tarde');
       }
     } else {
       setTouched({

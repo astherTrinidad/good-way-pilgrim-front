@@ -13,30 +13,17 @@ import {
   Container,
   Section,
   Row,
-  LogroImg,
   RowLogros,
   TextWrapper,
   Heading,
   Subtitle,
   ButtonDelete,
-  NameText,
-  ContainerLogros,
-  DescriptionText,
 } from './styled';
+import Logro from '../../atoms/logro';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-
-const Logro = ({ id, src, alt, tabIndex, name, description, onClick }) => {
-  return (
-    <ContainerLogros onClick={onClick}>
-      <LogroImg id={id} src={src} alt={alt} tabIndex={tabIndex} />
-      <NameText tabIndex={tabIndex}>{name}</NameText>
-      <DescriptionText tabIndex={tabIndex}>{description}</DescriptionText>
-    </ContainerLogros>
-  );
-};
 
 export default function MeLogros() {
   const history = useHistory();
@@ -97,7 +84,7 @@ export default function MeLogros() {
           history.replace(appRoutes.login);
         }
       } catch (e) {
-        toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+        console.log('Error del servidor. Por favor, inténtelo de nuevo');
       }
     } else {
       setIsColor(true);
@@ -123,7 +110,7 @@ export default function MeLogros() {
           history.replace(appRoutes.login);
         }
       } catch (e) {
-        toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+        console.log('Error del servidor. Por favor, inténtelo de nuevo');
       }
     }
   };
@@ -143,7 +130,7 @@ export default function MeLogros() {
           setUserLogros(myAchievementsResponse);
         }
       } catch {
-        toast.error(
+        console.log(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
         );
       }

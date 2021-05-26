@@ -1,20 +1,25 @@
-import Login from './login';
-import Register from './register';
-import MeProfile from './meProfile';
-import MeEditProfile from './meEditProfile';
-import MeLogros from './meLogros';
-import SearchProfile from './searchProfile';
-import UserProfile from './userProfile';
-import FrequentQuestion from './frequentQuestion';
-import PrivacyConsumers from './privacyConsumers';
-
+import Caminos from "./caminos";
+import CaminoActual from "./caminoActual";
+import CaminoHistorico from "./caminoHistorico";
+import Login from "./login";
+import Register from "./register";
+import MeProfile from "./meProfile";
+import MeProfileData from "./meProfileData";
+import MeEditProfile from "./meEditProfile";
+import MeLogros from "./meLogros";
+import FrequentQuestion from "./frequentQuestion";
+import PrivacyConsumers from "./privacyConsumers";
+import Backpack from "./backpack";
 export {
+  Backpack,
+  CaminoActual,
+  CaminoHistorico,
+  Caminos,
   Login,
   Register,
   MeProfile,
+  MeProfileData,
   MeEditProfile,
-  SearchProfile,
-  UserProfile,
   MeLogros,
   FrequentQuestion,
   PrivacyConsumers,

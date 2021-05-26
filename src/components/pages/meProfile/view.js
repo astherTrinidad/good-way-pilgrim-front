@@ -38,7 +38,7 @@ export default function MeProfile() {
           history.replace(appRoutes.login);
         }
       } catch {
-        toast.error(
+        console.log(
           'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
         );
       } finally {
@@ -52,7 +52,7 @@ export default function MeProfile() {
     <>
       <GlobalStyle />
       <Navbar />
-      <Header />
+      <Header loading="lazy" />
       <Container>
         <PhotoProfile
           src={userData.picture ? userData.picture : profilePhoto}

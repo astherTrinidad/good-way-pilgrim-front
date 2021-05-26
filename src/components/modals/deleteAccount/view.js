@@ -17,7 +17,6 @@ const DeleteAccountModal = () => {
   };
 
   const deleteUser = async event => {
-    console.log('en delete');
     event.preventDefault();
     try {
       var respuesta = await apiDeleteProfile();
@@ -25,7 +24,7 @@ const DeleteAccountModal = () => {
       sessionStorage.removeItem('token');
       history.replace(appRoutes.login);
     } catch (e) {
-      toast.error('Error del servidor. Por favor, inténtelo de nuevo');
+      console.log('Error del servidor. Por favor, inténtelo de nuevo');
     }
   };
 
