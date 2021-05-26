@@ -1,16 +1,16 @@
-import TextInput from './text-input';
-import TextInputEditForm from './text-inputEditForm';
-import Button from './button';
-import ButtonGreen from './buttonGreen';
-import ButtonTurquoise from './buttontTurquoise';
-import FormHeader from './form-header';
-import List from './list';
-import Logro from './logro';
-import Camino from './camino';
-import CaminoEtapa from './caminoEtapa';
-import Etapa from './etapa';
-import EtapaActual from './etapaActual';
-import CircleScroll from './circleScroll';
+import TextInput from "./text-input";
+import TextInputEditForm from "./text-inputEditForm";
+import Button from "./button";
+import ButtonGreen from "./buttonGreen";
+import ButtonTurquoise from "./buttonTurquoise";
+import FormHeader from "./form-header";
+import List from "./list";
+import Logro from "./logro";
+import Camino from "./camino";
+import CaminoEtapa from "./caminoEtapa";
+import Etapa from "./etapa";
+import EtapaActual from "./etapaActual";
+import CircleScroll from "./circleScroll";
 
 export {
   TextInput,
@@ -25,5 +25,5 @@ export {
   Camino,
   Etapa,
   EtapaActual,
-  CircleScroll
+  CircleScroll,
 };

@@ -1,26 +1,26 @@
-import React from 'react';
+import React from "react";
 import {
   BrowserRouter as Router,
   Redirect,
   Switch,
   Route,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import appRoutes from '../../config/appRoutes';
-import Login from '../pages/login/index';
-import Register from '../pages/register/index';
-import MeProfile from '../pages/meProfile/index';
-import MeProfileData from '../pages/meProfileData/index';
-import MeEditProfile from '../pages/meEditProfile/index';
-import MeLogros from '../pages/meLogros/index';
-import Caminos from '../pages/caminos/index';
-import CaminoActual from '../pages/caminoActual/index';
-import CaminoHistorico from '../pages/caminoHistorico/index';
+import appRoutes from "../../config/appRoutes";
+import Login from "../pages/login/index";
+import Register from "../pages/register/index";
+import MeProfile from "../pages/meProfile/index";
+import MeProfileData from "../pages/meProfileData/index";
+import MeEditProfile from "../pages/meEditProfile/index";
+import MeLogros from "../pages/meLogros/index";
+import Caminos from "../pages/caminos/index";
+import CaminoActual from "../pages/caminoActual/index";
+import CaminoHistorico from "../pages/caminoHistorico/index";
+import Backpack from "../pages/backpack/index";
+import FrequentQuestion from "../pages/frequentQuestion/index";
+import PrivacyConsumers from "../pages/privacyConsumers/index";
 
-import FrequentQuestion from '../pages/frequentQuestion/index';
-import PrivacyConsumers from '../pages/privacyConsumers/index';
-
-import useToken from './useToken';
+import useToken from "./useToken";
 
 function Routes() {
   return (
@@ -51,6 +51,7 @@ function Routes() {
           component={CaminoHistorico}
           exact
         />
+        <PrivateRoute path={appRoutes.backpack} component={Backpack} exact />
         <PrivateRoute
           path={appRoutes.frequentQuestion}
           component={FrequentQuestion}

@@ -44,7 +44,7 @@ export const Key = styled.p`
     padding-left: 0;
   }
 
-  &:nth-child(4) {
+  &:nth-child(3) {
     border-right: 0;
   }
 
