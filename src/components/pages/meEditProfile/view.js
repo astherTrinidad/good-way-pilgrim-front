@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import isEmpty from 'lodash/isEmpty';
-import some from 'lodash/some';
-import { toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
-import Dialog from '@material-ui/core/Dialog';
-import Slide from '@material-ui/core/Slide';
-import appRoutes from '../../../config/appRoutes';
-import url from '../../../config/url';
-import { validatePassword } from '../../../utils';
-import GlobalStyle from '../../../globalStyles';
-import { TextInputEditForm } from '../../atoms';
-import { Navbar, Footer } from '../../organisms';
-import dropMeEditProfile from '../../../assets/images/gota-show-profile.png';
-import profilePhoto from '../../../assets/images/photo-profile-generic.png';
+import React, { useState, useEffect, useCallback } from "react";
+import isEmpty from "lodash/isEmpty";
+import some from "lodash/some";
+import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
+import Dialog from "@material-ui/core/Dialog";
+import Slide from "@material-ui/core/Slide";
+import appRoutes from "../../../config/appRoutes";
+import url from "../../../config/url";
+import { validatePassword } from "../../../utils";
+import GlobalStyle from "../../../globalStyles";
+import { TextInputEditForm } from "../../atoms";
+import { Navbar, Footer } from "../../organisms";
+import dropMeEditProfile from "../../../assets/images/gota-show-profile.png";
+import profilePhoto from "../../../assets/images/photo-profile-generic.png";
 import {
   Container,
   ColumnImg,
@@ -28,8 +28,8 @@ import {
   ButtonDelete,
   ButtonSave,
   RowButton,
-} from './styled';
-import DeleteAccountModal from '../../modals/deleteAccount';
+} from "./styled";
+import DeleteAccountModal from "../../modals/deleteAccount";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -38,34 +38,34 @@ export default function MeEditProfile() {
   const [userData, setUserData] = useState({});
 
   const [errors, setErrors] = useState({
-    name: '',
-    surname: '',
-    email: '',
-    oldPassword: '',
-    newPassword: '',
-    passwordConfirm: '',
+    name: "",
+    surname: "",
+    email: "",
+    oldPassword: "",
+    newPassword: "",
+    passwordConfirm: "",
   });
 
   const validate = useCallback(() => {
     const newErrors = {
-      name: '',
-      surname: '',
-      oldPassword: '',
-      newPassword: '',
-      passwordConfirm: '',
+      name: "",
+      surname: "",
+      oldPassword: "",
+      newPassword: "",
+      passwordConfirm: "",
     };
 
     if (!userData.oldPassword)
-      newErrors.oldPassword = 'Introduce tu contraseña actual';
+      newErrors.oldPassword = "Introduce tu contraseña actual";
     if (userData.newPassword && !validatePassword(userData.newPassword))
-      newErrors.newPassword = 'Mínimo 8 caracteres, minúsculas y mayúsculas';
+      newErrors.newPassword = "Mínimo 8 caracteres, minúsculas y mayúsculas";
     if (
       userData.newPassword &&
       userData.newPassword !== userData.passwordConfirm
     )
-      newErrors.passwordConfirm = 'La contraseña no coincide';
+      newErrors.passwordConfirm = "La contraseña no coincide";
     if (userData.passwordConfirm && !userData.newPassword)
-      newErrors.newPassword = 'Introduce tu nueva contraseña';
+      newErrors.newPassword = "Introduce tu nueva contraseña";
 
     setErrors(newErrors);
   }, [userData]);
@@ -78,26 +78,26 @@ export default function MeEditProfile() {
     async function fetchProfile() {
       try {
         const response = await apiMeProfile();
-        if (response.message == 'Expired token') {
+        if (response.message == "Expired token") {
           toast.info(
-            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+            "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
           history.replace(appRoutes.login);
         } else {
-          response.oldPassword = '';
-          response.newPassword = '';
+          response.oldPassword = "";
+          response.newPassword = "";
           setUserData(response);
         }
       } catch {
         console.log(
-          'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+          "Error del servidor. Por favor, cierra sesión y vuelve a entrar"
         );
       }
     }
     fetchProfile();
   }, []);
 
-  const convertirBase64 = archivo => {
+  const convertirBase64 = (archivo) => {
     var reader = new FileReader();
     reader.readAsDataURL(archivo[0]);
     reader.onload = function () {
@@ -105,37 +105,37 @@ export default function MeEditProfile() {
     };
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setUserData({
       ...userData,
       [event.target.name]: event.target.value,
     });
   };
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const invalidForm = some(errors, error => !isEmpty(error));
+    const invalidForm = some(errors, (error) => !isEmpty(error));
     if (!invalidForm) {
       try {
         var respuesta = await apiEditProfile(userData);
         if (respuesta.message === undefined) {
-          toast.success('¡Datos actualizados!');
+          toast.success("¡Datos actualizados!");
         } else {
-          if (respuesta.message === 'Expired token') {
+          if (respuesta.message === "Expired token") {
             toast.info(
-              'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+              "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
             );
             history.replace(appRoutes.login);
           }
-          if (respuesta.message === 'Password is wrong') {
-            toast.error('Contraseña incorrecta');
+          if (respuesta.message === "Password is wrong") {
+            toast.error("Contraseña incorrecta");
           }
         }
       } catch (e) {
-        console.log('Error del servidor. Por favor, inténtelo de nuevo');
+        console.log("Error del servidor. Por favor, inténtelo de nuevo");
       }
     } else {
-      toast.warn('Por favor, rellena todos los datos necesarios');
+      toast.warn("Por favor, rellena todos los datos necesarios");
     }
   };
   /* modal */
@@ -190,7 +190,7 @@ export default function MeEditProfile() {
                 type="file"
                 //accept=".jpg,.jpeg,.png,.tiff,.eps"
                 //max-size="1048576"
-                onChange={e => convertirBase64(e.target.files)}
+                onChange={(e) => convertirBase64(e.target.files)}
                 //onChange={handleChange}
               />
             </Row>
@@ -310,20 +310,20 @@ export default function MeEditProfile() {
 
 async function apiMeProfile() {
   return fetch(`${url.base}${url.meProfile}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
 async function apiEditProfile(dataUser) {
   return fetch(`${url.base}${url.meEditProfile}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: JSON.stringify(dataUser),
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }

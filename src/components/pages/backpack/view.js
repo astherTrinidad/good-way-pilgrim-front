@@ -23,7 +23,7 @@ const Backpack = () => {
         setMyBackpacks(responseMyBackpacks);
         setCaminos(responseAllPaths);
 
-        if (responseMyBackpacks.message == "Expired token") {
+        if (responseMyBackpacks.message === "Expired token") {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
@@ -60,6 +60,8 @@ const Backpack = () => {
     event.preventDefault();
     try {
       pathId.camino = event.target.id;
+      setPathId(pathId);
+      console.log(pathId);
       const responseCreateBackpack = await apiCreateBackpack(pathId);
       const responseMyBackpacks = await apiMyBackpacks();
 
@@ -90,7 +92,7 @@ const Backpack = () => {
         setMyBackpacks(responseMyBackpacks);
         toast.success("Mochila eliminada");
       }
-      if (responseDeleteBackpack.message == "Expired token") {
+      if (responseDeleteBackpack.message === "Expired token") {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
