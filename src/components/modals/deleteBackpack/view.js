@@ -11,7 +11,7 @@ import modalDeleteBackpack from "../../../assets/images/modal-backpack-delete.pn
 import { DialogContentText } from "@material-ui/core";
 
 const DeleteBackpack = () => {
-  const [userLogros, setUserLogros] = useState([]);
+  const [userBackpack, setUserBackpack] = useState([]);
 
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
@@ -23,11 +23,11 @@ const DeleteBackpack = () => {
     event.preventDefault();
     try {
       var respuesta = await apiDeleteBackpack();
-      const myAchievementsResponse = await apiMyBackpacks();
+      const myBackpackResponse = await apiMyBackpacks();
 
       if (respuesta.message == "success") {
-        setUserLogros(myAchievementsResponse);
-        toast.info("Has eliminado los logros de tu lista");
+        setUserBackpack(myBackpackResponse);
+        toast.info("Has eliminado la mochila de tu lista");
       }
       if (respuesta.message == "Expired token") {
         toast.info(
@@ -44,7 +44,7 @@ const DeleteBackpack = () => {
   return (
     <>
       <Container>
-        <DialogTitle id="deleteAccountmodal">
+        <DialogTitle id="deleteBackpackmodal">
           {"¿Seguro que quieres eliminarla?"}
         </DialogTitle>
         <DialogContent>
@@ -86,7 +86,7 @@ async function apiDeleteBackpack() {
 }
 
 async function apiMyBackpacks() {
-  return fetch(`${url.base}${url.apiMyBackpacks}`, {
+  return fetch(`${url.base}${url.myBackpacks}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
