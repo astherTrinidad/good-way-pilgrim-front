@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Navbar, Footer } from "../../organisms";
-import ButtonTurquoise from "./../../atoms/buttonTurquoise";
+import { SlideData } from "../../molecules/slide/slideData";
+import Slide from "../../molecules/slide";
 import appRoutes from "../../../config/appRoutes";
 import url from "../../../config/url";
 import { toast } from "react-toastify";
@@ -16,7 +17,7 @@ import {
   Subtitle,
 } from "./styled";
 import Cards from "../../molecules/cards";
-import backpackIllustration from "../../../assets/images/backpack-via-plata.png";
+import backpackIllustration from "../../../assets/images/backpack-05.png";
 
 const Backpack = () => {
   const [allCaminos, setCaminos] = useState([]);
@@ -125,11 +126,11 @@ const Backpack = () => {
     );
   });
 
-  const renderMyBackpacks = myBackpacks.map((item) => {
+  const renderMyBackpacks = myBackpacks.map((item, index) => {
     console.log("idbutton: " + item.id);
     return (
       <>
-        <ColumnCard>
+        <ColumnCard key={index}>
           <Cards
             id={item.id}
             src={backpackIllustration}
@@ -203,7 +204,9 @@ const Backpack = () => {
           </Subtitle>
         </TextWrapper>
         {/*Carrousel */}
-        <Row></Row>
+        <Row>
+          <Slide slides={SlideData} />
+        </Row>
       </Container>
       <Footer />
     </>

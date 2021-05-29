@@ -12,7 +12,7 @@ export const ContainerCard = styled.div`
   margin: 2rem;
   background: ${colors.white};
   border-radius: 20px;
-  box-shadow: 0 2px 8px ${colors.lightGrey};
+  box-shadow: 0 3px 6px ${colors.lightGrey};
   position: relative;
   padding: 0.25rem;
 `;
