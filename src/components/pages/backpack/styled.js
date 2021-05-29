@@ -28,6 +28,10 @@ export const Row = styled.div`
 export const ColumnCard = styled.div`
   display: flex;
   flex-direction: column;
+  &:hover {
+    border: 1px solid ${colors.mustard};
+    border-radius: 20px;
+  }
 `;
 
 export const Section = styled.h1`
@@ -37,6 +41,10 @@ export const Section = styled.h1`
   text-align: left;
   justify-content: left;
   align-items: left;
+
+  &:nth-child(1) {
+    margin-top: 4rem;
+  }
 `;
 
 export const TextWrapper = styled.div`
@@ -52,6 +60,18 @@ export const TextWrapper = styled.div`
   }
 `;
 
+export const TextWrapperWithoutBackpacks = styled.div`
+  justify-content: left;
+  margin: 0 auto;
+  max-width: 100%;
+  padding-top: 0;
+  padding-bottom: 60px;
+  text-align: left;
+  @media screen and (max-width: 768px) {
+    padding-bottom: 65px;
+  }
+`;
+
 export const Heading = styled.h2`
   color: ${colors.turquoise};
   display: block;
@@ -59,10 +79,8 @@ export const Heading = styled.h2`
   font-size: 2em;
   font-weight: bold;
   line-height: 1.5;
-  margin-right: auto;
-  margin-left: auto;
   margin-top: 1rem;
-  text-align: center;
+  text-align: left;
   width: 100%;
 
   @media screen and (max-width: 960px) {
@@ -84,11 +102,9 @@ export const Subtitle = styled.h3`
   font-size: 1.5em;
   font-weight: 300;
   line-height: 1.5;
-  margin-right: auto;
-  margin-left: auto;
   margin-top: 1rem;
-  text-align: center;
-  width: 80%;
+  text-align: left;
+  width: 100%;
 
   @media screen and (max-width: 960px) {
     font-size: 1em;
@@ -99,4 +115,44 @@ export const Subtitle = styled.h3`
   @media screen and (max-width: 767px) {
     display: none;
   }
+`;
+
+export const ColumnImg = styled.div`
+  width: 70%;
+
+  @media screen and (max-width: 960px) {
+    display: none;
+  }
+`;
+
+export const Img = styled.img`
+  width: 100%;
+  height: auto;
+`;
+
+export const ConchaIcon = styled.img`
+  width: 40px;
+  height: 40px;
+  margin: 1rem 0;
+`;
+
+export const NumberStep = styled.p`
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: ${colors.darkGrey};
+  padding: 0 1rem 0 1rem;
+`;
+
+export const ArrowStep = styled.span`
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: ${colors.mustard};
+  padding: 0 0 0 1rem;
+`;
+
+export const TextStep = styled.span`
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: ${colors.darkGrey};
+  padding: 0 1rem 0 1rem;
 `;

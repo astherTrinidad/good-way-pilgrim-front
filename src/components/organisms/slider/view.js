@@ -10,11 +10,9 @@ import {
   Row,
 } from "./styled";
 
-const Slide = ({ slides }) => {
+const Slider = ({ slides }) => {
   const [current, setCurrent] = useState(0);
   const length = slides.length;
-
-  console.log("longitud" + length);
 
   const nextSlide = () => {
     setCurrent(current === length - 1 ? 0 : current + 1);
@@ -63,4 +61,4 @@ const Slide = ({ slides }) => {
   );
 };
 
-export default Slide;
+export default Slider;

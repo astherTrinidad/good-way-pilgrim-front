@@ -11,9 +11,19 @@ import {
   TextWrapper,
 } from "./styled";
 
-const Card = ({ id, alt, src, tabIndex, name, quantity, onClick }) => {
+const Card = ({
+  id,
+  alt,
+  src,
+  tabIndex,
+  name,
+  quantity,
+  onClick,
+  width,
+  height,
+}) => {
   return (
-    <ContainerCard>
+    <ContainerCard width={width} height={height}>
       <Illustration src={src} alt={alt} />
       <TextWrapper>
         <TextNameCamino tabIndex={tabIndex}>{name}</TextNameCamino>
