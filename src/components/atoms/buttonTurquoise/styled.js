@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import colors from '../../../assets/colors';
+import styled from "styled-components";
+import colors from "../../../assets/colors";
 
 export const Container = styled.button`
-  width: 25%;
   border-radius: 8px;
   background-color: ${colors.turquoise};
   color: ${colors.white};
@@ -10,11 +9,22 @@ export const Container = styled.button`
   font-weight: 500;
   font-size: 1rem;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 1rem 0 2.5rem 0;
   padding: 1rem 1rem;
   transition: all 0.3s ease-out;
 
+  .size-sm {
+    width: 25%;
+  }
+
+  .size-md {
+    width: 50%;
+  }
+
+  .size-lg {
+    width: 800%;
+  }
   &:hover {
     background: ${colors.turquoiseDark};
     color: ${colors.white};

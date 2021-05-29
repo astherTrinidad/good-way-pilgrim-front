@@ -5,6 +5,18 @@ import ButtonTurquoise from "./../../atoms/buttonTurquoise";
 import appRoutes from "../../../config/appRoutes";
 import url from "../../../config/url";
 import { toast } from "react-toastify";
+import GlobalStyle from "../../../globalStyles";
+import {
+  Container,
+  Row,
+  ColumnCard,
+  Section,
+  TextWrapper,
+  Heading,
+  Subtitle,
+} from "./styled";
+import Cards from "../../molecules/cards";
+import backpackIllustration from "../../../assets/images/backpack-via-plata.png";
 
 const Backpack = () => {
   const [allCaminos, setCaminos] = useState([]);
@@ -38,7 +50,7 @@ const Backpack = () => {
     fetchProfile();
   }, []);
 
-  const showInfoBackpack = async (event) => {
+  const handleShowInfoBackpack = async (event) => {
     event.preventDefault();
     try {
       const responseInfo = await apiInfoBackpack(event.target.id);
@@ -117,27 +129,20 @@ const Backpack = () => {
     console.log("idbutton: " + item.id);
     return (
       <>
-        <h1>{item.name}</h1>
-        <h2>{item.numObjects}</h2>
-        <ButtonTurquoise
-          id={item.id}
-          type="button"
-          onClick={showInfoBackpack}
-          label="Ver info"
-          value="show info"
-        />
-        <ButtonTurquoise
-          id={item.id}
-          type="button"
-          onClick={deleteBackpack}
-          label="Borrar Mochila"
-          value="delete backpack"
-        />
+        <ColumnCard>
+          <Cards
+            id={item.id}
+            src={backpackIllustration}
+            name={item.name}
+            quantity={item.numObjects}
+            onClick={handleShowInfoBackpack}
+          />
+        </ColumnCard>
       </>
     );
   });
 
-  const renderInfoBackpack = infoBackpack.map((item, pathItem) => {
+  const renderInfoBackpack = infoBackpack.map((item, index) => {
     return (
       <>
         <p>
@@ -150,10 +155,37 @@ const Backpack = () => {
 
   return (
     <>
+      <GlobalStyle />
       <Navbar />
-      {renderMyBackpacks}
-      {renderInfoBackpack}
-      {renderAllCaminos}
+      <Container>
+        <Row title="Mochila">
+          <Section role="sección" tabIndex={0}>
+            Mochila
+          </Section>
+        </Row>
+        <Row>
+          <TextWrapper>
+            <Heading
+              aria-label="En este apartado se muestran tus mochilas creadas"
+              tabIndex="0"
+            >
+              En este apartado se muestran tus mochilas creadas
+            </Heading>
+            <Subtitle
+              aria-label="Puedes acceder a cada una de ellas para ver toda la información,
+              editar cada uno de los objetos incluidos o incluso eliminar la
+              propia mochila"
+              tabIndex="0"
+            >
+              Puedes acceder a cada una de ellas para ver toda la información,
+              editar cada uno de los objetos incluidos o incluso eliminar la
+              propia mochila
+            </Subtitle>
+          </TextWrapper>
+        </Row>
+        <Row>{renderMyBackpacks}</Row>
+        {renderInfoBackpack}
+      </Container>
       <Footer />
     </>
   );
