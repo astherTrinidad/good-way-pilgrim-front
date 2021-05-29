@@ -27,7 +27,7 @@ const Card = ({ id, alt, src, tabIndex, name, quantity, onClick }) => {
           id={id}
           type="button"
           onClick={onClick}
-          label="Ver info"
+          label="Ver mochila"
           value="show info"
         />
       </div>

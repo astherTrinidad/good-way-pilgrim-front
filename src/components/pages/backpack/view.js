@@ -185,6 +185,25 @@ const Backpack = () => {
         </Row>
         <Row>{renderMyBackpacks}</Row>
         {renderInfoBackpack}
+        <Row title="Crear mochila">
+          <Section role="sección" tabIndex={0}>
+            Crear mochila
+          </Section>
+        </Row>
+        <TextWrapper>
+          <Heading aria-label="¿Aún no sabes que llevarte?" tabIndex="0">
+            ¿Aún no sabes que llevarte?
+          </Heading>
+          <Subtitle
+            aria-label="Es imprescindible tener en cuenta en qué época del año pretendes hacer el camino"
+            tabIndex="0"
+          >
+            Antes de pensar qué vas a meter en tu mochila, es imprescindible
+            tener en cuenta en qué época del año pretendes hacer el camino
+          </Subtitle>
+        </TextWrapper>
+        {/*Carrousel */}
+        <Row></Row>
       </Container>
       <Footer />
     </>
