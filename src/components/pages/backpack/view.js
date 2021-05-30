@@ -20,10 +20,11 @@ import {
   NumberStep,
   ArrowStep,
   TextStep,
+  ContainerList,
 } from "./styled";
 import Cards from "../../molecules/cards";
 import CardsSmall from "../../molecules/cardsSmall";
-
+import BackpackItemList from "../../molecules/backpackForm/BackpackItemList";
 import backpackIllustration from "../../../assets/images/backpack-05.png";
 import dropBackpacks from "../../../assets/images/drop-backpacks.png";
 import conchaIcon from "../../../assets/images/conchaTurquoise.png";
@@ -36,6 +37,7 @@ const Backpack = () => {
   const [pathId, setPathId] = useState({
     camino: "",
   });
+  const [newBackpack, setNewBackpack] = useState(false);
 
   useEffect(() => {
     async function fetchProfile() {
@@ -45,7 +47,10 @@ const Backpack = () => {
         setMyBackpacks(responseMyBackpacks);
         setCaminos(responseAllPaths);
 
-        if (responseAllPaths.message === "Expired token") {
+        if (
+          responseAllPaths.message === "Expired token" ||
+          responseMyBackpacks.message === "Expired token"
+        ) {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
@@ -69,7 +74,7 @@ const Backpack = () => {
       if (responseInfo !== "Incorrect data recived") {
         setInfoBackpack(responseInfo);
       }
-      if (responseInfo.message == "Expired token") {
+      if (responseInfo.message === "Expired token") {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
@@ -89,12 +94,19 @@ const Backpack = () => {
       let responseCreateBackpack = await apiCreateBackpack(pathId);
       const responseMyBackpacks = await apiMyBackpacks();
       setMyBackpacks(responseMyBackpacks);
+      setNewBackpack(true);
 
-      if (responseCreateBackpack.message == "success") {
+      let response = JSON.parse(responseCreateBackpack);
+      console.log("parse" + response.message);
+
+      if (response.message === "success") {
         toast.success("🐱" + "¡Mochila creada!");
       }
 
-      if (responseCreateBackpack.message == "Expired token") {
+      if (
+        responseMyBackpacks.message === "Expired token" ||
+        response.message === "Expired token"
+      ) {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
@@ -259,13 +271,22 @@ const Backpack = () => {
           </NumberStep>
         </Row>
         <Row>{renderAllCaminos}</Row>
-        <Row>
-          <ConchaIcon src={conchaIcon} />
-          <NumberStep>
-            Paso 2 <ArrowStep>{">"}</ArrowStep>
-            <TextStep>Empieza a añadir objetos</TextStep>
-          </NumberStep>
-        </Row>
+        {newBackpack && (
+          <>
+            <Row>
+              <ConchaIcon src={conchaIcon} />
+              <NumberStep>
+                Paso 2 <ArrowStep>{">"}</ArrowStep>
+                <TextStep>Empieza a añadir objetos</TextStep>
+              </NumberStep>
+            </Row>
+            <Row>
+              <ContainerList className="backpack-app">
+                <BackpackItemList />
+              </ContainerList>
+            </Row>
+          </>
+        )}
       </Container>
       <Footer />
     </>
