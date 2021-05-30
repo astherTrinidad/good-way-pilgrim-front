@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import colors from '../../../assets/colors';
+import styled from "styled-components";
+import colors from "../../../assets/colors";
 
 export const Container = styled.button`
-  width: 25%;
   border-radius: 8px;
   background-color: ${colors.turquoise};
   color: ${colors.white};
@@ -10,10 +9,11 @@ export const Container = styled.button`
   font-weight: 500;
   font-size: 1rem;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  margin: 1rem 0 2.5rem 0;
+  font-family: "Poppins", sans-serif;
+  margin: 1rem auto;
   padding: 1rem 1rem;
   transition: all 0.3s ease-out;
+  width: 100%;
 
   &:hover {
     background: ${colors.turquoiseDark};
@@ -25,11 +25,5 @@ export const Container = styled.button`
   .MuiCircularProgress-root {
     color: ${colors.white};
     margin-left: 10px;
-  }
-
-  @media screen and (max-width: 768px) {
-    display: block;
-    margin: 1rem auto 3rem auto;
-    width: 50%;
   }
 `;
