@@ -14,7 +14,6 @@ export const Container = styled.main`
 export const Row = styled.div`
   display: flex;
   flex-wrap: wrap;
-
   align-items: center;
   width: 100%;
   height: max-content;
@@ -105,10 +104,6 @@ export const Subtitle = styled.h3`
     margin: 0 0 1rem 0;
     width: 100%;
   }
-
-  @media screen and (max-width: 767px) {
-    display: none;
-  }
 `;
 
 export const ColumnImg = styled.div`
@@ -128,6 +123,10 @@ export const ConchaIcon = styled.img`
   width: 40px;
   height: 40px;
   margin: 1rem 0;
+
+  @media screen and (max-width: 578px) {
+    display: none;
+  }
 `;
 
 export const NumberStep = styled.p`
@@ -135,13 +134,15 @@ export const NumberStep = styled.p`
   font-weight: bold;
   color: ${colors.darkGrey};
   padding: 0 1rem 0 1rem;
+  line-height: 1.5;
+  margin: 1rem 0;
 `;
 
 export const ArrowStep = styled.span`
   font-size: 1.5rem;
   font-weight: bold;
   color: ${colors.mustard};
-  padding: 0 0 0 1rem;
+  padding-left: 1rem;
 `;
 
 export const TextStep = styled.span`

@@ -1,41 +1,6 @@
 import styled from "styled-components";
 import colors from "../../../assets/colors";
 
-export const ContainerArrow = styled.div`
-  color: ${colors.mustard};
-
-  .right-arrow {
-    position: relative;
-    top: 50%;
-    right: 32px;
-    font-size: 3rem;
-    z-index: 10;
-    cursor: pointer;
-    user-select: none;
-    @media screen and (max-width: 578px) {
-      font-size: 2rem;
-      right: -5px;
-    }
-  }
-
-  .left-arrow {
-    position: relative;
-    top: 50%;
-    left: 32px;
-    font-size: 3rem;
-    z-index: 10;
-    cursor: pointer;
-    user-select: none;
-    @media screen and (max-width: 578px) {
-      font-size: 2rem;
-      left: -5px;
-    }
-  }
-  &:hover {
-    color: ${colors.turquoise};
-  }
-`;
-
 export const ContainerSlide = styled.div`
   align-items: center;
   display: flex;
@@ -68,6 +33,42 @@ export const ContainerSlide = styled.div`
   }
 `;
 
+export const ContainerArrow = styled.div`
+  color: ${colors.mustard};
+
+  .right-arrow {
+    position: relative;
+    top: 50%;
+    right: 32px;
+    font-size: 3rem;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+
+    @media screen and (max-width: 578px) {
+      font-size: 2rem;
+      right: -5px;
+    }
+  }
+
+  .left-arrow {
+    position: relative;
+    top: 50%;
+    left: 32px;
+    font-size: 3rem;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+    @media screen and (max-width: 578px) {
+      font-size: 2rem;
+      left: -5px;
+    }
+  }
+  &:hover {
+    color: ${colors.turquoise};
+  }
+`;
+
 export const TextWrapper = styled.div`
   width: 37%;
   height: 362px;
@@ -75,7 +76,8 @@ export const TextWrapper = styled.div`
   border-radius: 0 20px 20px 0;
   padding: 1rem;
   position: relative;
-  @media screen and (max-width: 578px) {
+
+  @media screen and (max-width: 768px) {
     width: 100%;
     height: max-content;
     border-radius: 0 0 20px 20px;
@@ -88,18 +90,17 @@ export const TextSlide = styled.p`
   font-weight: 300;
   line-height: 1.5;
   text-align: left;
-  @media screen and (max-width: 578px) {
+  @media screen and (max-width: 968px) {
     font-size: 1rem;
   }
 `;
 
 export const Illustration = styled.img`
   position: relative;
-  width: 57%;
-  height: auto;
+  width: auto;
+  height: 400px;
   border-radius: 20px 0 0 20px;
-  padding: 2rem;
-  @media screen and (max-width: 578px) {
+  @media screen and (max-width: 768px) {
     width: 100%;
     height: max-content;
     border-radius: 20px 20px 0 0;
@@ -108,7 +109,11 @@ export const Illustration = styled.img`
 
 export const Row = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;

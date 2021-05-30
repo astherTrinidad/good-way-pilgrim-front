@@ -9,7 +9,6 @@ import GlobalStyle from "../../../globalStyles";
 import {
   Container,
   Row,
-  ColumnCard,
   Section,
   TextWrapper,
   Heading,
@@ -21,7 +20,6 @@ import {
   NumberStep,
   ArrowStep,
   TextStep,
-  RowCaminos,
 } from "./styled";
 import Cards from "../../molecules/cards";
 import CardsSmall from "../../molecules/cardsSmall";
