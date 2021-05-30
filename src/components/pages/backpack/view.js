@@ -63,6 +63,8 @@ const Backpack = () => {
   }, []);
 
   const handleShowInfoBackpack = async (event) => {
+    console.log("******" + event.target.id);
+
     event.preventDefault();
     try {
       const responseInfo = await apiInfoBackpack(event.target.id);
@@ -81,31 +83,36 @@ const Backpack = () => {
   };
 
   const handleCreateBackpack = async (event) => {
-    console.log("event: " + event.target.id);
-    event.preventDefault();
-    try {
-      pathId.camino = event.target.id;
-      setPathId(pathId);
-
-      console.log("path id" + pathId.camino);
-      const responseCreateBackpack = await apiCreateBackpack(pathId);
-
-      const responseMyBackpacks = await apiMyBackpacks();
-
-      if (responseCreateBackpack.message === "success") {
-        setMyBackpacks(responseMyBackpacks);
-        toast.success("Mochila creada");
-      }
-      if (responseCreateBackpack.message === "Expired token") {
-        toast.info(
-          "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
-        );
-        history.replace(appRoutes.login);
-      }
-    } catch (e) {
-      console.log("Error del servidor. Por favor, inténtelo de nuevo");
-    }
+    alert(event.target.id);
   };
+  // const handleCreateBackpack = async (event) => {
+  //   console.log("******" + event.target.id);
+  //   event.preventDefault();
+  //   try {
+  //     pathId.camino = event.target.id;
+  //     setPathId(pathId);
+  //     const responseCreateBackpack = await apiCreateBackpack(pathId);
+  //     const responseMyBackpacks = await apiMyBackpacks();
+
+  //     if (responseCreateBackpack.message === "success") {
+  //       setPathId(responseCreateBackpack);
+  //       toast.success("Mochila creada");
+  //     }
+
+  //     if (responseMyBackpacks.message === "success") {
+  //       setMyBackpacks(responseMyBackpacks);
+  //       toast.success("Mochila creada");
+  //     }
+  //     if (responseMyBackpacks.message === "Expired token") {
+  //       toast.info(
+  //         "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
+  //       );
+  //       history.replace(appRoutes.login);
+  //     }
+  //   } catch (e) {
+  //     console.log("Error del servidor. Por favor, inténtelo de nuevo");
+  //   }
+  // };
 
   const deleteBackpack = async (event) => {
     event.preventDefault();
@@ -131,10 +138,12 @@ const Backpack = () => {
   };
 
   const renderAllCaminos = allCaminos.map((item, index) => {
+    console.log(item.id);
     return (
       <>
-        <ColumnCard key={index}>
+        <ColumnCard>
           <CardsSmall
+            key={index}
             id={item.id}
             src={backpackIllustration}
             name={item.name}
@@ -165,7 +174,7 @@ const Backpack = () => {
   const renderInfoBackpack = infoBackpack.map((item, index) => {
     return (
       <>
-        <p>
+        <p key={index}>
           {item.quantity}
           <span> {item.object}</span>
         </p>
