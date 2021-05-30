@@ -12,6 +12,10 @@ export const ContainerArrow = styled.div`
     z-index: 10;
     cursor: pointer;
     user-select: none;
+    @media screen and (max-width: 578px) {
+      font-size: 2rem;
+      right: -5px;
+    }
   }
 
   .left-arrow {
@@ -22,6 +26,10 @@ export const ContainerArrow = styled.div`
     z-index: 10;
     cursor: pointer;
     user-select: none;
+    @media screen and (max-width: 578px) {
+      font-size: 2rem;
+      left: -5px;
+    }
   }
   &:hover {
     color: ${colors.turquoise};
@@ -51,6 +59,13 @@ export const ContainerSlide = styled.div`
     transition-duration: 1s;
     transform: scale(1.08);
   }
+
+  @media screen and (max-width: 578px) {
+    flex-direction: column;
+    width: 80%;
+    height: max-content;
+    padding-bottom: 1.5rem;
+  }
 `;
 
 export const TextWrapper = styled.div`
@@ -60,6 +75,11 @@ export const TextWrapper = styled.div`
   border-radius: 0 20px 20px 0;
   padding: 1rem;
   position: relative;
+  @media screen and (max-width: 578px) {
+    width: 100%;
+    height: max-content;
+    border-radius: 0 0 20px 20px;
+  }
 `;
 
 export const TextSlide = styled.p`
@@ -68,6 +88,9 @@ export const TextSlide = styled.p`
   font-weight: 300;
   line-height: 1.5;
   text-align: left;
+  @media screen and (max-width: 578px) {
+    font-size: 1rem;
+  }
 `;
 
 export const Illustration = styled.img`
@@ -76,11 +99,16 @@ export const Illustration = styled.img`
   height: auto;
   border-radius: 20px 0 0 20px;
   padding: 2rem;
+  @media screen and (max-width: 578px) {
+    width: 100%;
+    height: max-content;
+    border-radius: 20px 20px 0 0;
+  }
 `;
 
 export const Row = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `;

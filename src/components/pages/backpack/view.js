@@ -21,6 +21,7 @@ import {
   NumberStep,
   ArrowStep,
   TextStep,
+  RowCaminos,
 } from "./styled";
 import Cards from "../../molecules/cards";
 import CardsSmall from "../../molecules/cardsSmall";
@@ -43,7 +44,6 @@ const Backpack = () => {
       try {
         const responseAllPaths = await apiAllPaths();
         const responseMyBackpacks = await apiMyBackpacks();
-        console.log(responseMyBackpacks);
         setMyBackpacks(responseMyBackpacks);
         setCaminos(responseAllPaths);
 
@@ -83,36 +83,29 @@ const Backpack = () => {
   };
 
   const handleCreateBackpack = async (event) => {
-    alert(event.target.id);
+    console.log("******" + event.target.id);
+    event.preventDefault();
+    try {
+      pathId.camino = event.target.id;
+      setPathId(pathId);
+      let responseCreateBackpack = await apiCreateBackpack(pathId);
+      const responseMyBackpacks = await apiMyBackpacks();
+      setMyBackpacks(responseMyBackpacks);
+
+      if (responseCreateBackpack.message == "success") {
+        toast.success("🐱" + "¡Mochila creada!");
+      }
+
+      if (responseCreateBackpack.message == "Expired token") {
+        toast.info(
+          "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
+        );
+        history.replace(appRoutes.login);
+      }
+    } catch (e) {
+      console.log("Error del servidor. Por favor, inténtelo de nuevo");
+    }
   };
-  // const handleCreateBackpack = async (event) => {
-  //   console.log("******" + event.target.id);
-  //   event.preventDefault();
-  //   try {
-  //     pathId.camino = event.target.id;
-  //     setPathId(pathId);
-  //     const responseCreateBackpack = await apiCreateBackpack(pathId);
-  //     const responseMyBackpacks = await apiMyBackpacks();
-
-  //     if (responseCreateBackpack.message === "success") {
-  //       setPathId(responseCreateBackpack);
-  //       toast.success("Mochila creada");
-  //     }
-
-  //     if (responseMyBackpacks.message === "success") {
-  //       setMyBackpacks(responseMyBackpacks);
-  //       toast.success("Mochila creada");
-  //     }
-  //     if (responseMyBackpacks.message === "Expired token") {
-  //       toast.info(
-  //         "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
-  //       );
-  //       history.replace(appRoutes.login);
-  //     }
-  //   } catch (e) {
-  //     console.log("Error del servidor. Por favor, inténtelo de nuevo");
-  //   }
-  // };
 
   const deleteBackpack = async (event) => {
     event.preventDefault();
@@ -141,15 +134,13 @@ const Backpack = () => {
     console.log(item.id);
     return (
       <>
-        <ColumnCard>
-          <CardsSmall
-            key={index}
-            id={item.id}
-            src={backpackIllustration}
-            name={item.name}
-            onClick={handleCreateBackpack}
-          />
-        </ColumnCard>
+        <CardsSmall
+          key={index}
+          id={item.id}
+          src={backpackIllustration}
+          name={item.name}
+          onClick={handleCreateBackpack}
+        />
       </>
     );
   });
@@ -158,15 +149,14 @@ const Backpack = () => {
     console.log("idbutton: " + item.id);
     return (
       <>
-        <ColumnCard key={index}>
-          <Cards
-            id={item.id}
-            src={backpackIllustration}
-            name={item.name}
-            quantity={item.numObjects}
-            onClick={handleShowInfoBackpack}
-          />
-        </ColumnCard>
+        <Cards
+          key={index}
+          id={item.id}
+          src={backpackIllustration}
+          name={item.name}
+          quantity={item.numObjects}
+          onClick={handleShowInfoBackpack}
+        />
       </>
     );
   });
@@ -336,7 +326,16 @@ async function apiCreateBackpack(pathId) {
     },
     body: JSON.stringify(pathId),
   });
-
+  if (!response.ok) {
+    if (response.status === 400) {
+      toast.error("Datos incorrectos");
+    }
+    if (response.status === 422) {
+      toast.error(
+        "¡Error! Agregar el camino a tu perfil o revisa que no tengas una mochila ya creada para este camino"
+      );
+    }
+  }
   let content = await response.text();
   return content;
 }

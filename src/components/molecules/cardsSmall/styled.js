@@ -6,16 +6,25 @@ export const ContainerCard = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  width: 190px;
+  width: 200px;
   height: max-content;
   text-align: center;
-  margin: 1.25rem;
+  margin: 1.25rem auto;
   background: ${colors.white};
   border-radius: 20px;
   box-shadow: 0 3px 6px ${colors.lightGrey};
   position: relative;
   padding: 0.25rem;
   cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    width: 42%;
+    height: max-content;
+  }
+  &:hover {
+    border: 3px solid ${colors.mustard};
+    border-radius: 20px;
+  }
 `;
 
 export const TextWrapper = styled.div`
@@ -42,6 +51,7 @@ export const TextMochila = styled.p`
 export const Illustration = styled.img`
   width: 100%;
   height: auto;
+  border-radius: 20px 20px 0 0;
 `;
 
 export const Value = styled.span`

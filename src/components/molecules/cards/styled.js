@@ -6,15 +6,28 @@ export const ContainerCard = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-  width: 250px;
-  height: 350px;
+  width: 300px;
+  height: max-content;
   text-align: center;
-  margin: 2rem;
+  margin: 0 3rem 5rem 3rem;
   background: ${colors.white};
   border-radius: 20px;
   box-shadow: 0 3px 6px ${colors.lightGrey};
   position: relative;
   padding: 0.25rem;
+
+  @media screen and (max-width: 968px) {
+    margin: 0 3rem 5rem 3rem;
+  }
+
+  @media screen and (max-width: 578px) {
+    width: 80%;
+    height: max-content;
+  }
+  &:hover {
+    border: 3px solid ${colors.mustard};
+    border-radius: 20px;
+  }
 `;
 
 export const TextWrapper = styled.div`

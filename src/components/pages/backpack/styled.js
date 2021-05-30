@@ -13,24 +13,18 @@ export const Container = styled.main`
 
 export const Row = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+
   align-items: center;
+  width: 100%;
+  height: max-content;
 
   &:nth-of-type(3) {
     justify-content: center;
   }
 
   @media screen and (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-export const ColumnCard = styled.div`
-  display: flex;
-  flex-direction: column;
-  &:hover {
-    border: 1px solid ${colors.mustard};
-    border-radius: 20px;
+    width: 100%;
   }
 `;
 
