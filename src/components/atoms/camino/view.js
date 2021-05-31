@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ContainerCaminos,
   TextNameCamino,
@@ -6,7 +6,7 @@ import {
   DescriptionText,
   Value,
   Key,
-} from './styled';
+} from "./styled";
 
 const Camino = ({
   tabIndex,
@@ -16,9 +16,10 @@ const Camino = ({
   num_etapas,
   km,
   description,
+  id,
 }) => {
   return (
-    <ContainerCaminos>
+    <ContainerCaminos id={id}>
       <TextNameCamino tabIndex={tabIndex}>{name}</TextNameCamino>
       <TextCamino tabIndex={tabIndex}>
         <Key>Origen: </Key>
