@@ -30,11 +30,25 @@ export const Icons = styled.div`
 export const Input = styled.input`
   background: ${colors.white};
   border: 1px solid ${colors.turquoise};
+  color: ${colors.darkGrey};
+  outline: none;
+  padding: 1rem;
+  width: 50%;
+
+  &::placeholder {
+    color: ${colors.mediumGrey};
+  }
+`;
+
+export const InputQuantity = styled.input`
+  background: ${colors.white};
+  border: 1px solid ${colors.turquoise};
   border-radius: 10px 0 0 10px;
   color: ${colors.darkGrey};
   outline: none;
   padding: 1rem;
-  width: 70%;
+  width: 20%;
+  margin-right: 1rem;
 
   &::placeholder {
     color: ${colors.mediumGrey};
@@ -44,11 +58,10 @@ export const Input = styled.input`
 export const InputUpdate = styled.input`
   background: transparent;
   border: 1px solid ${colors.mustard};
-  border-radius: 10px 0 0 10px;
   color: ${colors.darkGrey};
   outline: none;
   padding: 1rem;
-  width: 70%;
+  width: 50%;
 
   &::placeholder {
     color: ${colors.mediumGrey};

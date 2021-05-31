@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   Input,
   InputUpdate,
+  InputQuantity,
   ButtonList,
   ButtonListUpdate,
   Form,
@@ -9,11 +10,11 @@ import {
 
 function BackpackForm(props) {
   const [input, setInput] = useState("");
-  const inputRef = useRef(null);
+  // const inputRef = useRef(null);
 
-  useEffect(() => {
-    inputRef.current.focus();
-  });
+  // useEffect(() => {
+  //   inputRef.current.focus();
+  // });
 
   const handleChange = (event) => {
     setInput(event.target.value);
@@ -32,12 +33,23 @@ function BackpackForm(props) {
       <Form onSubmit={handleSubmit}>
         {props.edit ? (
           <>
+            <InputQuantity
+              placeholder="Cantidad"
+              value={input}
+              onChange={handleChange}
+              name="text"
+              // ref={inputRef}
+              className="edit"
+              contenteditable="true"
+              aria-placeholder="Cantidad"
+              aria-labelledby="cantidadObjeto"
+            />
             <InputUpdate
               placeholder="Escribe un nuevo nombre"
               value={input}
               onChange={handleChange}
               name="text"
-              ref={inputRef}
+              // ref={inputRef}
               className="edit"
               contenteditable="true"
               aria-placeholder="Escribe un nuevo nombre"
@@ -53,12 +65,23 @@ function BackpackForm(props) {
           </>
         ) : (
           <>
+            <InputQuantity
+              placeholder="Cantidad"
+              value={input}
+              onChange={handleChange}
+              name="text"
+              // ref={inputRef}
+              className="edit"
+              contenteditable="true"
+              aria-placeholder="Cantidad"
+              aria-labelledby="cantidadObjeto"
+            />
             <Input
               placeholder="Añade un objeto"
               value={input}
               onChange={handleChange}
               name="text"
-              ref={inputRef}
+              // ref={inputRef}
               contenteditable="true"
               aria-placeholder="Añade un objeto"
               aria-labelledby="añadirObjeto"

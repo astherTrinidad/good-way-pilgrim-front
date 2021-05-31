@@ -29,7 +29,7 @@ import backpackIllustration from "../../../assets/images/backpack-05.png";
 import dropBackpacks from "../../../assets/images/drop-backpacks.png";
 import conchaIcon from "../../../assets/images/conchaTurquoise.png";
 
-const Backpack = () => {
+const BackpackCamino = () => {
   const [allCaminos, setCaminos] = useState([]);
   const history = useHistory();
   const [myBackpacks, setMyBackpacks] = useState([]);
@@ -192,108 +192,22 @@ const Backpack = () => {
             Mochila
           </Section>
         </Row>
-        {myBackpacks.length <= 0 ? (
-          <Row>
-            <TextWrapperWithoutBackpacks>
-              <Heading
-                aria-label="Aún no tienes ninguna mochila creada"
-                tabIndex="0"
-              >
-                No tienes ninguna mochila creada
-              </Heading>
-              <Subtitle aria-label="¿A qué esperas? " tabIndex="0">
-                Ten en cuenta que la capacidad de la mochila debería estar
-                dentro del rango que va de los 35 a los 45 litros en época de
-                buen tiempo y de los 50 a los 60 litros en invierno. ¿A qué
-                esperas?
-              </Subtitle>
-            </TextWrapperWithoutBackpacks>
-            <ColumnImg>
-              <Img
-                src={dropBackpacks}
-                alt="Peregrino andando sobre un sendero en la montaña"
-              />
-            </ColumnImg>
-          </Row>
-        ) : (
-          <Row>
-            <TextWrapper>
-              <Heading
-                aria-label="En este apartado se muestran tus mochilas creadas"
-                tabIndex="0"
-              >
-                En este apartado se muestran tus mochilas creadas
-              </Heading>
-              <Subtitle
-                aria-label="Puedes acceder a cada una de ellas para ver toda la información,
-              editar cada uno de los objetos incluidos o incluso eliminar la
-              propia mochila"
-                tabIndex="0"
-              >
-                Puedes acceder a cada una de ellas para ver toda la información,
-                editar cada uno de los objetos incluidos o incluso eliminar la
-                propia mochila
-              </Subtitle>
-            </TextWrapper>
-          </Row>
-        )}
 
         <Row>{renderMyBackpacks}</Row>
         {renderInfoBackpack}
 
-        <TextWrapper>
-          <Heading aria-label="¿Aún no sabes que llevarte?" tabIndex="0">
-            ¿Aún no sabes que llevarte?
-          </Heading>
-          <Subtitle
-            aria-label="Es imprescindible tener en cuenta en qué época del año pretendes hacer el camino"
-            tabIndex="0"
-          >
-            Antes de pensar qué vas a meter en tu mochila, es imprescindible
-            tener en cuenta en qué época del año pretendes hacer el camino
-          </Subtitle>
-        </TextWrapper>
         <Row>
-          <Slider slides={SlideData} />
+          <ContainerList className="backpack-app">
+            <BackpackItemList />
+          </ContainerList>
         </Row>
-        <Row title="Crear mochila">
-          <Section role="sección" tabIndex={0}>
-            Crear mochila
-          </Section>
-        </Row>
-        <Row>
-          <ConchaIcon src={conchaIcon} />
-          <NumberStep>
-            Paso 1 <ArrowStep>{">"}</ArrowStep>
-            <TextStep>
-              Selecciona a que camino quieres asociar la mochila nueva
-            </TextStep>
-          </NumberStep>
-        </Row>
-        <Row>{renderAllCaminos}</Row>
-        {newBackpack && (
-          <>
-            <Row>
-              <ConchaIcon src={conchaIcon} />
-              <NumberStep>
-                Paso 2 <ArrowStep>{">"}</ArrowStep>
-                <TextStep>Empieza a añadir objetos</TextStep>
-              </NumberStep>
-            </Row>
-            <Row>
-              <ContainerList className="backpack-app">
-                <BackpackItemList />
-              </ContainerList>
-            </Row>
-          </>
-        )}
       </Container>
       <Footer />
     </>
   );
 };
 
-export default Backpack;
+export default BackpackCamino;
 
 async function apiAllPaths() {
   return fetch(`${url.base}${url.caminos}`, {

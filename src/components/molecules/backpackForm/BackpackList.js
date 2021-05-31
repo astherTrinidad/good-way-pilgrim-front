@@ -14,6 +14,7 @@ function BackpackList({ items, storedInTheBackpack, removeItem, updateItem }) {
     setEdit({
       id: null,
       value: "",
+      quantity: "",
     });
   };
 
@@ -29,6 +30,7 @@ function BackpackList({ items, storedInTheBackpack, removeItem, updateItem }) {
       <div key={item.id} onClick={() => storedInTheBackpack(item.id)}>
         {item.text}
       </div>
+
       <Icons className="icons">
         <TiEdit
           onClick={() => setEdit({ id: item.id, value: item.text })}
