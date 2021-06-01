@@ -20,15 +20,16 @@ import {
   NumberStep,
   ArrowStep,
   TextStep,
+  ContainerList,
 } from "./styled";
 import Cards from "../../molecules/cards";
 import CardsSmall from "../../molecules/cardsSmall";
-
-import backpackIllustration from "../../../assets/images/backpack-05.png";
+import BackpackItemList from "../../molecules/backpackForm/BackpackItemList";
+import backpackIllustration from "../../../assets/images/camino-norte.png";
 import dropBackpacks from "../../../assets/images/drop-backpacks.png";
 import conchaIcon from "../../../assets/images/conchaTurquoise.png";
 
-const Backpack = () => {
+const MeBackpacks = () => {
   const [allCaminos, setCaminos] = useState([]);
   const history = useHistory();
   const [myBackpacks, setMyBackpacks] = useState([]);
@@ -36,6 +37,8 @@ const Backpack = () => {
   const [pathId, setPathId] = useState({
     camino: "",
   });
+  const [newBackpack, setNewBackpack] = useState(false);
+  const [showBackpack, setShowBackpack] = useState(false);
 
   useEffect(() => {
     async function fetchProfile() {
@@ -45,7 +48,10 @@ const Backpack = () => {
         setMyBackpacks(responseMyBackpacks);
         setCaminos(responseAllPaths);
 
-        if (responseAllPaths.message === "Expired token") {
+        if (
+          responseAllPaths.message === "Expired token" ||
+          responseMyBackpacks.message === "Expired token"
+        ) {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
@@ -68,8 +74,11 @@ const Backpack = () => {
       const responseInfo = await apiInfoBackpack(event.target.id);
       if (responseInfo !== "Incorrect data recived") {
         setInfoBackpack(responseInfo);
+        setShowBackpack(true);
+
+        console.log("show: " + showBackpack);
       }
-      if (responseInfo.message == "Expired token") {
+      if (responseInfo.message === "Expired token") {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
@@ -87,14 +96,22 @@ const Backpack = () => {
       pathId.camino = event.target.id;
       setPathId(pathId);
       let responseCreateBackpack = await apiCreateBackpack(pathId);
+
       const responseMyBackpacks = await apiMyBackpacks();
       setMyBackpacks(responseMyBackpacks);
+      setNewBackpack(true);
 
-      if (responseCreateBackpack.message == "success") {
-        toast.success("🐱" + "¡Mochila creada!");
+      let response = JSON.parse(responseCreateBackpack);
+      console.log("parse" + response.message);
+
+      if (response.message === "success") {
+        toast.success("¡Mochila creada!");
       }
 
-      if (responseCreateBackpack.message == "Expired token") {
+      if (
+        responseMyBackpacks.message === "Expired token" ||
+        response.message === "Expired token"
+      ) {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
@@ -259,20 +276,30 @@ const Backpack = () => {
           </NumberStep>
         </Row>
         <Row>{renderAllCaminos}</Row>
-        <Row>
-          <ConchaIcon src={conchaIcon} />
-          <NumberStep>
-            Paso 2 <ArrowStep>{">"}</ArrowStep>
-            <TextStep>Empieza a añadir objetos</TextStep>
-          </NumberStep>
-        </Row>
+
+        {showBackpack && (
+          <>
+            <Row>
+              <ConchaIcon src={conchaIcon} />
+              <NumberStep>
+                Paso 2 <ArrowStep>{">"}</ArrowStep>
+                <TextStep>Empieza a añadir objetos</TextStep>
+              </NumberStep>
+            </Row>
+            <Row>
+              <ContainerList className="backpack-app">
+                <BackpackItemList />
+              </ContainerList>
+            </Row>
+          </>
+        )}
       </Container>
       <Footer />
     </>
   );
 };
 
-export default Backpack;
+export default MeBackpacks;
 
 async function apiAllPaths() {
   return fetch(`${url.base}${url.caminos}`, {
@@ -336,4 +363,15 @@ async function apiCreateBackpack(pathId) {
   }
   let content = await response.text();
   return content;
+}
+
+async function apiAddItem(itemInfo) {
+  return fetch(`${url.base}${url.addItem}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
+    },
+    body: JSON.stringify(itemInfo),
+  }).then((data) => data.json());
 }

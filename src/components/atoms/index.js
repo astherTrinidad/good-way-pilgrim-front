@@ -11,7 +11,6 @@ import CaminoEtapa from "./caminoEtapa";
 import Etapa from "./etapa";
 import EtapaActual from "./etapaActual";
 import CircleScroll from "./circleScroll";
-
 export {
   TextInput,
   Button,

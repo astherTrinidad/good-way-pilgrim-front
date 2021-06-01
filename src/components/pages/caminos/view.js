@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import _findIndex from 'lodash/findIndex';
-import { useHistory, Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import FileSaver from 'file-saver';
-import { Navbar, Footer } from '../../organisms';
-import appRoutes from '../../../config/appRoutes';
-import GlobalStyle from '../../../globalStyles';
-import url from '../../../config/url';
-import CircleScroll from '../../atoms/circleScroll'
+import React, { useState, useEffect } from "react";
+import _findIndex from "lodash/findIndex";
+import { useHistory, Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import FileSaver from "file-saver";
+import { Navbar, Footer } from "../../organisms";
+import appRoutes from "../../../config/appRoutes";
+import GlobalStyle from "../../../globalStyles";
+import url from "../../../config/url";
+import CircleScroll from "../../atoms/circleScroll";
 import {
   Container,
   Section,
@@ -25,35 +25,34 @@ import {
   TextMenuActual,
   TextLink,
   DropMenu,
-  
-} from './styled';
-import { Camino, Etapa, CaminoEtapa } from '../../atoms';
-import GWPinfoCaminos from '../../../assets/downloadPDF/GWPinfoCaminos.pdf';
-import dropTopCaminos from '../../../assets/images/gota-caminos.png';
+} from "./styled";
+import { Camino, Etapa, CaminoEtapa } from "../../atoms";
+import GWPinfoCaminos from "../../../assets/downloadPDF/GWPinfoCaminos.pdf";
+import dropTopCaminos from "../../../assets/images/gota-caminos.png";
 
 export default function Caminos() {
   const history = useHistory();
   const [allCaminos, setCaminos] = useState([]);
   const [userPath, setUserPath] = useState({
-    camino: '',
-    start_date: '',
+    camino: "",
+    start_date: "",
   });
   const [etapasCamino, setEtapasCamino] = useState([]);
   const getCurrentDate = () => {
     let addPathDate = new Date();
     let day =
       addPathDate.getDate() < 9
-        ? '0' + addPathDate.getDate()
+        ? "0" + addPathDate.getDate()
         : addPathDate.getDate();
     let month =
       addPathDate.getMonth() < 9
-        ? '0' + addPathDate.getMonth()
+        ? "0" + addPathDate.getMonth()
         : addPathDate.getMonth();
     let year = addPathDate.getFullYear();
-    return (addPathDate = year + '-' + month + '-' + day);
+    return (addPathDate = year + "-" + month + "-" + day);
   };
 
-  const onClickAddPath = async event => {
+  const onClickAddPath = async (event) => {
     event.preventDefault();
     try {
       var pathId = event.target.id;
@@ -62,31 +61,31 @@ export default function Caminos() {
       userPath.start_date = pathDate;
       var responseAddUserPath = await apiAddActivePath(userPath);
       var respuesta = JSON.parse(responseAddUserPath);
-      if (respuesta.message === 'success') {
+      if (respuesta.message === "success") {
         toast.success(
-          'Camino añadido. Accede a la pestaña de camino activo para editar tus etapas'
+          "Camino añadido. Accede a la pestaña de camino activo para editar tus etapas"
         );
       } else {
-        if (respuesta.message == 'User already has an active path') {
+        if (respuesta.message == "User already has an active path") {
           toast.info(
-            'Ya tienes un camino actual. Archívalo antes de añadir uno nuevo.'
+            "Ya tienes un camino actual. Archívalo antes de añadir uno nuevo."
           );
-        } else if (respuesta.message == 'User already has this path') {
+        } else if (respuesta.message == "User already has this path") {
           toast.info(
-            'Ya realizaste este camino. Consulta tu historial o selecciona otro.'
+            "Ya realizaste este camino. Consulta tu historial o selecciona otro."
           );
         }
-        if (respuesta.message == 'Expired token') {
+        if (respuesta.message == "Expired token") {
           history.replace(appRoutes.login);
           toast.info(
-            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+            "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
           history.replace(appRoutes.login);
         }
       }
     } catch {
       console.log(
-        'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+        "Error del servidor. Por favor, cierra sesión y vuelve a entrar"
       );
     }
   };
@@ -96,21 +95,21 @@ export default function Caminos() {
       try {
         const responseAllPaths = await apiAllPaths();
         const responseActivePaths = await apiActivePath();
-        console.log(responseActivePaths)
+        console.log(responseActivePaths);
         if (responseAllPaths.message === undefined) {
           setCaminos(responseAllPaths);
           setEtapasCamino(responseAllPaths.etapas);
         }
 
-        if (responseAllPaths.message == 'Expired token') {
+        if (responseAllPaths.message == "Expired token") {
           toast.info(
-            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+            "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
           history.replace(appRoutes.login);
         }
       } catch {
         console.log(
-          'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+          "Error del servidor. Por favor, cierra sesión y vuelve a entrar"
         );
       }
     }
@@ -118,12 +117,12 @@ export default function Caminos() {
   }, []);
 
   const renderPaths = allCaminos.map((item, paths) => {
-    console.log('idListado: '+allCaminos[paths].id)
+    console.log("idListado: " + allCaminos[paths].id);
 
     return (
       <>
         <Camino
-           key={paths}
+          key={paths}
           tabIndex={0}
           id={item.id}
           name={item.name}
@@ -132,8 +131,8 @@ export default function Caminos() {
           num_etapas={item.num_etapas}
           km={item.km}
           description={item.description}
-          />
-          
+        />
+
         <ButtonSave
           id={item.id}
           type="button"
@@ -143,13 +142,13 @@ export default function Caminos() {
         >
           Añadir a Camino actual
         </ButtonSave>
-       
+
         <TextEtapa>Etapas</TextEtapa>
 
         <CaminoEtapa
           etapas={item.etapas.map((etapa, indexPaths) => {
             const indexEtapa =
-              indexPaths < 9 ? '0' + (indexPaths + 1) : indexPaths + 1;
+              indexPaths < 9 ? "0" + (indexPaths + 1) : indexPaths + 1;
             return (
               <>
                 <Etapa
@@ -164,30 +163,23 @@ export default function Caminos() {
               </>
             );
           })}
-          />
-
+        />
       </>
     );
   });
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
-    console.log('id: '+allCaminos[paths].id)
-    return (
-      <CaminoEtapa
-        href={`#${allCaminos[paths].id}`}
-        key={paths}
-        name={item.name}
-      />
-    );
+    console.log("id: " + allCaminos[paths].id);
+    return <CaminoEtapa href={`#${item.id}`} key={paths} name={item.name} />;
   });
 
-  const onClickCSV = async event => {
+  const onClickCSV = async (event) => {
     try {
       let datos = await apiCsvDownload();
-      const csvData = new Blob([datos], { type: 'text/csv;charset=utf-8;' });
-      FileSaver.saveAs(csvData, 'GWP_caminos.csv');
+      const csvData = new Blob([datos], { type: "text/csv;charset=utf-8;" });
+      FileSaver.saveAs(csvData, "GWP_caminos.csv");
     } catch {
       console.log(
-        'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+        "Error del servidor. Por favor, cierra sesión y vuelve a entrar"
       );
     }
   };
@@ -202,7 +194,10 @@ export default function Caminos() {
             <Section role="sección" tabIndex={0} title="Caminos">
               Caminos
             </Section>
-            <DropMenu src={dropTopCaminos} alt="Ermita de San Juan Gaztelugatxe" />
+            <DropMenu
+              src={dropTopCaminos}
+              alt="Ermita de San Juan Gaztelugatxe"
+            />
             <RowCaminos tabIndex={0} aria-label="Caminos">
               <TextLink>Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
@@ -226,18 +221,24 @@ export default function Caminos() {
                   aria-label="Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los caminos que aparecen en esta página y a continuación pulses en Añadir a camino actual para incluirlo en tu perfil."
                   tabIndex="0"
                 >
-                  Si aún no sabes por dónde empezar, te recomendamos que selecciones uno de los caminos que aparecen en esta página pulsando en el botón de "Añadir a camino actual" para incluirlo en tu perfil.                 Una vez añadido, podrás ver en la sección de Camino Actual cada una de sus etapas, y al final del día sólo tendrás que marcar aquellas que hayas finalizado.
-
+                  Si aún no sabes por dónde empezar, te recomendamos que
+                  selecciones uno de los caminos que aparecen en esta página
+                  pulsando en el botón de "Añadir a camino actual" para
+                  incluirlo en tu perfil. Una vez añadido, podrás ver en la
+                  sección de Camino Actual cada una de sus etapas, y al final
+                  del día sólo tendrás que marcar aquellas que hayas finalizado.
                 </Subtitle>
-                
-                
+
                 <Subtitle
                   aria-label="Si no dispones de más días para seguir caminando y aún no has finalizado todas las etapas, puedes archivar el camino y retomarlo de nuevo cuando quieras. Si por otro lado has completado todas las etapas, pulsa en el botón de Terminar. 
                   "
                   tabIndex="0"
                 >
-                  Si no dispones de más días para seguir caminando y aún no has finalizado todas las etapas, puedes archivar el camino y retomarlo de nuevo cuando quieras. Si por otro lado has completado todas las etapas, pulsa en el botón de "Terminar". 
-</Subtitle>               
+                  Si no dispones de más días para seguir caminando y aún no has
+                  finalizado todas las etapas, puedes archivar el camino y
+                  retomarlo de nuevo cuando quieras. Si por otro lado has
+                  completado todas las etapas, pulsa en el botón de "Terminar".
+                </Subtitle>
                 <Row>
                   <TextDownload
                     tabIndex="Descargar csv caminos"
@@ -259,7 +260,7 @@ export default function Caminos() {
               {renderPaths}
             </RowCaminos>
           </ColumnCamino>
-          <CircleScroll tabIndex={0}/>
+          <CircleScroll tabIndex={0} />
         </Row>
       </Container>
       <Footer />
@@ -269,30 +270,30 @@ export default function Caminos() {
 
 async function apiAllPaths() {
   return fetch(`${url.base}${url.caminos}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
 
 async function apiCsvDownload() {
   return fetch(`${url.base}${url.csvDownload}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(response => response.text());
+  }).then((response) => response.text());
 }
 
 async function apiAddActivePath(dataPath) {
   let response = await fetch(`${url.base}${url.addActivePath}`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: JSON.stringify(dataPath),
   });
@@ -303,10 +304,10 @@ async function apiAddActivePath(dataPath) {
 
 async function apiActivePath() {
   return fetch(`${url.base}${url.activePath}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }

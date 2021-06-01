@@ -151,3 +151,16 @@ export const TextStep = styled.span`
   color: ${colors.darkGrey};
   padding: 0 1rem 0 1rem;
 `;
+
+export const ContainerList = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 60%;
+  min-height: 600px;
+  text-align: center;
+  margin: 1rem auto;
+  border-radius: 10px;
+  padding-bottom: 32px;
+  position: relative;
+`;
