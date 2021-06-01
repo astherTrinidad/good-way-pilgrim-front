@@ -10,6 +10,7 @@ import {
 
 function BackpackForm(props) {
   const [input, setInput] = useState("");
+  const [quantity, setQuantity] = useState(Number);
   // const inputRef = useRef(null);
 
   // useEffect(() => {
@@ -20,14 +21,21 @@ function BackpackForm(props) {
     setInput(event.target.value);
   };
 
+  const handleChangeQuantity = (event) => {
+    setQuantity(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     props.onSubmit({
       id: Math.floor(Math.random() * 1000),
       text: input,
+      quantity: quantity,
     });
     setInput("");
+    setQuantity(1);
   };
+
   return (
     <>
       <Form onSubmit={handleSubmit}>
@@ -35,9 +43,9 @@ function BackpackForm(props) {
           <>
             <InputQuantity
               placeholder="Cantidad"
-              value={input}
-              onChange={handleChange}
-              name="text"
+              value={quantity}
+              onChange={handleChangeQuantity}
+              name="quantity"
               // ref={inputRef}
               className="edit"
               contenteditable="true"
@@ -67,9 +75,9 @@ function BackpackForm(props) {
           <>
             <InputQuantity
               placeholder="Cantidad"
-              value={input}
-              onChange={handleChange}
-              name="text"
+              value={quantity}
+              onChange={handleChangeQuantity}
+              name="quantity"
               // ref={inputRef}
               className="edit"
               contenteditable="true"

@@ -25,8 +25,7 @@ import {
 import Cards from "../../molecules/cards";
 import CardsSmall from "../../molecules/cardsSmall";
 import BackpackItemList from "../../molecules/backpackForm/BackpackItemList";
-import backpackIllustration from "../../../assets/images/backpack-05.png";
-import BackpackCamino from "../backpackCamino";
+import backpackIllustration from "../../../assets/images/camino-norte.png";
 import dropBackpacks from "../../../assets/images/drop-backpacks.png";
 import conchaIcon from "../../../assets/images/conchaTurquoise.png";
 
@@ -106,7 +105,7 @@ const MeBackpacks = () => {
       console.log("parse" + response.message);
 
       if (response.message === "success") {
-        toast.success("🐱" + "¡Mochila creada!");
+        toast.success("¡Mochila creada!");
       }
 
       if (
