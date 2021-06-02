@@ -93,21 +93,29 @@ const MeBackpacks = () => {
     console.log("******" + event.target.id);
     event.preventDefault();
     try {
+      setNewBackpack(true);
+      console.log(newBackpack);
       pathId.camino = event.target.id;
       setPathId(pathId);
       let responseCreateBackpack = await apiCreateBackpack(pathId);
 
       const responseMyBackpacks = await apiMyBackpacks();
       setUserBackpacks(responseMyBackpacks);
-      setNewBackpack(true);
 
       let response = JSON.parse(responseCreateBackpack);
       console.log("parse" + response.message);
 
       if (response.message === "success") {
         toast.success("¡Mochila creada!");
+      } else if (
+        response.message === "User already has a backpack for this path"
+      ) {
+        toast.error("Ya tienes una mochila creada para este camino");
+      } else if (response.message === "User hasnt got this path") {
+        toast.error(
+          "Añade primero el camino a tu perfil para poder crear una mochila"
+        );
       }
-
       if (
         responseMyBackpacks.message === "Expired token" ||
         response.message === "Expired token"
@@ -286,7 +294,7 @@ const MeBackpacks = () => {
         </Row>
         <Row>{renderAllCaminos}</Row>
 
-        {showBackpack && (
+        {newBackpack && (
           <>
             <Row>
               <ConchaIcon src={conchaIcon} />
@@ -360,16 +368,7 @@ async function apiCreateBackpack(pathId) {
     },
     body: JSON.stringify(pathId),
   });
-  if (!response.ok) {
-    if (response.status === 400) {
-      toast.error("Datos incorrectos");
-    }
-    if (response.status === 422) {
-      toast.error(
-        "¡Error! Agregar el camino a tu perfil o revisa que no tengas una mochila ya creada para este camino"
-      );
-    }
-  }
+
   let content = await response.text();
   return content;
 }
