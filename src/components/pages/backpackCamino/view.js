@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import _findIndex from "lodash/findIndex";
-import { Navbar, Footer, Slider } from "../../organisms";
-import { SlideData } from "../../organisms/slider/slideData";
+import Dialog from "@material-ui/core/Dialog";
+import Slide from "@material-ui/core/Slide";
+import { Navbar, Footer } from "../../organisms";
 import appRoutes from "../../../config/appRoutes";
 import url from "../../../config/url";
 import { toast } from "react-toastify";
@@ -14,22 +15,18 @@ import {
   TextWrapper,
   Heading,
   Subtitle,
-  ColumnImg,
-  Img,
-  ConchaIcon,
-  TextWrapperWithoutBackpacks,
-  NumberStep,
-  ArrowStep,
-  TextStep,
+  Column,
+  ButtonDelete,
   ContainerList,
 } from "./styled";
 import Cards from "../../molecules/cards";
 import CardsSmall from "../../molecules/cardsSmall";
 import BackpackItemList from "../../molecules/backpackForm/BackpackItemList";
-import dropBackpacks from "../../../assets/images/drop-backpacks.png";
-import conchaIcon from "../../../assets/images/conchaTurquoise.png";
-
-const MeBackpacks = () => {
+import { DeleteBackpack } from "../../modals";
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+const BackpackInfo = () => {
   const [allCaminos, setCaminos] = useState([]);
   const history = useHistory();
   const [userBackpacks, setUserBackpacks] = useState([]);
@@ -39,6 +36,16 @@ const MeBackpacks = () => {
   });
   const [newBackpack, setNewBackpack] = useState(false); //confirmar que ha seleccionado una tarjeta
   const [showBackpack, setShowBackpack] = useState(false);
+  //crear constante path Info y almacenar el id del camnino obtenido
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpenModalDelete = () => {
+    setOpen(true);
+  };
+
+  const handleCloseModalDelete = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     async function fetchProfile() {
@@ -148,7 +155,7 @@ const MeBackpacks = () => {
   const renderAllCaminos = allCaminos.map((item, index) => {
     console.log(item.id);
 
-    const idCamino = _findIndex(MeBackpacks, (element) => {
+    const idCamino = _findIndex(userBackpacks, (element) => {
       return element.id === item.id;
     });
 
@@ -167,7 +174,7 @@ const MeBackpacks = () => {
   });
 
   const renderUserBackpacks = userBackpacks.map((item, index) => {
-    const idCamino = _findIndex(MeBackpacks, (element) => {
+    const idCamino = _findIndex(userBackpacks, (element) => {
       return element.id === item.id;
     });
     const ruta = idCamino === -1 && "./assets/caminos/";
@@ -188,9 +195,9 @@ const MeBackpacks = () => {
   const renderInfoBackpack = infoBackpack.map((item, index) => {
     return (
       <>
-        <p key={index}>
+        <p key={`quantity ${index}`}>
           {item.quantity}
-          <span> {item.object}</span>
+          <span key={`object ${index}`}> {item.object}</span>
         </p>
       </>
     );
@@ -208,35 +215,62 @@ const MeBackpacks = () => {
         </Row>
 
         <Row>
-          <TextWrapper>
-            <Heading
-              aria-label="En este apartado se muestran tus mochilas creadas"
-              tabIndex="0"
-            >
-              ¡No te olvides de nada!
-            </Heading>
-            <Subtitle
-              aria-label="Configura tu mochila para este camino, simplemente indica la
+          <Column>
+            <TextWrapper>
+              <Heading
+                aria-label="En este apartado se muestran tus mochilas creadas"
+                tabIndex="0"
+              >
+                ¡No te olvides de nada!
+              </Heading>
+              <Subtitle
+                aria-label="Configura tu mochila para este camino, simplemente indica la
               cantidad y el objeto, puedes añadir, editar y eliminar todo
               aquello que creas necesario. Una vez lo tengas guardado en tu
               mochila, puedes tacharlo de la lista."
-              tabIndex="0"
-            >
-              Configura tu mochila para este camino, simplemente indica la
-              cantidad y el objeto, puedes añadir, editar y eliminar todo
-              aquello que creas necesario. Una vez lo tengas guardado en tu
-              mochila, puedes tacharlo de la lista.
-            </Subtitle>
-          </TextWrapper>
-        </Row>
-
-        <Row>{renderUserBackpacks}</Row>
-        {renderInfoBackpack}
-
-        <Row>
-          <ContainerList className="backpack-app">
-            <BackpackItemList />
-          </ContainerList>
+                tabIndex="0"
+              >
+                Configura tu mochila para este camino, simplemente indica la
+                cantidad y el objeto, puedes añadir, editar y eliminar todo
+                aquello que creas necesario. Una vez lo tengas guardado en tu
+                mochila, puedes tacharlo de la lista.
+              </Subtitle>
+            </TextWrapper>
+          </Column>
+          <Column>
+            <Row>{renderUserBackpacks} </Row>
+            <Row>
+              <ButtonDelete
+                onClick={deleteBackpack}
+                name="Eliminar mochila"
+                // id={event.target.id}
+                role="button"
+                button-label="Eliminar mochila"
+                label="Eliminar mochila"
+              >
+                Eliminar mochila
+              </ButtonDelete>
+              <Dialog
+                open={open}
+                TransitionComponent={Transition}
+                keepMounted
+                onClick={handleCloseModalDelete}
+                aria-labelledby="¿Seguro que quieres eliminarla?"
+                aria-describedby="Modal de confirmación eliminar mochila"
+                aria-modal="true"
+                role="dialog"
+                maxWidth="md"
+              >
+                <DeleteBackpack />
+              </Dialog>
+            </Row>
+            {renderInfoBackpack}
+            <Row>
+              <ContainerList className="backpack-app">
+                <BackpackItemList />
+              </ContainerList>
+            </Row>
+          </Column>
         </Row>
       </Container>
       <Footer />
@@ -244,7 +278,7 @@ const MeBackpacks = () => {
   );
 };
 
-export default MeBackpacks;
+export default BackpackInfo;
 
 async function apiAllPaths() {
   return fetch(`${url.base}${url.caminos}`, {
