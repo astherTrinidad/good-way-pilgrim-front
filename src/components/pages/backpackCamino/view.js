@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import _findIndex from "lodash/findIndex";
 import { Navbar, Footer, Slider } from "../../organisms";
 import { SlideData } from "../../organisms/slider/slideData";
 import appRoutes from "../../../config/appRoutes";
@@ -25,26 +26,26 @@ import {
 import Cards from "../../molecules/cards";
 import CardsSmall from "../../molecules/cardsSmall";
 import BackpackItemList from "../../molecules/backpackForm/BackpackItemList";
-import backpackIllustration from "../../../assets/images/camino-norte.png";
 import dropBackpacks from "../../../assets/images/drop-backpacks.png";
 import conchaIcon from "../../../assets/images/conchaTurquoise.png";
 
-const BackpackCamino = () => {
+const MeBackpacks = () => {
   const [allCaminos, setCaminos] = useState([]);
   const history = useHistory();
-  const [myBackpacks, setMyBackpacks] = useState([]);
+  const [userBackpacks, setUserBackpacks] = useState([]);
   const [infoBackpack, setInfoBackpack] = useState([]);
   const [pathId, setPathId] = useState({
     camino: "",
   });
-  const [newBackpack, setNewBackpack] = useState(false);
+  const [newBackpack, setNewBackpack] = useState(false); //confirmar que ha seleccionado una tarjeta
+  const [showBackpack, setShowBackpack] = useState(false);
 
   useEffect(() => {
     async function fetchProfile() {
       try {
         const responseAllPaths = await apiAllPaths();
         const responseMyBackpacks = await apiMyBackpacks();
-        setMyBackpacks(responseMyBackpacks);
+        setUserBackpacks(responseMyBackpacks);
         setCaminos(responseAllPaths);
 
         if (
@@ -73,6 +74,9 @@ const BackpackCamino = () => {
       const responseInfo = await apiInfoBackpack(event.target.id);
       if (responseInfo !== "Incorrect data recived") {
         setInfoBackpack(responseInfo);
+        setShowBackpack(true);
+
+        console.log("show: " + showBackpack);
       }
       if (responseInfo.message === "Expired token") {
         toast.info(
@@ -92,15 +96,16 @@ const BackpackCamino = () => {
       pathId.camino = event.target.id;
       setPathId(pathId);
       let responseCreateBackpack = await apiCreateBackpack(pathId);
+
       const responseMyBackpacks = await apiMyBackpacks();
-      setMyBackpacks(responseMyBackpacks);
+      setUserBackpacks(responseMyBackpacks);
       setNewBackpack(true);
 
       let response = JSON.parse(responseCreateBackpack);
       console.log("parse" + response.message);
 
       if (response.message === "success") {
-        toast.success("🐱" + "¡Mochila creada!");
+        toast.success("¡Mochila creada!");
       }
 
       if (
@@ -126,7 +131,7 @@ const BackpackCamino = () => {
       const responseMyBackpacks = await apiMyBackpacks();
 
       if (responseDeleteBackpack.message === "success") {
-        setMyBackpacks(responseMyBackpacks);
+        setUserBackpacks(responseMyBackpacks);
         toast.success("Mochila eliminada");
       }
       if (responseDeleteBackpack.message === "Expired token") {
@@ -142,12 +147,18 @@ const BackpackCamino = () => {
 
   const renderAllCaminos = allCaminos.map((item, index) => {
     console.log(item.id);
+
+    const idCamino = _findIndex(MeBackpacks, (element) => {
+      return element.id === item.id;
+    });
+
+    const ruta = idCamino === -1 && "./assets/caminos/";
     return (
       <>
         <CardsSmall
           key={index}
           id={item.id}
-          src={backpackIllustration}
+          src={`${ruta}${item.slug}.png`}
           name={item.name}
           onClick={handleCreateBackpack}
         />
@@ -155,14 +166,17 @@ const BackpackCamino = () => {
     );
   });
 
-  const renderMyBackpacks = myBackpacks.map((item, index) => {
-    console.log("idbutton: " + item.id);
+  const renderUserBackpacks = userBackpacks.map((item, index) => {
+    const idCamino = _findIndex(MeBackpacks, (element) => {
+      return element.id === item.id;
+    });
+    const ruta = idCamino === -1 && "./assets/caminos/";
     return (
       <>
         <Cards
           key={index}
           id={item.id}
-          src={backpackIllustration}
+          src={`${ruta}${item.slug}.png`}
           name={item.name}
           quantity={item.numObjects}
           onClick={handleShowInfoBackpack}
@@ -193,7 +207,30 @@ const BackpackCamino = () => {
           </Section>
         </Row>
 
-        <Row>{renderMyBackpacks}</Row>
+        <Row>
+          <TextWrapper>
+            <Heading
+              aria-label="En este apartado se muestran tus mochilas creadas"
+              tabIndex="0"
+            >
+              ¡No te olvides de nada!
+            </Heading>
+            <Subtitle
+              aria-label="Configura tu mochila para este camino, simplemente indica la
+              cantidad y el objeto, puedes añadir, editar y eliminar todo
+              aquello que creas necesario. Una vez lo tengas guardado en tu
+              mochila, puedes tacharlo de la lista."
+              tabIndex="0"
+            >
+              Configura tu mochila para este camino, simplemente indica la
+              cantidad y el objeto, puedes añadir, editar y eliminar todo
+              aquello que creas necesario. Una vez lo tengas guardado en tu
+              mochila, puedes tacharlo de la lista.
+            </Subtitle>
+          </TextWrapper>
+        </Row>
+
+        <Row>{renderUserBackpacks}</Row>
         {renderInfoBackpack}
 
         <Row>
@@ -207,7 +244,7 @@ const BackpackCamino = () => {
   );
 };
 
-export default BackpackCamino;
+export default MeBackpacks;
 
 async function apiAllPaths() {
   return fetch(`${url.base}${url.caminos}`, {
@@ -271,4 +308,15 @@ async function apiCreateBackpack(pathId) {
   }
   let content = await response.text();
   return content;
+}
+
+async function apiAddItem(itemInfo) {
+  return fetch(`${url.base}${url.addItem}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
+    },
+    body: JSON.stringify(itemInfo),
+  }).then((data) => data.json());
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import _findIndex from "lodash/findIndex";
 import { Navbar, Footer, Slider } from "../../organisms";
 import { SlideData } from "../../organisms/slider/slideData";
 import appRoutes from "../../../config/appRoutes";
@@ -25,19 +26,18 @@ import {
 import Cards from "../../molecules/cards";
 import CardsSmall from "../../molecules/cardsSmall";
 import BackpackItemList from "../../molecules/backpackForm/BackpackItemList";
-import backpackIllustration from "../../../assets/images/camino-norte.png";
 import dropBackpacks from "../../../assets/images/drop-backpacks.png";
 import conchaIcon from "../../../assets/images/conchaTurquoise.png";
 
 const MeBackpacks = () => {
   const [allCaminos, setCaminos] = useState([]);
   const history = useHistory();
-  const [myBackpacks, setMyBackpacks] = useState([]);
+  const [userBackpacks, setUserBackpacks] = useState([]);
   const [infoBackpack, setInfoBackpack] = useState([]);
   const [pathId, setPathId] = useState({
     camino: "",
   });
-  const [newBackpack, setNewBackpack] = useState(false);
+  const [newBackpack, setNewBackpack] = useState(false); //confirmar que ha seleccionado una tarjeta
   const [showBackpack, setShowBackpack] = useState(false);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const MeBackpacks = () => {
       try {
         const responseAllPaths = await apiAllPaths();
         const responseMyBackpacks = await apiMyBackpacks();
-        setMyBackpacks(responseMyBackpacks);
+        setUserBackpacks(responseMyBackpacks);
         setCaminos(responseAllPaths);
 
         if (
@@ -98,7 +98,7 @@ const MeBackpacks = () => {
       let responseCreateBackpack = await apiCreateBackpack(pathId);
 
       const responseMyBackpacks = await apiMyBackpacks();
-      setMyBackpacks(responseMyBackpacks);
+      setUserBackpacks(responseMyBackpacks);
       setNewBackpack(true);
 
       let response = JSON.parse(responseCreateBackpack);
@@ -131,7 +131,7 @@ const MeBackpacks = () => {
       const responseMyBackpacks = await apiMyBackpacks();
 
       if (responseDeleteBackpack.message === "success") {
-        setMyBackpacks(responseMyBackpacks);
+        setUserBackpacks(responseMyBackpacks);
         toast.success("Mochila eliminada");
       }
       if (responseDeleteBackpack.message === "Expired token") {
@@ -147,12 +147,18 @@ const MeBackpacks = () => {
 
   const renderAllCaminos = allCaminos.map((item, index) => {
     console.log(item.id);
+
+    const idCamino = _findIndex(MeBackpacks, (element) => {
+      return element.id === item.id;
+    });
+
+    const ruta = idCamino === -1 && "./assets/caminos/";
     return (
       <>
         <CardsSmall
           key={index}
           id={item.id}
-          src={backpackIllustration}
+          src={`${ruta}${item.slug}.png`}
           name={item.name}
           onClick={handleCreateBackpack}
         />
@@ -160,14 +166,17 @@ const MeBackpacks = () => {
     );
   });
 
-  const renderMyBackpacks = myBackpacks.map((item, index) => {
-    console.log("idbutton: " + item.id);
+  const renderUserBackpacks = userBackpacks.map((item, index) => {
+    const idCamino = _findIndex(MeBackpacks, (element) => {
+      return element.id === item.id;
+    });
+    const ruta = idCamino === -1 && "./assets/caminos/";
     return (
       <>
         <Cards
           key={index}
           id={item.id}
-          src={backpackIllustration}
+          src={`${ruta}${item.slug}.png`}
           name={item.name}
           quantity={item.numObjects}
           onClick={handleShowInfoBackpack}
@@ -197,7 +206,7 @@ const MeBackpacks = () => {
             Mochila
           </Section>
         </Row>
-        {myBackpacks.length <= 0 ? (
+        {userBackpacks.length <= 0 ? (
           <Row>
             <TextWrapperWithoutBackpacks>
               <Heading
@@ -243,7 +252,7 @@ const MeBackpacks = () => {
           </Row>
         )}
 
-        <Row>{renderMyBackpacks}</Row>
+        <Row>{renderUserBackpacks}</Row>
         {renderInfoBackpack}
 
         <TextWrapper>
