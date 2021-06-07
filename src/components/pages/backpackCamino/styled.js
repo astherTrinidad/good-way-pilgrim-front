@@ -27,6 +27,11 @@ export const Row = styled.div`
   }
 `;
 
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Section = styled.h1`
   color: ${colors.darkGrey};
   font-size: 1.5em;
@@ -48,18 +53,6 @@ export const TextWrapper = styled.div`
   padding-top: 0;
   padding-bottom: 60px;
   text-align: center;
-  @media screen and (max-width: 768px) {
-    padding-bottom: 65px;
-  }
-`;
-
-export const TextWrapperWithoutBackpacks = styled.div`
-  justify-content: left;
-  margin: 0 auto;
-  max-width: 100%;
-  padding-top: 0;
-  padding-bottom: 60px;
-  text-align: left;
   @media screen and (max-width: 768px) {
     padding-bottom: 65px;
   }
@@ -106,52 +99,6 @@ export const Subtitle = styled.h3`
   }
 `;
 
-export const ColumnImg = styled.div`
-  width: 70%;
-
-  @media screen and (max-width: 960px) {
-    display: none;
-  }
-`;
-
-export const Img = styled.img`
-  width: 100%;
-  height: auto;
-`;
-
-export const ConchaIcon = styled.img`
-  width: 40px;
-  height: 40px;
-  margin: 1rem 0;
-
-  @media screen and (max-width: 578px) {
-    display: none;
-  }
-`;
-
-export const NumberStep = styled.p`
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: ${colors.darkGrey};
-  padding: 0 1rem 0 1rem;
-  line-height: 1.5;
-  margin: 1rem 0;
-`;
-
-export const ArrowStep = styled.span`
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: ${colors.mustard};
-  padding-left: 1rem;
-`;
-
-export const TextStep = styled.span`
-  font-size: 1.25rem;
-  font-weight: 300;
-  color: ${colors.darkGrey};
-  padding: 0 1rem 0 1rem;
-`;
-
 export const ContainerList = styled.div`
   display: flex;
   flex-direction: column;
@@ -163,4 +110,33 @@ export const ContainerList = styled.div`
   border-radius: 10px;
   padding-bottom: 32px;
   position: relative;
+`;
+
+export const ButtonDelete = styled.button`
+  width: 50%;
+  border-radius: 8px;
+
+  background-color: ${colors.red};
+  color: ${colors.white};
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  margin: 1rem;
+  padding: 1rem 1.5rem;
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    background: ${colors.redDark};
+    color: ${colors.white};
+    cursor: pointer;
+    box-shadow: inset 0px 11px 8px -10px ${colors.black};
+  }
+  @media screen and (max-width: 960px) {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 1rem;
+  }
 `;
