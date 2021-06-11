@@ -224,20 +224,6 @@ const MeBackpacks = () => {
           <div key={index}>
             {item.quantity} {item.object}
           </div>
-
-          {/* <Icons className="icons">
-            <TiEdit
-              onClick={() =>
-                setEdit({
-                  id: item.id,
-                  value: item.text,
-                  quantity: item.quantity,
-                })
-              }
-              className="edit-icon"
-            />
-            <TiDelete className="delete-icon" />
-          </Icons> */}
         </ContainerForm>
       </>
     );

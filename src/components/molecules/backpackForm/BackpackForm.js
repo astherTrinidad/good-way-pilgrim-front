@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import url from "../../../config/url";
-
 import {
   Input,
   InputUpdate,
@@ -34,7 +32,6 @@ function BackpackForm(props) {
       text: input,
       quantity: quantity,
     });
-    console.log(event.target.id);
     setInput("");
     setQuantity(1);
   };

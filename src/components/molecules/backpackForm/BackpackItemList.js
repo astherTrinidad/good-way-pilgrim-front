@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import BackpackForm from "./BackpackForm";
 import BackpackList from "./BackpackList";
 import { TitleList } from "./styled";
-import url from "../../../config/url";
 
 function BackpackItemList() {
   const [items, setItems] = useState([]);
@@ -13,8 +12,6 @@ function BackpackItemList() {
     }
     const newItems = [item, ...items];
     setItems(newItems);
-    // const responseAddItem = apiAddItem(item);
-    // console.log("response add item: " + responseAddItem);
   };
 
   const storedInTheBackpack = (id) => {
@@ -24,7 +21,6 @@ function BackpackItemList() {
       }
       return item;
     });
-
     setItems(updateItems);
   };
 
@@ -58,14 +54,3 @@ function BackpackItemList() {
 }
 
 export default BackpackItemList;
-
-async function apiAddItem(itemInfo) {
-  return fetch(`${url.base}${url.addItem}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + sessionStorage.getItem("token"),
-    },
-    body: JSON.stringify(itemInfo),
-  }).then((data) => data.json());
-}
