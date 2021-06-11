@@ -1,6 +1,6 @@
 import React from "react";
 import ButtonTurquoise from "./../../atoms/buttonTurquoise";
-
+import DeleteIcon from "../../atoms/deleteIcon";
 import {
   Illustration,
   TextNameCamino,
@@ -31,6 +31,7 @@ const Card = ({ id, alt, src, tabIndex, name, quantity, onClick }) => {
           value="show info"
         />
       </div>
+      <DeleteIcon />
     </ContainerCard>
   );
 };
