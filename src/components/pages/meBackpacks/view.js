@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import _findIndex from "lodash/findIndex";
+import { TiEdit, TiDelete } from "react-icons/ti";
 import { Navbar, Footer, Slider } from "../../organisms";
 import { SlideData } from "../../organisms/slider/slideData";
 import ButtonDeleteIcon from "../../atoms/buttonDeleteIcon";
@@ -17,6 +18,7 @@ import {
   Heading,
   Subtitle,
   ColumnImg,
+  Column,
   Img,
   ConchaIcon,
   TextWrapperWithoutBackpacks,
@@ -24,6 +26,9 @@ import {
   ArrowStep,
   TextStep,
   ContainerList,
+  ContainerForm,
+  // Icons,
+  TitleList,
 } from "./styled";
 import Cards from "../../molecules/cards";
 import CardsSmall from "../../molecules/cardsSmall";
@@ -42,6 +47,15 @@ const MeBackpacks = () => {
   });
   const [newBackpack, setNewBackpack] = useState(false); //confirmar que ha seleccionado una tarjeta
   const [showBackpack, setShowBackpack] = useState(false);
+
+  // const [input, setInput] = useState("");
+  // const [quantity, setQuantity] = useState(Number);
+
+  // const [edit, setEdit] = useState({
+  //   id: null,
+  //   value: "",
+  //   quantity: "",
+  // });
 
   useEffect(() => {
     async function fetchProfile() {
@@ -71,7 +85,6 @@ const MeBackpacks = () => {
 
   const handleShowInfoBackpack = async (event) => {
     console.log("******" + event.target.id);
-
     event.preventDefault();
     try {
       const responseInfo = await apiInfoBackpack(event.target.id);
@@ -143,6 +156,7 @@ const MeBackpacks = () => {
       if (responseDeleteBackpack.message === "success") {
         setUserBackpacks(responseMyBackpacks);
         toast.success("Mochila eliminada");
+        window.location.reload();
       }
       if (responseDeleteBackpack.message === "Expired token") {
         toast.info(
@@ -169,6 +183,7 @@ const MeBackpacks = () => {
           src={`${ruta}${item.slug}.png`}
           name={item.name}
           onClick={handleCreateBackpack}
+          title={item.name}
         />
       </>
     );
@@ -205,10 +220,25 @@ const MeBackpacks = () => {
   const renderInfoBackpack = infoBackpack.map((item, index) => {
     return (
       <>
-        <p key={index}>
-          {item.quantity}
-          <span> {item.object}</span>
-        </p>
+        <ContainerForm key={index}>
+          <div key={index}>
+            {item.quantity} {item.object}
+          </div>
+
+          {/* <Icons className="icons">
+            <TiEdit
+              onClick={() =>
+                setEdit({
+                  id: item.id,
+                  value: item.text,
+                  quantity: item.quantity,
+                })
+              }
+              className="edit-icon"
+            />
+            <TiDelete className="delete-icon" />
+          </Icons> */}
+        </ContainerForm>
       </>
     );
   });
@@ -271,7 +301,14 @@ const MeBackpacks = () => {
         )}
 
         <Row>{renderUserBackpacks}</Row>
-        {renderInfoBackpack}
+        {showBackpack ? (
+          <Column>
+            <TitleList>Lista de objetos</TitleList>
+            {renderInfoBackpack}
+          </Column>
+        ) : (
+          <Column />
+        )}
 
         <TextWrapper>
           <Heading aria-label="¿Aún no sabes que llevarte?" tabIndex="0">

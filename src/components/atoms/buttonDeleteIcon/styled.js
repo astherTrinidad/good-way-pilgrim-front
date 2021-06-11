@@ -6,22 +6,25 @@ export const Container = styled.button`
   border-radius: 50%;
   color: ${colors.white};
   cursor: pointer;
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 500;
-  height: 50px;
+  height: 45px;
   top: -230px;
   position: relative;
   left: -75px;
-  width: 50px;
+  width: 45px;
+  transition: all 0.3s ease-out;
 
   &:hover {
     background-color: ${colors.white};
     color: ${colors.red};
     border: 3px solid ${colors.red};
+    transform: rotate(180deg);
   }
 
   @media screen and (max-width: 578px) {
-    top: -525px;
-    left: 175px;
+    top: -235px;
+    left: -70px;
+    width: 50px;
   }
 `;

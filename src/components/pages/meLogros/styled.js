@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import colors from '../../../assets/colors';
+import styled from "styled-components";
+import colors from "../../../assets/colors";
 
 export const Row = styled.div`
   display: flex;
@@ -31,9 +31,12 @@ export const RowLogros = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 4rem;
-  margin-top: -3rem;
-  max-width: 100%;
+  margin: -3rem auto 4rem auto;
+  max-width: 80%;
+
+  @media screen and (max-width: 578px) {
+    max-width: 100%;
+  }
 `;
 
 export const TextWrapper = styled.div`
@@ -52,7 +55,7 @@ export const TextWrapper = styled.div`
 export const Heading = styled.h2`
   color: ${colors.turquoise};
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 2em;
   font-weight: bold;
   line-height: 1.5;
@@ -77,7 +80,7 @@ export const Heading = styled.h2`
 export const Subtitle = styled.h3`
   color: ${colors.darkGrey};
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1.5em;
   font-weight: 300;
   line-height: 1.5;
@@ -108,7 +111,7 @@ export const ButtonDelete = styled.button`
   font-weight: 500;
   font-size: 1rem;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 1rem auto;
   padding: 1rem 1rem;
   transition: all 0.3s ease-out;

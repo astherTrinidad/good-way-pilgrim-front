@@ -48,6 +48,7 @@ const Slider = ({ slides }) => {
               {index === current && (
                 <TextWrapper>
                   <TextSlide>{slide.text}</TextSlide>
+                  <TextSlide>{slide.subtext}</TextSlide>
                 </TextWrapper>
               )}
             </Row>
