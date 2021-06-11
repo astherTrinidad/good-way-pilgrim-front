@@ -27,6 +27,7 @@ import {
   TextStep,
   ContainerList,
   ContainerForm,
+  RowWithoutBackpacks,
   // Icons,
   TitleList,
 } from "./styled";
@@ -240,7 +241,7 @@ const MeBackpacks = () => {
           </Section>
         </Row>
         {userBackpacks.length <= 0 ? (
-          <Row>
+          <RowWithoutBackpacks>
             <TextWrapperWithoutBackpacks>
               <Heading
                 aria-label="No tienes ninguna mochila creada"
@@ -279,7 +280,7 @@ const MeBackpacks = () => {
                 title="Peregrino andando sobre un sendero en la montaña"
               />
             </ColumnImg>
-          </Row>
+          </RowWithoutBackpacks>
         ) : (
           <Row>
             <TextWrapper>

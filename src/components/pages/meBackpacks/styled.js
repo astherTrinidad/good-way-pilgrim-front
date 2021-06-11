@@ -27,6 +27,22 @@ export const Row = styled.div`
   }
 `;
 
+export const RowWithoutBackpacks = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: max-content;
+
+  &:nth-of-type(3) {
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
