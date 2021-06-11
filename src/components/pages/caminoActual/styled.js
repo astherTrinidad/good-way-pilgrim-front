@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import colors from '../../../assets/colors';
+import styled from "styled-components";
+import colors from "../../../assets/colors";
 
 export const Row = styled.div`
   display: flex;
@@ -142,13 +142,12 @@ export const TextEtapa = styled.p`
   text-align: left;
 `;
 
-export const TextEmptyEtapas = styled.p`
-`;
+export const TextEmptyEtapas = styled.p``;
 
 export const Heading = styled.h2`
   color: ${colors.turquoise};
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 2em;
   font-weight: bold;
   line-height: 1.5;
@@ -172,7 +171,7 @@ export const Heading = styled.h2`
 export const Subtitle = styled.h3`
   color: ${colors.darkGrey};
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1.25em;
   font-weight: 300;
   line-height: 1.5;
@@ -229,7 +228,7 @@ export const ButtonSave = styled.button`
   font-weight: 500;
   font-size: 1rem;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 1rem auto;
   padding: 1rem 1rem;
   transition: all 0.3s ease-out;
@@ -244,4 +243,16 @@ export const ButtonSave = styled.button`
     display: block;
     margin: 1rem auto;
   }
+`;
+
+export const Illustration = styled.img`
+  height: 400px;
+  transform: scaleX(-1);
+  width: auto;
+`;
+
+export const IllustrationContainer = styled.div`
+  height: max-content;
+  width: max-content;
+  margin-right: -300px;
 `;

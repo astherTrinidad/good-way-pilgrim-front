@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import _findIndex from 'lodash/findIndex';
-import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import Dialog from '@material-ui/core/Dialog';
-import Slide from '@material-ui/core/Slide';
-import { Navbar, Footer } from '../../organisms';
-import appRoutes from '../../../config/appRoutes';
-import GlobalStyle from '../../../globalStyles';
-import url from '../../../config/url';
+import React, { useState, useEffect } from "react";
+import _findIndex from "lodash/findIndex";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import Dialog from "@material-ui/core/Dialog";
+import Slide from "@material-ui/core/Slide";
+import { Navbar, Footer } from "../../organisms";
+import appRoutes from "../../../config/appRoutes";
+import GlobalStyle from "../../../globalStyles";
+import url from "../../../config/url";
 
-import { ConfirmFinishPath } from '../../modals';
+import { ConfirmFinishPath } from "../../modals";
 
 import {
   Container,
@@ -29,18 +29,21 @@ import {
   TextLink,
   DropMenu,
   TextEmptyEtapas,
-} from './styled';
+  Illustration,
+  IllustrationContainer,
+} from "./styled";
 import {
   ButtonTurquoise,
   ButtonGreen,
   Camino,
   CaminoEtapa,
   EtapaActual,
-} from '../../atoms';
-import dropWomanBoots from '../../../assets/images/gota-camino-actual.png';
-import dropBoots from '../../../assets/images/dropBoots.png';
-import pathBN from '../../../assets/images/etapaBN.png';
-import pathColor from '../../../assets/images/etapaColor.png';
+} from "../../atoms";
+import dropWomanBoots from "../../../assets/images/gota-camino-actual.png";
+import illustrationWinterWalk from "../../../assets/images/camino-actual.svg";
+import illustrationWalk from "../../../assets/images/camino-actual-walk.svg";
+import pathBN from "../../../assets/images/etapaBN.png";
+import pathColor from "../../../assets/images/etapaColor.png";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -48,13 +51,13 @@ export default function Caminos() {
   const history = useHistory();
   const [allCaminos, setCaminos] = useState([]);
   const [archivePath, setArchivePath] = useState({
-    camino: '',
+    camino: "",
   });
   const [activePath, setActivePath] = useState([]);
   const [etapas, setEtapas] = useState([]);
   const [userEtapas, setUserEtapas] = useState({
-    camino: '',
-    etapa: '',
+    camino: "",
+    etapa: "",
   });
   const [userEtapasRealizadas, setUserEtapasRealizadas] = useState([]);
   const [isFetching, setIsfetching] = useState(false);
@@ -69,7 +72,7 @@ export default function Caminos() {
     setOpen(false);
   };
 
-  const onClickArchivePath = async event => {
+  const onClickArchivePath = async (event) => {
     event.preventDefault();
     try {
       setIsfetching(true);
@@ -78,12 +81,12 @@ export default function Caminos() {
 
       const responseArchivePath = await apiArchivePath(archivePath);
 
-      if (responseArchivePath.message === 'success') {
-        toast.success('¡Camino archivado!');
-      } else if (responseArchivePath.message === 'Expired token') {
+      if (responseArchivePath.message === "success") {
+        toast.success("¡Camino archivado!");
+      } else if (responseArchivePath.message === "Expired token") {
         history.replace(appRoutes.login);
         toast.info(
-          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+          "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
         history.replace(appRoutes.login);
       }
@@ -91,7 +94,7 @@ export default function Caminos() {
       history.replace(appRoutes.caminos);
     } catch {
       console.log(
-        'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+        "Error del servidor. Por favor, cierra sesión y vuelve a entrar"
       );
       setIsfetching(false);
     }
@@ -106,29 +109,29 @@ export default function Caminos() {
         if (response.message == undefined) {
           setCaminos(response);
         }
-        if (responseActivePaths.message != 'User hasnt got an active path') {
+        if (responseActivePaths.message != "User hasnt got an active path") {
           const responseUserEtapasRealizadas = await apiEtapasRealizadas(
             responseActivePaths.id
           );
           setEtapas(responseActivePaths.etapas);
           setActivePath(responseActivePaths);
           setUserEtapasRealizadas(responseUserEtapasRealizadas);
-        } else if (response.message == 'Expired token') {
+        } else if (response.message == "Expired token") {
           toast.info(
-            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+            "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
           history.replace(appRoutes.login);
         }
       } catch {
         console.log(
-          'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+          "Error del servidor. Por favor, cierra sesión y vuelve a entrar"
         );
       }
     }
     fetchProfile();
   }, []);
 
-  const onClickAddEtapa = async event => {
+  const onClickAddEtapa = async (event) => {
     try {
       let pathId = (userEtapas.camino = activePath.id);
       let etapaId = (userEtapas.etapa = event.target.id);
@@ -144,14 +147,14 @@ export default function Caminos() {
 
       setUserEtapasRealizadas(responseUserEtapasRealizadas);
 
-      if (responseAddEtapa.message == 'Expired token') {
+      if (responseAddEtapa.message == "Expired token") {
         toast.info(
-          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+          "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
         history.replace(appRoutes.login);
       }
     } catch (e) {
-      console.log('Error del servidor. Por favor, inténtelo de nuevo');
+      console.log("Error del servidor. Por favor, inténtelo de nuevo");
     }
   };
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
@@ -159,7 +162,7 @@ export default function Caminos() {
   });
 
   const renderPaths = etapas?.map((item, etapa) => {
-    const idEtapa = _findIndex(userEtapasRealizadas, element => {
+    const idEtapa = _findIndex(userEtapasRealizadas, (element) => {
       return element.id === item.id;
     });
     const ruta = idEtapa !== -1 ? `${pathColor}` : `${pathBN}`;
@@ -270,6 +273,15 @@ export default function Caminos() {
                     </Subtitle>
                   </TextWrapper>
                 </RowCamino>
+                <RowCamino>
+                  <IllustrationContainer>
+                    <Illustration
+                      src={illustrationWalk}
+                      alt="Peregrino andando en invierno"
+                      title="Peregrino abrigado andando en invierno"
+                    />
+                  </IllustrationContainer>
+                </RowCamino>
               </>
             )}
           </ColumnCamino>
@@ -282,51 +294,51 @@ export default function Caminos() {
 
 async function apiAllPaths() {
   return fetch(`${url.base}${url.caminos}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
 
 async function apiActivePath() {
   return fetch(`${url.base}${url.activePath}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
 
 async function apiEtapasRealizadas(etapaPathId) {
   return fetch(`${url.base}${url.etapasRealizadas}?camino=${etapaPathId}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
 
 async function apiArchivePath(pathId) {
   return fetch(`${url.base}${url.archivePath}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: JSON.stringify(pathId),
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
 
 async function apiAddEtapa(etapaInfo) {
   let response = await fetch(`${url.base}${url.addEtapa}`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: JSON.stringify(etapaInfo),
   });
