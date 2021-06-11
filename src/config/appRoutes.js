@@ -9,7 +9,6 @@ const routes = {
   caminoActual: "/camino-actual",
   caminoHistorico: "/historial-de-caminos",
   meBackpacks: "/mochila",
-  meBackpackInfo: "/mochila/info",
   frequentQuestion: "/preguntas-frecuentes",
   privacyConsumers: "/politicas-de-privacidad",
 };

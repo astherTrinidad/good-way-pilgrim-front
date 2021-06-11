@@ -257,12 +257,29 @@ const MeBackpacks = () => {
           <Row>
             <TextWrapperWithoutBackpacks>
               <Heading
-                aria-label="Aún no tienes ninguna mochila creada"
+                aria-label="No tienes ninguna mochila creada"
                 tabIndex="0"
               >
                 No tienes ninguna mochila creada
               </Heading>
-              <Subtitle aria-label="¿A qué esperas? " tabIndex="0">
+              <Subtitle
+                aria-label="¡No te olvides de nada! Configura tu nueva mochila para el camino que decidas,
+                simplemente indica la cantidad y el nombre del objeto, puedes añadir,
+                editar y eliminar todo aquello que creas necesario."
+                tabIndex="0"
+              >
+                ¡No te olvides de nada! Configura tu mochila para este camino,
+                simplemente indica la cantidad y el objeto, puedes añadir,
+                editar y eliminar todo aquello que creas necesario.
+              </Subtitle>
+
+              <Subtitle
+                aria-label=" Ten en cuenta que la capacidad de la mochila debería estar
+                dentro del rango que va de los 35 a los 45 litros en época de
+                buen tiempo y de los 50 a los 60 litros en invierno. ¿A qué
+                esperas?"
+                tabIndex="0"
+              >
                 Ten en cuenta que la capacidad de la mochila debería estar
                 dentro del rango que va de los 35 a los 45 litros en época de
                 buen tiempo y de los 50 a los 60 litros en invierno. ¿A qué

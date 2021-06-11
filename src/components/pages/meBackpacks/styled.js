@@ -13,7 +13,7 @@ export const Container = styled.main`
 
 export const Row = styled.div`
   display: flex;
-  flex-wrap: row;
+  flex-wrap: wrap;
   align-items: center;
   width: 100%;
   height: max-content;
