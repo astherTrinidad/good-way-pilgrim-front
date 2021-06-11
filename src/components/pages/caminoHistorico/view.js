@@ -27,7 +27,7 @@ import {
 } from "./styled";
 import { ButtonTurquoise, Camino, CaminoEtapa, EtapaActual } from "../../atoms";
 import dropTop from "../../../assets/images/gota-historial-de-caminos.png";
-import PathsData from "../../molecules";
+import PathsData from "../../molecules/paths";
 
 export default function CaminoHistorico() {
   const history = useHistory();
