@@ -93,7 +93,6 @@ const MeBackpacks = () => {
     console.log("******" + event.target.id);
     event.preventDefault();
     try {
-      setNewBackpack(true);
       console.log(newBackpack);
       pathId.camino = event.target.id;
       setPathId(pathId);
@@ -107,6 +106,7 @@ const MeBackpacks = () => {
 
       if (response.message === "success") {
         toast.success("¡Mochila creada!");
+        setNewBackpack(true);
       } else if (
         response.message === "User already has a backpack for this path"
       ) {

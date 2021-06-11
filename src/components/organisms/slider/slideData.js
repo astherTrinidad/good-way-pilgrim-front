@@ -1,5 +1,5 @@
 import slideOne from "../../../assets/images/backpack-slide-one.png";
-import slideTwo from "../../../assets/images/modal-illustration-finishPath.png";
+import slideTwo from "../../../assets/images/backpack-slide-two.png";
 import slideThree from "../../../assets/images/backpack-slide-one.png";
 
 export const SlideData = [
@@ -17,6 +17,6 @@ export const SlideData = [
   },
   {
     illustration: slideOne,
-    text: "¡Aquí tienes algunas ideas para que no se te olvide nada!",
+    text: "¡Aquí tienes algunas ideas para que no se te olvide nada! Recuerda que el peso de la mochila no debe superar el 10% de tu peso corporal",
   },
 ];
