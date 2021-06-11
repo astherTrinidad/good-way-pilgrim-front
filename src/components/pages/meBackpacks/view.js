@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import _findIndex from "lodash/findIndex";
 import { Navbar, Footer, Slider } from "../../organisms";
 import { SlideData } from "../../organisms/slider/slideData";
+import ButtonDeleteIcon from "../../atoms/buttonDeleteIcon";
 import appRoutes from "../../../config/appRoutes";
 import url from "../../../config/url";
 import { toast } from "react-toastify";
@@ -10,6 +11,7 @@ import GlobalStyle from "../../../globalStyles";
 import {
   Container,
   Row,
+  RowPath,
   Section,
   TextWrapper,
   Heading,
@@ -28,6 +30,7 @@ import CardsSmall from "../../molecules/cardsSmall";
 import BackpackItemList from "../../molecules/backpackForm/BackpackItemList";
 import dropBackpacks from "../../../assets/images/drop-backpacks.png";
 import conchaIcon from "../../../assets/images/conchaTurquoise.png";
+import modalDeleteCamino from "../../modals/deleteBackpack";
 
 const MeBackpacks = () => {
   const [allCaminos, setCaminos] = useState([]);
@@ -130,14 +133,13 @@ const MeBackpacks = () => {
     }
   };
 
-  const deleteBackpack = async (event) => {
+  const handleDeleteBackpack = async (event) => {
+    console.log("*** D E L ***" + event.target.id);
     event.preventDefault();
     try {
       pathId.camino = event.target.id;
-      console.log("path id camino create: " + pathId.camino);
       const responseDeleteBackpack = await apiDeleteBackpack(pathId);
       const responseMyBackpacks = await apiMyBackpacks();
-
       if (responseDeleteBackpack.message === "success") {
         setUserBackpacks(responseMyBackpacks);
         toast.success("Mochila eliminada");
@@ -154,8 +156,6 @@ const MeBackpacks = () => {
   };
 
   const renderAllCaminos = allCaminos.map((item, index) => {
-    console.log(item.id);
-
     const idCamino = _findIndex(MeBackpacks, (element) => {
       return element.id === item.id;
     });
@@ -178,6 +178,7 @@ const MeBackpacks = () => {
     const idCamino = _findIndex(MeBackpacks, (element) => {
       return element.id === item.id;
     });
+    const idPathCard = item.id;
     const ruta = idCamino === -1 && "./assets/caminos/";
     return (
       <>
@@ -188,6 +189,14 @@ const MeBackpacks = () => {
           name={item.name}
           quantity={item.numObjects}
           onClick={handleShowInfoBackpack}
+        />
+        <ButtonDeleteIcon
+          key={index + 1}
+          id={idPathCard}
+          onClick={handleDeleteBackpack}
+          type="submit"
+          value={idPathCard}
+          label="X"
         />
       </>
     );
@@ -234,6 +243,7 @@ const MeBackpacks = () => {
               <Img
                 src={dropBackpacks}
                 alt="Peregrino andando sobre un sendero en la montaña"
+                title="Peregrino andando sobre un sendero en la montaña"
               />
             </ColumnImg>
           </Row>
@@ -292,7 +302,7 @@ const MeBackpacks = () => {
             </TextStep>
           </NumberStep>
         </Row>
-        <Row>{renderAllCaminos}</Row>
+        <RowPath>{renderAllCaminos}</RowPath>
 
         {newBackpack && (
           <>
@@ -348,14 +358,14 @@ async function apiInfoBackpack(pathId) {
   }).then((data) => data.json());
 }
 
-async function apiDeleteBackpack(deletePathInfo) {
+async function apiDeleteBackpack(pathId) {
   return fetch(`${url.base}${url.deleteBackpack}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-    body: JSON.stringify(deletePathInfo),
+    body: JSON.stringify(pathId),
   }).then((data) => data.json());
 }
 

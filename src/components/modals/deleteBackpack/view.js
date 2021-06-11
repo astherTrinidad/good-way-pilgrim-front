@@ -11,34 +11,37 @@ import modalDeleteBackpack from "../../../assets/images/modal-backpack-delete.pn
 import { DialogContentText } from "@material-ui/core";
 
 const DeleteBackpack = () => {
-  const [userBackpack, setUserBackpack] = useState([]);
-
+  const [userBackpacks, setUserBackpacks] = useState([]);
+  const [pathId, setPathId] = useState({
+    camino: "",
+  });
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
   };
 
-  const deleteBackpack = async (event) => {
+  const handleDeleteBackpack = async (event) => {
+    console.log("*** D E L ***" + event.target.id);
     event.preventDefault();
     try {
-      var respuesta = await apiDeleteBackpack();
-      const myBackpackResponse = await apiMyBackpacks();
-
-      if (respuesta.message == "success") {
-        setUserBackpack(myBackpackResponse);
-        toast.info("Has eliminado la mochila de tu lista");
+      pathId.camino = event.target.id;
+      const responseDeleteBackpack = await apiDeleteBackpack(pathId);
+      const responseMyBackpacks = await apiMyBackpacks();
+      if (responseDeleteBackpack.message === "success") {
+        setUserBackpacks(responseMyBackpacks);
+        toast.success("Mochila eliminada");
       }
-      if (respuesta.message == "Expired token") {
+      if (responseDeleteBackpack.message === "Expired token") {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
         history.replace(appRoutes.login);
       }
-      window.location.reload();
     } catch (e) {
       console.log("Error del servidor. Por favor, inténtelo de nuevo");
     }
+    alert(event.target.id);
   };
 
   return (
@@ -58,7 +61,7 @@ const DeleteBackpack = () => {
         </DialogContent>
         <DialogActions>
           <ButtonDelete
-            onClick={deleteBackpack}
+            onClick={handleDeleteBackpack}
             role="button"
             button-label="Sí"
           >
@@ -74,14 +77,15 @@ const DeleteBackpack = () => {
 };
 
 export default DeleteBackpack;
-async function apiDeleteBackpack() {
+
+async function apiDeleteBackpack(pathId) {
   return fetch(`${url.base}${url.deleteBackpack}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-    body: JSON.stringify(),
+    body: JSON.stringify(pathId),
   }).then((data) => data.json());
 }
 

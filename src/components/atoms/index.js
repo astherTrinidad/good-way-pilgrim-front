@@ -11,7 +11,7 @@ import CaminoEtapa from "./caminoEtapa";
 import Etapa from "./etapa";
 import EtapaActual from "./etapaActual";
 import CircleScroll from "./circleScroll";
-import DeleteIcon from "./deleteIcon";
+import ButtonDeleteIcon from "./buttonDeleteIcon";
 export {
   TextInput,
   Button,
@@ -26,5 +26,5 @@ export {
   Etapa,
   EtapaActual,
   CircleScroll,
-  DeleteIcon,
+  ButtonDeleteIcon,
 };
