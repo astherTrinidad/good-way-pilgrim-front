@@ -17,7 +17,6 @@ import Caminos from "../pages/caminos/index";
 import CaminoActual from "../pages/caminoActual/index";
 import CaminoHistorico from "../pages/caminoHistorico/index";
 import MeBackpack from "../pages/meBackpacks/index";
-import MeBackpackInfo from "../pages/backpackCamino/index";
 import FrequentQuestion from "../pages/frequentQuestion/index";
 import PrivacyConsumers from "../pages/privacyConsumers/index";
 
@@ -57,11 +56,7 @@ function Routes() {
           component={MeBackpack}
           exact
         />
-        <PrivateRoute
-          path={appRoutes.meBackpackInfo}
-          component={MeBackpackInfo}
-          exact
-        />
+
         <PrivateRoute
           path={appRoutes.frequentQuestion}
           component={FrequentQuestion}

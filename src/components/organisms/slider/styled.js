@@ -8,11 +8,12 @@ export const ContainerSlide = styled.div`
   width: 80%;
   height: 400px;
   text-align: center;
-  margin: 0 auto;
+  margin: auto auto;
   border-radius: 20px;
-  box-shadow: 0 3px 6px ${colors.lightGrey};
+  /* box-shadow: 0 3px 6px ${colors.lightGrey}; */
   position: relative;
   padding: 1rem;
+  justify-content: center;
 
   .slide {
     opacity: 0;
@@ -71,7 +72,7 @@ export const ContainerArrow = styled.div`
 
 export const TextWrapper = styled.div`
   width: 37%;
-  height: 362px;
+  height: max-content;
   background-color: ${colors.turquoise};
   border-radius: 0 20px 20px 0;
   padding: 1rem;

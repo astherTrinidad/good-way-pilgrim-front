@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import _findIndex from "lodash/findIndex";
+import { TiEdit, TiDelete } from "react-icons/ti";
 import { Navbar, Footer, Slider } from "../../organisms";
 import { SlideData } from "../../organisms/slider/slideData";
+import ButtonDeleteIcon from "../../atoms/buttonDeleteIcon";
 import appRoutes from "../../../config/appRoutes";
 import url from "../../../config/url";
 import { toast } from "react-toastify";
@@ -10,11 +12,13 @@ import GlobalStyle from "../../../globalStyles";
 import {
   Container,
   Row,
+  RowPath,
   Section,
   TextWrapper,
   Heading,
   Subtitle,
   ColumnImg,
+  Column,
   Img,
   ConchaIcon,
   TextWrapperWithoutBackpacks,
@@ -22,12 +26,16 @@ import {
   ArrowStep,
   TextStep,
   ContainerList,
+  ContainerForm,
+  // Icons,
+  TitleList,
 } from "./styled";
 import Cards from "../../molecules/cards";
 import CardsSmall from "../../molecules/cardsSmall";
 import BackpackItemList from "../../molecules/backpackForm/BackpackItemList";
 import dropBackpacks from "../../../assets/images/drop-backpacks.png";
 import conchaIcon from "../../../assets/images/conchaTurquoise.png";
+import modalDeleteCamino from "../../modals/deleteBackpack";
 
 const MeBackpacks = () => {
   const [allCaminos, setCaminos] = useState([]);
@@ -39,6 +47,15 @@ const MeBackpacks = () => {
   });
   const [newBackpack, setNewBackpack] = useState(false); //confirmar que ha seleccionado una tarjeta
   const [showBackpack, setShowBackpack] = useState(false);
+
+  // const [input, setInput] = useState("");
+  // const [quantity, setQuantity] = useState(Number);
+
+  // const [edit, setEdit] = useState({
+  //   id: null,
+  //   value: "",
+  //   quantity: "",
+  // });
 
   useEffect(() => {
     async function fetchProfile() {
@@ -68,7 +85,6 @@ const MeBackpacks = () => {
 
   const handleShowInfoBackpack = async (event) => {
     console.log("******" + event.target.id);
-
     event.preventDefault();
     try {
       const responseInfo = await apiInfoBackpack(event.target.id);
@@ -93,7 +109,6 @@ const MeBackpacks = () => {
     console.log("******" + event.target.id);
     event.preventDefault();
     try {
-      setNewBackpack(true);
       console.log(newBackpack);
       pathId.camino = event.target.id;
       setPathId(pathId);
@@ -107,6 +122,7 @@ const MeBackpacks = () => {
 
       if (response.message === "success") {
         toast.success("¡Mochila creada!");
+        setNewBackpack(true);
       } else if (
         response.message === "User already has a backpack for this path"
       ) {
@@ -130,17 +146,17 @@ const MeBackpacks = () => {
     }
   };
 
-  const deleteBackpack = async (event) => {
+  const handleDeleteBackpack = async (event) => {
+    console.log("*** D E L ***" + event.target.id);
     event.preventDefault();
     try {
       pathId.camino = event.target.id;
-      console.log("path id camino create: " + pathId.camino);
       const responseDeleteBackpack = await apiDeleteBackpack(pathId);
       const responseMyBackpacks = await apiMyBackpacks();
-
       if (responseDeleteBackpack.message === "success") {
         setUserBackpacks(responseMyBackpacks);
         toast.success("Mochila eliminada");
+        window.location.reload();
       }
       if (responseDeleteBackpack.message === "Expired token") {
         toast.info(
@@ -154,8 +170,6 @@ const MeBackpacks = () => {
   };
 
   const renderAllCaminos = allCaminos.map((item, index) => {
-    console.log(item.id);
-
     const idCamino = _findIndex(MeBackpacks, (element) => {
       return element.id === item.id;
     });
@@ -169,6 +183,7 @@ const MeBackpacks = () => {
           src={`${ruta}${item.slug}.png`}
           name={item.name}
           onClick={handleCreateBackpack}
+          title={item.name}
         />
       </>
     );
@@ -178,6 +193,7 @@ const MeBackpacks = () => {
     const idCamino = _findIndex(MeBackpacks, (element) => {
       return element.id === item.id;
     });
+    const idPathCard = item.id;
     const ruta = idCamino === -1 && "./assets/caminos/";
     return (
       <>
@@ -189,6 +205,14 @@ const MeBackpacks = () => {
           quantity={item.numObjects}
           onClick={handleShowInfoBackpack}
         />
+        <ButtonDeleteIcon
+          key={index + 1}
+          id={idPathCard}
+          onClick={handleDeleteBackpack}
+          type="submit"
+          value={idPathCard}
+          label="X"
+        />
       </>
     );
   });
@@ -196,10 +220,11 @@ const MeBackpacks = () => {
   const renderInfoBackpack = infoBackpack.map((item, index) => {
     return (
       <>
-        <p key={index}>
-          {item.quantity}
-          <span> {item.object}</span>
-        </p>
+        <ContainerForm key={index}>
+          <div key={index}>
+            {item.quantity} {item.object}
+          </div>
+        </ContainerForm>
       </>
     );
   });
@@ -218,12 +243,29 @@ const MeBackpacks = () => {
           <Row>
             <TextWrapperWithoutBackpacks>
               <Heading
-                aria-label="Aún no tienes ninguna mochila creada"
+                aria-label="No tienes ninguna mochila creada"
                 tabIndex="0"
               >
                 No tienes ninguna mochila creada
               </Heading>
-              <Subtitle aria-label="¿A qué esperas? " tabIndex="0">
+              <Subtitle
+                aria-label="¡No te olvides de nada! Configura tu nueva mochila para el camino que decidas,
+                simplemente indica la cantidad y el nombre del objeto, puedes añadir,
+                editar y eliminar todo aquello que creas necesario."
+                tabIndex="0"
+              >
+                ¡No te olvides de nada! Configura tu mochila para este camino,
+                simplemente indica la cantidad y el objeto, puedes añadir,
+                editar y eliminar todo aquello que creas necesario.
+              </Subtitle>
+
+              <Subtitle
+                aria-label=" Ten en cuenta que la capacidad de la mochila debería estar
+                dentro del rango que va de los 35 a los 45 litros en época de
+                buen tiempo y de los 50 a los 60 litros en invierno. ¿A qué
+                esperas?"
+                tabIndex="0"
+              >
                 Ten en cuenta que la capacidad de la mochila debería estar
                 dentro del rango que va de los 35 a los 45 litros en época de
                 buen tiempo y de los 50 a los 60 litros en invierno. ¿A qué
@@ -234,6 +276,7 @@ const MeBackpacks = () => {
               <Img
                 src={dropBackpacks}
                 alt="Peregrino andando sobre un sendero en la montaña"
+                title="Peregrino andando sobre un sendero en la montaña"
               />
             </ColumnImg>
           </Row>
@@ -261,7 +304,14 @@ const MeBackpacks = () => {
         )}
 
         <Row>{renderUserBackpacks}</Row>
-        {renderInfoBackpack}
+        {showBackpack ? (
+          <Column>
+            <TitleList>Lista de objetos</TitleList>
+            {renderInfoBackpack}
+          </Column>
+        ) : (
+          <Column />
+        )}
 
         <TextWrapper>
           <Heading aria-label="¿Aún no sabes que llevarte?" tabIndex="0">
@@ -292,7 +342,7 @@ const MeBackpacks = () => {
             </TextStep>
           </NumberStep>
         </Row>
-        <Row>{renderAllCaminos}</Row>
+        <RowPath>{renderAllCaminos}</RowPath>
 
         {newBackpack && (
           <>
@@ -348,14 +398,14 @@ async function apiInfoBackpack(pathId) {
   }).then((data) => data.json());
 }
 
-async function apiDeleteBackpack(deletePathInfo) {
+async function apiDeleteBackpack(pathId) {
   return fetch(`${url.base}${url.deleteBackpack}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-    body: JSON.stringify(deletePathInfo),
+    body: JSON.stringify(pathId),
   }).then((data) => data.json());
 }
 

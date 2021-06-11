@@ -1,6 +1,5 @@
 import React from "react";
 import ButtonTurquoise from "./../../atoms/buttonTurquoise";
-
 import {
   Illustration,
   TextNameCamino,

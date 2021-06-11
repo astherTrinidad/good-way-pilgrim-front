@@ -27,6 +27,39 @@ export const Row = styled.div`
   }
 `;
 
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  height: max-content;
+  margin: 0 auto 4rem auto;
+
+  &:nth-of-type(3) {
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+export const RowPath = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  height: max-content;
+
+  &:nth-of-type(3) {
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
 export const Section = styled.h1`
   color: ${colors.darkGrey};
   font-size: 1.5em;
@@ -163,4 +196,114 @@ export const ContainerList = styled.div`
   border-radius: 10px;
   padding-bottom: 32px;
   position: relative;
+`;
+
+export const ContainerModal = styled.div`
+  max-width: 600px;
+  height: max-content;
+  justify-content: center;
+  align-items: center;
+  color: ${colors.darkGrey};
+  text-align: center;
+`;
+
+export const Illustration = styled.img`
+  background-size: cover;
+  width: auto;
+  height: 200px;
+  margin: 2rem auto;
+  display: block;
+`;
+
+export const ButtonDelete = styled.button`
+  width: 50%;
+  border-radius: 8px;
+  background-color: ${colors.red};
+  color: ${colors.white};
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  margin: 0 1rem 1rem 1rem;
+  padding: 1rem 1.5rem;
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    background: ${colors.redDark};
+    color: ${colors.white};
+    cursor: pointer;
+    box-shadow: inset 0px 11px 8px -10px ${colors.black};
+  }
+`;
+
+export const ButtonSave = styled.button`
+  background-color: ${colors.turquoise};
+  border-radius: 8px;
+  color: ${colors.white};
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  padding: 1rem 1.5rem;
+  transition: all 0.3s ease-out;
+  margin: 0 1rem 1rem 0;
+  width: 50%;
+
+  &:hover {
+    background: ${colors.turquoiseDark};
+    color: ${colors.white};
+    cursor: pointer;
+    box-shadow: inset 0px 11px 8px -10px ${colors.black};
+  }
+`;
+
+export const TitleList = styled.h3`
+  color: ${colors.turquoise};
+  font-size: 2rem;
+  margin: 3rem 0 2rem 0;
+`;
+
+export const ContainerForm = styled.div`
+  align-items: center;
+  border-radius: 5px;
+  color: ${colors.white};
+  display: flex;
+  flex-direction: row;
+  font-size: 1.5rem;
+  justify-content: space-between;
+  margin: 0.25rem auto;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  position: relative;
+  width: max-content;
+
+  .stored {
+    opacity: 0.5;
+    text-decoration: line-through;
+  }
+
+  &:nth-child(3n + 1) {
+    background: linear-gradient(
+      90deg,
+      ${colors.turquoise} 0%,
+      ${colors.turquoiseDark} 100%
+    );
+  }
+
+  &:nth-child(3n + 2) {
+    background: linear-gradient(
+      90deg,
+      ${colors.pistach} 0%,
+      ${colors.pistachDark} 100%
+    );
+  }
+
+  &:nth-child(3n + 3) {
+    background: linear-gradient(
+      90deg,
+      ${colors.mustard} 0%,
+      ${colors.mustardDark} 100%
+    );
+  }
 `;

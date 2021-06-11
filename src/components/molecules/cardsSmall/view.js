@@ -7,10 +7,16 @@ import {
   TextWrapper,
 } from "./styled";
 
-const CardsSmall = ({ id, alt, src, tabIndex, name, onClick }) => {
+const CardsSmall = ({ id, title, alt, src, tabIndex, name, onClick }) => {
   return (
     <ContainerCard>
-      <Illustration src={src} alt={alt} id={id} onClick={onClick} />
+      <Illustration
+        src={src}
+        alt={alt}
+        id={id}
+        onClick={onClick}
+        title={title}
+      />
       <TextWrapper>
         <TextNameCamino tabIndex={tabIndex}>{name}</TextNameCamino>
       </TextWrapper>
