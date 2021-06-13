@@ -175,20 +175,9 @@ export default function CaminoHistorico() {
                 </Subtitle>
               </TextWrapper>
             </RowCamino>
-            {allUserPath.length > 0 ? (
-              <>
-                <RowCamino>{renderUserPaths}</RowCamino>
-                <RowCamino>
-                  <IllustrationContainer>
-                    <Illustration
-                      src={illustrationRelax}
-                      alt="Personas relajados en el campo"
-                      title="Personas relajados en el campo"
-                    />
-                  </IllustrationContainer>
-                </RowCamino>
-              </>
-            ) : (
+
+            <>
+              <RowCamino>{renderUserPaths}</RowCamino>
               <RowCamino>
                 <IllustrationContainer>
                   <Illustration
@@ -198,7 +187,7 @@ export default function CaminoHistorico() {
                   />
                 </IllustrationContainer>
               </RowCamino>
-            )}
+            </>
           </ColumnCamino>
         </Row>
       </Container>

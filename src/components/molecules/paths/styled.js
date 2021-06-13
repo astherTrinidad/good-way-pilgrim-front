@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import colors from '../../../assets/colors';
+import styled from "styled-components";
+import colors from "../../../assets/colors";
 
 export const Component = styled.div`
   align-items: center;
   width: 100%;
   height: max-content;
   justify-content: center;
-  margin: 1rem 0;
+  margin: 1rem 0 3rem 0;
 `;
 
 export const Name = styled.p`

@@ -220,7 +220,7 @@ export const TextDownload = styled.a`
 `;
 
 export const ButtonSave = styled.button`
-  width: 50%;
+  width: 30%;
   border-radius: 8px;
   background-color: ${colors.turquoise};
   color: ${colors.white};
@@ -229,7 +229,7 @@ export const ButtonSave = styled.button`
   font-size: 1rem;
   justify-content: center;
   font-family: "Poppins", sans-serif;
-  margin: 1rem auto;
+  margin: -2rem auto 3rem auto;
   padding: 1rem 1rem;
   transition: all 0.3s ease-out;
 
@@ -240,8 +240,9 @@ export const ButtonSave = styled.button`
     box-shadow: inset 0px 11px 8px -10px ${colors.black};
   }
   @media screen and (max-width: 960px) {
+    width: 50%;
     display: block;
-    margin: 1rem auto;
+    margin: -2rem auto 3rem auto;
   }
 `;
 
@@ -249,10 +250,20 @@ export const Illustration = styled.img`
   height: 400px;
   transform: scaleX(-1);
   width: auto;
+
+  @media screen and (max-width: 768px) {
+    height: auto;
+    width: 100%;
+  }
 `;
 
 export const IllustrationContainer = styled.div`
-  height: max-content;
-  width: max-content;
-  margin-right: -300px;
+  height: auto;
+  width: 80%;
+  margin-top: 1rem;
+  margin-left: 400px;
+
+  @media screen and (max-width: 768px) {
+    margin: -3rem auto;
+  }
 `;

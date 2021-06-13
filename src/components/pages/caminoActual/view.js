@@ -216,14 +216,16 @@ export default function Caminos() {
                     description={activePath?.description}
                   />
 
-                  <ButtonTurquoise
+                  <ButtonSave
                     id={activePath?.id}
                     label="Archivar camino"
                     type="button"
                     value="archive"
                     onClick={onClickArchivePath}
                     isFetching={isFetching}
-                  />
+                  >
+                    Archivar camino
+                  </ButtonSave>
                 </RowCamino>
 
                 <RowEtapas>{renderPaths}</RowEtapas>

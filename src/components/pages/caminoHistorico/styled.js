@@ -201,7 +201,7 @@ export const Illustration = styled.img`
   transform: scaleX(-1);
   width: auto;
 
-  @media screen and (max-width: 978px) {
+  @media screen and (max-width: 768px) {
     height: auto;
     width: 100%;
   }
@@ -213,7 +213,7 @@ export const IllustrationContainer = styled.div`
   margin-top: 5rem;
   margin-left: 400px;
 
-  @media screen and (max-width: 978px) {
+  @media screen and (max-width: 768px) {
     margin: 5rem auto;
   }
 `;
