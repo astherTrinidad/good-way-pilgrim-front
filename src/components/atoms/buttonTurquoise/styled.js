@@ -11,9 +11,9 @@ export const Container = styled.button`
   justify-content: center;
   font-family: "Poppins", sans-serif;
   margin: 1rem auto;
-  padding: 1rem 1rem;
+  padding: 1rem 2rem;
   transition: all 0.3s ease-out;
-  width: 30%;
+  width: max-content;
 
   &:hover {
     background: ${colors.turquoiseDark};
@@ -25,7 +25,7 @@ export const Container = styled.button`
   @media screen and (max-width: 960px) {
     width: 50%;
     display: block;
-    margin: 3rem auto 3rem auto;
+    margin: 1rem auto;
   }
 
   .MuiCircularProgress-root {
