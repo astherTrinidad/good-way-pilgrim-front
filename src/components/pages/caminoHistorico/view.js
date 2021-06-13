@@ -158,10 +158,10 @@ export default function CaminoHistorico() {
             <RowCamino tabIndex={0} aria-label="Caminos">
               <TextWrapper>
                 <Heading
-                  aria-label="¿No recuerdas que caminos realizaste?"
+                  aria-label="¿No recuerdas qué caminos realizaste?"
                   tabIndex="0"
                 >
-                  ¿No recuerdas que caminos realizaste?
+                  ¿No recuerdas qué caminos realizaste?
                 </Heading>
                 <Subtitle
                   aria-label="Puedes recordar los caminos que marcaste como terminados o

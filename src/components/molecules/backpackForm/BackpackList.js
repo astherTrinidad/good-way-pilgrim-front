@@ -34,16 +34,6 @@ function BackpackList({ items, storedInTheBackpack, removeItem, updateItem }) {
         </div>
 
         <Icons className="icons">
-          <TiEdit
-            onClick={() =>
-              setEdit({
-                id: item.id,
-                object: item.object,
-                quantity: item.quantity,
-              })
-            }
-            className="edit-icon"
-          />
           <TiDelete
             onClick={() => removeItem(item.id)}
             className="delete-icon"

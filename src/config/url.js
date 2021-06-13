@@ -27,7 +27,7 @@ const url = {
   addItem: "/pri/addItem",
   editItem: "/pri/editItem",
   deleteItem: "/pri/deleteItem",
-  csvDownload: "/pub/csv_download",
+  csvDownload: "/pri/csv_download",
 };
 
 export default url;

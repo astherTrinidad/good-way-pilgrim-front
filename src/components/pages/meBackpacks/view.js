@@ -127,9 +127,9 @@ const MeBackpacks = () => {
       } else if (
         response.message === "User already has a backpack for this path"
       ) {
-        toast.error("Ya tienes una mochila creada para este camino");
+        toast.warning("Ya tienes esta mochila. Puedes consultarla arriba");
       } else if (response.message === "User hasnt got this path") {
-        toast.error(
+        toast.warning(
           "Añade primero el camino a tu perfil para poder crear una mochila"
         );
       }

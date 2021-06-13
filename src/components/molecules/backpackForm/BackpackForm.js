@@ -33,7 +33,7 @@ function BackpackForm(props) {
       object: input,
       quantity: quantity,
     });
-    addInUserBackpack.camino = 184;
+    addInUserBackpack.camino = 1;
     addInUserBackpack.object = input;
     addInUserBackpack.quantity = quantity;
 
