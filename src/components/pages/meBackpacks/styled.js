@@ -212,6 +212,10 @@ export const ContainerList = styled.div`
   border-radius: 10px;
   padding-bottom: 32px;
   position: relative;
+
+  @media screen and (max-width: 968px) {
+    width: 100%;
+  }
 `;
 
 export const ContainerModal = styled.div`
@@ -292,7 +296,8 @@ export const ContainerForm = styled.div`
   margin: 0.25rem auto;
   padding: 0.5rem 1rem 0.5rem 1rem;
   position: relative;
-  width: max-content;
+  justify-content: center;
+  width: 450px;
 
   .stored {
     opacity: 0.5;

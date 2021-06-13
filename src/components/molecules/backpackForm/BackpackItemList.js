@@ -7,7 +7,7 @@ function BackpackItemList() {
   const [items, setItems] = useState([]);
 
   const addItems = (item) => {
-    if (!item.text || /^\s*$/.test(item.text)) {
+    if (!item.object || /^\s*$/.test(item.object)) {
       return;
     }
     const newItems = [item, ...items];

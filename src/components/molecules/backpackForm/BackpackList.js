@@ -30,7 +30,7 @@ function BackpackList({ items, storedInTheBackpack, removeItem, updateItem }) {
         key={index}
       >
         <div key={index} onClick={() => storedInTheBackpack(item.id)}>
-          {item.quantity} {item.text}
+          {item.quantity} {item.object}
         </div>
 
         <Icons className="icons">
@@ -38,7 +38,7 @@ function BackpackList({ items, storedInTheBackpack, removeItem, updateItem }) {
             onClick={() =>
               setEdit({
                 id: item.id,
-                value: item.text,
+                object: item.object,
                 quantity: item.quantity,
               })
             }
