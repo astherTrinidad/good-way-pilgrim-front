@@ -148,8 +148,6 @@ export default function CaminoHistorico() {
               <TextLink href="/caminos">Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
               <TextLink href="/camino-actual">Camino actual</TextLink>
-              <TextMenu>{activePath.name}</TextMenu>
-
               <TextLink>Historial de caminos</TextLink>
             </RowCamino>
           </ColumnMenu>
