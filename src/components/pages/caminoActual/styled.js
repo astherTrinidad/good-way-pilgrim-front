@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import colors from '../../../assets/colors';
+import styled from "styled-components";
+import colors from "../../../assets/colors";
 
 export const Row = styled.div`
   display: flex;
@@ -142,19 +142,18 @@ export const TextEtapa = styled.p`
   text-align: left;
 `;
 
-export const TextEmptyEtapas = styled.p`
-`;
+export const TextEmptyEtapas = styled.p``;
 
 export const Heading = styled.h2`
   color: ${colors.turquoise};
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 2em;
   font-weight: bold;
   line-height: 1.5;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 9rem;
+  margin-top: 7rem;
   text-align: left;
   width: 100%;
 
@@ -172,7 +171,7 @@ export const Heading = styled.h2`
 export const Subtitle = styled.h3`
   color: ${colors.darkGrey};
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1.25em;
   font-weight: 300;
   line-height: 1.5;
@@ -221,7 +220,7 @@ export const TextDownload = styled.a`
 `;
 
 export const ButtonSave = styled.button`
-  width: 50%;
+  width: 30%;
   border-radius: 8px;
   background-color: ${colors.turquoise};
   color: ${colors.white};
@@ -229,8 +228,8 @@ export const ButtonSave = styled.button`
   font-weight: 500;
   font-size: 1rem;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  margin: 1rem auto;
+  font-family: "Poppins", sans-serif;
+  margin: -2rem auto 3rem auto;
   padding: 1rem 1rem;
   transition: all 0.3s ease-out;
 
@@ -241,7 +240,30 @@ export const ButtonSave = styled.button`
     box-shadow: inset 0px 11px 8px -10px ${colors.black};
   }
   @media screen and (max-width: 960px) {
+    width: 50%;
     display: block;
-    margin: 1rem auto;
+    margin: -2rem auto 3rem auto;
+  }
+`;
+
+export const Illustration = styled.img`
+  height: 400px;
+  transform: scaleX(-1);
+  width: auto;
+
+  @media screen and (max-width: 768px) {
+    height: auto;
+    width: 100%;
+  }
+`;
+
+export const IllustrationContainer = styled.div`
+  height: auto;
+  width: 80%;
+  margin-top: 1rem;
+  margin-left: 400px;
+
+  @media screen and (max-width: 768px) {
+    margin: -3rem auto;
   }
 `;

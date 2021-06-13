@@ -7,57 +7,64 @@ import { useHistory } from "react-router-dom";
 import appRoutes from "../../../config/appRoutes";
 import url from "../../../config/url";
 import { Illustration, ButtonDelete, ButtonSave, Container } from "./styled";
-import modalBin from "../../../assets/images/modal-achievements-delete.png";
+import modalDeleteBackpack from "../../../assets/images/modal-backpack-delete.png";
 import { DialogContentText } from "@material-ui/core";
 
-const DeleteAchievements = () => {
-  const [userLogros, setUserLogros] = useState([]);
-
+const DeleteBackpack = () => {
+  const [userBackpacks, setUserBackpacks] = useState([]);
+  const [pathId, setPathId] = useState({
+    camino: "",
+  });
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
   };
 
-  const deleteUser = async (event) => {
+  const handleDeleteBackpack = async (event) => {
+    console.log("*** D E L ***" + event.target.id);
     event.preventDefault();
     try {
-      var respuesta = await apiDeleteAchievements();
-      const myAchievementsResponse = await apiMyAchievements();
-
-      if (respuesta.message == "success") {
-        setUserLogros(myAchievementsResponse);
-        toast.info("Has eliminado los logros de tu lista");
+      pathId.camino = event.target.id;
+      const responseDeleteBackpack = await apiDeleteBackpack(pathId);
+      const responseMyBackpacks = await apiMyBackpacks();
+      if (responseDeleteBackpack.message === "success") {
+        setUserBackpacks(responseMyBackpacks);
+        toast.success("Mochila eliminada");
       }
-      if (respuesta.message == "Expired token") {
+      if (responseDeleteBackpack.message === "Expired token") {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
         history.replace(appRoutes.login);
       }
-      window.location.reload();
     } catch (e) {
       console.log("Error del servidor. Por favor, inténtelo de nuevo");
     }
+    alert(event.target.id);
   };
 
   return (
     <>
       <Container>
-        <DialogTitle id="deleteAccountmodal">
-          {"¿Empezamos de cero?"}
+        <DialogTitle id="deleteBackpackmodal">
+          {"¿Seguro que quieres eliminarla?"}
         </DialogTitle>
         <DialogContent>
           <Illustration
-            src={modalBin}
-            alt="Ilustración de una chica en la montaña"
+            src={modalDeleteBackpack}
+            alt="Ilustración de una mochila en la montaña"
           />
           <DialogContentText>
-            {"¿Seguro que quieres eliminar todos tus logros?"}
+            {"Una vez elimines la mochila, no podrás recuperarla"}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <ButtonDelete onClick={deleteUser} role="button" button-label="Sí">
+          <ButtonDelete
+            onClick={handleDeleteBackpack}
+            role="button"
+            button-label="Sí"
+          >
             Sí
           </ButtonDelete>
           <ButtonSave onClose={handleClose} role="button" button-label="No">
@@ -69,20 +76,21 @@ const DeleteAchievements = () => {
   );
 };
 
-export default DeleteAchievements;
-async function apiDeleteAchievements() {
-  return fetch(`${url.base}${url.deleteAchievements}`, {
+export default DeleteBackpack;
+
+async function apiDeleteBackpack(pathId) {
+  return fetch(`${url.base}${url.deleteBackpack}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-    body: JSON.stringify(),
+    body: JSON.stringify(pathId),
   }).then((data) => data.json());
 }
 
-async function apiMyAchievements() {
-  return fetch(`${url.base}${url.meLogros}`, {
+async function apiMyBackpacks() {
+  return fetch(`${url.base}${url.myBackpacks}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

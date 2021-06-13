@@ -8,7 +8,7 @@ const routes = {
   caminos: "/caminos",
   caminoActual: "/camino-actual",
   caminoHistorico: "/historial-de-caminos",
-  backpack: "/mochila",
+  meBackpacks: "/mochila",
   frequentQuestion: "/preguntas-frecuentes",
   privacyConsumers: "/politicas-de-privacidad",
 };

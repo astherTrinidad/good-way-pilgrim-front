@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import _findIndex from 'lodash/findIndex';
-import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import Slide from '@material-ui/core/Slide';
-import { Navbar, Footer } from '../../organisms';
-import appRoutes from '../../../config/appRoutes';
-import GlobalStyle from '../../../globalStyles';
-import url from '../../../config/url';
+import React, { useState, useEffect } from "react";
+import _findIndex from "lodash/findIndex";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Navbar, Footer } from "../../organisms";
+import appRoutes from "../../../config/appRoutes";
+import GlobalStyle from "../../../globalStyles";
+import url from "../../../config/url";
 import {
   Container,
   Section,
@@ -25,17 +24,20 @@ import {
   TextLink,
   DropMenu,
   TextEmptyEtapas,
-} from './styled';
-import { ButtonTurquoise, Camino, CaminoEtapa, EtapaActual } from '../../atoms';
-import dropTop from '../../../assets/images/gota-historial-de-caminos.png';
-import PathsData from '../../molecules';
+  IllustrationContainer,
+  Illustration,
+} from "./styled";
+import { ButtonTurquoise, Camino, CaminoEtapa, EtapaActual } from "../../atoms";
+import dropTop from "../../../assets/images/gota-historial-de-caminos.png";
+import PathsData from "../../molecules/paths";
+import illustrationRelax from "../../../assets/images/camino-historico.svg";
 
 export default function CaminoHistorico() {
   const history = useHistory();
-  const [allUserPath, setAllUserPath] = useState([]);
   const [allCaminos, setAllCaminos] = useState([]);
+  const [allUserPath, setAllUserPath] = useState([]);
   const [reactivePath, setReactivePath] = useState({
-    camino: '',
+    camino: "",
   });
   const [activePath, setActivePath] = useState([]);
 
@@ -43,37 +45,32 @@ export default function CaminoHistorico() {
     async function fetchProfile() {
       try {
         const response = await apiAllPaths();
-
         const responseAllUserPaths = await apiMyPaths();
         const responseActivePaths = await apiActivePath();
 
-    
-        if (
-          response.message == 'Expired token' ||
-          responseAllUserPaths.message
-        ) {
+        if (response.message === "Expired token") {
           toast.info(
-            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+            "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
           history.replace(appRoutes.login);
-        }else {
+        } else {
           setAllCaminos(response);
           setAllUserPath(responseAllUserPaths);
         }
-        if (responseActivePaths.message != 'User hasnt got an active path') {
+
+        if (responseActivePaths.message !== "User hasnt got an active path") {
           setActivePath(responseActivePaths);
         }
-        
       } catch {
         console.log(
-          'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+          "Error del servidor. Por favor, cierra sesión y vuelve a entrar"
         );
       }
     }
     fetchProfile();
   }, []);
 
-  const onClickReactive = async event => {
+  const onClickReactive = async (event) => {
     event.preventDefault();
     try {
       reactivePath.camino = event.target.id;
@@ -81,29 +78,29 @@ export default function CaminoHistorico() {
       const responseAllUserPaths = await apiMyPaths();
       // setReactivePath(responseReactive);
 
-      if (responseReactive.message == 'success') {
-        toast.success('¡Camino reactivado!');
+      if (responseReactive.message === "success") {
+        toast.success("¡Camino reactivado!");
       } else if (
-        responseReactive.message == 'User already has an active path'
+        responseReactive.message === "User already has an active path"
       ) {
         toast.info(
-          'Ya tienes un camino actual. Archívalo o termínalo antes de activar este'
+          "Ya tienes un camino actual. Archívalo o termínalo antes de activar este"
         );
       }
       // history.replace(appRoutes.caminos);
 
       if (
-        responseReactive.message == 'Expired token' ||
+        responseReactive.message === "Expired token" ||
         responseAllUserPaths.message
       ) {
         toast.info(
-          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+          "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
         history.replace(appRoutes.login);
       }
     } catch (e) {
       console.log(
-        'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+        "Error del servidor. Por favor, cierra sesión y vuelve a entrar"
       );
     }
   };
@@ -113,8 +110,7 @@ export default function CaminoHistorico() {
   });
 
   const renderUserPaths = allUserPath.map((item, paths) => {
-    console.log(item.status);
-    const pathStatus = item.status === 'Completed' ? 'Completado' : 'Archivado';
+    const pathStatus = item.status === "Completed" ? "Completado" : "Archivado";
     return (
       <>
         <PathsData
@@ -126,7 +122,7 @@ export default function CaminoHistorico() {
           finish_date={item.finish_date}
           etapas={item.etapas}
         />
-        {item.status !== 'Completed' ? (
+        {item.status !== "Completed" ? (
           <ButtonTurquoise
             id={item.id}
             label="Reactivar"
@@ -155,8 +151,6 @@ export default function CaminoHistorico() {
               <TextLink href="/caminos">Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
               <TextLink href="/camino-actual">Camino actual</TextLink>
-              <TextMenu>{activePath.name}</TextMenu>
-
               <TextLink>Historial de caminos</TextLink>
             </RowCamino>
           </ColumnMenu>
@@ -164,10 +158,10 @@ export default function CaminoHistorico() {
             <RowCamino tabIndex={0} aria-label="Caminos">
               <TextWrapper>
                 <Heading
-                  aria-label="¿No recuerdas que caminos realizaste?"
+                  aria-label="¿No recuerdas qué caminos realizaste?"
                   tabIndex="0"
                 >
-                  ¿No recuerdas que caminos realizaste?
+                  ¿No recuerdas qué caminos realizaste?
                 </Heading>
                 <Subtitle
                   aria-label="Puedes recordar los caminos que marcaste como terminados o
@@ -182,7 +176,18 @@ export default function CaminoHistorico() {
               </TextWrapper>
             </RowCamino>
 
-            {renderUserPaths}
+            <>
+              <RowCamino>{renderUserPaths}</RowCamino>
+              <RowCamino>
+                <IllustrationContainer>
+                  <Illustration
+                    src={illustrationRelax}
+                    alt="Personas relajados en el campo"
+                    title="Personas relajados en el campo"
+                  />
+                </IllustrationContainer>
+              </RowCamino>
+            </>
           </ColumnCamino>
         </Row>
       </Container>
@@ -193,41 +198,41 @@ export default function CaminoHistorico() {
 
 async function apiAllPaths() {
   return fetch(`${url.base}${url.caminos}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
 
 async function apiMyPaths() {
   return fetch(`${url.base}${url.myPaths}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
 
 async function apiReactivePath(pathInfo) {
   return fetch(`${url.base}${url.reactivePath}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: JSON.stringify(pathInfo),
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
 
 async function apiActivePath() {
   return fetch(`${url.base}${url.activePath}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }

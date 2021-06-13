@@ -115,7 +115,7 @@ const Navbar = () => {
               </NavLinksMenu>
               <ConchaIcon />
 
-              <NavLinksMenu to={appRoutes.backpack}>Mochila</NavLinksMenu>
+              <NavLinksMenu to={appRoutes.meBackpacks}>Mochila</NavLinksMenu>
               <NavLinksMenu to={appRoutes.meLogros}>Logros</NavLinksMenu>
               <NavBtnLink to={appRoutes.login}>
                 <Button onClick={closeSession} fontBig role="button">
@@ -127,7 +127,7 @@ const Navbar = () => {
           <NavMenu aria-hidden="false">
             <NavLinks to={userData}>Perfil</NavLinks>
             <NavLinks to={appRoutes.caminos}>Caminos</NavLinks>
-            <NavLinks to={appRoutes.backpack}>Mochila</NavLinks>
+            <NavLinks to={appRoutes.meBackpacks}>Mochila</NavLinks>
             <NavLinks to={appRoutes.meLogros}>Logros</NavLinks>
           </NavMenu>
           <MobileIcon>

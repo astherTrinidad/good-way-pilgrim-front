@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import colors from '../../../assets/colors';
+import styled from "styled-components";
+import colors from "../../../assets/colors";
 
 export const ContainerCaminos = styled.div`
   align-items: left;
@@ -9,6 +9,11 @@ export const ContainerCaminos = styled.div`
   width: 100%;
   text-align: left;
   margin-bottom: 3rem;
+  scroll-margin-top: 65px;
+
+  @media screen and (max-width: 768px) {
+    scroll-margin-top: 380px;
+  }
 `;
 
 export const TextNameCamino = styled.h4`

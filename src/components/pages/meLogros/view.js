@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import _findIndex from 'lodash/findIndex';
-import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import Dialog from '@material-ui/core/Dialog';
-import Slide from '@material-ui/core/Slide';
-import { Navbar, Footer } from '../../organisms';
-import appRoutes from '../../../config/appRoutes';
-import GlobalStyle from '../../../globalStyles';
-import url from '../../../config/url';
-import { DeleteAchievements } from '../../modals';
+import React, { useState, useEffect } from "react";
+import _findIndex from "lodash/findIndex";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import Dialog from "@material-ui/core/Dialog";
+import Slide from "@material-ui/core/Slide";
+import { Navbar, Footer } from "../../organisms";
+import appRoutes from "../../../config/appRoutes";
+import GlobalStyle from "../../../globalStyles";
+import url from "../../../config/url";
+import { DeleteAchievements } from "../../modals";
 import {
   Container,
   Section,
@@ -18,8 +18,8 @@ import {
   Heading,
   Subtitle,
   ButtonDelete,
-} from './styled';
-import Logro from '../../atoms/logro';
+} from "./styled";
+import Logro from "../../atoms/logro";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -32,11 +32,11 @@ export default function MeLogros() {
   const [isColor, setIsColor] = useState(false);
 
   const [addUserAchievement, setAddUserAchievement] = useState({
-    achievement: '',
-    date: '',
+    achievement: "",
+    date: "",
   });
   const [deleteUserAchievement, setDeleteAchievement] = useState({
-    achievement: '',
+    achievement: "",
   });
   const [open, setOpen] = React.useState(false);
 
@@ -52,17 +52,17 @@ export default function MeLogros() {
     let addAchievementDate = new Date();
     let day =
       addAchievementDate.getDate() <= 9
-        ? '0' + addAchievementDate.getDate()
+        ? "0" + addAchievementDate.getDate()
         : addAchievementDate.getDate();
     let month =
       addAchievementDate.getMonth() <= 9
-        ? '0' + addAchievementDate.getMonth()
+        ? "0" + addAchievementDate.getMonth()
         : addAchievementDate.getMonth();
     let year = addAchievementDate.getFullYear();
-    return (addAchievementDate = year + '-' + month + '-' + day);
+    return (addAchievementDate = year + "-" + month + "-" + day);
   };
 
-  const onClick = async event => {
+  const onClick = async (event) => {
     if (isColor) {
       setIsColor(false);
 
@@ -77,14 +77,14 @@ export default function MeLogros() {
         const myAchievementsResponse = await apiMyAchievements();
         setUserLogros(myAchievementsResponse);
 
-        if (responseDelete.message == 'Expired token') {
+        if (responseDelete.message == "Expired token") {
           toast.info(
-            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+            "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
           history.replace(appRoutes.login);
         }
       } catch (e) {
-        console.log('Error del servidor. Por favor, inténtelo de nuevo');
+        console.log("Error del servidor. Por favor, inténtelo de nuevo");
       }
     } else {
       setIsColor(true);
@@ -103,14 +103,14 @@ export default function MeLogros() {
         const myAchievementsResponse = await apiMyAchievements();
         setUserLogros(myAchievementsResponse);
 
-        if (responseAdd.message == 'Expired token') {
+        if (responseAdd.message == "Expired token") {
           toast.info(
-            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+            "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
           history.replace(appRoutes.login);
         }
       } catch (e) {
-        console.log('Error del servidor. Por favor, inténtelo de nuevo');
+        console.log("Error del servidor. Por favor, inténtelo de nuevo");
       }
     }
   };
@@ -120,9 +120,9 @@ export default function MeLogros() {
       try {
         const response = await apiAllAchievements();
         const myAchievementsResponse = await apiMyAchievements();
-        if (response.message == 'Expired token') {
+        if (response.message == "Expired token") {
           toast.info(
-            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+            "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
           history.replace(appRoutes.login);
         } else {
@@ -131,19 +131,19 @@ export default function MeLogros() {
         }
       } catch {
         console.log(
-          'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+          "Error del servidor. Por favor, cierra sesión y vuelve a entrar"
         );
       }
     }
     fetchProfile();
   }, []);
 
-  const renderLogros = allLogros?.slice(0, 10)?.map(item => {
-    const idLogros = _findIndex(userLogros, element => {
+  const renderLogros = allLogros?.slice(0, 10)?.map((item) => {
+    const idLogros = _findIndex(userLogros, (element) => {
       return element.id_logro === item.id;
     });
     const ruta =
-      idLogros !== -1 ? './assets/logros/color/' : './assets/logros/bn/';
+      idLogros !== -1 ? "./assets/logros/color/" : "./assets/logros/bn/";
 
     return (
       <Logro
@@ -158,12 +158,12 @@ export default function MeLogros() {
     );
   });
 
-  const renderAntiLogros = allLogros?.slice(10, 20)?.map(item => {
-    const idLogros = _findIndex(userLogros, element => {
+  const renderAntiLogros = allLogros?.slice(10, 20)?.map((item) => {
+    const idLogros = _findIndex(userLogros, (element) => {
       return element.id_logro === item.id;
     });
     const ruta =
-      idLogros !== -1 ? './assets/logros/color/' : './assets/logros/bn/';
+      idLogros !== -1 ? "./assets/logros/color/" : "./assets/logros/bn/";
 
     return (
       <Logro
@@ -269,42 +269,42 @@ export default function MeLogros() {
 
 async function apiAllAchievements() {
   return fetch(`${url.base}/pri/AllAchievements`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
 
 async function apiMyAchievements() {
   return fetch(`${url.base}${url.meLogros}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
 
 async function apiAddAchievement(achievementInfo) {
   return fetch(`${url.base}${url.addLogros}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: JSON.stringify(achievementInfo),
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }
 
 async function apiDeleteAchievement(achievementInfo) {
   return fetch(`${url.base}${url.deleteAchievement}`, {
-    method: 'DELETE',
+    method: "DELETE",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: JSON.stringify(achievementInfo),
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }

@@ -9,9 +9,9 @@ import MeEditProfile from "./meEditProfile";
 import MeLogros from "./meLogros";
 import FrequentQuestion from "./frequentQuestion";
 import PrivacyConsumers from "./privacyConsumers";
-import Backpack from "./backpack";
+import MeBackpacks from "./meBackpacks";
 export {
-  Backpack,
+  MeBackpacks,
   CaminoActual,
   CaminoHistorico,
   Caminos,

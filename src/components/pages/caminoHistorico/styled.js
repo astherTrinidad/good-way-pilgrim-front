@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import colors from '../../../assets/colors';
+import styled from "styled-components";
+import colors from "../../../assets/colors";
 
 export const Row = styled.div`
   display: flex;
@@ -16,7 +16,6 @@ export const DropMenu = styled.img`
   @media screen and (max-width: 768px) {
     width: 100%;
     margin: 0 auto 3rem auto;
-
   }
 `;
 
@@ -96,7 +95,7 @@ export const TextWrapper = styled.div`
   line-height: 2;
 
   &:nth-of-type(1) {
-    margin-top: 3rem;
+    margin-top: 1rem;
   }
 
   @media screen and (max-width: 768px) {
@@ -153,13 +152,13 @@ export const TextEtapa = styled.p`
 export const Heading = styled.h2`
   color: ${colors.turquoise};
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 2em;
   font-weight: bold;
   line-height: 1.5;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 9rem;
+  margin-top: 7rem;
   text-align: left;
   width: 100%;
 
@@ -177,12 +176,12 @@ export const Heading = styled.h2`
 export const Subtitle = styled.h3`
   color: ${colors.darkGrey};
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1.25em;
   font-weight: 300;
   line-height: 1.5;
   margin-top: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 5rem;
   text-align: left;
   width: 100%;
 
@@ -195,6 +194,26 @@ export const Subtitle = styled.h3`
   @media screen and (max-width: 768px) {
     margin: 1rem 0 0 0;
   }
+`;
 
+export const Illustration = styled.img`
+  height: 400px;
+  transform: scaleX(-1);
+  width: auto;
 
+  @media screen and (max-width: 768px) {
+    height: auto;
+    width: 100%;
+  }
+`;
+
+export const IllustrationContainer = styled.div`
+  height: auto;
+  width: 80%;
+  margin-top: 5rem;
+  margin-left: 400px;
+
+  @media screen and (max-width: 768px) {
+    margin: 5rem auto;
+  }
 `;
