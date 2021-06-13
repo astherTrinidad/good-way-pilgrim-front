@@ -21,15 +21,13 @@ const Card = ({ id, alt, src, tabIndex, name, quantity, onClick }) => {
           <Value>{quantity}</Value>
         </TextMochila>
       </TextWrapper>
-      <div className="size-lg">
-        <ButtonTurquoise
-          id={id}
-          type="button"
-          onClick={onClick}
-          label="Ver mochila"
-          value="show info"
-        />
-      </div>
+      <ButtonTurquoise
+        id={id}
+        type="button"
+        onClick={onClick}
+        label="Ver mochila"
+        value="show info"
+      />
     </ContainerCard>
   );
 };

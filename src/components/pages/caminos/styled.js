@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import colors from '../../../assets/colors';
+import styled from "styled-components";
+import colors from "../../../assets/colors";
 
 export const Row = styled.div`
   display: flex;
@@ -9,12 +9,46 @@ export const Row = styled.div`
   }
 `;
 
+export const RowSubmenuTop = styled.div`
+  display: none;
+
+  @media screen and (max-width: 968px) {
+    background-color: ${colors.white};
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    margin-top: 3rem;
+    padding: 1rem;
+    position: fixed;
+    border-bottom: 3px solid ${colors.mustard};
+    width: 80%;
+  }
+`;
+
+export const TextSubmenuTop = styled.a`
+  display: block;
+  color: ${colors.turquoise};
+  cursor: pointer;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 1rem 2rem 1rem 0;
+
+  &:hover {
+    color: ${colors.mustard};
+  }
+`;
+
 export const DropMenu = styled.img`
   margin: 0 auto 1rem auto;
   width: 100%;
 
   @media screen and (max-width: 768px) {
     width: 100%;
+  }
+
+  @media screen and (max-width: 578px) {
+    margin-top: 100px;
+    width: 80%;
   }
 `;
 
@@ -55,6 +89,14 @@ export const Section = styled.h1`
   text-align: left;
   justify-content: left;
   align-items: left;
+
+  @media screen and (max-width: 768px) {
+    background-color: ${colors.white};
+    margin-top: -3rem;
+    padding: 3rem 1rem 2rem 1rem;
+    position: fixed;
+    width: 100%;
+  }
 `;
 
 export const RowCaminos = styled.div`
@@ -120,18 +162,17 @@ export const TextMenu = styled.p`
 `;
 
 export const TextMenuActual = styled.p`
-font-weight: 300;
-color: ${colors.mediumGrey};
-margin-top: 1rem;
-
-&:nth-of-type(1) {
+  font-weight: 300;
+  color: ${colors.mediumGrey};
   margin-top: 1rem;
-}
-@media screen and (max-width: 768px) {
-  display: none;
-}
-`;
 
+  &:nth-of-type(1) {
+    margin-top: 1rem;
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
 
 export const TextMenuNav = styled.p`
   display: flex;
@@ -160,7 +201,7 @@ export const TextEtapa = styled.p`
 export const Heading = styled.h2`
   color: ${colors.turquoise};
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 2em;
   font-weight: bold;
   line-height: 1.5;
@@ -184,7 +225,7 @@ export const Heading = styled.h2`
 export const Subtitle = styled.h3`
   color: ${colors.darkGrey};
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1.125em;
   font-weight: 300;
   line-height: 1.5;
@@ -199,19 +240,16 @@ export const Subtitle = styled.h3`
     width: 100%;
   }
 
-
   @media screen and (max-width: 578px) {
     font-size: 1em;
     margin: 1rem 0 1rem 0;
     width: 100%;
 
     &:nth-of-type(1) {
-    display: none;
-    margin: 1rem 0 0 0;
-
+      display: none;
+      margin: 1rem 0 0 0;
+    }
   }
-  }
-
 `;
 
 export const TextDownload = styled.a`
@@ -224,15 +262,13 @@ export const TextDownload = styled.a`
     border-right: 1px solid ${colors.mustard};
     padding: 0 2rem 0 0;
 
-    @media screen and(max-width: 768px){
+    @media screen and(max-width: 768px) {
       padding: 0;
-
     }
 
     @media screen and (max-width: 578px) {
       display: none;
     }
-
   }
 
   &:nth-of-type(2) {
@@ -257,7 +293,7 @@ export const ButtonSave = styled.button`
   font-weight: 500;
   font-size: 1rem;
   justify-content: center;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 1rem auto;
   padding: 1rem 1rem;
   transition: all 0.3s ease-out;

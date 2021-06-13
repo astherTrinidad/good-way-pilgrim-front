@@ -27,6 +27,7 @@ import {
   TextStep,
   ContainerList,
   ContainerForm,
+  RowWithoutBackpacks,
   // Icons,
   TitleList,
 } from "./styled";
@@ -126,9 +127,9 @@ const MeBackpacks = () => {
       } else if (
         response.message === "User already has a backpack for this path"
       ) {
-        toast.error("Ya tienes una mochila creada para este camino");
+        toast.warning("Ya tienes esta mochila. Puedes consultarla arriba");
       } else if (response.message === "User hasnt got this path") {
-        toast.error(
+        toast.warning(
           "Añade primero el camino a tu perfil para poder crear una mochila"
         );
       }
@@ -240,7 +241,7 @@ const MeBackpacks = () => {
           </Section>
         </Row>
         {userBackpacks.length <= 0 ? (
-          <Row>
+          <RowWithoutBackpacks>
             <TextWrapperWithoutBackpacks>
               <Heading
                 aria-label="No tienes ninguna mochila creada"
@@ -279,7 +280,7 @@ const MeBackpacks = () => {
                 title="Peregrino andando sobre un sendero en la montaña"
               />
             </ColumnImg>
-          </Row>
+          </RowWithoutBackpacks>
         ) : (
           <Row>
             <TextWrapper>
@@ -421,15 +422,4 @@ async function apiCreateBackpack(pathId) {
 
   let content = await response.text();
   return content;
-}
-
-async function apiAddItem(itemInfo) {
-  return fetch(`${url.base}${url.addItem}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + sessionStorage.getItem("token"),
-    },
-    body: JSON.stringify(itemInfo),
-  }).then((data) => data.json());
 }

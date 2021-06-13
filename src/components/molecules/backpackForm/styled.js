@@ -9,6 +9,8 @@ export const TitleList = styled.h3`
 
 export const Form = styled.form`
   margin-bottom: 1rem;
+  height: max-content;
+  width: 100%;
 `;
 
 export const Icons = styled.div`

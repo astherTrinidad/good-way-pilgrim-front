@@ -24,10 +24,13 @@ import {
   TextLink,
   DropMenu,
   TextEmptyEtapas,
+  IllustrationContainer,
+  Illustration,
 } from "./styled";
 import { ButtonTurquoise, Camino, CaminoEtapa, EtapaActual } from "../../atoms";
 import dropTop from "../../../assets/images/gota-historial-de-caminos.png";
 import PathsData from "../../molecules/paths";
+import illustrationRelax from "../../../assets/images/camino-historico.svg";
 
 export default function CaminoHistorico() {
   const history = useHistory();
@@ -148,8 +151,6 @@ export default function CaminoHistorico() {
               <TextLink href="/caminos">Caminos</TextLink>
               <TextMenu>{renderPathsToSubmenu}</TextMenu>
               <TextLink href="/camino-actual">Camino actual</TextLink>
-              <TextMenu>{activePath.name}</TextMenu>
-
               <TextLink>Historial de caminos</TextLink>
             </RowCamino>
           </ColumnMenu>
@@ -157,10 +158,10 @@ export default function CaminoHistorico() {
             <RowCamino tabIndex={0} aria-label="Caminos">
               <TextWrapper>
                 <Heading
-                  aria-label="¿No recuerdas que caminos realizaste?"
+                  aria-label="¿No recuerdas qué caminos realizaste?"
                   tabIndex="0"
                 >
-                  ¿No recuerdas que caminos realizaste?
+                  ¿No recuerdas qué caminos realizaste?
                 </Heading>
                 <Subtitle
                   aria-label="Puedes recordar los caminos que marcaste como terminados o
@@ -175,7 +176,18 @@ export default function CaminoHistorico() {
               </TextWrapper>
             </RowCamino>
 
-            {renderUserPaths}
+            <>
+              <RowCamino>{renderUserPaths}</RowCamino>
+              <RowCamino>
+                <IllustrationContainer>
+                  <Illustration
+                    src={illustrationRelax}
+                    alt="Personas relajados en el campo"
+                    title="Personas relajados en el campo"
+                  />
+                </IllustrationContainer>
+              </RowCamino>
+            </>
           </ColumnCamino>
         </Row>
       </Container>

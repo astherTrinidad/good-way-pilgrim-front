@@ -27,6 +27,22 @@ export const Row = styled.div`
   }
 `;
 
+export const RowWithoutBackpacks = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: max-content;
+
+  &:nth-of-type(3) {
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
@@ -196,6 +212,10 @@ export const ContainerList = styled.div`
   border-radius: 10px;
   padding-bottom: 32px;
   position: relative;
+
+  @media screen and (max-width: 968px) {
+    width: 100%;
+  }
 `;
 
 export const ContainerModal = styled.div`
@@ -276,7 +296,8 @@ export const ContainerForm = styled.div`
   margin: 0.25rem auto;
   padding: 0.5rem 1rem 0.5rem 1rem;
   position: relative;
-  width: max-content;
+  justify-content: center;
+  width: 450px;
 
   .stored {
     opacity: 0.5;

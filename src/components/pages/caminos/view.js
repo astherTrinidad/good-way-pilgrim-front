@@ -7,7 +7,6 @@ import { Navbar, Footer } from "../../organisms";
 import appRoutes from "../../../config/appRoutes";
 import GlobalStyle from "../../../globalStyles";
 import url from "../../../config/url";
-import CircleScroll from "../../atoms/circleScroll";
 import {
   Container,
   Section,
@@ -25,6 +24,8 @@ import {
   TextMenuActual,
   TextLink,
   DropMenu,
+  RowSubmenuTop,
+  TextSubmenuTop,
 } from "./styled";
 import { Camino, Etapa, CaminoEtapa } from "../../atoms";
 import GWPinfoCaminos from "../../../assets/downloadPDF/GWPinfoCaminos.pdf";
@@ -167,6 +168,15 @@ export default function Caminos() {
       </>
     );
   });
+  const renderPathsToSubmenuTop = allCaminos.map((item, paths) => {
+    console.log("id: " + allCaminos[paths].id);
+    return (
+      <TextSubmenuTop href={`#${item.id}`} key={paths}>
+        {item.name}
+      </TextSubmenuTop>
+    );
+  });
+
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
     console.log("id: " + allCaminos[paths].id);
     return <CaminoEtapa href={`#${item.id}`} key={paths} name={item.name} />;
@@ -194,6 +204,8 @@ export default function Caminos() {
             <Section role="sección" tabIndex={0} title="Caminos">
               Caminos
             </Section>
+            <RowSubmenuTop>{renderPathsToSubmenuTop}</RowSubmenuTop>
+
             <DropMenu
               src={dropTopCaminos}
               alt="Ermita de San Juan Gaztelugatxe"
@@ -260,7 +272,6 @@ export default function Caminos() {
               {renderPaths}
             </RowCaminos>
           </ColumnCamino>
-          <CircleScroll tabIndex={0} />
         </Row>
       </Container>
       <Footer />
