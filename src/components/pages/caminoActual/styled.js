@@ -153,7 +153,7 @@ export const Heading = styled.h2`
   line-height: 1.5;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 9rem;
+  margin-top: 7rem;
   text-align: left;
   width: 100%;
 

@@ -24,10 +24,13 @@ import {
   TextLink,
   DropMenu,
   TextEmptyEtapas,
+  IllustrationContainer,
+  Illustration,
 } from "./styled";
 import { ButtonTurquoise, Camino, CaminoEtapa, EtapaActual } from "../../atoms";
 import dropTop from "../../../assets/images/gota-historial-de-caminos.png";
 import PathsData from "../../molecules/paths";
+import illustrationRelax from "../../../assets/images/camino-historico.svg";
 
 export default function CaminoHistorico() {
   const history = useHistory();
@@ -172,8 +175,30 @@ export default function CaminoHistorico() {
                 </Subtitle>
               </TextWrapper>
             </RowCamino>
-
-            {renderUserPaths}
+            {allUserPath.length > 0 ? (
+              <>
+                <RowCamino>{renderUserPaths}</RowCamino>
+                <RowCamino>
+                  <IllustrationContainer>
+                    <Illustration
+                      src={illustrationRelax}
+                      alt="Personas relajados en el campo"
+                      title="Personas relajados en el campo"
+                    />
+                  </IllustrationContainer>
+                </RowCamino>
+              </>
+            ) : (
+              <RowCamino>
+                <IllustrationContainer>
+                  <Illustration
+                    src={illustrationRelax}
+                    alt="Personas relajados en el campo"
+                    title="Personas relajados en el campo"
+                  />
+                </IllustrationContainer>
+              </RowCamino>
+            )}
           </ColumnCamino>
         </Row>
       </Container>
