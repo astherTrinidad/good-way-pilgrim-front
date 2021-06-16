@@ -15,19 +15,14 @@ import {
   Subtitle,
   ColumnMenu,
   ColumnCamino,
-  RowEtapas,
-  TextDownload,
   RowCamino,
-  ButtonSave,
-  TextEtapa,
   TextMenu,
   TextLink,
   DropMenu,
-  TextEmptyEtapas,
   IllustrationContainer,
   Illustration,
 } from "./styled";
-import { ButtonTurquoise, Camino, CaminoEtapa, EtapaActual } from "../../atoms";
+import { ButtonTurquoise, CaminoEtapa } from "../../atoms";
 import dropTop from "../../../assets/images/gota-historial-de-caminos.png";
 import PathsData from "../../molecules/paths";
 import illustrationRelax from "../../../assets/images/camino-historico.svg";

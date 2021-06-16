@@ -21,10 +21,8 @@ import {
   ColumnMenu,
   ColumnCamino,
   RowEtapas,
-  TextDownload,
   RowCamino,
   ButtonSave,
-  TextEtapa,
   TextMenu,
   TextLink,
   DropMenu,
@@ -32,15 +30,8 @@ import {
   Illustration,
   IllustrationContainer,
 } from "./styled";
-import {
-  ButtonTurquoise,
-  ButtonGreen,
-  Camino,
-  CaminoEtapa,
-  EtapaActual,
-} from "../../atoms";
+import { ButtonGreen, Camino, CaminoEtapa, EtapaActual } from "../../atoms";
 import dropWomanBoots from "../../../assets/images/gota-camino-actual.png";
-import illustrationWinterWalk from "../../../assets/images/camino-actual.svg";
 import illustrationWalk from "../../../assets/images/camino-actual-walk.svg";
 import pathBN from "../../../assets/images/etapaBN.png";
 import pathColor from "../../../assets/images/etapaColor.png";
@@ -106,17 +97,17 @@ export default function Caminos() {
         const response = await apiAllPaths();
         const responseActivePaths = await apiActivePath();
 
-        if (response.message == undefined) {
+        if (response.message === undefined) {
           setCaminos(response);
         }
-        if (responseActivePaths.message != "User hasnt got an active path") {
+        if (responseActivePaths.message !== "User hasnt got an active path") {
           const responseUserEtapasRealizadas = await apiEtapasRealizadas(
             responseActivePaths.id
           );
           setEtapas(responseActivePaths.etapas);
           setActivePath(responseActivePaths);
           setUserEtapasRealizadas(responseUserEtapasRealizadas);
-        } else if (response.message == "Expired token") {
+        } else if (response.message === "Expired token") {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
@@ -147,7 +138,7 @@ export default function Caminos() {
 
       setUserEtapasRealizadas(responseUserEtapasRealizadas);
 
-      if (responseAddEtapa.message == "Expired token") {
+      if (responseAddEtapa.message === "Expired token") {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );

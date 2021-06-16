@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import _findIndex from "lodash/findIndex";
-import { TiEdit, TiDelete } from "react-icons/ti";
 import { Navbar, Footer, Slider } from "../../organisms";
 import { SlideData } from "../../organisms/slider/slideData";
 import ButtonDeleteIcon from "../../atoms/buttonDeleteIcon";
@@ -28,7 +27,6 @@ import {
   ContainerList,
   ContainerForm,
   RowWithoutBackpacks,
-  // Icons,
   TitleList,
 } from "./styled";
 import Cards from "../../molecules/cards";
@@ -36,7 +34,6 @@ import CardsSmall from "../../molecules/cardsSmall";
 import BackpackItemList from "../../molecules/backpackForm/BackpackItemList";
 import dropBackpacks from "../../../assets/images/drop-backpacks.png";
 import conchaIcon from "../../../assets/images/conchaTurquoise.png";
-import modalDeleteCamino from "../../modals/deleteBackpack";
 
 const MeBackpacks = () => {
   const [allCaminos, setCaminos] = useState([]);

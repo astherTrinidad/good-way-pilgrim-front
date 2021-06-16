@@ -78,7 +78,7 @@ export default function MeEditProfile() {
     async function fetchProfile() {
       try {
         const response = await apiMeProfile();
-        if (response.message == "Expired token") {
+        if (response.message === "Expired token") {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );

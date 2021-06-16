@@ -25,11 +25,11 @@ const DeleteAchievements = () => {
       var respuesta = await apiDeleteAchievements();
       const myAchievementsResponse = await apiMyAchievements();
 
-      if (respuesta.message == "success") {
+      if (respuesta.message === "success") {
         setUserLogros(myAchievementsResponse);
         toast.info("Has eliminado los logros de tu lista");
       }
-      if (respuesta.message == "Expired token") {
+      if (respuesta.message === "Expired token") {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
