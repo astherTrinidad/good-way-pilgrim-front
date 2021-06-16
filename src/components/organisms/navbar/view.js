@@ -65,7 +65,6 @@ const Navbar = () => {
     fetchProfile();
   }, []);
 
-  console.log(window.innerWidth);
   return (
     <IconContext.Provider
       value={{ color: "#ffff" }}

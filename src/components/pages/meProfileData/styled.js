@@ -1,13 +1,12 @@
-import styled from 'styled-components';
-import colors from '../../../assets/colors';
-import bgHeaderMeProfileData from '../../../assets/images/bg-header-me-profileData.jpg';
-import bgHeaderShowProfileMobile from '../../../assets/images/bgHeaderShowProfileMobile-min.jpg';
-import concha from '../../../assets/images/ic_concha.png';
+import styled from "styled-components";
+import colors from "../../../assets/colors";
+import bgHeaderMeProfileData from "../../../assets/images/bg-header-me-profileData.jpg";
+import bgHeaderShowProfileMobile from "../../../assets/images/bgHeaderShowProfileMobile-min.jpg";
+import concha from "../../../assets/images/ic_concha.png";
 
 export const Row = styled.div`
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
   justify-content: center;
   margin: 3rem auto;
   width: 50%;
@@ -29,7 +28,6 @@ export const Column = styled.div`
 `;
 
 export const RowLogros = styled.div`
-  /* align-items: center; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -99,7 +97,7 @@ export const ContainerName = styled.div`
 `;
 
 export const NameProfile = styled.p`
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: bold;
   font-size: 1.5rem;
   color: ${colors.darkGrey};
@@ -107,7 +105,7 @@ export const NameProfile = styled.p`
 `;
 
 export const SurnameProfile = styled.p`
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: bold;
   font-size: 1.5rem;
   color: ${colors.darkGrey};
@@ -117,7 +115,7 @@ export const SurnameProfile = styled.p`
 export const Heading = styled.h2`
   color: ${colors.turquoise};
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 2em;
   font-weight: bold;
   line-height: 1.5;
@@ -141,7 +139,7 @@ export const Heading = styled.h2`
 export const Subtitle = styled.h3`
   color: ${colors.darkGrey};
   display: block;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1.5em;
   font-weight: 300;
   line-height: 1.5;
