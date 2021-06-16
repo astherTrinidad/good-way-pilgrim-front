@@ -26,6 +26,7 @@ function Routes() {
   return (
     <Router>
       <Switch>
+        <PublicRoute path="/" component={Login} exact />
         <PublicRoute path={appRoutes.login} component={Login} exact />
         <PublicRoute path={appRoutes.register} component={Register} exact />
         <PrivateRoute path={appRoutes.meProfile} component={MeProfile} exact />
