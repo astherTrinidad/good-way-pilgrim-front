@@ -85,15 +85,12 @@ const MeBackpacks = () => {
   }, []);
 
   const handleShowInfoBackpack = async (event) => {
-    console.log("******" + event.target.id);
     event.preventDefault();
     try {
       const responseInfo = await apiInfoBackpack(event.target.id);
       if (responseInfo !== "Incorrect data recived") {
         setInfoBackpack(responseInfo);
         setShowBackpack(true);
-
-        console.log("show: " + showBackpack);
       }
       if (responseInfo.message === "Expired token") {
         toast.info(
@@ -107,10 +104,9 @@ const MeBackpacks = () => {
   };
 
   const handleCreateBackpack = async (event) => {
-    console.log("******" + event.target.id);
+    console.log("** ID CAMINO **" + event.target.id);
     event.preventDefault();
     try {
-      console.log(newBackpack);
       pathId.camino = event.target.id;
       setPathId(pathId);
       let responseCreateBackpack = await apiCreateBackpack(pathId);
@@ -119,7 +115,6 @@ const MeBackpacks = () => {
       setUserBackpacks(responseMyBackpacks);
 
       let response = JSON.parse(responseCreateBackpack);
-      console.log("parse" + response.message);
 
       if (response.message === "success") {
         toast.success("¡Mochila creada!");
@@ -148,7 +143,6 @@ const MeBackpacks = () => {
   };
 
   const handleDeleteBackpack = async (event) => {
-    console.log("*** D E L ***" + event.target.id);
     event.preventDefault();
     try {
       pathId.camino = event.target.id;

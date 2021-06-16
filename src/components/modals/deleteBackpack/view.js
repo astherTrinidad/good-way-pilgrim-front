@@ -22,7 +22,6 @@ const DeleteBackpack = () => {
   };
 
   const handleDeleteBackpack = async (event) => {
-    console.log("*** D E L ***" + event.target.id);
     event.preventDefault();
     try {
       pathId.camino = event.target.id;

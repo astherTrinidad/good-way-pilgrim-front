@@ -96,7 +96,6 @@ export default function Caminos() {
       try {
         const responseAllPaths = await apiAllPaths();
         const responseActivePaths = await apiActivePath();
-        console.log(responseActivePaths);
         if (responseAllPaths.message === undefined) {
           setCaminos(responseAllPaths);
           setEtapasCamino(responseAllPaths.etapas);
@@ -118,8 +117,6 @@ export default function Caminos() {
   }, []);
 
   const renderPaths = allCaminos.map((item, paths) => {
-    console.log("idListado: " + allCaminos[paths].id);
-
     return (
       <>
         <Camino
@@ -169,7 +166,6 @@ export default function Caminos() {
     );
   });
   const renderPathsToSubmenuTop = allCaminos.map((item, paths) => {
-    console.log("id: " + allCaminos[paths].id);
     return (
       <TextSubmenuTop href={`#${item.id}`} key={paths}>
         {item.name}
@@ -178,7 +174,6 @@ export default function Caminos() {
   });
 
   const renderPathsToSubmenu = allCaminos.map((item, paths) => {
-    console.log("id: " + allCaminos[paths].id);
     return <CaminoEtapa href={`#${item.id}`} key={paths} name={item.name} />;
   });
 

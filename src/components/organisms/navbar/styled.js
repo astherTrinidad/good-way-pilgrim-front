@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import colors from '../../../assets/colors';
-import { Container } from '../../../globalStyles';
-import gwpLogo from '../../../assets/images/gwp-blanco-logo.png';
-import concha from '../../../assets/images/ic_concha.png';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import colors from "../../../assets/colors";
+import { Container } from "../../../globalStyles";
+import gwpLogo from "../../../assets/images/gwp-blanco-logo.png";
+import concha from "../../../assets/images/ic_concha.png";
 
 export const Nav = styled.nav`
   background: ${colors.turquoise};
@@ -16,7 +16,6 @@ export const Nav = styled.nav`
   top: 0;
   z-index: 999;
   opacity: 0.9;
-  /* box-shadow: 2px 2px 4px 1px ${colors.darkGrey}; */
 
   @media screen and (max-width: 960px) {
     opacity: 1;
@@ -26,7 +25,6 @@ export const Nav = styled.nav`
 export const NavbarContainer = styled(Container)`
   display: flex;
   justify-content: space-between;
-  /* height: 80px; */
   ${Container}
 `;
 
@@ -122,9 +120,9 @@ export const NavMenuUser = styled.ul`
   right: 0;
 
   top: ${({ click }) =>
-    click ? 0 : '100%'}; //haga click, si hace clic es true -> muestro menú
-  opacity: ${({ click }) => (click ? '0' : 1)};
-  display: ${({ click }) => (click ? 'none' : 'visibility')};
+    click ? 0 : "100%"}; //haga click, si hace clic es true -> muestro menú
+  opacity: ${({ click }) => (click ? "0" : 1)};
+  display: ${({ click }) => (click ? "none" : "visibility")};
 
   justify-content: center;
   background: ${colors.mustard};
@@ -171,7 +169,7 @@ export const NavMenuUserResponsive = styled.ul`
   position: absolute;
   top: 60px;
   left: ${({ click }) =>
-    click ? '-100%' : 0}; //haga click, si hace clic es true -> muestro menú
+    click ? "-100%" : 0}; //haga click, si hace clic es true -> muestro menú
   opacity: 1;
   padding: 0 0 1rem 0;
   transition: all 0.5s ease;
@@ -197,7 +195,7 @@ export const ConchaIcon = styled.div`
     margin-right: auto;
 
     &::before {
-      content: '';
+      content: "";
       display: block;
       width: 40%;
       height: 3px;
@@ -208,7 +206,7 @@ export const ConchaIcon = styled.div`
     }
 
     &::after {
-      content: '';
+      content: "";
       display: block;
       width: 40%;
       height: 3px;
@@ -237,7 +235,7 @@ export const NavMenu = styled.ul`
     position: absolute;
     top: 60px;
     left: ${({ click }) =>
-      click ? 0 : '-100%'}; //haga click, si hace clic es true -> muestro menú
+      click ? 0 : "-100%"}; //haga click, si hace clic es true -> muestro menú
     opacity: 1;
     transition: all 0.5s ease;
     background: ${colors.mustard};

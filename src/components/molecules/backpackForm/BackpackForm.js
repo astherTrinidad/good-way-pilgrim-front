@@ -38,7 +38,6 @@ function BackpackForm(props) {
     addInUserBackpack.quantity = quantity;
 
     const responseAddItem = await apiAddItem(addInUserBackpack);
-    console.log("response: " + responseAddItem);
 
     setInput("");
     setQuantity(1);
