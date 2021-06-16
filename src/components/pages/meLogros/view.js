@@ -77,7 +77,7 @@ export default function MeLogros() {
         const myAchievementsResponse = await apiMyAchievements();
         setUserLogros(myAchievementsResponse);
 
-        if (responseDelete.message == "Expired token") {
+        if (responseDelete.message === "Expired token") {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
@@ -103,7 +103,7 @@ export default function MeLogros() {
         const myAchievementsResponse = await apiMyAchievements();
         setUserLogros(myAchievementsResponse);
 
-        if (responseAdd.message == "Expired token") {
+        if (responseAdd.message === "Expired token") {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
@@ -120,7 +120,7 @@ export default function MeLogros() {
       try {
         const response = await apiAllAchievements();
         const myAchievementsResponse = await apiMyAchievements();
-        if (response.message == "Expired token") {
+        if (response.message === "Expired token") {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );

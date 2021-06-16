@@ -47,7 +47,7 @@ const Navbar = () => {
             ? appRoutes.meProfileData
             : appRoutes.meProfile;
 
-        if (response.message == "Expired token") {
+        if (response.message === "Expired token") {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );

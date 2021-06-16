@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
-import appRoutes from '../../../config/appRoutes';
-import url from '../../../config/url';
-import { Illustration, ButtonDelete, ButtonSave, Container } from './styled';
-import modalBin from '../../../assets/images/modal-illustration-finishPath.png';
-import { DialogContentText } from '@material-ui/core';
+import React, { useState } from "react";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom";
+import appRoutes from "../../../config/appRoutes";
+import url from "../../../config/url";
+import { Illustration, ButtonDelete, ButtonSave, Container } from "./styled";
+import modalBin from "../../../assets/images/modal-illustration-finishPath.png";
+import { DialogContentText } from "@material-ui/core";
 
 const ConfirmFinishPath = () => {
   const [activePath, setActivePath] = useState([]);
   const [isFetching, setIsfetching] = useState(false);
   const [finishPath, setFinishPath] = useState({
-    camino: '',
-    finish_date: '',
+    camino: "",
+    finish_date: "",
   });
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
@@ -27,17 +27,17 @@ const ConfirmFinishPath = () => {
     let addPathDate = new Date();
     let day =
       addPathDate.getDate() < 9
-        ? '0' + addPathDate.getDate()
+        ? "0" + addPathDate.getDate()
         : addPathDate.getDate();
     let month =
       addPathDate.getMonth() < 9
-        ? '0' + addPathDate.getMonth()
+        ? "0" + addPathDate.getMonth()
         : addPathDate.getMonth();
     let year = addPathDate.getFullYear();
-    return (addPathDate = year + '-' + month + '-' + day);
+    return (addPathDate = year + "-" + month + "-" + day);
   };
 
-  const onClickFinishPath = async event => {
+  const onClickFinishPath = async (event) => {
     event.preventDefault();
     try {
       setIsfetching(true);
@@ -49,18 +49,18 @@ const ConfirmFinishPath = () => {
       setFinishPath(etapaFinishDate);
       setFinishPath(pathId);
 
-      if (response.message == 'Expired token') {
+      if (response.message === "Expired token") {
         toast.info(
-          'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+          "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
         history.replace(appRoutes.login);
       }
 
-      toast.success('¡Enhorabuena peregrino! Has terminado el camino');
+      toast.success("¡Enhorabuena peregrino! Has terminado el camino");
       setIsfetching(false);
       history.replace(appRoutes.caminos);
     } catch (e) {
-      console.log('Error del servidor. Por favor, inténtelo de nuevo');
+      console.log("Error del servidor. Por favor, inténtelo de nuevo");
       setIsfetching(false);
     }
   };
@@ -69,7 +69,7 @@ const ConfirmFinishPath = () => {
     <>
       <Container>
         <DialogTitle id="deleteAccountmodal">
-          {'¡Genial, terminaste el camino!'}
+          {"¡Genial, terminaste el camino!"}
         </DialogTitle>
         <DialogContent>
           <Illustration
@@ -78,7 +78,7 @@ const ConfirmFinishPath = () => {
           />
           <DialogContentText>
             {
-              'Si deseas marcar este camino como terminado, no podrás reactivarlo. ¿Estás seguro?'
+              "Si deseas marcar este camino como terminado, no podrás reactivarlo. ¿Estás seguro?"
             }
           </DialogContentText>
         </DialogContent>
@@ -108,10 +108,10 @@ export default ConfirmFinishPath;
 
 async function apiFinishPath(etapaInfo) {
   let response = await fetch(`${url.base}${url.finishPath}`, {
-    method: 'PUT',
+    method: "PUT",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
     body: JSON.stringify(etapaInfo),
   });
@@ -122,10 +122,10 @@ async function apiFinishPath(etapaInfo) {
 
 async function apiActivePath() {
   return fetch(`${url.base}${url.activePath}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }

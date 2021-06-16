@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TiEdit, TiDelete } from "react-icons/ti";
+import { TiDelete } from "react-icons/ti";
 import BackpackForm from "./BackpackForm";
 import { Icons, Container } from "./styled";
 

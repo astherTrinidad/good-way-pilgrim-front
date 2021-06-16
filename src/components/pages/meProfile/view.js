@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import GlobalStyle from '../../../globalStyles';
-import appRoutes from '../../../config/appRoutes';
-import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { Navbar, Footer, InfoSectionOneColumn } from '../../organisms';
-import { userProfile } from './Data';
-import url from '../../../config/url';
-import profilePhoto from '../../../assets/images/photo-profile-generic.png';
+import React, { useState, useEffect } from "react";
+import GlobalStyle from "../../../globalStyles";
+import appRoutes from "../../../config/appRoutes";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Navbar, Footer, InfoSectionOneColumn } from "../../organisms";
+import { userProfile } from "./Data";
+import url from "../../../config/url";
+import profilePhoto from "../../../assets/images/photo-profile-generic.png";
 import {
   Header,
   PhotoProfile,
   NameProfile,
   SurnameProfile,
   ContainerName,
-  ContainerPhoto,
   Container,
-} from './styled';
+} from "./styled";
 
 export default function MeProfile() {
   const history = useHistory();
@@ -30,16 +29,16 @@ export default function MeProfile() {
         if (datos.message === undefined) {
           setUserData(datos);
         }
-        if (datos.message === 'Expired token') {
+        if (datos.message === "Expired token") {
           history.replace(appRoutes.login);
           toast.info(
-            'Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos'
+            "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
           history.replace(appRoutes.login);
         }
       } catch {
         console.log(
-          'Error del servidor. Por favor, cierra sesión y vuelve a entrar'
+          "Error del servidor. Por favor, cierra sesión y vuelve a entrar"
         );
       } finally {
         setIsFetchingUser(false);
@@ -73,10 +72,10 @@ export default function MeProfile() {
 
 async function apiMeProfile() {
   return fetch(`${url.base}${url.meProfile}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + sessionStorage.getItem('token'),
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + sessionStorage.getItem("token"),
     },
-  }).then(data => data.json());
+  }).then((data) => data.json());
 }

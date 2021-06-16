@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import _findIndex from "lodash/findIndex";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import FileSaver from "file-saver";
 import { Navbar, Footer } from "../../organisms";
@@ -21,7 +21,6 @@ import {
   ButtonSave,
   TextEtapa,
   TextMenu,
-  TextMenuActual,
   TextLink,
   DropMenu,
   RowSubmenuTop,
@@ -67,16 +66,16 @@ export default function Caminos() {
           "Camino añadido. Accede a la pestaña de camino actual para editar tus etapas"
         );
       } else {
-        if (respuesta.message == "User already has an active path") {
+        if (respuesta.message === "User already has an active path") {
           toast.info(
             "Ya tienes un camino actual. Archívalo antes de añadir uno nuevo."
           );
-        } else if (respuesta.message == "User already has this path") {
+        } else if (respuesta.message === "User already has this path") {
           toast.info(
             "Ya realizaste este camino. Consulta tu historial o selecciona otro."
           );
         }
-        if (respuesta.message == "Expired token") {
+        if (respuesta.message === "Expired token") {
           history.replace(appRoutes.login);
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
@@ -101,7 +100,7 @@ export default function Caminos() {
           setEtapasCamino(responseAllPaths.etapas);
         }
 
-        if (responseAllPaths.message == "Expired token") {
+        if (responseAllPaths.message === "Expired token") {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
