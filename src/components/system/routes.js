@@ -77,9 +77,10 @@ const PrivateRoute = ({ children, ...rest }) => {
   //Establecemos valores de retorno para token y setToken
   const { token } = useToken();
 
-  return (
+  return token ? (
+    <Route {...rest} />
+  ) : (
     <Route
-      {...rest}
       render={({ location }) =>
         token ? (
           children
@@ -98,16 +99,17 @@ const PrivateRoute = ({ children, ...rest }) => {
 
 const PublicRoute = ({ children, ...rest }) => {
   const { token } = useToken();
-  return (
+  return !token ? (
+    <Route {...rest} />
+  ) : (
     <Route
-      {...rest}
       render={({ location }) =>
         !token ? (
           children
         ) : (
           <Redirect
             to={{
-              pathname: appRoutes.meProfile,
+              pathname: appRoutes.meProfileData,
               state: { from: location },
             }}
           />
