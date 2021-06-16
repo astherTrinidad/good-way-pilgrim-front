@@ -18,7 +18,7 @@ export const RowSubmenuTop = styled.div`
     flex-wrap: wrap;
     margin-bottom: 3rem;
     margin-top: 3rem;
-    padding: 1rem;
+    padding: 1rem 0 1rem 0.75rem;
     position: fixed;
     border-bottom: 3px solid ${colors.mustard};
     width: 80%;
@@ -29,7 +29,7 @@ export const TextSubmenuTop = styled.a`
   display: block;
   color: ${colors.turquoise};
   cursor: pointer;
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 600;
   padding: 1rem 2rem 1rem 0;
 

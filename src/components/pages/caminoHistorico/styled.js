@@ -215,7 +215,7 @@ export const IllustrationContainer = styled.div`
   margin-left: 450px;
 
   @media screen and (max-width: 768px) {
-    margin: -3rem auto;
+    margin: 3rem auto;
     width: 80%;
   }
 `;
