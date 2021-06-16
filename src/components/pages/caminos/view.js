@@ -64,7 +64,7 @@ export default function Caminos() {
       var respuesta = JSON.parse(responseAddUserPath);
       if (respuesta.message === "success") {
         toast.success(
-          "Camino añadido. Accede a la pestaña de camino activo para editar tus etapas"
+          "Camino añadido. Accede a la pestaña de camino actual para editar tus etapas"
         );
       } else {
         if (respuesta.message == "User already has an active path") {

@@ -197,9 +197,10 @@ export const Subtitle = styled.h3`
 `;
 
 export const Illustration = styled.img`
-  height: 400px;
+  height: 250px;
   transform: scaleX(-1);
   width: auto;
+  margin-top: 4rem;
 
   @media screen and (max-width: 768px) {
     height: auto;
@@ -208,12 +209,13 @@ export const Illustration = styled.img`
 `;
 
 export const IllustrationContainer = styled.div`
-  height: auto;
-  width: 80%;
-  margin-top: 5rem;
-  margin-left: 400px;
+  height: max-content;
+  width: max-content;
+  margin-top: 1rem;
+  margin-left: 450px;
 
   @media screen and (max-width: 768px) {
-    margin: 5rem auto;
+    margin: 3rem auto;
+    width: 80%;
   }
 `;

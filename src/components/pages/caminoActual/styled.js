@@ -247,7 +247,7 @@ export const ButtonSave = styled.button`
 `;
 
 export const Illustration = styled.img`
-  height: 400px;
+  height: 250px;
   transform: scaleX(-1);
   width: auto;
 
@@ -258,12 +258,13 @@ export const Illustration = styled.img`
 `;
 
 export const IllustrationContainer = styled.div`
-  height: auto;
-  width: 80%;
+  height: max-content;
+  width: max-content;
   margin-top: 1rem;
-  margin-left: 400px;
+  margin-left: 350px;
 
   @media screen and (max-width: 768px) {
     margin: -3rem auto;
+    width: 80%;
   }
 `;
