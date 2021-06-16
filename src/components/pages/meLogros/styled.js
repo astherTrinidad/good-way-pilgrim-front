@@ -32,7 +32,7 @@ export const RowLogros = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   margin: -3rem auto 4rem auto;
-  max-width: 80%;
+  max-width: 100%;
 
   @media screen and (max-width: 578px) {
     max-width: 100%;

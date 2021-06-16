@@ -23,7 +23,7 @@ export const Container = styled.button`
   }
 
   @media screen and (max-width: 578px) {
-    top: -530px;
-    left: 175px;
+    top: -475px;
+    left: 130px;
   }
 `;
