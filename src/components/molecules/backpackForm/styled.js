@@ -86,6 +86,10 @@ export const ButtonList = styled.button`
     color: ${colors.white};
     cursor: pointer;
   }
+
+  @media screen and (max-width: 578px) {
+    width: max-content;
+  }
 `;
 
 export const ButtonListUpdate = styled.button`
@@ -116,7 +120,7 @@ export const Container = styled.div`
   margin: 0.25rem auto;
   padding: 0.5rem 0.5rem 0.5rem 1rem;
   position: relative;
-  width: 80%;
+  width: 70%;
 
   .stored {
     opacity: 0.5;
@@ -145,5 +149,9 @@ export const Container = styled.div`
       ${colors.mustard} 0%,
       ${colors.mustardDark} 100%
     );
+  }
+
+  @media screen and (max-width: 578px) {
+    width: 90%;
   }
 `;

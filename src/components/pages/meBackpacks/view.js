@@ -60,8 +60,6 @@ const MeBackpacks = () => {
       try {
         const responseAllPaths = await apiAllPaths();
         const responseMyBackpacks = await apiMyBackpacks();
-        setUserBackpacks(responseMyBackpacks);
-        setCaminos(responseAllPaths);
 
         if (
           responseAllPaths.message === "Expired token" ||
@@ -70,8 +68,12 @@ const MeBackpacks = () => {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
+          sessionStorage.removeItem("token");
           history.replace(appRoutes.login);
         }
+
+        setUserBackpacks(responseMyBackpacks);
+        setCaminos(responseAllPaths);
       } catch {
         console.log(
           "Error del servidor. Por favor, cierra sesión y vuelve a entrar"
@@ -85,15 +87,17 @@ const MeBackpacks = () => {
     event.preventDefault();
     try {
       const responseInfo = await apiInfoBackpack(event.target.id);
-      if (responseInfo !== "Incorrect data recived") {
-        setInfoBackpack(responseInfo);
-        setShowBackpack(true);
-      }
       if (responseInfo.message === "Expired token") {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
+        sessionStorage.removeItem("token");
         history.replace(appRoutes.login);
+      }
+
+      if (responseInfo !== "Incorrect data recived") {
+        setInfoBackpack(responseInfo);
+        setShowBackpack(true);
       }
     } catch (e) {
       console.log("Error del servidor. Por favor, inténtelo de nuevo");
@@ -132,6 +136,7 @@ const MeBackpacks = () => {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
+        sessionStorage.removeItem("token");
         history.replace(appRoutes.login);
       }
     } catch (e) {
@@ -154,6 +159,7 @@ const MeBackpacks = () => {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
+        sessionStorage.removeItem("token");
         history.replace(appRoutes.login);
       }
     } catch (e) {

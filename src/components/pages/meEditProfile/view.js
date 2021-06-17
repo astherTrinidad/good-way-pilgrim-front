@@ -82,6 +82,7 @@ export default function MeEditProfile() {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
+          sessionStorage.removeItem("token");
           history.replace(appRoutes.login);
         } else {
           response.oldPassword = "";
@@ -125,6 +126,7 @@ export default function MeEditProfile() {
             toast.info(
               "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
             );
+            sessionStorage.removeItem("token");
             history.replace(appRoutes.login);
           }
           if (respuesta.message === "Password is wrong") {

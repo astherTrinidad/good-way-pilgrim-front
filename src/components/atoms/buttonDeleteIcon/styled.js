@@ -9,9 +9,9 @@ export const Container = styled.button`
   font-size: 1.5rem;
   font-weight: 500;
   height: 45px;
-  top: -230px;
+  top: -14rem;
   position: relative;
-  left: -75px;
+  left: -4.5rem;
   width: 45px;
   transition: all 0.3s ease-out;
 
@@ -22,8 +22,13 @@ export const Container = styled.button`
     transform: rotate(180deg);
   }
 
+  @media screen and (max-width: 768px) {
+    top: -15rem;
+    left: -4.5rem;
+  }
+
   @media screen and (max-width: 578px) {
-    top: -475px;
-    left: 130px;
+    top: -28rem;
+    left: 7rem;
   }
 `;

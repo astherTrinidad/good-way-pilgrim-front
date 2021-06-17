@@ -12,7 +12,7 @@ export const ContainerCaminos = styled.div`
   scroll-margin-top: 65px;
 
   @media screen and (max-width: 768px) {
-    scroll-margin-top: 380px;
+    scroll-margin-top: 300px;
   }
 `;
 

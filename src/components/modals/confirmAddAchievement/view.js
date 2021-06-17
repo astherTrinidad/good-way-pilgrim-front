@@ -52,6 +52,7 @@ const ConfirmAddAchievement = () => {
         toast.info(
           "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
         );
+        sessionStorage.removeItem("token");
         history.replace(appRoutes.login);
       }
     } catch (e) {

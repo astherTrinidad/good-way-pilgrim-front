@@ -47,6 +47,7 @@ export default function MeProfileData() {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
+          sessionStorage.removeItem("token");
           history.replace(appRoutes.login);
         }
       } catch {
