@@ -18,10 +18,20 @@ export const RowSubmenuTop = styled.div`
     flex-wrap: wrap;
     margin-bottom: 3rem;
     margin-top: 3rem;
-    padding: 1rem 0 1rem 0.75rem;
+    padding: 1rem 0 1rem 0;
     position: fixed;
     border-bottom: 3px solid ${colors.mustard};
+    text-align: center;
+    justify-content: center;
     width: 80%;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem 2rem 0.5rem 2rem;
+  }
+
+  @media screen and (max-width: 578px) {
+    padding: 0.5rem 0 0.5rem 0;
   }
 `;
 
@@ -31,10 +41,18 @@ export const TextSubmenuTop = styled.a`
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  padding: 1rem 2rem 1rem 0;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
 
   &:hover {
     color: ${colors.mustard};
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem;
   }
 `;
 

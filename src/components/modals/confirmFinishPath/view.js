@@ -23,6 +23,19 @@ const ConfirmFinishPath = () => {
     setOpen(false);
   };
 
+  const expireSession = (response) => {
+    if (
+      sessionStorage.getItem("token") &&
+      response.message === "Expired token"
+    ) {
+      toast.info(
+        "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
+      );
+      sessionStorage.removeItem("token");
+      history.replace(appRoutes.login);
+    }
+  };
+
   const getCurrentDate = () => {
     let addPathDate = new Date();
     let day =
@@ -42,19 +55,17 @@ const ConfirmFinishPath = () => {
     try {
       setIsfetching(true);
       var responseActivePaths = await apiActivePath();
+      expireSession(responseActivePaths);
+
       setActivePath(responseActivePaths);
       var pathId = (finishPath.camino = responseActivePaths.id);
       var etapaFinishDate = (finishPath.finish_date = getCurrentDate());
+
       var response = await apiFinishPath(finishPath);
+      expireSession(response);
+
       setFinishPath(etapaFinishDate);
       setFinishPath(pathId);
-
-      if (response.message === "Expired token") {
-        toast.info(
-          "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
-        );
-        history.replace(appRoutes.login);
-      }
 
       toast.success("¡Enhorabuena peregrino! Has terminado el camino");
       setIsfetching(false);

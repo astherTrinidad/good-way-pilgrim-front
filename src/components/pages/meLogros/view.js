@@ -72,17 +72,21 @@ export default function MeLogros() {
         setDeleteAchievement(onClickIdAchievement);
 
         var responseDelete = await apiDeleteAchievement(deleteUserAchievement);
-        setDeleteAchievement(deleteUserAchievement);
-
         const myAchievementsResponse = await apiMyAchievements();
-        setUserLogros(myAchievementsResponse);
 
-        if (responseDelete.message === "Expired token") {
+        if (
+          responseDelete.message === "Expired token" ||
+          myAchievementsResponse.message === "Expired token"
+        ) {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
+          sessionStorage.removeItem("token");
           history.replace(appRoutes.login);
         }
+
+        setDeleteAchievement(deleteUserAchievement);
+        setUserLogros(myAchievementsResponse);
       } catch (e) {
         console.log("Error del servidor. Por favor, inténtelo de nuevo");
       }
@@ -107,6 +111,7 @@ export default function MeLogros() {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
+          sessionStorage.removeItem("token");
           history.replace(appRoutes.login);
         }
       } catch (e) {
@@ -124,6 +129,7 @@ export default function MeLogros() {
           toast.info(
             "Por seguridad tu sesión ha expirado. Por favor, vuelve a introducir tus datos"
           );
+          sessionStorage.removeItem("token");
           history.replace(appRoutes.login);
         } else {
           setAllLogros(response);

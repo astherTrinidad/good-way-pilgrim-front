@@ -185,6 +185,12 @@ export const NumberStep = styled.p`
   padding: 0 1rem 0 1rem;
   line-height: 1.5;
   margin: 1rem 0;
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
+  @media screen and (max-width: 578px) {
+    width: 100%;
+  }
 `;
 
 export const ArrowStep = styled.span`

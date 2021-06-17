@@ -25,6 +25,13 @@ export const ContainerSlide = styled.div`
     transform: scale(1.08);
   }
 
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    width: 80%;
+    height: max-content;
+    padding-bottom: 1.5rem;
+  }
+
   @media screen and (max-width: 578px) {
     flex-direction: column;
     width: 80%;
@@ -45,6 +52,11 @@ export const ContainerArrow = styled.div`
     cursor: pointer;
     user-select: none;
 
+    @media screen and (max-width: 768px) {
+      font-size: 2rem;
+      right: -15px;
+    }
+
     @media screen and (max-width: 578px) {
       font-size: 2rem;
       right: -5px;
@@ -59,6 +71,11 @@ export const ContainerArrow = styled.div`
     z-index: 10;
     cursor: pointer;
     user-select: none;
+
+    @media screen and (max-width: 768px) {
+      font-size: 2rem;
+      left: -15px;
+    }
     @media screen and (max-width: 578px) {
       font-size: 2rem;
       left: -5px;
@@ -77,7 +94,7 @@ export const TextWrapper = styled.div`
   padding: 1rem;
   position: relative;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 578px) {
     width: 100%;
     height: max-content;
     border-radius: 0 0 20px 20px;
@@ -100,7 +117,14 @@ export const Illustration = styled.img`
   width: auto;
   height: 400px;
   border-radius: 20px 0 0 20px;
+
   @media screen and (max-width: 768px) {
+    width: 80%;
+    height: max-content;
+    border-radius: 20px 20px 0 0;
+  }
+
+  @media screen and (max-width: 578px) {
     width: 100%;
     height: max-content;
     border-radius: 20px 20px 0 0;
@@ -113,7 +137,7 @@ export const Row = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 578px) {
     flex-direction: column;
   }
 `;
