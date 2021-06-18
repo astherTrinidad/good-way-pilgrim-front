@@ -54,12 +54,12 @@ npm install
 ```
 Dentro del proyecto, podemos verificar todas las dependencias que nos instalamos durante toda la creación del proyecto junto con todas sus versiones correspondientes en un fichero llamado package.json.
 
-4.	Iniciar el servidor
+5.	Iniciamos y abrimos la aplicación
 ```
 cd good-way-pilgrim-front
 npm start
 ```
-5. Para visitar la aplicación:
+6. Para visitar la aplicación:
    http://localhost:3000/
 
 ## Pruebas ⚙️
