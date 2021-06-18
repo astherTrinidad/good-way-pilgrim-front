@@ -17,9 +17,10 @@ https://es.reactjs.org/
 
 •  NPM:    7.7.6
 
-Listamos las versiones de node instaladas
+Listamos la versión de node y npm instalada
 ```
-nvm ls
+node -v
+npm -v
 ```
 Cambiamos de versiones de node entre los diferentes proyectos con el siguiente comando:
 
@@ -78,8 +79,26 @@ Dentro de la carpeta de configuración del proyecto, indicamos en un fichero lla
 
 ### Estructura de carpetas 📁 
 
-<img width="680" alt="estructura de carpetas![Uploading Captura de pantalla 2021-05-14 a las 9.19.20.png…]()
-" src="https://user-images.githubusercontent.com/61313038/118235336-e8deb100-b494-11eb-9c8c-8840bec0a1c7.png">
+```
+├── public /
+		├── assets
+		│   ├── caminos
+		│   └── logros
+		│       ├── bn
+		│       └── color
+├── src /
+		├── assets
+		│   ├── downloadPDF
+		│   └── images
+		├── components
+		│   ├── atoms
+		│   ├── modals
+		│   ├── molecules
+		│   ├── organisms
+		│   ├── pages
+		│   └── system
+		├── config
+```
 
 ### Estructura de carpetas de componentes visuales 📁 
 
