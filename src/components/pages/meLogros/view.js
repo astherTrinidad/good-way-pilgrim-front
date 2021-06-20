@@ -228,7 +228,7 @@ export default function MeLogros() {
               aria-label="Conviertete en un auténtico peregrino"
               tabIndex="0"
             >
-              Conviertete en un auténtico peregrino
+              Conviértete en un auténtico peregrino
             </Heading>
             <Subtitle
               aria-label="Emprende el camino y al final del día selecciona 
